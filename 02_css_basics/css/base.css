@@ -1,0 +1,12 @@
+:root {
+    --color-white:#ffffff;
+    --color-black:#000000;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Arial", sans-serif;
+}
