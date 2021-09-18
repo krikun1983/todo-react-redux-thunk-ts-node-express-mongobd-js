@@ -89,6 +89,7 @@
 .main-body__articles_hot h3:hover {
     color: #b5cb2c;
     color: var(--color-green-dark);
+    transform: all 300ms ease;
 }
 
 .main-body__articles_hot p {
@@ -165,6 +166,7 @@
 .list_news_content h3:hover {
     color: #b5cb2c;
     color: var(--color-green-dark);
+    transform: all 300ms ease;
 }
 
 .list_news_content p {
@@ -192,4 +194,5 @@
     color: #b5cb2c;
     color: var(--color-green-dark);
     background-image: url('../images/orange_dot.jpg');
+    transform: all 300ms ease;
 }
