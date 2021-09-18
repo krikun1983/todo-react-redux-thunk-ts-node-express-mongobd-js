@@ -66,6 +66,7 @@
     background-image: url('../images/contact_hover.jpg');
     background-repeat: no-repeat;
     background-size: 100% 100%;
+    transition: all 300ms ease;
 }
 
 .header-call {
@@ -137,6 +138,7 @@
     background: -moz-linear-gradient(180deg, rgb(252, 252, 242), rgb(166, 164, 163));
     background: linear-gradient(180deg, rgb(252, 252, 242), rgb(166, 164, 163));
     outline: none;
+    transition: all 300ms ease;
 }
 
 .header__main_btn:hover {
