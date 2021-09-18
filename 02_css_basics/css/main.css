@@ -106,17 +106,27 @@
     padding-left: 10px;
     font-weight: bold;
     font-size: 12px;
-    color: #f9921b;
-    color: var(--color-orange-dark);
     background-image: url('../images/green_dot.jpg');
     background-repeat: no-repeat;
     background-position: 0.9px;
 }
 
 .main-body__articles_hot_more:hover {
+    background-image: url('../images/orange_dot.jpg');
+    transform: all 300ms ease;
+}
+
+.main-body__articles_hot_more a {
+    color: #f9921b;
+    color: var(--color-orange-dark);
+    text-decoration: none;
+}
+
+.main-body__articles_hot_more a:hover {
     color: #b5cb2c;
     color: var(--color-green-dark);
-    background-image: url('../images/orange_dot.jpg');
+    text-decoration: none;
+    transform: all 300ms ease;
 }
 
 .main-body__articles_list h2 {
@@ -183,16 +193,24 @@
     padding-left: 10px;
     font-weight: bold;
     font-size: 12px;
-    color: #f9921b;
-    color: var(--color-orange-dark);
     background-image: url('../images/green_dot.jpg');
     background-repeat: no-repeat;
     background-position: 0.9px;
 }
 
 .list_news_more:hover {
+    background-image: url('../images/orange_dot.jpg');
+    transform: all 300ms ease;
+}
+
+.list_news_more a {
+    color: #f9921b;
+    color: var(--color-orange-dark);
+    text-decoration: none;
+}
+
+.list_news_more a:hover {
     color: #b5cb2c;
     color: var(--color-green-dark);
-    background-image: url('../images/orange_dot.jpg');
     transform: all 300ms ease;
 }

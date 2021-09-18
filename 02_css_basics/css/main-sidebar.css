@@ -186,17 +186,25 @@
     margin-top: 10px;
     padding-left: 10px;
     font-size: 11px;
-    color: #f9921b;
-    color: var(--color-orange-dark);
     background-image: url('../images/orange_dot.jpg');
     background-repeat: no-repeat;
     background-position: 0.9px;
 }
 
 .news__more:hover {
+    background-image: url('../images/green_dot.jpg');
+    transform: all 300ms ease;
+}
+
+.news__more a {
+    color: #f9921b;
+    color: var(--color-orange-dark);
+    text-decoration: none;
+}
+
+.news__more a:hover {
     color: #b5cb2c;
     color: var(--color-green-dark);
-    background-image: url('../images/green_dot.jpg');
     transform: all 300ms ease;
 }
 
