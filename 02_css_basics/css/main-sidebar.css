@@ -4,12 +4,10 @@
 }
 
 .main-body__sidebar_login {
+    position: relative;
     padding-top: 32px;
     padding-left: 18px;
     padding-bottom: 21px;
-    background-image: url('../images/login_top.jpg');
-    background-repeat: no-repeat;
-    background-size: 100%;
     background-color: #f6f6f6;
     background-color: var(--color-gray-light);
     border: 1px solid #e2e2e2;
@@ -17,7 +15,15 @@
     border-radius: 10px;
 }
 
+.main-body__sidebar_login img {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 254px;
+}
+
 .main-body__sidebar_login h2 {
+    position: absolute;
     font-size: 24px;
     text-transform: uppercase;
     color: #b5cb2c;
@@ -25,7 +31,7 @@
 }
 
 .form {
-    margin-top: 14px;
+    margin-top: 58px;
 }
 
 .form label {
@@ -40,6 +46,12 @@
 .form label span {
     color: #f9921b;
     color: var(--color-orange-dark);
+}
+
+.form label:first-child {
+    position: absolute;
+    top: 71px;
+    left: 18px;
 }
 
 .form input {
@@ -109,9 +121,6 @@
     position: relative;
     margin-top: 8px;
     padding-top: 40px;
-    /* background-image: url('../images/event_top.jpg');
-    background-repeat: no-repeat;
-    background-size: 100%; */
     background-color: #f6f6f6;
     background-color: var(--color-gray-light);
     border: 1px solid #e2e2e2;
