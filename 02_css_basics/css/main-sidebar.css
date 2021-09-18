@@ -106,11 +106,12 @@
 /*===NEWS===*/
 
 .main-body__sidebar_articles {
+    position: relative;
     margin-top: 8px;
     padding-top: 40px;
-    background-image: url('../images/event_top.jpg');
+    /* background-image: url('../images/event_top.jpg');
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 100%; */
     background-color: #f6f6f6;
     background-color: var(--color-gray-light);
     border: 1px solid #e2e2e2;
@@ -118,7 +119,14 @@
     border-radius: 10px;
 }
 
+.news__img {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+}
+
 .main-body__sidebar_articles  h2 {
+    position: absolute;
     margin-left: 63px;
     font-size: 24px;
     font-weight: bold;
@@ -126,8 +134,12 @@
     color: var(--color-orange-dark);
 }
 
+.news__img {
+    width: 254px;
+}
+
 .news__wrapper {
-    margin-top: 26px;
+    margin-top: 50px;
     margin-left: 52px;
 }
 
@@ -156,6 +168,8 @@
 .news__wrapper p {
     font-size: 13px;
     line-height: 15px;
+    color: #596577;
+    color: var(--color-blue-dark);
 }
 
 .news__more {

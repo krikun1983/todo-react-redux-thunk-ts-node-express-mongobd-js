@@ -57,4 +57,6 @@
 .footer__copyright {
     font-size: 12px;
     letter-spacing: 0.1px;
+    color: #596577;
+    color: var(--color-blue-dark);
 }
