@@ -8,11 +8,10 @@
 .footer__container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     max-width: 1000px;
     height: 100%;
     margin: 0 auto;
-    padding: 0 170px 5px 38px;
+    padding: 0 0 5px 38px;
 }
 
 .footer__list {
@@ -52,6 +51,8 @@
 }
 
 .footer__copyright {
+    min-width: 252px;
+    margin-left: 86px;
     font-size: 12px;
     letter-spacing: 0.1px;
     color: #596577;
