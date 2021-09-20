@@ -71,6 +71,17 @@
     box-shadow: 2px 2px 1px 0px rgba(34, 60, 80, 0.2) inset;
 }
 
+.form input[type="password"]::placeholder {
+   font-size: 14px;
+}
+
+.form input[type="text"]:focus,
+.form input[type="password"]:focus {
+    outline: 0;
+    border: 1px solid #f9921b;
+    border: 1px solid var(--color-orange-dark);
+}
+
 .form__btn {
     cursor: pointer;
     margin: 3px 0 16px 16px;
