@@ -17,3 +17,21 @@
 html {
     font-family: "Arial", sans-serif;
 }
+
+.color-black {
+    color: #000;
+    color: var(--color-black);
+}
+
+.color-white {
+    color: #fff;
+    color: var(--color-white);
+}
+
+.overflow-four {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
