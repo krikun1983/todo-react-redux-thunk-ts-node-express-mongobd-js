@@ -28,10 +28,36 @@ html {
     color: var(--color-white);
 }
 
+.color-blue-dark {
+    color: #596577;
+    color: var(--color-blue-dark);
+}
+
+.color-orange-dark {
+    color: #f9921b;
+    color: var(--color-orange-dark);
+}
+
+.overflow-three {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
 .overflow-four {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+
+.overflow-five {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
 }

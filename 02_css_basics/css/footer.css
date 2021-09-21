@@ -40,11 +40,7 @@
     border-right: 2px solid var(--color-orange-dark);
 }
 
-.footer__list .active {
-    color: #b5cb2c;
-    color: var(--color-green-dark);
-}
-
+.footer__list a.active,
 .footer__list a:hover {
     color: #b5cb2c;
     color: var(--color-green-dark);
@@ -55,6 +51,4 @@
     margin-left: 86px;
     font-size: 12px;
     letter-spacing: 0.1px;
-    color: #596577;
-    color: var(--color-blue-dark);
 }

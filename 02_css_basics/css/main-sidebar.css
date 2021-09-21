@@ -61,7 +61,7 @@
     width: 185px;
     height: 24px;
     margin-left: 16px;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
     padding-top: 2px;
     padding-left: 11px;
     font-size: 11px;
@@ -85,7 +85,7 @@
 
 .form__btn {
     cursor: pointer;
-    margin: 3px 0 16px 16px;
+    margin: 7px 0 16px 16px;
     padding: 5px 19px;
     font-weight: bold;
     font-size: 12px;
@@ -187,11 +187,10 @@
     background-repeat: no-repeat;
 }
 
-.news__wrapper p {
+.news__item_text {
+    height: 45px;
     font-size: 13px;
     line-height: 15px;
-    color: #596577;
-    color: var(--color-blue-dark);
 }
 
 .news__more {
