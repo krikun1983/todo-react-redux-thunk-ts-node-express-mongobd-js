@@ -38,34 +38,25 @@ html {
     color: var(--color-orange-dark);
 }
 
-.overflow-one {
+.overflow {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+}
+
+.overflow-one {
+    -webkit-line-clamp: 1;
 }
 
 .overflow-three {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
     -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
 }
 
 .overflow-four {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
     -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
 }
 
 .overflow-five {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
     -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
 }
