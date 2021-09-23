@@ -188,7 +188,7 @@
 }
 
 .news__item_text {
-    height: 45px;
+    max-height: 45px;
     font-size: 13px;
     line-height: 15px;
 }
