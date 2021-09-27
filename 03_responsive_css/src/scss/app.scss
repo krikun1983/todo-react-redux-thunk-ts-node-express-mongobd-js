@@ -6,9 +6,6 @@
 /* CSS Reset */
 @import 'base/reset';
 
-/* CSS print */
-@import 'base/print';
-
 /* Fonts */
 @import 'base/fonts';
 
@@ -21,6 +18,3 @@
 
 /* Browser specific styles */
 @import 'dirty/hacks';
-
-/* Demo Page styles */
-@import 'demo';
