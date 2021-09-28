@@ -11,7 +11,6 @@
 
   .project {
     &__heading {
-      margin-top: 5px;
       font-size: 20px;
       font-weight: bold;
 
@@ -64,5 +63,69 @@
         }
       }
     }
+  }
+
+  .tabs {
+    @include flex-between;
+    position: relative;
+    margin-top: 15px;
+    width: 100%;
+
+    .tab,
+    .tab-title {
+      width: 100%;
+      display: inline-block;
+    }
+
+    .tab input[type="radio"] {
+      display: none;
+    }
+
+    .tab-title {
+      @include flex-center;
+      background-color: $gray-dark;
+      padding: 10px 10px;
+      font-size: 14px;
+      font-weight: bold;
+      text-transform: uppercase;
+      border: 1px solid $gray-dark;
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+      border-bottom: none;
+
+      .fa-flag,
+      .fa-phone {
+        margin-left: 6px;
+        color: $link-color;
+      }
+
+      .fa-phone {
+        transform: scale(-1, 1);
+      }
+    }
+
+    .tab-content {
+      display: none;
+      position: absolute;
+      left: 0;
+      padding: 10px;
+      width: 100%;
+      // width: calc(100% - 20px);
+      border: 1px solid rgba(111, 111, 111, 0.4);
+      border-top: none;
+     }
+
+    .tab :checked + .tab-title {
+      position: relative;
+      z-index: 1;
+      background-color: $body-background-color;
+      border: 1px solid rgba(111, 111, 111, 0.4);
+      border-bottom: none;
+    }
+
+    .tab :checked ~ .tab-content {
+      display: block;
+    }
+
   }
 }
