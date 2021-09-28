@@ -1,6 +1,6 @@
 .header {
-  position: relative;
   @include  flex-center;
+  position: relative;
   height: 60px;
 
   .burger-menu {
@@ -8,8 +8,7 @@
     height: 100%;
 
     &__btn {
-      display: flex;
-      align-items: center;
+      @include  flex-center;
       position: absolute;
       top: 50%;
       left: 25px;
@@ -46,7 +45,7 @@
       opacity: 0;
     }
 
-    &__checkbox:checked ~ .menu > .menu__list {
+    &__checkbox:checked ~ .menu {
       visibility: visible;
       left: 0;
     }
@@ -67,35 +66,61 @@
   }
 
   .menu {
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    visibility: hidden;
+    top: 60px;
+    left: -100%;
+    z-index: 3;
+    width: 100%;
+    max-width: 60%;
+    height: 100%;
+    background-color: $menu-background-color;
+    box-shadow: 1px  0px 6px  rgba(0, 0, 0, .2);
+    transition-duration: 0.25s;
+
     &__list {
-      display: block;
-      position: fixed;
-      visibility: hidden;
-      top: 60px;
-      left: -100%;
-      z-index: 3;
-      min-width: 60%;
-      height: 100%;
-      margin: 0;
-      padding: 80px 0;
-      background-color: $menu-background-color;
-      box-shadow: 1px  0px 6px  rgba(0, 0, 0, .2);
-      transition-duration: 0.25s;
+      display: flex;
+      flex-direction: column;
     }
 
     &__item {
       display: block;
       padding: 12px 24px;
-      color: $menu-dark;
+      color: $menu-gray;
       font-family: 'Roboto', sans-serif;
-      font-size: 20px;
-      font-weight: 600;
+      font-size: 16px;
       text-decoration: none;
-      transition-duration: .25s;
+      text-transform: uppercase;
+      border-bottom: 2px solid $black;
+      transition-duration: .15s;
+
+      .fa-flag {
+        margin-left: 10px;
+      }
+
+      .fa-sign-out-alt,
+      .fa-user {
+        width: 12px;
+        margin-right: 12px;
+      }
     }
 
     &__item:hover {
-      background-color: #CFD8DC;
+      color: $white;
+      background-color: $black;
+    }
+
+    &__item.lossed {
+      font-size: 14px;
+
+      span {
+        display: block;
+        margin-left: 22px;
+        font-size: 16px;
+        text-transform: none;
+      }
     }
   }
 
