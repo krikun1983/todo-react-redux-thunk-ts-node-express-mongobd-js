@@ -2,6 +2,12 @@
  * Helper mixins
 */
 
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 // Clearfix
 // http://www.cssmojo.com/latest_new_clearfix_so_far/
 // Other clearfix options: https://github.com/stubbornella/oocss/blob/master/oocss/src/components/utils/_clearfix-me.scss
