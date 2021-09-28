@@ -1,0 +1,68 @@
+.main__header {
+  .project-list {
+    display: flex;
+    align-items: center;
+
+    .fa-angle-left {
+      margin-right: 10px;
+      font-size: 20px;
+    }
+  }
+
+  .project {
+    &__heading {
+      margin-top: 5px;
+      font-size: 20px;
+      font-weight: bold;
+
+      .fa-plus-circle,
+      .fa-minus-circle {
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .fa-minus-circle {
+        display: none;
+      }
+    }
+
+    &__checkbox {
+      opacity: 0;
+    }
+
+    &__checkbox:checked ~ .project__heading > label > .fa-minus-circle {
+      display: inline-block;
+    }
+
+    &__checkbox:checked ~ .project__heading > label > .fa-plus-circle {
+      display: none;
+    }
+
+    &__checkbox:checked ~ .project__body  {
+      display: block;
+    }
+
+    &__body {
+      display: none;
+      margin-top: 6px;
+      color: $gray;
+      transition-duration: 0.25s;
+
+      &_row {
+        @include flex-start-between ;
+        padding: 6px 0;
+        color: $black;
+        font-weight: bold;
+        border-top: 1px solid rgba(111, 111, 111, 0.4);
+
+        span {
+          width: 46%;
+          color: $gray;
+          font-weight: normal;
+          text-align: right;
+          letter-spacing: -0.6px;
+        }
+      }
+    }
+  }
+}

@@ -8,6 +8,18 @@
   justify-content: center;
 }
 
+@mixin flex-start-between {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 // Clearfix
 // http://www.cssmojo.com/latest_new_clearfix_so_far/
 // Other clearfix options: https://github.com/stubbornella/oocss/blob/master/oocss/src/components/utils/_clearfix-me.scss

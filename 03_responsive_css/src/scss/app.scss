@@ -16,5 +16,8 @@
 
 /* Components */
 @import 'header.scss';
+@import 'main.scss';
+@import 'main-header';
+
 /* Browser specific styles */
 @import 'dirty/hacks';
