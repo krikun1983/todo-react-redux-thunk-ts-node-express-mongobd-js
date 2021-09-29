@@ -77,6 +77,10 @@
       display: inline-block;
     }
 
+    .tab {
+      min-height: 160px;
+    }
+
     .tab input[type="radio"] {
       display: none;
     }
@@ -110,6 +114,7 @@
       left: 0;
       padding: 10px;
       width: 100%;
+      min-height: 112px;
       border: 1px solid $gray-transp;
       border-top: none;
 

@@ -1,6 +1,7 @@
 .main {
-  background-color: $body-background-color;
   padding: 10px 20px;
-  color: $gray;
   height: 100%;
+  color: $gray;
+  background-color: $body-background-color;
+  overflow-y: scroll;
 }
