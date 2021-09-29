@@ -1,7 +1,7 @@
 .main__body {
   .card {
     margin-bottom: 10px;
-    padding: 10px 0;
+    padding-top: 10px;
     background-color: $white;
     border: 1px solid $gray-transp;
     -webkit-box-shadow: 2px 2px 6px 3px rgba(34, 60, 80, 0.15);
@@ -106,6 +106,33 @@
         p {
           margin-left: 16px;
         }
+      }
+    }
+
+    &__bottom {
+      margin-top: 10px;
+
+      button {
+        display: block;
+        padding: 8px 10px;
+        width: 100%;
+        text-align: left;
+        font-weight: bold;
+        text-transform: uppercase;
+        border: none;
+        border-top: 1px solid $gray-transp;
+        background-color: $body-background-color;
+      }
+
+      .fa-phone,
+      .fa-exclamation-circle,
+      .fa-times {
+        width: 14px;
+        margin-right: 5px;
+      }
+
+      .fa-phone {
+        transform: scale(-1, 1);
       }
     }
   }
