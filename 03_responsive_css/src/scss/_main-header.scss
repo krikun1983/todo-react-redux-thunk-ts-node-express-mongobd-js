@@ -187,6 +187,59 @@
           clip-path: polygon(65% 50%, 100% 100%, 100% 0);
         }
       }
+
+      .tab-one__select {
+        cursor: pointer;
+        margin-top: 10px;
+        padding-left: 10px;
+        width: 100%;
+        height: 38px;
+        font-size: 12px;
+        color: $gray;
+        border: 1px solid $gray-transp;
+        border-radius: 5px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -ms-appearance: none;
+        appearance: none;
+
+        option {
+          color: $gray;
+          background-color: $white;
+        }
+
+        option[selected] {
+          padding-left: 10.6rem;
+        }
+
+        option:checked {
+          color: $white;
+          background-color: $link-color;
+        }
+      }
+
+      .tab-one__select-block {
+        position: relative;
+      }
+
+      .tab-one__select-block::after {
+        @include flex-center;
+        content: "▼";
+        font-size: 12px;
+        position: absolute;
+        background-color: $white;
+        right: 2px;
+        top: 12px;
+        z-index: 5;
+        width: 20px;
+        height: 34px;
+        pointer-events: none;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        box-sizing: border-box;
+        appearance: none;
+      }
+
      }
 
     .tab :checked + .tab-title {
