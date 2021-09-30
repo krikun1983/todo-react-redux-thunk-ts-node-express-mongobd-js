@@ -83,17 +83,20 @@
           <div class="tab-content">
             <form action="" method="POST">
               <div class="tab-one__btns">
-                <button type="button">Expand all</button>
-                <button type="button"><img src="./images/content/excel_icon.svg" alt="icon"></i>Export</button>
+                <button class="btn-expand" type="button">Expand all</button>
+                <button class="btn-excel" type="button">
+                  <img src="./images/content/excel_icon.svg" alt="icon">
+                  Export
+                </button>
                 <button class="btn-corner" type="button"><i class="fas fa-filter"></i>Filters</button>
-              </div>
-              <div class="tab-one__select-block">
-                <select class="tab-one__select" name="">
-                  <option selected value="">Sort by status</option>
-                  <option value="default">default</option>
-                  <option value="desc">descending</option>
-                  <option value="asc">ascending</option>
-                </select>
+                <div class="tab-one__select-block">
+                  <select class="tab-one__select" name="">
+                    <option selected value="">Sort by status</option>
+                    <option value="default">default</option>
+                    <option value="desc">descending</option>
+                    <option value="asc">ascending</option>
+                  </select>
+                </div>
               </div>
             </form>
           </div>
