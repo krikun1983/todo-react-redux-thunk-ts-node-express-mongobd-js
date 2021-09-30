@@ -128,8 +128,8 @@
 
 .menu {
   display: flex;
-  position: fixed;
   flex-direction: column;
+  position: fixed;
   visibility: hidden;
   top: 60px;
   left: -100%;

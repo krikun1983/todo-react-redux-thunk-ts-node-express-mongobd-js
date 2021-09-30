@@ -1,19 +1,4 @@
 /* By Athlon Front-End Team */
-html,
-body {
-  height: 100%;
-}
-
-@media screen and (min-width: 750px) {
-  body {
-    display: flex;
-    align-items: flex-start;
-  }
-
-  .main {
-    width: 100%;
-  }
-}
 
 /* Core variables */
 @import 'base/vars';
@@ -21,13 +6,8 @@ body {
 /* CSS Reset */
 @import 'base/reset';
 
-/* Fonts */
-@import 'base/fonts';
-
 /* Mixins, helpers and functions */
 @import 'base/mixins';
-
-/* Vendor */
 
 /* Components */
 @import 'header.scss';
@@ -35,5 +15,17 @@ body {
 @import 'main-header';
 @import 'main-body';
 
-/* Browser specific styles */
-@import 'dirty/hacks';
+html,
+body {
+  height: 100%;
+}
+
+@media screen and (min-width: 750px) {
+  body {
+    @include flex-start-between;
+  }
+
+  .main {
+    width: 100%;
+  }
+}
