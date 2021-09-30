@@ -1,5 +1,10 @@
 .main__header {
   margin-top: 60px;
+
+  @media screen and (min-width: 750px) {
+    margin-top: 0;
+  }
+
   .project-list {
     display: flex;
     align-items: center;

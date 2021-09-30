@@ -6,9 +6,22 @@
   height: 60px;
   background-color: $white;
 
+  @media screen and (min-width: 750px) {
+    position: static;
+    width: 28%;
+    min-width:auto;
+    height: 100%;
+  }
+
   &__container {
     @include  flex-center;
     height: 60px;
+
+    @media screen and (min-width: 750px) {
+      display: flex;
+      flex-direction: column-reverse ;
+      height: 100%;
+    }
   }
 
   .burger-menu {
@@ -17,6 +30,12 @@
     left: 0;
     bottom: 0;
     right: 0;
+
+    @media screen and (min-width: 750px) {
+      position: static;
+      width: 100%;
+      height: 100%;
+    }
 
     &__btn {
       @include  flex-center;
@@ -77,6 +96,14 @@
     }
   }
 
+  @media screen and (min-width: 750px) {
+    .burger-menu__checkbox,
+    .burger-menu__btn,
+    .burger-menu__btn-content {
+      display: none;
+    }
+  }
+
   .menu {
     display: flex;
     position: fixed;
@@ -91,6 +118,14 @@
     background-color: $menu-background-color;
     box-shadow: 1px  0px 6px  rgba(0, 0, 0, 0.3);
     transition-duration: 0.25s;
+
+    @media screen and (min-width: 750px) {
+      position: static;
+      left: 0;
+      visibility:visible;
+      max-width: none;
+      height: 100%;
+    }
 
     &__list {
       display: flex;
@@ -117,6 +152,29 @@
         width: 12px;
         margin-right: 12px;
       }
+
+      .fa-phone {
+        display: none;
+      }
+
+      @media screen and (min-width: 750px) {
+        padding: 12px 15px;
+
+        .fa-flag {
+          display: none;
+        }
+
+        .fa-phone {
+          display: inline-block;
+          margin-left: 5px;
+          color: $link-color;
+          transform: scale(-1, 1);
+        }
+
+        .fa-sign-out-alt {
+          color: $link-color;
+        }
+      }
     }
 
     &__item:hover {
@@ -133,6 +191,14 @@
         font-size: 16px;
         text-transform: none;
       }
+
+      @media screen and (min-width: 750px) {
+        font-size: 12px;
+
+        span {
+          font-size: 13px;
+        }
+      }
     }
   }
 
@@ -141,9 +207,17 @@
     width: 100%;
     height: 100%;
 
+    @media screen and (min-width: 750px) {
+      height: 100px;
+    }
+
     img {
       margin-top: 5px;
       height: 65%;
+
+      @media screen and (min-width: 750px) {
+        height: 40%;
+      }
     }
   }
 }

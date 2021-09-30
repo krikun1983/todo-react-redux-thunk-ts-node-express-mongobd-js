@@ -112,6 +112,11 @@
     &__bottom {
       margin-top: 10px;
 
+      @media screen and (min-width: 750px) {
+        display: flex;
+        flex-direction: row-reverse;
+      }
+
       button {
         cursor: pointer;
         display: block;
@@ -123,6 +128,17 @@
         border: none;
         border-top: 1px solid $gray-transp;
         background-color: $body-background-color;
+
+        @media screen and (min-width: 750px) {
+          text-align: center;
+          border-right: 1px solid $gray-transp;
+        }
+      }
+
+      @media screen and (min-width: 750px) {
+        button:first-child {
+          border-right: none;
+        }
       }
 
       .fa-phone,
