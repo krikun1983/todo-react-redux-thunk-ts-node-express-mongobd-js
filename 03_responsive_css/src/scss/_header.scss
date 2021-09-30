@@ -10,7 +10,12 @@
     position: static;
     width: 35%;
     min-width:auto;
+    max-width: 200px;
     height: 100%;
+  }
+
+  @media screen and (min-width: 1200px) {
+    max-width: 200px;
   }
 
   &__container {

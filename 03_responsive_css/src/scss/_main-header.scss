@@ -5,6 +5,11 @@
     margin-top: 0;
   }
 
+  @media screen and (min-width: 1200px) {
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+
   .project-list {
     display: flex;
     align-items: center;
@@ -52,6 +57,22 @@
       margin-top: 6px;
       color: $gray;
       transition-duration: 0.25s;
+
+      @media screen and (min-width: 1200px) {
+        margin-bottom: 25px;
+      }
+
+      &_wrapper {
+        @media screen and (min-width: 1200px) {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+
+         .project__body_column {
+           width: 49%;
+         }
+        }
+      }
 
       &_row {
         @include flex-start-between ;

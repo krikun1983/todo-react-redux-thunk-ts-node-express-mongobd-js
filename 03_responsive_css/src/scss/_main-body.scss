@@ -1,4 +1,10 @@
 .main__body {
+
+  @media screen and (min-width: 1200px) {
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+
   .card {
     margin-bottom: 10px;
     padding-top: 10px;
