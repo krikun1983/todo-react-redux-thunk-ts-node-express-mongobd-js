@@ -251,8 +251,16 @@
 
           .btn-excel {
             max-width: 120px;
+            position: fixed;
+            top: 30px;
+            right: 40px;
+          }
+        }
+
+        @media screen and (min-width: 1200px) {
+          .btn-excel {
             position: absolute;
-            top: -88px;
+            top: -93px;
             right: -10px;
           }
         }
@@ -330,5 +338,13 @@
     .tab :checked ~ .tab-content {
       display: block;
     }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .project__checkbox:checked ~ .tabs > .tab > .tab-content > form > .tab-one__btns > .btn-excel  {
+    position: absolute;
+    top: -251px !important;
+    right: -10px;
   }
 }
