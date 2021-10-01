@@ -19,3 +19,8 @@
   align-items: center;
   justify-content: space-between;
 }
+
+@mixin flex-col-reverse {
+  display: flex;
+  flex-direction: column-reverse ;
+}
