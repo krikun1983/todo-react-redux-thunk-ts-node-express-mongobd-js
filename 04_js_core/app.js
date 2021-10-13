@@ -70,15 +70,16 @@ function fn3() {
     var stringIn = document.querySelector('.task-03-in-string').value;
     var stringDate = document.querySelector('.task-03-in-date').value;
     var stringOut = document.querySelector('.task-03-out');
+    var seconds = new Date().getSeconds();
 
     if (!stringIn || !stringDate) {
         return stringOut.innerText = 'Please, you must fill in the fields: New Date and String';
     }
 
-    stringOut.innerText = new Date(stringDate).format(stringIn);
+    stringOut.innerText = new Date(stringDate).format(stringIn, seconds);
 }
 
-Date.prototype.format = function (dateString) {
+Date.prototype.format = function (dateString, seconds) {
     var regOfString = /y{4}|y{2}|M{1,4}|d{1,2}|H{1,2}|h{1,2}|m{1,2}|s{1,2}/g;
     var arrayOfString = dateString.match(regOfString);
 
@@ -88,7 +89,7 @@ Date.prototype.format = function (dateString) {
         day: this.getDate(),
         hours: this.getHours(),
         minutes: this.getMinutes(),
-        seconds: this.getSeconds(),
+        seconds: seconds,
     }
 
     function addZeroToDate(dateOfString) {
@@ -132,18 +133,13 @@ Date.prototype.format = function (dateString) {
             dateString = dateString.replace(/(?<!u)s/, date.seconds.toString());
         }
     }
-    console.log(this);
+    console.log(this.toLocaleDateString());
     console.log(date.day);
     console.log(arrayOfString);
+    console.log( this.getTime());
+    console.log( date.seconds);
 
     return dateString;
-
-    //yy yyyy M MM MMM MMMM d dd H HH h hh m mm s ss
-    //M MM MMM MMMM H HH d dd h hh m mm s ss yy yyyy
-    // console.log(date);
-    // console.log(date);
-    // console.log('dateString: ' + dateString);
-    // // console.log('dateOutString: ' + dateOutString.join(''));
 }
 
 document.querySelector('.task-03-btn').onclick = fn3;
