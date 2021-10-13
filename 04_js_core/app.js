@@ -69,17 +69,17 @@ document.querySelector('.task-02-btn').onclick = fn2;
 function fn3() {
     var stringIn = document.querySelector('.task-03-in-string').value;
     var stringDate = document.querySelector('.task-03-in-date').value;
+    var stringSelect = document.querySelector('.task-03-in-select').value;
     var stringOut = document.querySelector('.task-03-out');
     var seconds = new Date().getSeconds();
 
     if (!stringIn || !stringDate) {
         return stringOut.innerText = 'Please, you must fill in the fields: New Date and String';
     }
-
-    stringOut.innerText = new Date(stringDate).format(stringIn, seconds);
+    stringOut.innerHTML = new Date(stringDate).format(stringIn, seconds, stringSelect);
 }
 
-Date.prototype.format = function (dateString, seconds) {
+Date.prototype.format = function (dateString, seconds, stringSelect) {
     var regOfString = /y{4}|y{2}|M{1,4}|d{1,2}|H{1,2}|h{1,2}|m{1,2}|s{1,2}/g;
     var arrayOfString = dateString.match(regOfString);
 
@@ -96,7 +96,13 @@ Date.prototype.format = function (dateString, seconds) {
         return dateOfString.length !== 1 ? dateOfString : '0' + dateOfString;
     }
 
-    const monthsEng = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    if (stringSelect === 'english') {
+        var monthsSelect = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    } else if (stringSelect === 'russian') {
+        var monthsSelect = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+    } else {
+        var monthsSelect = ['&#128512;', '&#128515;', '&#128516;', '&#128513;', '&#128518;', '&#128517;', '&#129315;', '&#128514;', '&#128578;', '&#128579;', '&#128521;', '&#128522;'];
+    }
 
     for (var i = 0; i < arrayOfString.length; i++) {
         if (arrayOfString[i] === 'yyyy') {
@@ -104,9 +110,9 @@ Date.prototype.format = function (dateString, seconds) {
         } else if (arrayOfString[i] === 'yy') {
             dateString = dateString.replace('yy', date.year.toString().substring(2));
         } else if (arrayOfString[i] === 'MMMM') {
-            dateString = dateString.replace('MMMM', monthsEng[date.month.toString()]);
+            dateString = dateString.replace('MMMM', monthsSelect[date.month.toString()]);
         } else if (arrayOfString[i] === 'MMM') {
-            dateString = dateString.replace('MMM', monthsEng[date.month.toString()].substring(0,3));
+            dateString = dateString.replace('MMM', stringSelect !== 'emoji' ? monthsSelect[date.month.toString()].substring(0,3) : monthsSelect[date.month.toString()] );
         } else if (arrayOfString[i] === 'MM') {
             dateString = dateString.replace('MM', addZeroToDate((date.month + 1).toString()));
         } else if (arrayOfString[i] === 'M') {
@@ -133,12 +139,6 @@ Date.prototype.format = function (dateString, seconds) {
             dateString = dateString.replace(/(?<!u)s/, date.seconds.toString());
         }
     }
-    console.log(this.toLocaleDateString());
-    console.log(date.day);
-    console.log(arrayOfString);
-    console.log( this.getTime());
-    console.log( date.seconds);
-
     return dateString;
 }
 
