@@ -85,7 +85,7 @@ Date.prototype.format = function (dateString) {
     var date = {
         year: this.getFullYear(),
         month: this.getMonth(),
-        day: this.getDay(),
+        day: this.getDate(),
         hours: this.getHours(),
         minutes: this.getMinutes(),
         seconds: this.getSeconds(),
@@ -107,9 +107,9 @@ Date.prototype.format = function (dateString) {
         } else if (arrayOfString[i] === 'MMM') {
             dateString = dateString.replace('MMM', monthsEng[date.month.toString()].substring(0,3));
         } else if (arrayOfString[i] === 'MM') {
-            dateString = dateString.replace('MM', addZeroToDate(date.month.toString()));
+            dateString = dateString.replace('MM', addZeroToDate((date.month + 1).toString()));
         } else if (arrayOfString[i] === 'M') {
-            dateString = dateString.replace('M', date.month.toString());
+            dateString = dateString.replace('M', (date.month + 1).toString());
         } else if (arrayOfString[i] === 'dd') {
             dateString = dateString.replace('dd', addZeroToDate(date.day.toString()));
         } else if (arrayOfString[i] === 'd') {
@@ -121,23 +121,25 @@ Date.prototype.format = function (dateString) {
         } else if (arrayOfString[i] === 'hh') {
             dateString = dateString.replace('hh', addZeroToDate((date.hours % 12).toString()));
         } else if (arrayOfString[i] === 'h') {
-            dateString = dateString.replace('h', (date.hours % 12).toString());
+            dateString = dateString.replace(/(?<!c)h/, (date.hours % 12).toString());
         } else if (arrayOfString[i] === 'mm') {
             dateString = dateString.replace('mm', addZeroToDate(date.minutes.toString()));
         } else if (arrayOfString[i] === 'm') {
-            dateString = dateString.replace('m', date.minutes.toString());
+            dateString = dateString.replace(/m(?!b)/, date.minutes.toString());
         } else if (arrayOfString[i] === 'ss') {
             dateString = dateString.replace('ss', addZeroToDate(date.seconds.toString()));
         } else if (arrayOfString[i] === 's') {
-            dateString = dateString.replace('s', date.seconds.toString());
+            dateString = dateString.replace(/(?<!u)s/, date.seconds.toString());
         }
     }
+    console.log(this);
+    console.log(date.day);
+    console.log(arrayOfString);
 
     return dateString;
 
-    // console.log(this);
-    // console.log(arrayOfString);
-
+    //yy yyyy M MM MMM MMMM d dd H HH h hh m mm s ss
+    //M MM MMM MMMM H HH d dd h hh m mm s ss yy yyyy
     // console.log(date);
     // console.log(date);
     // console.log('dateString: ' + dateString);
