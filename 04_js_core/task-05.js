@@ -15,5 +15,3 @@ Array.prototype.customMap = function (callback, thisValue) {
 
     return arrayNew;
 }
-
-console.log([1,2,3,4,5].customMap(function(x){return ++x;}));
