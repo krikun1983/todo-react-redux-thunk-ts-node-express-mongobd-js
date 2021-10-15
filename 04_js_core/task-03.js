@@ -17,6 +17,8 @@ Date.prototype.format = function (dateString, seconds, stringSelect) {
     var regOfString = /y{4}|y{2}|M{1,4}|d{1,2}|H{1,2}|h{1,2}|m{1,2}|s{1,2}/g;
     var arrayOfEmojis = ['&#128512;', '&#128515;', '&#128516;', '&#128513;', '&#128518;', '&#128517;', '&#129315;', '&#128514;', '&#128578;', '&#128579;', '&#128521;', '&#128522;'];
     var arrayOfString = dateString.match(regOfString);
+    var monthFull = 'MMMM';
+    var monthShort = 'MMM';
 
     var date = {
         year: this.getFullYear(),
@@ -33,9 +35,9 @@ Date.prototype.format = function (dateString, seconds, stringSelect) {
 
     function choseMonthOut(arg) {
         if (stringSelect === 'english') {
-            return new Date().toLocaleString('eng', { month: arg === 'MMMM' ? 'long' : 'short'}) ;
+            return new Date().toLocaleString('eng', { month: arg === monthFull ? 'long' : 'short'}) ;
         } else if (stringSelect === 'russian') {
-            var stringOfMonth = new Date().toLocaleString('ru', { month: arg === 'MMMM' ? 'long' : 'short' }).replace('.', '');
+            var stringOfMonth = new Date().toLocaleString('ru', { month: arg === monthFull ? 'long' : 'short' }).replace('.', '');
             return stringOfMonth[0].toUpperCase() + stringOfMonth.slice(1);
         } else {
             return arrayOfEmojis[date.month.toString()];
@@ -45,8 +47,8 @@ Date.prototype.format = function (dateString, seconds, stringSelect) {
     var objOfDate = {
         yyyy: date.year.toString(),
         yy: date.year.toString().substring(2),
-        MMMM: choseMonthOut('MMMM'),
-        MMM: choseMonthOut('MMM'),
+        MMMM: choseMonthOut(monthFull),
+        MMM: choseMonthOut(monthShort),
         MM: addZeroToDate((date.month + 1).toString()),
         M: (date.month + 1).toString(),
         dd: addZeroToDate(date.day.toString()),
