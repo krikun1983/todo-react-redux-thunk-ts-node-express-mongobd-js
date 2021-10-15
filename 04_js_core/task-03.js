@@ -38,40 +38,27 @@ Date.prototype.format = function (dateString, seconds, stringSelect) {
         var monthsSelect = ['&#128512;', '&#128515;', '&#128516;', '&#128513;', '&#128518;', '&#128517;', '&#129315;', '&#128514;', '&#128578;', '&#128579;', '&#128521;', '&#128522;'];
     }
 
+    var objOfDate = {
+        yyyy: date.year.toString(),
+        yy: date.year.toString().substring(2),
+        MMMM: monthsSelect[date.month.toString()],
+        MMM: stringSelect !== 'emoji' ? monthsSelect[date.month.toString()].substring(0,3) : monthsSelect[date.month.toString()],
+        MM: addZeroToDate((date.month + 1).toString()),
+        M: (date.month + 1).toString(),
+        dd: addZeroToDate(date.day.toString()),
+        d: date.day.toString(),
+        HH: addZeroToDate(date.hours.toString()),
+        H: date.hours.toString(),
+        hh: addZeroToDate((date.hours % 12).toString()),
+        h: (date.hours % 12).toString(),
+        mm: addZeroToDate(date.minutes.toString()),
+        m: date.minutes.toString(),
+        ss: addZeroToDate(date.seconds.toString()),
+        s: date.seconds.toString(),
+    }
+
     for (var i = 0; i < arrayOfString.length; i++) {
-        if (arrayOfString[i] === 'yyyy') {
-            dateString = dateString.replace('yyyy', date.year.toString());
-        } else if (arrayOfString[i] === 'yy') {
-            dateString = dateString.replace('yy', date.year.toString().substring(2));
-        } else if (arrayOfString[i] === 'MMMM') {
-            dateString = dateString.replace('MMMM', monthsSelect[date.month.toString()]);
-        } else if (arrayOfString[i] === 'MMM') {
-            dateString = dateString.replace('MMM', stringSelect !== 'emoji' ? monthsSelect[date.month.toString()].substring(0,3) : monthsSelect[date.month.toString()] );
-        } else if (arrayOfString[i] === 'MM') {
-            dateString = dateString.replace('MM', addZeroToDate((date.month + 1).toString()));
-        } else if (arrayOfString[i] === 'M') {
-            dateString = dateString.replace('M', (date.month + 1).toString());
-        } else if (arrayOfString[i] === 'dd') {
-            dateString = dateString.replace('dd', addZeroToDate(date.day.toString()));
-        } else if (arrayOfString[i] === 'd') {
-            dateString = dateString.replace('d', date.day.toString());
-        } else if (arrayOfString[i] === 'HH') {
-            dateString = dateString.replace('HH', addZeroToDate(date.hours.toString()));
-        } else if (arrayOfString[i] === 'H') {
-            dateString = dateString.replace('H', date.hours.toString());
-        } else if (arrayOfString[i] === 'hh') {
-            dateString = dateString.replace('hh', addZeroToDate((date.hours % 12).toString()));
-        } else if (arrayOfString[i] === 'h') {
-            dateString = dateString.replace(/(?<!c)h/, (date.hours % 12).toString());
-        } else if (arrayOfString[i] === 'mm') {
-            dateString = dateString.replace('mm', addZeroToDate(date.minutes.toString()));
-        } else if (arrayOfString[i] === 'm') {
-            dateString = dateString.replace(/m(?!b)/, date.minutes.toString());
-        } else if (arrayOfString[i] === 'ss') {
-            dateString = dateString.replace('ss', addZeroToDate(date.seconds.toString()));
-        } else if (arrayOfString[i] === 's') {
-            dateString = dateString.replace(/(?<!u)s/, date.seconds.toString());
-        }
+        dateString = dateString.replace(arrayOfString[i], objOfDate[arrayOfString[i]]);
     }
     return dateString;
 }
