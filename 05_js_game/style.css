@@ -1,0 +1,45 @@
+:root {
+  --color-black: #000000;
+  --color-white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-image: url('assets/img/space.jpg');
+  background-repeat: no-repeat;
+  background-color: var(--color-black);
+}
+
+.game {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+  margin: 0 auto;
+}
+
+.game button {
+  cursor: pointer;
+  position: absolute;
+  padding: 15px 30px;
+  font-size: 26px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+}
+
+canvas {
+  border: 2px solid var(--color-white);
+  box-shadow: 0 0 22px rgba(0, 0, 0, 0.75);
+}
