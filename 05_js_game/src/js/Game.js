@@ -1,5 +1,4 @@
-export const Game = function ({ world, view, cvs }) {
-  this.cvs = cvs;
+const Game = function ({ world, view }) {
   this.world = world;
   this.view = view;
   this.keys = new Set();
@@ -34,3 +33,5 @@ export const Game = function ({ world, view, cvs }) {
     requestAnimationFrame(this.loop);
   }
 }
+
+export default Game;

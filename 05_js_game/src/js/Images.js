@@ -1,8 +1,8 @@
-export const Images = function(src) {
+const Images = function (src) {
   this.src = src;
   this.img = new Image();
 
-  this.render = async function () {
+  this.load = async function () {
     let src = this.src;
     let img = this.img;
 
@@ -14,3 +14,5 @@ export const Images = function(src) {
     })
   }
 }
+
+export default Images;

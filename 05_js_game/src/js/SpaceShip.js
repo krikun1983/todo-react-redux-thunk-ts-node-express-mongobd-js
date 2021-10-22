@@ -1,4 +1,4 @@
-export const SpaceShip = function() {
+const SpaceShip = function () {
   this.xPos = 10;
   this.yPos = 300;
   this.step = 4;
@@ -19,3 +19,5 @@ export const SpaceShip = function() {
     this.move(key);
   }
 }
+
+export default SpaceShip;

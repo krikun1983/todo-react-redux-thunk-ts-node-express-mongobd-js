@@ -1,6 +1,6 @@
 import { randoms } from './utils/random.js'
 
-export const Asteroid = function () {
+const Asteroid = function () {
   this.pos = [];
 
   this.pos[0] = {
@@ -28,3 +28,5 @@ export const Asteroid = function () {
     this.move();
   }
 }
+
+export default Asteroid;
