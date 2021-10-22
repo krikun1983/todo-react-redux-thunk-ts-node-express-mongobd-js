@@ -14,7 +14,7 @@ export const View = function (cvs, imgBg, spaceShip, asteroid) {
   this.update = function (world) {
     this.clearScreen();
     this.renderBg();
-    this.renderAsteroid(world.asteroid);
+    this.renderAsteroid(world.spaceShip, world.asteroid);
     this.renderSpaceShip(world.spaceShip);
   }
 
@@ -26,10 +26,23 @@ export const View = function (cvs, imgBg, spaceShip, asteroid) {
     this.ctx.drawImage(this.spaceShip.img, spaceShip.xPos, spaceShip.yPos);
   }
 
-  this.renderAsteroid = function (asteroid) {
+  this.renderAsteroid = function (spaceShip, asteroid) {
     if (asteroid.pos[1]) {
+      if (
+        spaceShip.xPos + this.spaceShip.img.width > asteroid.pos[1].x &&
+        spaceShip.xPos < asteroid.pos[1].x + this.asteroid.img.width &&
+        spaceShip.yPos < asteroid.pos[1].y + this.asteroid.img.height &&
+        spaceShip.yPos + this.spaceShip.img.height > asteroid.pos[1].y
+        ) { location.reload(); }
+
       this.ctx.drawImage(this.asteroid.img, asteroid.pos[1].x, asteroid.pos[1].y);
-    }
+      }
+    if (
+      spaceShip.xPos + this.spaceShip.img.width > asteroid.pos[0].x &&
+      spaceShip.xPos < asteroid.pos[0].x + this.asteroid.img.width &&
+      spaceShip.yPos < asteroid.pos[0].y + this.asteroid.img.height &&
+      spaceShip.yPos + this.spaceShip.img.height > asteroid.pos[0].y
+      ) { location.reload(); }
     this.ctx.drawImage(this.asteroid.img, asteroid.pos[0].x, asteroid.pos[0].y);
   }
 
