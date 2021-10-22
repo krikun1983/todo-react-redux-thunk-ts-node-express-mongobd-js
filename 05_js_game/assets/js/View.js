@@ -1,4 +1,4 @@
-export const View = function(cvs, imgBg, spaceShip, asteroid) {
+export const View = function (cvs, imgBg, spaceShip, asteroid) {
   this.cvs = cvs;
   this.ctx = cvs.getContext('2d');
   this.imgBg = imgBg;
@@ -27,6 +27,9 @@ export const View = function(cvs, imgBg, spaceShip, asteroid) {
   }
 
   this.renderAsteroid = function (asteroid) {
+    if (asteroid.pos[1]) {
+      this.ctx.drawImage(this.asteroid.img, asteroid.pos[1].x, asteroid.pos[1].y);
+    }
     this.ctx.drawImage(this.asteroid.img, asteroid.pos[0].x, asteroid.pos[0].y);
   }
 
