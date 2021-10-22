@@ -1,4 +1,5 @@
-export const Game = function ({ world, view }) {
+export const Game = function ({ world, view, cvs }) {
+  this.cvs = cvs;
   this.world = world;
   this.view = view;
   this.keys = new Set();
