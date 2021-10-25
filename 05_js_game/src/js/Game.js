@@ -41,7 +41,7 @@ Game.prototype.keyboarderMoveShip = function () {
   })
 }
 
-Game.prototype.render = async function () {
+Game.prototype.render = function () {
   renderObject.CreateImg(IMAGES.background, gameFieldBg);
   renderObject.CreateImg(IMAGES.spaceShip, this.spaceShip);
 
