@@ -47,6 +47,7 @@ btnGamePause.addEventListener('click', () => {
 btnGameMainStart.addEventListener('click', () => {
   btnGameMainStart.style.display = 'none';
   btnsServices.style.display = 'flex';
+  // game.keyboarderMoveShip();
   gameStart();
 });
 

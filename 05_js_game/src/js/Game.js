@@ -20,16 +20,19 @@ const Game = function () {
 }
 
 Game.prototype.init = function () {
+  this.keyboarderMoveShip();
   renderObject.CreateImg(IMAGES.background, gameFieldBg);
 }
 
 Game.prototype.keyboarderMoveShip = function () {
-  const activeKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', ' '];
+  const activeKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' ', 'Enter'];
   const isResult = (el) => el;
 
   document.addEventListener('keydown', (event) => {
     event.preventDefault();
+
     if (activeKeys.some(isResult)) { this.activeKeys.add(event.key) };
+    if (this.activeKeys.has('Enter')) { gamePause() };
   })
   document.addEventListener('keyup', (event) => {
     event.preventDefault();
@@ -43,8 +46,6 @@ Game.prototype.render = async function () {
   renderObject.CreateImg(IMAGES.spaceShip, this.spaceShip);
 
   if (this.asteroids.length) {
-    console.log(this.asteroids.length);
-
     for (let i = 0; i < this.asteroids.length; i++) {
       if (this.asteroids[i].life && this.asteroids[i] instanceof Asteroid) {
         renderObject.CreateImg(IMAGES.asteroid, this.asteroids[i]);
@@ -62,7 +63,6 @@ Game.prototype.render = async function () {
 
 Game.prototype.update = function () {
   if (this.spaceShip.state) {
-    game.keyboarderMoveShip();
     if (this.activeKeys.has('ArrowUp')) {
       this.spaceShip.moveUpY();
       this.spaceShip.y > 0 ? this.spaceShip.y += this.spaceShip.dy : this.spaceShip.stop();
