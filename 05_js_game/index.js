@@ -1,18 +1,24 @@
-import Game from './src/js/Game.js';
-import Images from './src/js/Images.js';
-import World from './src/js/World.js';
-import View from './src/js/View.js';
-import SpaceShip from './src/js/SpaceShip.js';
-import Asteroid from './src/js/Asteroid.js';
+import { game } from './src/js/Game.js';
 
-const cvs = document.querySelector('canvas');
-const imgBg = new Images('./src/assets/img/bg.jpg');
-const spaceShip = new Images('./src/assets/img/prometheus.png');
-const asteroid = new Images('./src/assets/img/asteroid.png');
+const btnGameStart = document.querySelector('.btn-start');
 
-const game = new Game({
-  world: new World(SpaceShip, Asteroid),
-  view: new View(cvs, imgBg, spaceShip, asteroid),
+const gameLoop = () => {
+  if (game.spaceShip.state) {
+    game.update();
+    game.render();
+  }
+  window.requestAnimationFrame(() => {
+    gameLoop();
+  });
+}
+
+const gameStart = () => {
+  gameLoop();
+}
+
+btnGameStart.addEventListener('click', () => {
+  btnGameStart.style.display = 'none';
+  gameStart();
 });
 
-game.init().then(() => game.start());
+game.init();

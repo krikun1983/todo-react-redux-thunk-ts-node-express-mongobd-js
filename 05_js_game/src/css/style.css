@@ -15,7 +15,7 @@ body {
 }
 
 body {
-  background-image: url('../assets/img/space.jpg');
+  background-image: url('../img/space.jpg');
   background-repeat: no-repeat;
   background-color: var(--color-black);
 }
@@ -29,7 +29,7 @@ body {
   margin: 0 auto;
 }
 
-.game button {
+.game .btn-start {
   cursor: pointer;
   position: absolute;
   padding: 15px 30px;
