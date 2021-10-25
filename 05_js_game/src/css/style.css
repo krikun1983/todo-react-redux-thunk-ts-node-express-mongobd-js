@@ -1,6 +1,7 @@
 :root {
   --color-black: #000000;
   --color-white: #ffffff;
+  --color-gray: #706f6f;
 }
 
 * {
@@ -20,17 +21,33 @@ body {
   background-color: var(--color-black);
 }
 
+button {
+  cursor: pointer;
+  display: inline-block;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  color: var(--color-black);
+  background-color: var(--color-white);
+}
+
+button:hover {
+  color: var(--color-white);
+  background-color: var(--color-gray);
+}
+
 .game {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
   position: relative;
+  z-index: 0;
   margin: 0 auto;
 }
 
-.game .btn-start {
-  cursor: pointer;
+.btn-main-start {
   position: absolute;
   padding: 15px 30px;
   font-size: 26px;
@@ -42,4 +59,28 @@ body {
 canvas {
   border: 2px solid var(--color-white);
   box-shadow: 0 0 22px rgba(0, 0, 0, 0.75);
+}
+
+.btns-services-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  width: 1000px;
+  height: 25px;
+}
+
+.btns-services {
+  position: relative;
+  z-index: 1;
+  display: none;
+  align-items: center;
+}
+
+.btns-services button {
+  margin-left: 10px;
+  padding: 10px 25px;
+  font-size: 20px;
+}
+
+.btn-service-next {
+  display: none;
 }

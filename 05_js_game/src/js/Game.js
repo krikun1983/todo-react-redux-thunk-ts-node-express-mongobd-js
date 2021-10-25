@@ -1,7 +1,9 @@
+import { gamePause } from '../../index.js';
 import Asteroid from './Asteroid.js';
 import AsteroidTwo from './AsteroidTwo.js';
 import ASTEROID from './constants/asteroid.js';
 import CANVAS from './constants/canvas.js';
+import HEART from './constants/heart.js';
 import SPACE_SHIP from './constants/space-ship.js';
 import collision from './images/collision.js';
 import IMAGES from './images/Images.js';
@@ -13,8 +15,8 @@ import randoms from './utils/randoms.js';
 const Game = function () {
   this.spaceShip = new SpaceShip(SPACE_SHIP.position, SPACE_SHIP.size, SPACE_SHIP.speed, SPACE_SHIP.state, SPACE_SHIP.life);
   this.asteroids = [new Asteroid(ASTEROID.position, ASTEROID.size, ASTEROID.speed, ASTEROID.state, ASTEROID.life)];
-  this.flagStart = false;
   this.activeKeys = new Set();
+  this.isPause = false;
 }
 
 Game.prototype.init = function () {
@@ -22,7 +24,7 @@ Game.prototype.init = function () {
 }
 
 Game.prototype.keyboarderMoveShip = function () {
-  const activeKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', ' ', 'Enter'];
+  const activeKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', ' '];
   const isResult = (el) => el;
 
   document.addEventListener('keydown', (event) => {
@@ -41,6 +43,8 @@ Game.prototype.render = async function () {
   renderObject.CreateImg(IMAGES.spaceShip, this.spaceShip);
 
   if (this.asteroids.length) {
+    console.log(this.asteroids.length);
+
     for (let i = 0; i < this.asteroids.length; i++) {
       if (this.asteroids[i].life && this.asteroids[i] instanceof Asteroid) {
         renderObject.CreateImg(IMAGES.asteroid, this.asteroids[i]);
@@ -49,11 +53,16 @@ Game.prototype.render = async function () {
       }
     }
   }
+  if (this.spaceShip.life) {
+    for (let i = 0; i < this.spaceShip.life; i++) {
+      renderObject.CreateImg(IMAGES.heart, { x: HEART.position.x + i * 50, y: HEART.position.y, width: HEART.size.width, height: HEART.size.height });
+    }
+  }
 }
 
 Game.prototype.update = function () {
   if (this.spaceShip.state) {
-    this.keyboarderMoveShip();
+    game.keyboarderMoveShip();
     if (this.activeKeys.has('ArrowUp')) {
       this.spaceShip.moveUpY();
       this.spaceShip.y > 0 ? this.spaceShip.y += this.spaceShip.dy : this.spaceShip.stop();
