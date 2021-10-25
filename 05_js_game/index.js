@@ -30,8 +30,10 @@ const gameStart = () => {
 
 body.addEventListener('click', (event) => {
   const btnsEvent = event.target;
-  if (btnsEvent.classList.contains('btn-service-game')) {
-    window.location.reload();
+  if (btnsEvent.classList.contains('btn-main-start')) {
+    btnGameMainStart.style.display = 'none';
+    btnsServices.style.display = 'flex';
+    gameStart();
   } else if (btnsEvent.classList.contains('btn-service-next')) {
     btnGameNext.style.display = 'none';
     btnGamePause.style.display = 'inline-block';
@@ -40,10 +42,8 @@ body.addEventListener('click', (event) => {
     btnGameNext.style.display = 'inline-block';
     btnGamePause.style.display = 'none';
     gamePause();
-  } else if (btnsEvent.classList.contains('btn-main-start')) {
-    btnGameMainStart.style.display = 'none';
-    btnsServices.style.display = 'flex';
-    gameStart();
+  } else if (btnsEvent.classList.contains('btn-service-game')) {
+    window.location.reload();
   }
 })
 
