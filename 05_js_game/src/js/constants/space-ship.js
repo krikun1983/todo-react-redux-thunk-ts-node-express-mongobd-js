@@ -14,6 +14,7 @@ const SPACE_SHIP = {
   },
   state: true,
   life: 3,
+  magazine: 6,
 }
 
 export default SPACE_SHIP;

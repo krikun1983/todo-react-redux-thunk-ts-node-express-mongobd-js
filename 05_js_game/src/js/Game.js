@@ -13,9 +13,10 @@ import { gameFieldBg } from './StaticObject.js';
 import randoms from './utils/randoms.js';
 
 const Game = function () {
-  this.spaceShip = new SpaceShip(SPACE_SHIP.position, SPACE_SHIP.size, SPACE_SHIP.speed, SPACE_SHIP.state, SPACE_SHIP.life);
+  this.spaceShip = new SpaceShip(SPACE_SHIP.position, SPACE_SHIP.size, SPACE_SHIP.speed, SPACE_SHIP.state, SPACE_SHIP.life, SPACE_SHIP.magazine);
   this.asteroids = [new Asteroid(ASTEROID.position, ASTEROID.size, ASTEROID.speed, ASTEROID.state, ASTEROID.life)];
   this.activeKeys = new Set();
+  this.bullets = [];
   this.isPause = false;
 }
 
@@ -33,6 +34,7 @@ Game.prototype.keyboarderMoveShip = function () {
 
     if (activeKeys.some(isResult)) { this.activeKeys.add(event.key) };
     if (this.activeKeys.has('Enter')) { gamePause() };
+    if (this.activeKeys.has(' ')) { this.spaceShip.fire() };
   })
   document.addEventListener('keyup', (event) => {
     event.preventDefault();
@@ -58,6 +60,9 @@ Game.prototype.render = function () {
     for (let i = 0; i < this.spaceShip.life; i++) {
       renderObject.CreateImg(IMAGES.heart, { x: HEART.position.x + i * 50, y: HEART.position.y, width: HEART.size.width, height: HEART.size.height });
     }
+  }
+  for (let i = 0; i < this.bullets.length; i++) {
+    renderObject.CreateImg(IMAGES.bullet, this.bullets[i]);
   }
 }
 
@@ -99,6 +104,17 @@ Game.prototype.update = function () {
   if (this.spaceShip.life <= 0) {
     this.spaceShip.state = false;
   }
+  console.log(this.bullets);
+
+  this.bullets.forEach((bullet, i) => {
+    if (bullet.dx < CANVAS.size.width) {
+      bullet.moveRightX();
+      bullet.x += bullet.dx;
+    }
+    if (bullet.x > CANVAS.size.width) {
+      this.bullets.splice(i, 1);
+    }
+  })
 
 }
 
