@@ -24,16 +24,12 @@ const gameLoop = () => {
   });
 }
 
-const gameStart = () => {
-  gameLoop();
-}
-
 body.addEventListener('click', (event) => {
   const btnsEvent = event.target;
   if (btnsEvent.classList.contains('btn-main-start')) {
     btnGameMainStart.style.display = 'none';
     btnsServices.style.display = 'flex';
-    gameStart();
+    gameLoop();
   } else if (btnsEvent.classList.contains('btn-service-next')) {
     btnGameNext.style.display = 'none';
     btnGamePause.style.display = 'inline-block';
