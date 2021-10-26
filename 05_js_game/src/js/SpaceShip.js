@@ -15,9 +15,7 @@ SpaceShip.prototype = Object.create(MobileObject.prototype);
 SpaceShip.prototype.constructor = SpaceShip;
 SpaceShip.prototype.fire = function () {
   if (game.bullets.length === 0 || (game.bullets.filter(bullet => bullet.x < CANVAS.size.width).length > 0) && (game.bullets.length < this.magazine)) {
-    const newBullet = new Bullet({ x: this.x + this.width + 5, y: this.y + 6 }, BULLET.size, BULLET.speed);
-    newBullet.dx = -newBullet.step;
-    newBullet.x += newBullet.dx;
+    const newBullet = new Bullet({ x: this.x + this.width - 10, y: this.y + 6 }, BULLET.size, BULLET.speed);
     game.bullets.push(newBullet);
   }
 }

@@ -11,6 +11,8 @@ import { renderObject } from './RenderObject.js';
 import SpaceShip from './SpaceShip.js';
 import { gameFieldBg } from './StaticObject.js';
 import randoms from './utils/randoms.js';
+import Enemy from './Enemy.js';
+import ENEMY from './constants/enemy.js';
 
 const MAX_SCORE = 'maxScore';
 
@@ -23,7 +25,8 @@ const Game = function () {
   this.cvs = document.querySelector('canvas');
   this.ctx = this.cvs.getContext('2d');
   this.score = 0;
-
+  this.enemies = [];
+  this.enemyBullets = [];
 }
 
 Game.prototype.init = function () {
@@ -62,6 +65,12 @@ Game.prototype.render = function () {
     }
   }
 
+  if (this.enemies.length) {
+    for (let i = 0; i < this.enemies.length; i++) {
+      renderObject.CreateImg(IMAGES.enemy, this.enemies[i]);
+    }
+  }
+
   if (this.spaceShip.life) {
     for (let i = 0; i < this.spaceShip.life; i++) {
       renderObject.CreateImg(IMAGES.heart, { x: HEART.position.x + i * 50, y: HEART.position.y, width: HEART.size.width, height: HEART.size.height });
@@ -70,6 +79,10 @@ Game.prototype.render = function () {
 
   for (let i = 0; i < this.bullets.length; i++) {
     renderObject.CreateImg(IMAGES.bullet, this.bullets[i]);
+  }
+
+  for (let i = 0; i < this.enemyBullets.length; i++) {
+    renderObject.CreateImg(IMAGES.bulletEnemy, this.enemyBullets[i]);
   }
 }
 
@@ -103,6 +116,16 @@ Game.prototype.update = function () {
     } else if (this.activeKeys.has('ArrowRight')) {
       this.spaceShip.moveRightX();
       this.spaceShip.x <= CANVAS.size.width - this.spaceShip.width ? this.spaceShip.x += this.spaceShip.dx : this.spaceShip.stop();
+    } else if (
+      !(
+        this.activeKeys.has('ArrowRight') &&
+        this.activeKeys.has('ArrowDown') &&
+        this.activeKeys.has('ArrowLeft') &&
+        this.activeKeys.has('ArrowUp')
+      )
+    ) {
+      this.spaceShip.moveLeftX();
+      this.spaceShip.x >= 0 ? this.spaceShip.x-- : this.spaceShip.stop();
     }
   }
 
@@ -118,12 +141,12 @@ Game.prototype.update = function () {
     }
     if (item.x < -200) {
       game.asteroids.splice(0, 1);
-      this.score++;
+      this.score--;
     }
     if (collision(this.spaceShip, item)) {
       this.spaceShip.life -= 1;
       game.asteroids.splice(i, 1);
-      this.score += 3;
+      this.score -= 5;
     }
     this.bullets.forEach((bullet, k) => {
       if (collision(item, bullet)) {
@@ -133,6 +156,41 @@ Game.prototype.update = function () {
           if (item instanceof Asteroid) {
             this.score += 5;
           } else if (item instanceof AsteroidTwo) {
+            this.score += 8;
+          }
+        }
+        game.bullets.splice(k, 1);
+      }
+    });
+  });
+
+  if (this.enemies.length === 0) {
+    game.enemies.push(new Enemy({ x: ENEMY.position.x, y: randoms(-20, 550) }, ENEMY.size, ENEMY.speed, ENEMY.state, ENEMY.life, ENEMY.magazine));
+  }
+
+  this.enemies.forEach((item, i) => {
+    item.moveLeftX();
+    item.x += item.dx;
+    if (item.x === 900) {
+      game.enemies.push(new Enemy({ x: ENEMY.position.x, y: randoms(-20, 550) }, ENEMY.size, ENEMY.speed, ENEMY.state, ENEMY.life, ENEMY.magazine));
+    }
+    if (item.x < -100) {
+      game.enemies.splice(0, 1);
+      this.score--;
+    }
+
+    if (collision(this.spaceShip, item)) {
+      this.spaceShip.life -= 1;
+      game.enemies.splice(i, 1);
+      this.score -= 5;
+    }
+
+    this.bullets.forEach((bullet, k) => {
+      if (collision(item, bullet)) {
+        item.life -= 1;
+        if (item.life <= 0) {
+          game.enemies.splice(i, 1);
+          if (item instanceof Enemy) {
             this.score += 10;
           }
         }
@@ -140,6 +198,12 @@ Game.prototype.update = function () {
       }
     });
   });
+
+  this.enemies.forEach((item) => {
+    if (this.spaceShip.y + 20 > item.y && this.spaceShip.y - 20 < item.y) {
+      item.fire();
+    }
+  })
 
   if (this.spaceShip.life <= 0) {
     this.spaceShip.state = false;
@@ -149,14 +213,28 @@ Game.prototype.update = function () {
   }
 
   this.bullets.forEach((bullet, i) => {
-    if (bullet.dx < CANVAS.size.width) {
-      bullet.moveRightX();
-      bullet.x += bullet.dx;
-    }
+    bullet.moveRightX();
+    bullet.x += bullet.dx;
     if (bullet.x > CANVAS.size.width) {
       this.bullets.splice(i, 1);
     }
-  })
+  });
+  console.log(this.enemyBullets.length);
+
+  this.enemyBullets.forEach((bullet, i) => {
+    bullet.moveLeftX();
+    bullet.x += bullet.dx - 2;
+    if (bullet.x < CANVAS.position.x - 10) {
+      this.enemyBullets.splice(i, 1);
+    }
+  });
+
+  this.enemyBullets.forEach((bullet, k) => {
+    if (collision(this.spaceShip, bullet)) {
+      this.spaceShip.life -= 1;
+      game.enemyBullets.splice(k, 1);
+    }
+  });
 
   this.ctx.fillStyle = "#ffffff";
   this.ctx.font = "24px Verdana";

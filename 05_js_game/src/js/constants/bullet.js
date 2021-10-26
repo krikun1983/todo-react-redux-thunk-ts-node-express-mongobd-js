@@ -4,7 +4,7 @@ const BULLET = {
     height: 30,
   },
   position: {
-    x: 120,
+    x: 100,
     y: 320,
   },
   speed: {
