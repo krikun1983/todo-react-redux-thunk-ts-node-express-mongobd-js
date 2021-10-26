@@ -89,7 +89,7 @@ Game.prototype.update = function () {
       if (randoms(1, 6) >= 3) {
         game.asteroids.push(new Asteroid({ x: ASTEROID.position.x, y: randoms(-20, 550) }, { width: randoms(150, 180), height: randoms(150, 180) }, ASTEROID.speed, ASTEROID.state, ASTEROID.life));
       } else {
-        game.asteroids.push(new AsteroidTwo({ x: ASTEROID.position.x, y: randoms(-20, 550) }, ASTEROID.size, ASTEROID.speed, ASTEROID.state, ASTEROID.life));
+        game.asteroids.push(new AsteroidTwo({ x: ASTEROID.position.x, y: randoms(-20, 550) }, ASTEROID.size, ASTEROID.speed, ASTEROID.state, ASTEROID.life + 3));
       }
     }
     if (item.x < -200) {
