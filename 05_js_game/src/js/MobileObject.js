@@ -21,6 +21,22 @@ MobileObject.prototype.moveUpY = function () {
 MobileObject.prototype.moveDownY = function () {
   this.dy = this.step;
 }
+MobileObject.prototype.moveRightUpX = function () {
+  this.dx = this.step;
+  this.dy = -this.step;
+}
+MobileObject.prototype.moveLeftUpX = function () {
+  this.dx = -this.step;
+  this.dy = -this.step;
+}
+MobileObject.prototype.moveLeftDownX = function () {
+  this.dx = -this.step;
+  this.dy = this.step;
+}
+MobileObject.prototype.moveRightDownX = function () {
+  this.dx = this.step;
+  this.dy = this.step;
+}
 MobileObject.prototype.stop = function () {
   this.dx = 0;
   this.dy = 0;

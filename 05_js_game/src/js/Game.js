@@ -5,7 +5,7 @@ import ASTEROID from './constants/asteroid.js';
 import CANVAS from './constants/canvas.js';
 import HEART from './constants/heart.js';
 import SPACE_SHIP from './constants/space-ship.js';
-import collision from './images/collision.js';
+import collision from './utils/collision.js';
 import IMAGES from './images/Images.js';
 import { renderObject } from './RenderObject.js';
 import SpaceShip from './SpaceShip.js';
@@ -18,6 +18,9 @@ const Game = function () {
   this.activeKeys = new Set();
   this.bullets = [];
   this.isPause = false;
+  this.cvs = document.querySelector('canvas');
+  this.ctx = this.cvs.getContext('2d');
+  this.score = 0;
 }
 
 Game.prototype.init = function () {
@@ -31,14 +34,13 @@ Game.prototype.keyboarderMoveShip = function () {
 
   document.addEventListener('keydown', (event) => {
     event.preventDefault();
-
     if (activeKeys.some(isResult)) { this.activeKeys.add(event.key) };
     if (this.activeKeys.has('Enter')) { gamePause() };
     if (this.activeKeys.has(' ')) { this.spaceShip.fire() };
   })
+
   document.addEventListener('keyup', (event) => {
     event.preventDefault();
-
     if (activeKeys.some(isResult)) { this.activeKeys.delete(event.key) };
   })
 }
@@ -56,11 +58,13 @@ Game.prototype.render = function () {
       }
     }
   }
+
   if (this.spaceShip.life) {
     for (let i = 0; i < this.spaceShip.life; i++) {
       renderObject.CreateImg(IMAGES.heart, { x: HEART.position.x + i * 50, y: HEART.position.y, width: HEART.size.width, height: HEART.size.height });
     }
   }
+
   for (let i = 0; i < this.bullets.length; i++) {
     renderObject.CreateImg(IMAGES.bullet, this.bullets[i]);
   }
@@ -68,7 +72,23 @@ Game.prototype.render = function () {
 
 Game.prototype.update = function () {
   if (this.spaceShip.state) {
-    if (this.activeKeys.has('ArrowUp')) {
+    if (this.activeKeys.has('ArrowRight') && this.activeKeys.has('ArrowUp')) {
+      this.spaceShip.moveRightUpX();
+      this.spaceShip.x <= CANVAS.size.width - this.spaceShip.width ? this.spaceShip.x += this.spaceShip.dx : this.spaceShip.stop();
+      this.spaceShip.y > 0 ? this.spaceShip.y += this.spaceShip.dy : this.spaceShip.stop();
+    } else if (this.activeKeys.has('ArrowLeft') && this.activeKeys.has('ArrowUp')) {
+      this.spaceShip.moveLeftUpX();
+      this.spaceShip.x >= 0 ? this.spaceShip.x += this.spaceShip.dx : this.spaceShip.stop();
+      this.spaceShip.y > 0 ? this.spaceShip.y += this.spaceShip.dy : this.spaceShip.stop();
+    } else if (this.activeKeys.has('ArrowLeft') && this.activeKeys.has('ArrowDown')) {
+      this.spaceShip.moveLeftDownX();
+      this.spaceShip.x >= 0 ? this.spaceShip.x += this.spaceShip.dx : this.spaceShip.stop();
+      this.spaceShip.y < CANVAS.size.height - this.spaceShip.height ? this.spaceShip.y += this.spaceShip.dy : this.spaceShip.stop();
+    } else if (this.activeKeys.has('ArrowRight') && this.activeKeys.has('ArrowDown')) {
+      this.spaceShip.moveRightDownX();
+      this.spaceShip.x <= CANVAS.size.width - this.spaceShip.width ? this.spaceShip.x += this.spaceShip.dx : this.spaceShip.stop();
+      this.spaceShip.y < CANVAS.size.height - this.spaceShip.height ? this.spaceShip.y += this.spaceShip.dy : this.spaceShip.stop();
+    } else if (this.activeKeys.has('ArrowUp')) {
       this.spaceShip.moveUpY();
       this.spaceShip.y > 0 ? this.spaceShip.y += this.spaceShip.dy : this.spaceShip.stop();
     } else if (this.activeKeys.has('ArrowDown')) {
@@ -82,6 +102,7 @@ Game.prototype.update = function () {
       this.spaceShip.x <= CANVAS.size.width - this.spaceShip.width ? this.spaceShip.x += this.spaceShip.dx : this.spaceShip.stop();
     }
   }
+
   this.asteroids.forEach((item, i) => {
     item.moveLeftX();
     item.x += item.dx;
@@ -94,16 +115,23 @@ Game.prototype.update = function () {
     }
     if (item.x < -200) {
       game.asteroids.splice(0, 1);
+      this.score++;
     }
     if (collision(this.spaceShip, item)) {
       this.spaceShip.life -= 1;
       game.asteroids.splice(i, 1);
+      this.score += 3;
     }
     this.bullets.forEach((bullet, k) => {
       if (collision(item, bullet)) {
         item.life -= 1;
         if (item.life <= 0) {
           game.asteroids.splice(i, 1);
+          if (item instanceof Asteroid) {
+            this.score += 5;
+          } else if (item instanceof AsteroidTwo) {
+            this.score += 10;
+          }
         }
         game.bullets.splice(k, 1);
       }
@@ -124,6 +152,9 @@ Game.prototype.update = function () {
     }
   })
 
+  this.ctx.fillStyle = "#ffffff";
+  this.ctx.font = "24px Verdana";
+  this.ctx.fillText("Score: " + this.score, 10, this.cvs.height - 20);
 }
 
 export const game = new Game();
