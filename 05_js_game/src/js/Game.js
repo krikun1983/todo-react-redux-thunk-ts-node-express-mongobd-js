@@ -14,6 +14,7 @@ import randoms from './utils/randoms.js';
 import Enemy from './Enemy.js';
 import ENEMY from './constants/enemy.js';
 import ASTEROID_TWO from './constants/asteroidTwo.js';
+import Heart from './Heart.js';
 
 const MAX_SCORE = 'maxScore';
 
@@ -28,6 +29,7 @@ const Game = function () {
   this.score = 0;
   this.enemies = [];
   this.enemyBullets = [];
+  this.bonuses = [];
 }
 
 Game.prototype.init = function () {
@@ -85,6 +87,10 @@ Game.prototype.render = function () {
   for (let i = 0; i < this.enemyBullets.length; i++) {
     renderObject.CreateImg(IMAGES.bulletEnemy, this.enemyBullets[i]);
   }
+
+  for (let i = 0; i < this.bonuses.length; i++) {
+    renderObject.CreateImg(IMAGES.heart, this.bonuses[i]);
+  }
 }
 
 Game.prototype.update = function () {
@@ -134,7 +140,7 @@ Game.prototype.update = function () {
     item.moveLeftX();
     item.x += item.dx;
     if (item.x === 900) {
-      if (randoms(1, 6) >= 3) {
+      if (randoms(1, 6) >= 2) {
         game.asteroids.push(new Asteroid({ x: ASTEROID.position.x, y: randoms(-20, 550) }, { width: randoms(150, 180), height: randoms(150, 180) }, ASTEROID.speed, ASTEROID.life));
       } else {
         game.asteroids.push(new AsteroidTwo({ x: ASTEROID_TWO.position.x, y: randoms(-20, 550) }, ASTEROID_TWO.size, ASTEROID_TWO.speed, ASTEROID_TWO.life));
@@ -158,6 +164,7 @@ Game.prototype.update = function () {
             this.score += 5;
           } else if (item instanceof AsteroidTwo) {
             this.score += 8;
+            this.bonuses.push(new Heart({ x: item.x + (item.width / 2), y: item.y + (item.height / 2) }, HEART.size, HEART.speed));
           }
         }
         game.bullets.splice(k, 1);
@@ -179,13 +186,11 @@ Game.prototype.update = function () {
       game.enemies.splice(0, 1);
       this.score--;
     }
-
     if (collision(this.spaceShip, item)) {
       this.spaceShip.life -= 1;
       game.enemies.splice(i, 1);
       this.score -= 5;
     }
-
     this.bullets.forEach((bullet, k) => {
       if (collision(item, bullet)) {
         item.life -= 1;
@@ -204,7 +209,7 @@ Game.prototype.update = function () {
     if (this.spaceShip.y + 20 > item.y && this.spaceShip.y - 20 < item.y) {
       item.fire();
     }
-  })
+  });
 
   if (this.spaceShip.life <= 0) {
     this.spaceShip.state = false;
@@ -220,7 +225,6 @@ Game.prototype.update = function () {
       this.bullets.splice(i, 1);
     }
   });
-  console.log(this.enemyBullets.length);
 
   this.enemyBullets.forEach((bullet, i) => {
     bullet.moveLeftX();
@@ -230,16 +234,23 @@ Game.prototype.update = function () {
     }
   });
 
-  this.enemyBullets.forEach((bullet, k) => {
+  this.enemyBullets.forEach((bullet, i) => {
     if (collision(this.spaceShip, bullet)) {
       this.spaceShip.life -= 1;
-      game.enemyBullets.splice(k, 1);
+      game.enemyBullets.splice(i, 1);
+    }
+  });
+
+  this.bonuses.forEach((heart, i) => {
+    if (collision(this.spaceShip, heart)) {
+      this.spaceShip.life < 5 ? this.spaceShip.life += 1 : 0;
+      this.bonuses.splice(i, 1);
     }
   });
 
   this.ctx.fillStyle = "#ffffff";
   this.ctx.font = "24px Verdana";
-  this.ctx.fillText(`Score: ${this.score}`, 10, this.cvs.height - 20);
+  this.ctx.fillText(`Score: ${this.score >= 0 ? this.score : 0}`, 10, this.cvs.height - 20);
   this.ctx.fillText(`MaxScore: ${localStorage.getItem(MAX_SCORE) === null ? localStorage.setItem(MAX_SCORE, 0) : localStorage.getItem(MAX_SCORE)}`, 10, this.cvs.height - 570);
 }
 
