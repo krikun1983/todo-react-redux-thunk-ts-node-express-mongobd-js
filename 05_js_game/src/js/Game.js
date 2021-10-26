@@ -13,12 +13,13 @@ import { gameFieldBg } from './StaticObject.js';
 import randoms from './utils/randoms.js';
 import Enemy from './Enemy.js';
 import ENEMY from './constants/enemy.js';
+import ASTEROID_TWO from './constants/asteroidTwo.js';
 
 const MAX_SCORE = 'maxScore';
 
 const Game = function () {
   this.spaceShip = new SpaceShip(SPACE_SHIP.position, SPACE_SHIP.size, SPACE_SHIP.speed, SPACE_SHIP.state, SPACE_SHIP.life, SPACE_SHIP.magazine);
-  this.asteroids = [new Asteroid(ASTEROID.position, ASTEROID.size, ASTEROID.speed, ASTEROID.state, ASTEROID.life)];
+  this.asteroids = [new Asteroid(ASTEROID.position, ASTEROID.size, ASTEROID.speed, ASTEROID.life)];
   this.activeKeys = new Set();
   this.bullets = [];
   this.isPause = false;
@@ -134,9 +135,9 @@ Game.prototype.update = function () {
     item.x += item.dx;
     if (item.x === 900) {
       if (randoms(1, 6) >= 3) {
-        game.asteroids.push(new Asteroid({ x: ASTEROID.position.x, y: randoms(-20, 550) }, { width: randoms(150, 180), height: randoms(150, 180) }, ASTEROID.speed, ASTEROID.state, ASTEROID.life));
+        game.asteroids.push(new Asteroid({ x: ASTEROID.position.x, y: randoms(-20, 550) }, { width: randoms(150, 180), height: randoms(150, 180) }, ASTEROID.speed, ASTEROID.life));
       } else {
-        game.asteroids.push(new AsteroidTwo({ x: ASTEROID.position.x, y: randoms(-20, 550) }, ASTEROID.size, ASTEROID.speed, ASTEROID.state, ASTEROID.life + 3));
+        game.asteroids.push(new AsteroidTwo({ x: ASTEROID_TWO.position.x, y: randoms(-20, 550) }, ASTEROID_TWO.size, ASTEROID_TWO.speed, ASTEROID_TWO.life));
       }
     }
     if (item.x < -200) {
@@ -165,14 +166,14 @@ Game.prototype.update = function () {
   });
 
   if (this.enemies.length === 0) {
-    game.enemies.push(new Enemy({ x: ENEMY.position.x, y: randoms(-20, 550) }, ENEMY.size, ENEMY.speed, ENEMY.state, ENEMY.life, ENEMY.magazine));
+    game.enemies.push(new Enemy({ x: ENEMY.position.x, y: randoms(-20, 550) }, ENEMY.size, ENEMY.speed, ENEMY.life, ENEMY.magazine));
   }
 
   this.enemies.forEach((item, i) => {
     item.moveLeftX();
     item.x += item.dx;
     if (item.x === 900) {
-      game.enemies.push(new Enemy({ x: ENEMY.position.x, y: randoms(-20, 550) }, ENEMY.size, ENEMY.speed, ENEMY.state, ENEMY.life, ENEMY.magazine));
+      game.enemies.push(new Enemy({ x: ENEMY.position.x, y: randoms(-20, 550) }, ENEMY.size, ENEMY.speed, ENEMY.life, ENEMY.magazine));
     }
     if (item.x < -100) {
       game.enemies.splice(0, 1);

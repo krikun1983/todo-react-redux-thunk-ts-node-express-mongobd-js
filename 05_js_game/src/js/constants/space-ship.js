@@ -13,7 +13,7 @@ const SPACE_SHIP = {
     dy: 0,
   },
   state: true,
-  life: 3,
+  life: 5,
   magazine: 6,
 }
 

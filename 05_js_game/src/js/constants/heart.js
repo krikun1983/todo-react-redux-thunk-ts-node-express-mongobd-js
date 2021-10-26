@@ -4,7 +4,7 @@ const HEART = {
     height: 40,
   },
   position: {
-    x: 840,
+    x: 740,
     y: 10,
   },
 }

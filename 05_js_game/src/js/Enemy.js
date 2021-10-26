@@ -3,9 +3,8 @@ import BULLET from './constants/bullet.js';
 import { game } from './Game.js';
 import MobileObject from './MobileObject.js';
 
-const Enemy = function (position, size, speed, state, life, magazine) {
+const Enemy = function (position, size, speed, life, magazine) {
   MobileObject.call(this, position, size, speed);
-  this.state = state;
   this.life = life;
   this.magazine = magazine;
 }

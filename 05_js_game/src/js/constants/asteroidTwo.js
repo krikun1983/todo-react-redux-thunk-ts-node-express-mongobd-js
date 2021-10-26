@@ -1,4 +1,4 @@
-const ASTEROID = {
+const ASTEROID_TWO = {
   size: {
     width: 160,
     height: 160,
@@ -12,7 +12,7 @@ const ASTEROID = {
     dx: 0,
     dy: 0,
   },
-  life: 5,
+  life: 8,
 }
 
-export default ASTEROID;
+export default ASTEROID_TWO;

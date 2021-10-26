@@ -1,8 +1,7 @@
 import MobileObject from './MobileObject.js';
 
-const Asteroid = function (position, size, speed, state, life) {
+const Asteroid = function (position, size, speed, life) {
   MobileObject.call(this, position, size, speed);
-  this.state = state;
   this.life = life;
 }
 

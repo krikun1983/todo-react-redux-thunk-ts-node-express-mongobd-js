@@ -12,8 +12,7 @@ const ENEMY = {
     dx: 0,
     dy: 0,
   },
-  state: true,
-  life: 1,
+  life: 2,
   magazine: 1,
 }
 
