@@ -4,7 +4,7 @@ const ASTEROID = {
     height: 160,
   },
   position: {
-    x: 1024,
+    x: 1200,
     y: 0,
   },
   speed: {

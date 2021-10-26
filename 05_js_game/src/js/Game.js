@@ -85,7 +85,7 @@ Game.prototype.update = function () {
   this.asteroids.forEach((item, i) => {
     item.moveLeftX();
     item.x += item.dx;
-    if (item.x === 600) {
+    if (item.x === 900) {
       if (randoms(1, 6) >= 3) {
         game.asteroids.push(new Asteroid({ x: ASTEROID.position.x, y: randoms(-20, 550) }, { width: randoms(150, 180), height: randoms(150, 180) }, ASTEROID.speed, ASTEROID.state, ASTEROID.life));
       } else {
@@ -99,12 +99,20 @@ Game.prototype.update = function () {
       this.spaceShip.life -= 1;
       game.asteroids.splice(i, 1);
     }
+    this.bullets.forEach((bullet, k) => {
+      if (collision(item, bullet)) {
+        item.life -= 1;
+        if (item.life <= 0) {
+          game.asteroids.splice(i, 1);
+        }
+        game.bullets.splice(k, 1);
+      }
+    });
   });
 
   if (this.spaceShip.life <= 0) {
     this.spaceShip.state = false;
   }
-  console.log(this.bullets);
 
   this.bullets.forEach((bullet, i) => {
     if (bullet.dx < CANVAS.size.width) {
