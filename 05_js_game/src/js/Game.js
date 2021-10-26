@@ -12,6 +12,8 @@ import SpaceShip from './SpaceShip.js';
 import { gameFieldBg } from './StaticObject.js';
 import randoms from './utils/randoms.js';
 
+const MAX_SCORE = 'maxScore';
+
 const Game = function () {
   this.spaceShip = new SpaceShip(SPACE_SHIP.position, SPACE_SHIP.size, SPACE_SHIP.speed, SPACE_SHIP.state, SPACE_SHIP.life, SPACE_SHIP.magazine);
   this.asteroids = [new Asteroid(ASTEROID.position, ASTEROID.size, ASTEROID.speed, ASTEROID.state, ASTEROID.life)];
@@ -21,6 +23,7 @@ const Game = function () {
   this.cvs = document.querySelector('canvas');
   this.ctx = this.cvs.getContext('2d');
   this.score = 0;
+
 }
 
 Game.prototype.init = function () {
@@ -140,6 +143,9 @@ Game.prototype.update = function () {
 
   if (this.spaceShip.life <= 0) {
     this.spaceShip.state = false;
+    if (localStorage.getItem(MAX_SCORE) < this.score) {
+      localStorage.setItem(MAX_SCORE, this.score);
+    }
   }
 
   this.bullets.forEach((bullet, i) => {
@@ -154,7 +160,8 @@ Game.prototype.update = function () {
 
   this.ctx.fillStyle = "#ffffff";
   this.ctx.font = "24px Verdana";
-  this.ctx.fillText("Score: " + this.score, 10, this.cvs.height - 20);
+  this.ctx.fillText(`Score: ${this.score}`, 10, this.cvs.height - 20);
+  this.ctx.fillText(`MaxScore: ${localStorage.getItem(MAX_SCORE) === null ? localStorage.setItem(MAX_SCORE, 0) : localStorage.getItem(MAX_SCORE)}`, 10, this.cvs.height - 570);
 }
 
 export const game = new Game();
