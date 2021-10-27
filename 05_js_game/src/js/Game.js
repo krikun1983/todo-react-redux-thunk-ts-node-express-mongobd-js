@@ -56,6 +56,9 @@ Game.prototype.keyboarderMoveShip = function () {
 
 Game.prototype.render = function () {
   renderObject.CreateImg(IMAGES.background, gameFieldBg);
+  if (this.spaceShip.state) {
+    renderObject.CreateImg(IMAGES.dragonFire, { x: this.spaceShip.x - 24, y: this.spaceShip.y + 11, width: 40, height: 20 });
+  }
   renderObject.CreateImg(IMAGES.spaceShip, this.spaceShip);
 
   if (this.asteroids.length) {
@@ -133,6 +136,7 @@ Game.prototype.update = function () {
     ) {
       this.spaceShip.moveLeftX();
       this.spaceShip.x >= 0 ? this.spaceShip.x-- : this.spaceShip.stop();
+      renderObject.CreateImg(IMAGES.dragonFire, { x: this.spaceShip.x - 34, y: this.spaceShip.y + 11, width: 50, height: 19 });
     }
   }
 
