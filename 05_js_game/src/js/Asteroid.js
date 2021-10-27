@@ -7,5 +7,6 @@ const Asteroid = function (position, size, speed, life) {
 
 Asteroid.prototype = Object.create(MobileObject.prototype);
 Asteroid.prototype.constructor = Asteroid;
+Asteroid
 
 export default Asteroid;

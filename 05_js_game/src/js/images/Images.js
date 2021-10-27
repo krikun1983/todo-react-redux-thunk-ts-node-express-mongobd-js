@@ -8,6 +8,7 @@ const IMAGES = {
   enemy: './src/img/enemy.png',
   bulletEnemy: './src/img/bulletEnemy.png',
   dragonFire: './src/img/dragon-fire.png',
+  explosion: './src/img/explosion.png',
 }
 
 export default IMAGES;

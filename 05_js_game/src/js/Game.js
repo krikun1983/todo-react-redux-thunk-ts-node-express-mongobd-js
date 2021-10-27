@@ -17,6 +17,8 @@ import ASTEROID_TWO from './constants/asteroidTwo.js';
 import Heart from './Heart.js';
 import { renderAudios } from './RenderAudios.js';
 import AUDIOS from './audio/audio.js';
+import Explosion from './Explosion.js';
+import EXPLOSION from './constants/explosion.js';
 
 const MAX_SCORE = 'maxScore';
 
@@ -32,6 +34,7 @@ const Game = function () {
   this.enemies = [];
   this.enemyBullets = [];
   this.bonuses = [];
+  this.explosions = [];
 }
 
 Game.prototype.init = function () {
@@ -71,6 +74,10 @@ Game.prototype.render = function () {
         renderObject.CreateImg(IMAGES.asteroidTwo, this.asteroids[i]);
       }
     }
+  }
+
+  for (let i = 0; i < this.explosions.length; i++) {
+    renderObject.CreateImg(IMAGES.explosion, this.explosions[i]);
   }
 
   if (this.enemies.length) {
@@ -147,26 +154,35 @@ Game.prototype.update = function () {
     item.x += item.dx;
     if (item.x === 900) {
       if (randoms(1, 6) >= 2) {
-        game.asteroids.push(new Asteroid({ x: ASTEROID.position.x, y: randoms(-20, 550) }, { width: randoms(150, 180), height: randoms(150, 180) }, ASTEROID.speed, ASTEROID.life));
+        this.asteroids.push(new Asteroid({ x: ASTEROID.position.x, y: randoms(-20, 550) }, { width: randoms(150, 180), height: randoms(150, 180) }, ASTEROID.speed, ASTEROID.life));
       } else {
-        game.asteroids.push(new AsteroidTwo({ x: ASTEROID_TWO.position.x, y: randoms(-20, 550) }, ASTEROID_TWO.size, ASTEROID_TWO.speed, ASTEROID_TWO.life));
+        this.asteroids.push(new AsteroidTwo({ x: ASTEROID_TWO.position.x, y: randoms(-20, 550) }, ASTEROID_TWO.size, ASTEROID_TWO.speed, ASTEROID_TWO.life));
       }
     }
     if (item.x < -200) {
-      game.asteroids.splice(0, 1);
+      this.asteroids.splice(0, 1);
       this.score--;
     }
     if (collision(this.spaceShip, item)) {
       this.spaceShip.life -= 1;
-      game.asteroids.splice(i, 1);
+      this.asteroids.splice(i, 1);
+      renderAudios.createAudio(AUDIOS.hit);
+      this.explosions.push(new Explosion({ x: item.x, y: item.y }, EXPLOSION.size, EXPLOSION.speed));
+      if (this.explosions[0].timer <= 30) {
+        this.explosions.splice(i, 1);
+      }
       this.score -= 5;
     }
     this.bullets.forEach((bullet, k) => {
       if (collision(item, bullet)) {
         item.life -= 1;
         if (item.life <= 0) {
-          game.asteroids.splice(i, 1);
+          this.asteroids.splice(i, 1);
           renderAudios.createAudio(AUDIOS.grenadeAsteroid);
+          this.explosions.push(new Explosion({ x: item.x, y: item.y }, EXPLOSION.size, EXPLOSION.speed));
+          if (this.explosions[0].timer <= 30) {
+            this.explosions.splice(i, 1);
+          }
           if (item instanceof Asteroid) {
             this.score += 5;
           } else if (item instanceof AsteroidTwo) {
@@ -174,41 +190,59 @@ Game.prototype.update = function () {
             this.bonuses.push(new Heart({ x: item.x + (item.width / 2), y: item.y + (item.height / 2) }, HEART.size, HEART.speed));
           }
         }
-        game.bullets.splice(k, 1);
+        this.bullets.splice(k, 1);
       }
     });
   });
 
+  this.explosions.forEach(item => {
+    item.moveLeftX();
+    item.x += item.dx;
+    item.timerUpdate();
+    if (item.timer < 30) {
+      this.explosions.splice(0, 1);
+    }
+  })
+
   if (this.enemies.length === 0) {
-    game.enemies.push(new Enemy({ x: ENEMY.position.x, y: randoms(-20, 550) }, ENEMY.size, ENEMY.speed, ENEMY.life, ENEMY.magazine));
+    this.enemies.push(new Enemy({ x: ENEMY.position.x, y: randoms(-20, 550) }, ENEMY.size, ENEMY.speed, ENEMY.life, ENEMY.magazine));
   }
 
   this.enemies.forEach((item, i) => {
     item.moveLeftX();
     item.x += item.dx;
     if (item.x === 900) {
-      game.enemies.push(new Enemy({ x: ENEMY.position.x, y: randoms(-20, 550) }, ENEMY.size, ENEMY.speed, ENEMY.life, ENEMY.magazine));
+      this.enemies.push(new Enemy({ x: ENEMY.position.x, y: randoms(-20, 550) }, ENEMY.size, ENEMY.speed, ENEMY.life, ENEMY.magazine));
     }
     if (item.x < -100) {
-      game.enemies.splice(0, 1);
+      this.enemies.splice(0, 1);
       this.score--;
     }
     if (collision(this.spaceShip, item)) {
       this.spaceShip.life -= 1;
-      game.enemies.splice(i, 1);
+      this.enemies.splice(i, 1);
+      renderAudios.createAudio(AUDIOS.hit);
+      this.explosions.push(new Explosion({ x: item.x, y: item.y }, { width: item.width, height: item.height }, EXPLOSION.speed));
+      if (this.explosions[0].timer <= 30) {
+        this.explosions.splice(i, 1);
+      }
       this.score -= 5;
     }
     this.bullets.forEach((bullet, k) => {
       if (collision(item, bullet)) {
         item.life -= 1;
         if (item.life <= 0) {
-          game.enemies.splice(i, 1);
+          this.enemies.splice(i, 1);
+          this.explosions.push(new Explosion({ x: item.x, y: item.y }, { width: item.width, height: item.height }, EXPLOSION.speed));
+          if (this.explosions[0].timer <= 30) {
+            this.explosions.splice(i, 1);
+          }
           renderAudios.createAudio(AUDIOS.grenade);
           if (item instanceof Enemy) {
             this.score += 10;
           }
         }
-        game.bullets.splice(k, 1);
+        this.bullets.splice(k, 1);
       }
     });
   });
@@ -246,14 +280,19 @@ Game.prototype.update = function () {
   this.enemyBullets.forEach((bullet, i) => {
     if (collision(this.spaceShip, bullet)) {
       this.spaceShip.life -= 1;
-      game.enemyBullets.splice(i, 1);
+      this.enemyBullets.splice(i, 1);
     }
   });
 
   this.bonuses.forEach((heart, i) => {
+    heart.moveLeftX();
+    heart.x += heart.dx;
     if (collision(this.spaceShip, heart)) {
       this.spaceShip.life < 5 ? this.spaceShip.life += 1 : 0;
       renderAudios.createAudio(AUDIOS.bonus);
+      this.bonuses.splice(i, 1);
+    }
+    if (heart.x < CANVAS.position.x - 10) {
       this.bonuses.splice(i, 1);
     }
   });
@@ -261,7 +300,7 @@ Game.prototype.update = function () {
   this.ctx.fillStyle = "#ffffff";
   this.ctx.font = "24px Verdana";
   this.ctx.fillText(`Score: ${this.score >= 0 ? this.score : 0}`, 10, this.cvs.height - 20);
-  this.ctx.fillText(`MaxScore: ${localStorage.getItem(MAX_SCORE) === null ? localStorage.setItem(MAX_SCORE, 0) : localStorage.getItem(MAX_SCORE)}`, 10, this.cvs.height - 570);
+  this.ctx.fillText(`Record: ${localStorage.getItem(MAX_SCORE) === null ? localStorage.setItem(MAX_SCORE, 0) : localStorage.getItem(MAX_SCORE)}`, 10, this.cvs.height - 570);
 }
 
 export const game = new Game();

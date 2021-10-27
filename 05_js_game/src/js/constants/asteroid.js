@@ -12,7 +12,7 @@ const ASTEROID = {
     dx: 0,
     dy: 0,
   },
-  life: 5,
+  life: 4,
 }
 
 export default ASTEROID;
