@@ -3,8 +3,11 @@ const RenderAudios = function () {
 }
 
 RenderAudios.prototype.createAudio = function (audioSrc) {
+  let audio = this.audio;
+  audio.onloadeddata = function () {
+    audio.play();
+  }
   this.audio.src = audioSrc;
-  this.audio.play();
 }
 
 export const renderAudios = new RenderAudios();
