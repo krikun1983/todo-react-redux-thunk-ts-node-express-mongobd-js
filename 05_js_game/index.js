@@ -1,4 +1,6 @@
+import AUDIOS from './src/js/audio/audio.js';
 import { game } from './src/js/Game.js';
+import { renderAudios } from './src/js/RenderAudios.js';
 
 const body = document.body;
 const btnGameMainStart = document.querySelector('.btn-main-start');
@@ -30,6 +32,7 @@ body.addEventListener('click', (event) => {
     btnGameMainStart.style.display = 'none';
     btnsServices.style.display = 'flex';
     gameLoop();
+    renderAudios.createAudio(AUDIOS.begin);
   } else if (btnsEvent.classList.contains('btn-service-next')) {
     btnGameNext.style.display = 'none';
     btnGamePause.style.display = 'inline-block';

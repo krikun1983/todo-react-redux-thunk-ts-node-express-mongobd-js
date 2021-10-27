@@ -15,6 +15,8 @@ import Enemy from './Enemy.js';
 import ENEMY from './constants/enemy.js';
 import ASTEROID_TWO from './constants/asteroidTwo.js';
 import Heart from './Heart.js';
+import { renderAudios } from './RenderAudios.js';
+import AUDIOS from './audio/audio.js';
 
 const MAX_SCORE = 'maxScore';
 
@@ -164,6 +166,7 @@ Game.prototype.update = function () {
         item.life -= 1;
         if (item.life <= 0) {
           game.asteroids.splice(i, 1);
+          renderAudios.createAudio(AUDIOS.grenadeAsteroid);
           if (item instanceof Asteroid) {
             this.score += 5;
           } else if (item instanceof AsteroidTwo) {
@@ -200,6 +203,7 @@ Game.prototype.update = function () {
         item.life -= 1;
         if (item.life <= 0) {
           game.enemies.splice(i, 1);
+          renderAudios.createAudio(AUDIOS.grenade);
           if (item instanceof Enemy) {
             this.score += 10;
           }
@@ -217,6 +221,7 @@ Game.prototype.update = function () {
 
   if (this.spaceShip.life <= 0) {
     this.spaceShip.state = false;
+    if (!this.spaceShip.life) { renderAudios.createAudio(AUDIOS.gameOver) }
     if (localStorage.getItem(MAX_SCORE) < this.score) {
       localStorage.setItem(MAX_SCORE, this.score);
     }
@@ -248,6 +253,7 @@ Game.prototype.update = function () {
   this.bonuses.forEach((heart, i) => {
     if (collision(this.spaceShip, heart)) {
       this.spaceShip.life < 5 ? this.spaceShip.life += 1 : 0;
+      renderAudios.createAudio(AUDIOS.bonus);
       this.bonuses.splice(i, 1);
     }
   });
