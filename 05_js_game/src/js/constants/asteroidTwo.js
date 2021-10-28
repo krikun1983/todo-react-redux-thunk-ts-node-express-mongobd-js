@@ -8,7 +8,7 @@ const ASTEROID_TWO = {
     y: 0,
   },
   speed: {
-    step: 2,
+    step: 1,
     dx: 0,
     dy: 0,
   },

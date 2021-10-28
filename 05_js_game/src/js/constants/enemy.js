@@ -8,7 +8,7 @@ const ENEMY = {
     y: 0,
   },
   speed: {
-    step: 4,
+    step: 1.5,
     dx: 0,
     dy: 0,
   },

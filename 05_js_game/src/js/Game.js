@@ -20,11 +20,9 @@ import AUDIOS from './audio/audio.js';
 import Explosion from './Explosion.js';
 import EXPLOSION from './constants/explosion.js';
 
-const MAX_SCORE = 'maxScore';
-
 const Game = function () {
   this.spaceShip = new SpaceShip(SPACE_SHIP.position, SPACE_SHIP.size, SPACE_SHIP.speed, SPACE_SHIP.state, SPACE_SHIP.life, SPACE_SHIP.magazine);
-  this.asteroids = [new Asteroid(ASTEROID.position, ASTEROID.size, ASTEROID.speed, ASTEROID.life)];
+  this.asteroids = [];
   this.activeKeys = new Set();
   this.bullets = [];
   this.isPause = false;
@@ -152,14 +150,18 @@ Game.prototype.update = function (settings) {
     }
   }
 
+  if (this.asteroids.length === 0) {
+    this.asteroids.push(new Asteroid({ x: ASTEROID.position.x, y: randoms(-20, 550) }, { width: randoms(150, 180), height: randoms(150, 180) }, { step: ASTEROID.speed.step * settings.difficult, dx: ASTEROID.speed.dx, dy: ASTEROID.speed.dy }, ASTEROID.life));
+  }
+
   this.asteroids.forEach((item, i) => {
     item.moveLeftX();
     item.x += item.dx;
     if (item.x === 900) {
       if (randoms(1, 6) >= 2) {
-        this.asteroids.push(new Asteroid({ x: ASTEROID.position.x, y: randoms(-20, 550) }, { width: randoms(150, 180), height: randoms(150, 180) }, ASTEROID.speed, ASTEROID.life));
+        this.asteroids.push(new Asteroid({ x: ASTEROID.position.x, y: randoms(-20, 550) }, { width: randoms(150, 180), height: randoms(150, 180) }, { step: ASTEROID.speed.step * settings.difficult, dx: ASTEROID.speed.dx, dy: ASTEROID.speed.dy }, ASTEROID.life));
       } else {
-        this.asteroids.push(new AsteroidTwo({ x: ASTEROID_TWO.position.x, y: randoms(-20, 550) }, ASTEROID_TWO.size, ASTEROID_TWO.speed, ASTEROID_TWO.life));
+        this.asteroids.push(new AsteroidTwo({ x: ASTEROID_TWO.position.x, y: randoms(-20, 550) }, ASTEROID_TWO.size, { step: ASTEROID_TWO.speed.step * settings.difficult, dx: ASTEROID_TWO.speed.dx, dy: ASTEROID_TWO.speed.dy }, ASTEROID_TWO.life));
       }
     }
     if (item.x < -200) {
@@ -208,14 +210,14 @@ Game.prototype.update = function (settings) {
   })
 
   if (this.enemies.length === 0) {
-    this.enemies.push(new Enemy({ x: ENEMY.position.x, y: randoms(-20, 550) }, ENEMY.size, ENEMY.speed, ENEMY.life, ENEMY.magazine));
+    this.enemies.push(new Enemy({ x: ENEMY.position.x, y: randoms(-20, 550) }, ENEMY.size, { step: ENEMY.speed.step * settings.difficult, dx: ENEMY.speed.dx, dy: ENEMY.speed.dy }, ENEMY.life, ENEMY.magazine));
   }
 
   this.enemies.forEach((item, i) => {
     item.moveLeftX();
     item.x += item.dx;
     if (item.x === 900) {
-      this.enemies.push(new Enemy({ x: ENEMY.position.x, y: randoms(-20, 550) }, ENEMY.size, ENEMY.speed, ENEMY.life, ENEMY.magazine));
+      this.enemies.push(new Enemy({ x: ENEMY.position.x, y: randoms(-20, 550) }, ENEMY.size, { step: ENEMY.speed.step * settings.difficult, dx: ENEMY.speed.dx, dy: ENEMY.speed.dy }, ENEMY.life, ENEMY.magazine));
     }
     if (item.x < -100) {
       this.enemies.splice(0, 1);
@@ -259,9 +261,9 @@ Game.prototype.update = function (settings) {
   if (this.spaceShip.life <= 0) {
     this.spaceShip.state = false;
     if (!this.spaceShip.life) { renderAudios.createAudio(AUDIOS.gameOver) }
-    const localStorageData = JSON.parse(localStorage.getItem(MAX_SCORE));
+    const localStorageData = JSON.parse(localStorage.getItem(settings.difficult));
     if (localStorageData.max_core < this.score) {
-      localStorage.setItem(MAX_SCORE, JSON.stringify(RECORDS));
+      localStorage.setItem(settings.difficult, JSON.stringify(RECORDS));
     }
   }
 
@@ -275,7 +277,7 @@ Game.prototype.update = function (settings) {
 
   this.enemyBullets.forEach((bullet, i) => {
     bullet.moveLeftX();
-    bullet.x += bullet.dx - 2;
+    bullet.x += bullet.dx - settings.difficult;
     if (bullet.x < CANVAS.position.x - 10) {
       this.enemyBullets.splice(i, 1);
     }
@@ -301,12 +303,12 @@ Game.prototype.update = function (settings) {
     }
   });
 
-  const localStorageData = JSON.parse(localStorage.getItem(MAX_SCORE));
+  const localStorageData = JSON.parse(localStorage.getItem(settings.difficult));
   this.ctx.fillStyle = "#ffffff";
   this.ctx.font = "24px Verdana";
   this.ctx.fillText(`Score: ${this.score >= 0 ? this.score : 0}`, 10, this.cvs.height - 20);
   if (localStorageData === null) {
-    localStorage.setItem(MAX_SCORE, JSON.stringify(RECORDS));
+    localStorage.setItem(settings.difficult, JSON.stringify(RECORDS));
   } else {
     this.ctx.fillText(`Record: ${localStorageData.name} - ${localStorageData.max_core}`, 10, this.cvs.height - 570);
   }
