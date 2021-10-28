@@ -63,7 +63,7 @@ body.addEventListener('click', (event) => {
     gamePause();
   } else if (btnsEvent.classList.contains('btn-service-game')) {
     window.location.reload();
-  } else if (btnsEvent.classList.contains('btn-controls')) {
+  } else if (btnsEvent.classList.contains('btn-info')) {
     modalInfo.classList.toggle('hidden');
   }
 })

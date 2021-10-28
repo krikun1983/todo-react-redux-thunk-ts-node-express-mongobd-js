@@ -58,20 +58,6 @@ button:hover {
   border-radius: 5px;
 }
 
-.controls {
-  display: flex;
-  justify-content: flex-end;
-  width: 1000px;
-}
-
-.btn-controls {
-  padding: 5px 20px;
-  font-size: 26px;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-}
-
 canvas {
   border: 2px solid var(--color-white);
   box-shadow: 0 0 22px rgba(0, 0, 0, 0.75);
@@ -138,6 +124,20 @@ canvas {
   padding: 5px 15px;
   font-size: 20px;
   border: 1px solid var(--color-light-gray);
+  border-radius: 5px;
+}
+
+.info {
+  display: flex;
+  justify-content: flex-end;
+  width: 1000px;
+}
+
+.btn-info {
+  padding: 5px 20px;
+  font-size: 26px;
+  font-weight: bold;
+  border: none;
   border-radius: 5px;
 }
 
