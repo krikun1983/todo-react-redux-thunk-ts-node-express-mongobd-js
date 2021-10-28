@@ -4,7 +4,8 @@ import { renderAudios } from './src/js/RenderAudios.js';
 
 const body = document.body;
 const btnMainStart = document.querySelector('.btn-main-start');
-const ModalRegistration = document.querySelector('.modal-registration');
+const modalRegistration = document.querySelector('.modal-registration');
+const modalInfo = document.querySelector('.modal-info');
 const btnsServices = document.querySelector('.btns-services');
 const btnGameNext = document.querySelector('.btn-service-next');
 const btnGamePause = document.querySelector('.btn-service-pause');
@@ -38,20 +39,20 @@ body.addEventListener('click', (event) => {
   const btnsEvent = event.target;
   if (btnsEvent.classList.contains('btn-main-start')) {
     btnMainStart.classList.add('hidden');
-    ModalRegistration.classList.remove('hidden');
+    modalRegistration.classList.remove('hidden');
   } else if (btnsEvent.classList.contains('form-btn-start')) {
     event.preventDefault();
     settings.name = document.querySelector('.modal-registration-name').value === ''
       ? 'Unknown'
       : document.querySelector('.modal-registration-name').value;
     settings.difficult = document.querySelector('.modal-registration-difficult').value;
-    ModalRegistration.classList.add('hidden');
+    modalRegistration.classList.add('hidden');
     btnsServices.classList.remove('hidden');
     gameLoop();
     renderAudios.createAudio(AUDIOS.begin);
   } else if (btnsEvent.classList.contains('form-btn-cancel')) {
     btnMainStart.classList.remove('hidden');
-    ModalRegistration.classList.add('hidden');
+    modalRegistration.classList.add('hidden');
   } else if (btnsEvent.classList.contains('btn-service-next')) {
     btnGameNext.classList.add('hidden');
     btnGamePause.classList.remove('hidden');
@@ -62,6 +63,8 @@ body.addEventListener('click', (event) => {
     gamePause();
   } else if (btnsEvent.classList.contains('btn-service-game')) {
     window.location.reload();
+  } else if (btnsEvent.classList.contains('btn-controls')) {
+    modalInfo.classList.toggle('hidden');
   }
 })
 
