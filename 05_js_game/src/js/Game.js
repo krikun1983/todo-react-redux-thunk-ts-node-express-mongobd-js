@@ -47,14 +47,12 @@ Game.prototype.keyboarderMoveShip = function () {
   const isResult = (el) => el;
 
   document.addEventListener('keydown', (event) => {
-    event.preventDefault();
     if (activeKeys.some(isResult)) { this.activeKeys.add(event.key) };
     if (this.activeKeys.has('Enter')) { gamePause() };
     if (this.activeKeys.has(' ')) { this.spaceShip.fire() };
   })
 
   document.addEventListener('keyup', (event) => {
-    event.preventDefault();
     if (activeKeys.some(isResult)) { this.activeKeys.delete(event.key) };
   })
 }
@@ -105,7 +103,12 @@ Game.prototype.render = function () {
   }
 }
 
-Game.prototype.update = function () {
+Game.prototype.update = function (settings) {
+  const RECORDS = {
+    name: settings.name,
+    max_core: this.score,
+  }
+
   if (this.spaceShip.state) {
     if (this.activeKeys.has('ArrowRight') && this.activeKeys.has('ArrowUp')) {
       this.spaceShip.moveRightUpX();
@@ -256,8 +259,9 @@ Game.prototype.update = function () {
   if (this.spaceShip.life <= 0) {
     this.spaceShip.state = false;
     if (!this.spaceShip.life) { renderAudios.createAudio(AUDIOS.gameOver) }
-    if (localStorage.getItem(MAX_SCORE) < this.score) {
-      localStorage.setItem(MAX_SCORE, this.score);
+    const localStorageData = JSON.parse(localStorage.getItem(MAX_SCORE));
+    if (localStorageData.max_core < this.score) {
+      localStorage.setItem(MAX_SCORE, JSON.stringify(RECORDS));
     }
   }
 
@@ -297,10 +301,15 @@ Game.prototype.update = function () {
     }
   });
 
+  const localStorageData = JSON.parse(localStorage.getItem(MAX_SCORE));
   this.ctx.fillStyle = "#ffffff";
   this.ctx.font = "24px Verdana";
   this.ctx.fillText(`Score: ${this.score >= 0 ? this.score : 0}`, 10, this.cvs.height - 20);
-  this.ctx.fillText(`Record: ${localStorage.getItem(MAX_SCORE) === null ? localStorage.setItem(MAX_SCORE, 0) : localStorage.getItem(MAX_SCORE)}`, 10, this.cvs.height - 570);
+  if (localStorageData === null) {
+    localStorage.setItem(MAX_SCORE, JSON.stringify(RECORDS));
+  } else {
+    this.ctx.fillText(`Record: ${localStorageData.name} - ${localStorageData.max_core}`, 10, this.cvs.height - 570);
+  }
 }
 
 export const game = new Game();
