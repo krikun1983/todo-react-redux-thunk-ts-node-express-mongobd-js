@@ -72,8 +72,8 @@ canvas {
 
 .btns-services {
   position: relative;
+  top: -10px;
   z-index: 1;
-  display: none;
   align-items: center;
 }
 
@@ -83,12 +83,7 @@ canvas {
   font-size: 20px;
 }
 
-.btn-service-next {
-  display: none;
-}
-
 .modal-registration {
-  display: none;
   position: absolute;
   padding: 10px 20px;
   font-size: 20px;
@@ -130,4 +125,8 @@ canvas {
   font-size: 20px;
   border: 1px solid var(--color-light-gray);
   border-radius: 5px;
+}
+
+.hidden {
+  display: none;
 }
