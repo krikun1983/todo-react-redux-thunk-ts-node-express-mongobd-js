@@ -1,4 +1,4 @@
-const ASTEROID_TWO = {
+const ASTEROID_WITH_BONUS = {
   size: {
     width: 160,
     height: 160,
@@ -15,4 +15,4 @@ const ASTEROID_TWO = {
   life: 6,
 }
 
-export default ASTEROID_TWO;
+export default ASTEROID_WITH_BONUS;

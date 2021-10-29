@@ -1,24 +1,9 @@
 import { gamePause } from '../../index.js';
-import Asteroid from './Asteroid.js';
-import AsteroidTwo from './AsteroidTwo.js';
-import ASTEROID from './constants/asteroid.js';
-import CANVAS from './constants/canvas.js';
-import HEART from './constants/heart.js';
-import SPACE_SHIP from './constants/space-ship.js';
-import collision from './utils/collision.js';
-import IMAGES from './images/Images.js';
-import { renderObject } from './RenderObject.js';
-import SpaceShip from './SpaceShip.js';
-import { gameFieldBg } from './StaticObject.js';
-import randoms from './utils/randoms.js';
-import Enemy from './Enemy.js';
-import ENEMY from './constants/enemy.js';
-import ASTEROID_TWO from './constants/asteroidTwo.js';
-import Heart from './Heart.js';
-import { renderAudios } from './RenderAudios.js';
-import AUDIOS from './audio/audio.js';
-import Explosion from './Explosion.js';
-import EXPLOSION from './constants/explosion.js';
+import { Asteroid, AsteroidWithBonus, SpaceShip, Enemy, Heart, Explosion, gameFieldBg } from './objects/index.js';
+import { ASTEROID, ASTEROID_WITH_BONUS, CANVAS, ENEMY, EXPLOSION, HEART, SPACE_SHIP } from './constants/index.js';
+import { collision, randoms } from './utils/index.js';
+import { renderObject, renderAudios } from './services/index.js';
+import { IMAGES, AUDIOS } from './path/index.js';
 
 const Game = function () {
   this.spaceShip = new SpaceShip(SPACE_SHIP.position, SPACE_SHIP.size, SPACE_SHIP.speed, SPACE_SHIP.state, SPACE_SHIP.life, SPACE_SHIP.magazine);
@@ -66,8 +51,8 @@ Game.prototype.render = function () {
     for (let i = 0; i < this.asteroids.length; i++) {
       if (this.asteroids[i].life && this.asteroids[i] instanceof Asteroid) {
         renderObject.CreateImg(IMAGES.asteroid, this.asteroids[i]);
-      } else if (this.asteroids[i].life && this.asteroids[i] instanceof AsteroidTwo) {
-        renderObject.CreateImg(IMAGES.asteroidTwo, this.asteroids[i]);
+      } else if (this.asteroids[i].life && this.asteroids[i] instanceof AsteroidWithBonus) {
+        renderObject.CreateImg(IMAGES.asteroidWithBonus, this.asteroids[i]);
       }
     }
   }
@@ -161,7 +146,7 @@ Game.prototype.update = function (settings) {
       if (randoms(1, 6) >= 2) {
         this.asteroids.push(new Asteroid({ x: ASTEROID.position.x, y: randoms(-20, 550) }, { width: randoms(150, 180), height: randoms(150, 180) }, { step: ASTEROID.speed.step * settings.difficult, dx: ASTEROID.speed.dx, dy: ASTEROID.speed.dy }, ASTEROID.life));
       } else {
-        this.asteroids.push(new AsteroidTwo({ x: ASTEROID_TWO.position.x, y: randoms(-20, 550) }, ASTEROID_TWO.size, { step: ASTEROID_TWO.speed.step * settings.difficult, dx: ASTEROID_TWO.speed.dx, dy: ASTEROID_TWO.speed.dy }, ASTEROID_TWO.life));
+        this.asteroids.push(new AsteroidWithBonus({ x: ASTEROID_WITH_BONUS.position.x, y: randoms(-20, 550) }, ASTEROID_WITH_BONUS.size, { step: ASTEROID_WITH_BONUS.speed.step * settings.difficult, dx: ASTEROID_WITH_BONUS.speed.dx, dy: ASTEROID_WITH_BONUS.speed.dy }, ASTEROID_WITH_BONUS.life));
       }
     }
     if (item.x < -200) {
@@ -190,7 +175,7 @@ Game.prototype.update = function (settings) {
           }
           if (item instanceof Asteroid) {
             this.score += 5;
-          } else if (item instanceof AsteroidTwo) {
+          } else if (item instanceof AsteroidWithBonus) {
             this.score += 8;
             this.bonuses.push(new Heart({ x: item.x + (item.width / 2), y: item.y + (item.height / 2) }, HEART.size, HEART.speed));
           }

@@ -1,4 +1,4 @@
-import ImagesLoad from './ImagesLoad.js';
+import { ImagesLoad } from './index.js';
 
 const RenderObject = function () {
   this.cvs = document.querySelector('canvas');

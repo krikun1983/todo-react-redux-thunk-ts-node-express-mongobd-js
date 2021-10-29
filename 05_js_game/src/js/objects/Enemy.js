@@ -1,7 +1,6 @@
-import Bullet from './Bullet.js';
-import BULLET from './constants/bullet.js';
-import { game } from './Game.js';
-import MobileObject from './MobileObject.js';
+import { BULLET } from '../constants/index.js';
+import { game } from '../Game.js';
+import { Bullet, MobileObject } from './index.js';
 
 const Enemy = function (position, size, speed, life, magazine) {
   MobileObject.call(this, position, size, speed);

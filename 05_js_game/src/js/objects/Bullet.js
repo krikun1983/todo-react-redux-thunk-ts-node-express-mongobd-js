@@ -1,4 +1,4 @@
-import MobileObject from './MobileObject.js';
+import { MobileObject } from './index.js';
 
 const Bullet = function (position, size, speed) {
   MobileObject.call(this, position, size, speed);

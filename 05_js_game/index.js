@@ -1,6 +1,6 @@
-import AUDIOS from './src/js/audio/audio.js';
+import { AUDIOS } from './src/js/path/index.js';
 import { game } from './src/js/Game.js';
-import { renderAudios } from './src/js/RenderAudios.js';
+import { renderAudios } from './src/js/services/index.js';
 
 const body = document.body;
 const btnMainStart = document.querySelector('.btn-main-start');

@@ -1,4 +1,4 @@
-import FIELD_BG from './constants/field-bg.js';
+import { FIELD_BG } from '../constants/index.js';
 
 export const StaticObject = function (position, size) {
   this.x = position.x;

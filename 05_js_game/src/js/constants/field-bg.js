@@ -1,4 +1,4 @@
-import CANVAS from './canvas.js';
+import { CANVAS } from './index.js';
 
 const FIELD_BG = {
   size: {

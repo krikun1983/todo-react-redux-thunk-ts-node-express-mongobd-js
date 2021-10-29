@@ -1,10 +1,8 @@
-import AUDIOS from './audio/audio.js';
-import Bullet from './Bullet.js';
-import BULLET from './constants/bullet.js';
-import CANVAS from './constants/canvas.js';
-import { game } from './Game.js';
-import MobileObject from './MobileObject.js';
-import { renderAudios } from './RenderAudios.js';
+import { AUDIOS } from '../path/index.js';
+import { BULLET, CANVAS } from '../constants/index.js';
+import { game } from '../Game.js';
+import { Bullet, MobileObject } from './index.js';
+import { renderAudios } from '../services/index.js';
 
 const SpaceShip = function (position, size, speed, state, life, magazine) {
   MobileObject.call(this, position, size, speed);
