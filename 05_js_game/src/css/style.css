@@ -83,8 +83,19 @@ canvas {
   font-size: 20px;
 }
 
+.modal-registration-window {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 .modal-registration {
   position: absolute;
+  top: calc(50% - 100px);
+  left: calc(50% - 150px);
   padding: 10px 20px;
   font-size: 20px;
   font-weight: bold;
@@ -143,11 +154,17 @@ canvas {
 
 .modal-info {
   position: absolute;
-  top: 50%;
-  margin-top: -245px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-info img {
+  position: absolute;
+  top: calc(50% - 245px);
+  left: calc(50% - 225px);
   width: 450px;
   height: 520px;
 }

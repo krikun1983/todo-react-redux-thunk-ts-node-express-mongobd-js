@@ -4,7 +4,7 @@ import { renderAudios } from './src/js/RenderAudios.js';
 
 const body = document.body;
 const btnMainStart = document.querySelector('.btn-main-start');
-const modalRegistration = document.querySelector('.modal-registration');
+const modalRegistration = document.querySelector('.modal-registration-window');
 const modalInfo = document.querySelector('.modal-info');
 const btnsServices = document.querySelector('.btns-services');
 const btnGameNext = document.querySelector('.btn-service-next');
@@ -50,7 +50,7 @@ body.addEventListener('click', (event) => {
     btnsServices.classList.remove('hidden');
     gameLoop();
     renderAudios.createAudio(AUDIOS.begin);
-  } else if (btnsEvent.classList.contains('form-btn-cancel')) {
+  } else if (btnsEvent.classList.contains('form-btn-cancel') || btnsEvent.classList.contains('modal-registration-window')) {
     btnMainStart.classList.remove('hidden');
     modalRegistration.classList.add('hidden');
   } else if (btnsEvent.classList.contains('btn-service-next')) {
@@ -64,6 +64,8 @@ body.addEventListener('click', (event) => {
   } else if (btnsEvent.classList.contains('btn-service-game')) {
     window.location.reload();
   } else if (btnsEvent.classList.contains('btn-info')) {
+    modalInfo.classList.toggle('hidden');
+  } else if (btnsEvent.classList.contains('modal-info')) {
     modalInfo.classList.toggle('hidden');
   }
 })
