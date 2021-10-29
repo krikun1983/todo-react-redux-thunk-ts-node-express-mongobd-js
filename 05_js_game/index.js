@@ -1,22 +1,13 @@
-import { AUDIOS } from './src/js/path/index.js';
 import { game } from './src/js/Game.js';
-import { renderAudios } from './src/js/services/index.js';
-import { gamePause } from './src/js/utils/index.js';
+import { listeners } from './src/js/utils/index.js';
 
 const body = document.body;
-const btnMainStart = document.querySelector('.btn-main-start');
-const modalRegistration = document.querySelector('.modal-registration-window');
-const modalInfo = document.querySelector('.modal-info');
-const btnsServices = document.querySelector('.btns-services');
-const btnGameNext = document.querySelector('.btn-service-next');
-const btnGamePause = document.querySelector('.btn-service-pause');
-const settings = {};
 const cvs = document.querySelector('canvas');
 const ctx = cvs.getContext('2d');
 
 const gameLoop = () => {
   if (game.spaceShip.state && !game.isPause) {
-    game.update(settings);
+    game.update();
     game.render();
   } else if (!game.spaceShip.state) {
     ctx.fillStyle = "#ffffff";
@@ -29,38 +20,7 @@ const gameLoop = () => {
 }
 
 body.addEventListener('click', (event) => {
-  const btnsEvent = event.target;
-  if (btnsEvent.classList.contains('btn-main-start')) {
-    btnMainStart.classList.add('hidden');
-    modalRegistration.classList.remove('hidden');
-  } else if (btnsEvent.classList.contains('form-btn-start')) {
-    event.preventDefault();
-    settings.name = document.querySelector('.modal-registration-name').value === ''
-      ? 'Unknown'
-      : document.querySelector('.modal-registration-name').value;
-    settings.difficult = document.querySelector('.modal-registration-difficult').value;
-    modalRegistration.classList.add('hidden');
-    btnsServices.classList.remove('hidden');
-    gameLoop();
-    renderAudios.createAudio(AUDIOS.begin);
-  } else if (btnsEvent.classList.contains('form-btn-cancel') || btnsEvent.classList.contains('modal-registration-window')) {
-    btnMainStart.classList.remove('hidden');
-    modalRegistration.classList.add('hidden');
-  } else if (btnsEvent.classList.contains('btn-service-next')) {
-    btnGameNext.classList.add('hidden');
-    btnGamePause.classList.remove('hidden');
-    gamePause();
-  } else if (btnsEvent.classList.contains('btn-service-pause')) {
-    btnGameNext.classList.remove('hidden');
-    btnGamePause.classList.add('hidden');
-    gamePause();
-  } else if (btnsEvent.classList.contains('btn-service-game')) {
-    window.location.reload();
-  } else if (btnsEvent.classList.contains('btn-info')) {
-    modalInfo.classList.toggle('hidden');
-  } else if (btnsEvent.classList.contains('modal-info')) {
-    modalInfo.classList.toggle('hidden');
-  }
-})
+  listeners(event, gameLoop);
+});
 
 game.init();
