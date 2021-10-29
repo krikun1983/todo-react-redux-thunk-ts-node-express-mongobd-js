@@ -1,7 +1,6 @@
-import { gamePause } from '../../index.js';
 import { Asteroid, AsteroidWithBonus, SpaceShip, Enemy, Heart, Explosion, gameFieldBg } from './objects/index.js';
 import { ASTEROID, ASTEROID_WITH_BONUS, CANVAS, ENEMY, EXPLOSION, HEART, SPACE_SHIP } from './constants/index.js';
-import { collision, randoms } from './utils/index.js';
+import { collision, randoms, gamePause } from './utils/index.js';
 import { renderObject, renderAudios } from './services/index.js';
 import { IMAGES, AUDIOS } from './path/index.js';
 

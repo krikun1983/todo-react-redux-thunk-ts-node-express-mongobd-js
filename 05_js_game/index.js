@@ -1,6 +1,7 @@
 import { AUDIOS } from './src/js/path/index.js';
 import { game } from './src/js/Game.js';
 import { renderAudios } from './src/js/services/index.js';
+import { gamePause } from './src/js/utils/index.js';
 
 const body = document.body;
 const btnMainStart = document.querySelector('.btn-main-start');
@@ -12,14 +13,6 @@ const btnGamePause = document.querySelector('.btn-service-pause');
 const settings = {};
 const cvs = document.querySelector('canvas');
 const ctx = cvs.getContext('2d');
-
-export const gamePause = () => {
-  if (!game.isPause) {
-    game.isPause = true;
-  } else if (game.isPause) {
-    game.isPause = false;
-  }
-}
 
 const gameLoop = () => {
   if (game.spaceShip.state && !game.isPause) {
