@@ -17,6 +17,7 @@ const Game = function () {
   this.enemyBullets = [];
   this.bonuses = [];
   this.explosions = [];
+  this.localStorage = { name: 'Unknown', max_core: 0 };
 }
 
 Game.prototype.init = function () {
@@ -150,7 +151,7 @@ Game.prototype.update = function () {
     }
     if (item.x < -200) {
       this.asteroids.splice(0, 1);
-      this.score--;
+      this.score > 0 ? this.score -= 1 : this.score = 0;
     }
     if (collision(this.spaceShip, item)) {
       this.spaceShip.life -= 1;
@@ -160,7 +161,7 @@ Game.prototype.update = function () {
       if (this.explosions[0].timer <= 30) {
         this.explosions.splice(i, 1);
       }
-      this.score -= 5;
+      this.score > 0 ? this.score -= 5 : this.score = 0;
     }
     this.bullets.forEach((bullet, k) => {
       if (collision(item, bullet)) {
@@ -205,7 +206,7 @@ Game.prototype.update = function () {
     }
     if (item.x < -100) {
       this.enemies.splice(0, 1);
-      this.score--;
+      this.score > 0 ? this.score -= 1 : this.score = 0;
     }
     if (collision(this.spaceShip, item)) {
       this.spaceShip.life -= 1;
@@ -215,7 +216,7 @@ Game.prototype.update = function () {
       if (this.explosions[0].timer <= 30) {
         this.explosions.splice(i, 1);
       }
-      this.score -= 5;
+      this.score > 0 ? this.score -= 5 : this.score = 0;
     }
     this.bullets.forEach((bullet, k) => {
       if (collision(item, bullet)) {
@@ -247,8 +248,10 @@ Game.prototype.update = function () {
     if (!this.spaceShip.life) { renderAudios.createAudio(AUDIOS.gameOver) }
     const localStorageData = JSON.parse(localStorage.getItem(settings.difficult));
     if (localStorageData.max_core < this.score) {
+      RECORDS.max_core = this.score;
       localStorage.setItem(settings.difficult, JSON.stringify(RECORDS));
     }
+    this.localStorage = JSON.parse(localStorage.getItem(settings.difficult));
   }
 
   this.bullets.forEach((bullet, i) => {
@@ -290,7 +293,8 @@ Game.prototype.update = function () {
   const localStorageData = JSON.parse(localStorage.getItem(settings.difficult));
   this.ctx.fillStyle = "#ffffff";
   this.ctx.font = "24px Verdana";
-  this.ctx.fillText(`Score: ${this.score >= 0 ? this.score : 0}`, 10, this.cvs.height - 20);
+  this.ctx.fillText(`Score: ${this.score}`, 10, this.cvs.height - 20);
+
   if (localStorageData === null) {
     localStorage.setItem(settings.difficult, JSON.stringify(RECORDS));
   } else {

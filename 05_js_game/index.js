@@ -12,7 +12,12 @@ const gameLoop = () => {
   } else if (!game.spaceShip.state) {
     ctx.fillStyle = "#ffffff";
     ctx.font = "30px Verdana";
-    ctx.fillText(`Game Over ${game.score >= 0 ? game.score : 0}`, 430, 300);
+    if (game.localStorage.max_core > game.score) {
+      ctx.fillText(`Game Over. Your game score - ${game.score}`, 250, 290);
+    } else {
+      ctx.fillText(`Game Over. Congratulations ${game.localStorage.name}!!!`, 220, 300);
+      ctx.fillText(`You has set a new record - ${game.localStorage.max_core}`, 280, 350);
+    }
   }
   window.requestAnimationFrame(() => {
     gameLoop();
@@ -24,3 +29,5 @@ body.addEventListener('click', (event) => {
 });
 
 game.init();
+
+
