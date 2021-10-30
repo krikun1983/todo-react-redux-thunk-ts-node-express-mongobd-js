@@ -17,7 +17,6 @@ const Game = function () {
   this.enemyBullets = [];
   this.bonuses = [];
   this.explosions = [];
-  this.localStorage = { name: 'Unknown', max_core: 0 };
 }
 
 Game.prototype.init = function () {
@@ -94,33 +93,21 @@ Game.prototype.update = function () {
 
   if (this.spaceShip.state) {
     if (this.activeKeys.has('ArrowRight') && this.activeKeys.has('ArrowUp')) {
-      this.spaceShip.moveRightUpX();
-      this.spaceShip.x <= CANVAS.size.width - this.spaceShip.width ? this.spaceShip.x += this.spaceShip.dx : this.spaceShip.stop();
-      this.spaceShip.y > 0 ? this.spaceShip.y += this.spaceShip.dy : this.spaceShip.stop();
+      this.spaceShip.x <= CANVAS.size.width - this.spaceShip.width && this.spaceShip.y > 0 ? this.spaceShip.moveRightUpX() : this.spaceShip.stop();
     } else if (this.activeKeys.has('ArrowLeft') && this.activeKeys.has('ArrowUp')) {
-      this.spaceShip.moveLeftUpX();
-      this.spaceShip.x >= 0 ? this.spaceShip.x += this.spaceShip.dx : this.spaceShip.stop();
-      this.spaceShip.y > 0 ? this.spaceShip.y += this.spaceShip.dy : this.spaceShip.stop();
+      this.spaceShip.x >= 0 && this.spaceShip.y > 0 ? this.spaceShip.moveLeftUpX() : this.spaceShip.stop();
     } else if (this.activeKeys.has('ArrowLeft') && this.activeKeys.has('ArrowDown')) {
-      this.spaceShip.moveLeftDownX();
-      this.spaceShip.x >= 0 ? this.spaceShip.x += this.spaceShip.dx : this.spaceShip.stop();
-      this.spaceShip.y < CANVAS.size.height - this.spaceShip.height ? this.spaceShip.y += this.spaceShip.dy : this.spaceShip.stop();
+      this.spaceShip.x >= 0 && this.spaceShip.y < CANVAS.size.height - this.spaceShip.height ? this.spaceShip.moveLeftDownX() : this.spaceShip.stop();
     } else if (this.activeKeys.has('ArrowRight') && this.activeKeys.has('ArrowDown')) {
-      this.spaceShip.moveRightDownX();
-      this.spaceShip.x <= CANVAS.size.width - this.spaceShip.width ? this.spaceShip.x += this.spaceShip.dx : this.spaceShip.stop();
-      this.spaceShip.y < CANVAS.size.height - this.spaceShip.height ? this.spaceShip.y += this.spaceShip.dy : this.spaceShip.stop();
+      this.spaceShip.x && this.spaceShip.y < CANVAS.size.height - this.spaceShip.height <= CANVAS.size.width - this.spaceShip.width ? this.spaceShip.moveRightDownX() : this.spaceShip.stop();
     } else if (this.activeKeys.has('ArrowUp')) {
-      this.spaceShip.moveUpY();
-      this.spaceShip.y > 0 ? this.spaceShip.y += this.spaceShip.dy : this.spaceShip.stop();
+      this.spaceShip.y > 0 ? this.spaceShip.moveUpY() : this.spaceShip.stop();
     } else if (this.activeKeys.has('ArrowDown')) {
-      this.spaceShip.moveDownY();
-      this.spaceShip.y < CANVAS.size.height - this.spaceShip.height ? this.spaceShip.y += this.spaceShip.dy : this.spaceShip.stop();
+      this.spaceShip.y < CANVAS.size.height - this.spaceShip.height ? this.spaceShip.moveDownY() : this.spaceShip.stop();
     } else if (this.activeKeys.has('ArrowLeft')) {
-      this.spaceShip.moveLeftX();
-      this.spaceShip.x >= 0 ? this.spaceShip.x += this.spaceShip.dx : this.spaceShip.stop();
+      this.spaceShip.x >= 0 ? this.spaceShip.moveLeftX() : this.spaceShip.stop();
     } else if (this.activeKeys.has('ArrowRight')) {
-      this.spaceShip.moveRightX();
-      this.spaceShip.x <= CANVAS.size.width - this.spaceShip.width ? this.spaceShip.x += this.spaceShip.dx : this.spaceShip.stop();
+      this.spaceShip.x <= CANVAS.size.width - this.spaceShip.width ? this.spaceShip.moveRightX() : this.spaceShip.stop();
     } else if (
       !(
         this.activeKeys.has('ArrowRight') &&
@@ -129,24 +116,23 @@ Game.prototype.update = function () {
         this.activeKeys.has('ArrowUp')
       )
     ) {
-      this.spaceShip.moveLeftX();
       this.spaceShip.x >= 0 ? this.spaceShip.x-- : this.spaceShip.stop();
       renderObject.CreateImg(IMAGES.dragonFire, { x: this.spaceShip.x - 34, y: this.spaceShip.y + 11, width: 50, height: 19 });
     }
   }
 
   if (this.asteroids.length === 0) {
-    this.asteroids.push(new Asteroid({ x: ASTEROID.position.x, y: randoms(-20, 550) }, { width: randoms(150, 180), height: randoms(150, 180) }, { step: ASTEROID.speed.step * settings.difficult, dx: ASTEROID.speed.dx, dy: ASTEROID.speed.dy }, ASTEROID.life));
+    this.asteroids.push(new Asteroid({ x: ASTEROID.position.x, y: randoms(-20, 550) }, { width: randoms(150, 180), height: randoms(150, 180) }, ASTEROID.speed * settings.difficult, ASTEROID.life));
   }
 
   this.asteroids.forEach((item, i) => {
     item.moveLeftX();
-    item.x += item.dx;
+
     if (item.x === 900) {
       if (randoms(1, 6) >= 2) {
-        this.asteroids.push(new Asteroid({ x: ASTEROID.position.x, y: randoms(-20, 550) }, { width: randoms(150, 180), height: randoms(150, 180) }, { step: ASTEROID.speed.step * settings.difficult, dx: ASTEROID.speed.dx, dy: ASTEROID.speed.dy }, ASTEROID.life));
+        this.asteroids.push(new Asteroid({ x: ASTEROID.position.x, y: randoms(-20, 550) }, { width: randoms(150, 180), height: randoms(150, 180) }, ASTEROID.speed * settings.difficult, ASTEROID.life));
       } else {
-        this.asteroids.push(new AsteroidWithBonus({ x: ASTEROID_WITH_BONUS.position.x, y: randoms(-20, 550) }, ASTEROID_WITH_BONUS.size, { step: ASTEROID_WITH_BONUS.speed.step * settings.difficult, dx: ASTEROID_WITH_BONUS.speed.dx, dy: ASTEROID_WITH_BONUS.speed.dy }, ASTEROID_WITH_BONUS.life));
+        this.asteroids.push(new AsteroidWithBonus({ x: ASTEROID_WITH_BONUS.position.x, y: randoms(-20, 550) }, ASTEROID_WITH_BONUS.size, ASTEROID_WITH_BONUS.speed * settings.difficult, ASTEROID_WITH_BONUS.life));
       }
     }
     if (item.x < -200) {
@@ -187,7 +173,6 @@ Game.prototype.update = function () {
 
   this.explosions.forEach(item => {
     item.moveLeftX();
-    item.x += item.dx;
     item.timerUpdate();
     if (item.timer < 30) {
       this.explosions.splice(0, 1);
@@ -195,14 +180,13 @@ Game.prototype.update = function () {
   })
 
   if (this.enemies.length === 0) {
-    this.enemies.push(new Enemy({ x: ENEMY.position.x, y: randoms(-20, 550) }, ENEMY.size, { step: ENEMY.speed.step * settings.difficult, dx: ENEMY.speed.dx, dy: ENEMY.speed.dy }, ENEMY.life, ENEMY.magazine));
+    this.enemies.push(new Enemy({ x: ENEMY.position.x, y: randoms(-20, 550) }, ENEMY.size, ENEMY.speed * settings.difficult, ENEMY.life, ENEMY.magazine));
   }
 
   this.enemies.forEach((item, i) => {
     item.moveLeftX();
-    item.x += item.dx;
     if (item.x === 900) {
-      this.enemies.push(new Enemy({ x: ENEMY.position.x, y: randoms(-20, 550) }, ENEMY.size, { step: ENEMY.speed.step * settings.difficult, dx: ENEMY.speed.dx, dy: ENEMY.speed.dy }, ENEMY.life, ENEMY.magazine));
+      this.enemies.push(new Enemy({ x: ENEMY.position.x, y: randoms(-20, 550) }, ENEMY.size, ENEMY.speed * settings.difficult, ENEMY.life, ENEMY.magazine));
     }
     if (item.x < -100) {
       this.enemies.splice(0, 1);
@@ -256,15 +240,13 @@ Game.prototype.update = function () {
 
   this.bullets.forEach((bullet, i) => {
     bullet.moveRightX();
-    bullet.x += bullet.dx;
     if (bullet.x > CANVAS.size.width) {
       this.bullets.splice(i, 1);
     }
   });
 
   this.enemyBullets.forEach((bullet, i) => {
-    bullet.moveLeftX();
-    bullet.x += bullet.dx - settings.difficult;
+    bullet.moveLeftX() - settings.difficult;
     if (bullet.x < CANVAS.position.x - 10) {
       this.enemyBullets.splice(i, 1);
     }
@@ -279,7 +261,6 @@ Game.prototype.update = function () {
 
   this.bonuses.forEach((heart, i) => {
     heart.moveLeftX();
-    heart.x += heart.dx;
     if (collision(this.spaceShip, heart)) {
       this.spaceShip.life < 5 ? this.spaceShip.life += 1 : 0;
       renderAudios.createAudio(AUDIOS.bonus);

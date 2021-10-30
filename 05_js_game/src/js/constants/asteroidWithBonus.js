@@ -7,11 +7,7 @@ const ASTEROID_WITH_BONUS = {
     x: 1200,
     y: 0,
   },
-  speed: {
-    step: 1,
-    dx: 0,
-    dy: 0,
-  },
+  speed: 1,
   life: 6,
 }
 

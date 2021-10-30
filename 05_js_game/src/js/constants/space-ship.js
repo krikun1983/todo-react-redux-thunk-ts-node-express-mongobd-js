@@ -7,11 +7,7 @@ const SPACE_SHIP = {
     x: 10,
     y: 300,
   },
-  speed: {
-    step: 4,
-    dx: 0,
-    dy: 0,
-  },
+  speed: 4,
   state: true,
   life: 5,
   magazine: 6,

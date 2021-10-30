@@ -7,11 +7,7 @@ const BULLET = {
     x: 100,
     y: 320,
   },
-  speed: {
-    step: 4,
-    dx: 0,
-    dy: 0,
-  },
+  speed: 4,
 }
 
 export default BULLET;

@@ -7,11 +7,7 @@ const HEART = {
     x: 740,
     y: 10,
   },
-  speed: {
-    step: 1,
-    dx: 0,
-    dy: 0,
-  },
+  speed: 1,
 }
 
 export default HEART;

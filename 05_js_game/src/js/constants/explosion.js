@@ -7,11 +7,7 @@ const EXPLOSION = {
     x: 0,
     y: 0,
   },
-  speed: {
-    step: 1,
-    dx: 0,
-    dy: 0,
-  },
+  speed: 1,
 }
 
 export default EXPLOSION;

@@ -7,11 +7,7 @@ const ENEMY = {
     x: 1200,
     y: 0,
   },
-  speed: {
-    step: 1.5,
-    dx: 0,
-    dy: 0,
-  },
+  speed: 1.5,
   life: 2,
   magazine: 1,
 }
