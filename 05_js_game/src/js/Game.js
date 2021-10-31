@@ -41,7 +41,7 @@ Game.prototype.keyboarderMoveShip = function () {
 
 Game.prototype.render = function () {
   renderObject.CreateImg(IMAGES.background, gameFieldBg);
-  if (this.spaceShip.state) {
+  if (this.spaceShip.isMove) {
     renderObject.CreateImg(IMAGES.dragonFire, { x: this.spaceShip.x - 24, y: this.spaceShip.y + 11, width: 40, height: 20 });
   }
   renderObject.CreateImg(IMAGES.spaceShip, this.spaceShip);
@@ -94,20 +94,28 @@ Game.prototype.update = function () {
   if (this.spaceShip.state) {
     if (this.activeKeys.has('ArrowRight') && this.activeKeys.has('ArrowUp')) {
       this.spaceShip.x <= CANVAS.size.width - this.spaceShip.width && this.spaceShip.y > 0 ? this.spaceShip.moveRightUpX() : this.spaceShip.stop();
+      this.spaceShip.isMove = true;
     } else if (this.activeKeys.has('ArrowLeft') && this.activeKeys.has('ArrowUp')) {
       this.spaceShip.x >= 0 && this.spaceShip.y > 0 ? this.spaceShip.moveLeftUpX() : this.spaceShip.stop();
+      this.spaceShip.isMove = true;
     } else if (this.activeKeys.has('ArrowLeft') && this.activeKeys.has('ArrowDown')) {
       this.spaceShip.x >= 0 && this.spaceShip.y < CANVAS.size.height - this.spaceShip.height ? this.spaceShip.moveLeftDownX() : this.spaceShip.stop();
+      this.spaceShip.isMove = true;
     } else if (this.activeKeys.has('ArrowRight') && this.activeKeys.has('ArrowDown')) {
       this.spaceShip.x && this.spaceShip.y < CANVAS.size.height - this.spaceShip.height <= CANVAS.size.width - this.spaceShip.width ? this.spaceShip.moveRightDownX() : this.spaceShip.stop();
+      this.spaceShip.isMove = true;
     } else if (this.activeKeys.has('ArrowUp')) {
       this.spaceShip.y > 0 ? this.spaceShip.moveUpY() : this.spaceShip.stop();
+      this.spaceShip.isMove = true;
     } else if (this.activeKeys.has('ArrowDown')) {
       this.spaceShip.y < CANVAS.size.height - this.spaceShip.height ? this.spaceShip.moveDownY() : this.spaceShip.stop();
+      this.spaceShip.isMove = true;
     } else if (this.activeKeys.has('ArrowLeft')) {
       this.spaceShip.x >= 0 ? this.spaceShip.moveLeftX() : this.spaceShip.stop();
+      this.spaceShip.isMove = true;
     } else if (this.activeKeys.has('ArrowRight')) {
       this.spaceShip.x <= CANVAS.size.width - this.spaceShip.width ? this.spaceShip.moveRightX() : this.spaceShip.stop();
+      this.spaceShip.isMove = true;
     } else if (
       !(
         this.activeKeys.has('ArrowRight') &&
@@ -117,7 +125,7 @@ Game.prototype.update = function () {
       )
     ) {
       this.spaceShip.x >= 0 ? this.spaceShip.x-- : this.spaceShip.stop();
-      renderObject.CreateImg(IMAGES.dragonFire, { x: this.spaceShip.x - 34, y: this.spaceShip.y + 11, width: 50, height: 19 });
+      this.spaceShip.isMove = false;
     }
   }
 

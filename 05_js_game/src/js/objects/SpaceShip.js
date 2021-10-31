@@ -9,6 +9,7 @@ const SpaceShip = function (position, size, speed, state, life, magazine) {
   this.state = state;
   this.life = life;
   this.magazine = magazine;
+  this.isMove = false;
 }
 
 SpaceShip.prototype = Object.create(MobileObject.prototype);
