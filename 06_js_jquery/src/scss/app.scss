@@ -1,1 +1,23 @@
 @import 'basic';
+
+html,
+body,
+main {
+  height: 100%;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.table-container {
+  width: 100%;
+  max-width: 800px;
+}
+
+.btns {
+  width: 15;
+  text-align: right;
+}

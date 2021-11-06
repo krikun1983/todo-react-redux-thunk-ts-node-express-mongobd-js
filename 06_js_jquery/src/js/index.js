@@ -1,4 +1,4 @@
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import mainControllerOfTable from './modules/MainControllerOfTable';
 import '../scss/app.scss';
 
