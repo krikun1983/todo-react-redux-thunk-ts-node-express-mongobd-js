@@ -20,6 +20,17 @@ class DataProductsForTableView {
       rows += this.templateRowForTable(item);
     });
     const table = `
+      <form class="form-row row g-3">
+        <div class="col-auto">
+          <input type="text" class="form-control" placeholder="Фильтр по подстроке в имени товара"/>
+        </div>
+        <div class="col-auto">
+          <button type="button" class="btn btn-secondary">Search</button>
+        </div>
+        <div class="col-auto btn-add">
+          <button type="button" class="btn btn-secondary">Add products</button>
+        </div>
+      </form>
       <table class="table table-striped table-hover caption-top">
         <caption>List of products</caption>
         <thead class="table-dark">

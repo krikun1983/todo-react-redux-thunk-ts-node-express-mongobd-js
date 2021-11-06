@@ -21,3 +21,18 @@ main {
   width: 15;
   text-align: right;
 }
+
+.btn-add {
+  margin-left: auto;
+}
+
+.form-row {
+  width: 100%;
+  .col-auto:nth-child(1) {
+    width: 50%;
+  }
+}
+
+.form-control {
+  min-width: 300px
+}
