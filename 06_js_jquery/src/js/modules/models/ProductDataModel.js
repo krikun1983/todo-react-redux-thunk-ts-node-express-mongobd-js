@@ -3,7 +3,9 @@ class ProductDataModel {
     this.id = props.id;
     this.name = props.name;
     this.count = props.count;
+    this.email = props.email;
     this.price = props.price;
+    this.delivery = props.delivery;
   }
 }
 
