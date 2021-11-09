@@ -1,4 +1,4 @@
-import ProductDataModel from '../models/ProductDataModel.js';
+import ProductDataModel from '../../models/ProductDataModel.js';
 import ProductDataView from './view/ProductDataView.js';
 
 class ModalWindowController {

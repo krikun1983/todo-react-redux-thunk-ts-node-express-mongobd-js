@@ -1,5 +1,6 @@
 import { API_ROOT_URL } from '../constants/Api';
-import ModalWindowController from './modalWindow/ModalWindowController';
+import ModalDeleteController from './modals/modalDeleteProducts/ModalDeleteController';
+import ModalWindowController from './modals/modalWindow/ModalWindowController';
 import DataProductsForTable from './models/DataProductsForTable';
 import DataProductsForTableView from './viewModels/DataProductsForTableView';
 
@@ -10,7 +11,8 @@ class MainControllerOfTable {
       handlers: {
         openEditModal: this.openEditModal.bind(this),
         searchProduct: this.searchProduct.bind(this),
-        deleteProduct: this.deleteProduct.bind(this),
+        openDeleteModal: this.openDeleteModal.bind(this),
+        sortFieldProductsTable: this.sortFieldProductsTable.bind(this),
       },
     });
   }
@@ -18,6 +20,7 @@ class MainControllerOfTable {
   async init() {
     await this.dataProductsTable.getProducts(API_ROOT_URL);
     this.viewProductsTable.render(this.dataProductsTable.products);
+    this.viewProductsTable.listeners();
   }
 
   async searchProduct(search) {
@@ -33,6 +36,17 @@ class MainControllerOfTable {
 
   async deleteProduct(id) {
     await this.dataProductsTable.deleteProduct(id);
+    this.viewProductsTable.render(this.dataProductsTable.products);
+  }
+
+  async openDeleteModal(id) {
+    const productCurrent = this.dataProductsTable.products.find((item) => (item.id === id));
+    const modal = new ModalDeleteController(productCurrent, this.deleteProduct.bind(this));
+    modal.show();
+  }
+
+  sortFieldProductsTable(field, sorts) {
+    this.dataProductsTable.sortTable(field, sorts);
     this.viewProductsTable.render(this.dataProductsTable.products);
   }
 

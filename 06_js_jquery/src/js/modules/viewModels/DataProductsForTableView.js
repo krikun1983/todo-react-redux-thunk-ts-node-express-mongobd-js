@@ -4,6 +4,8 @@ class DataProductsForTableView {
   constructor(props) {
     this.$root = $('.table-container');
     this.searchValue = '';
+    this.statusSortName = false;
+    this.statusSortPrice = false;
     this.handlers = props.handlers;
     this.templateRowForTable = (product) => `
       <tr>
@@ -37,8 +39,8 @@ class DataProductsForTableView {
         <caption>List of products</caption>
         <thead class="table-dark">
           <tr>
-            <th>Name</th>
-            <th>Price</th>
+            <th class="sort-name" data-action="sort-name">Name ${this.statusSortName ? '▽' : '△'}</th>
+            <th class="sort-price" data-action="sort-price">Price ${this.statusSortPrice ? '△' : '▽'}</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -48,7 +50,17 @@ class DataProductsForTableView {
       </table>
     `;
     this.$root.html(table);
-    this.listeners();
+  }
+
+  sortFieldProductsTable(event, field) {
+    const targetClick = event.target;
+    if (targetClick.matches('.sort-name')) {
+      this.statusSortName = !this.statusSortName;
+      this.handlers.sortFieldProductsTable(field, this.statusSortName);
+    } else {
+      this.statusSortPrice = !this.statusSortPrice;
+      this.handlers.sortFieldProductsTable(field, this.statusSortPrice);
+    }
   }
 
   openEditModal(event) {
@@ -56,9 +68,9 @@ class DataProductsForTableView {
     this.handlers.openEditModal(id);
   }
 
-  deleteProduct(event) {
+  openDeleteModal(event) {
     const id = event.target.getAttribute('data-productId');
-    this.handlers.deleteProduct(id);
+    this.handlers.openDeleteModal(id);
   }
 
   listeners() {
@@ -69,9 +81,11 @@ class DataProductsForTableView {
     this.$root.on('input', 'input[data-action="search-value"]', (e) => {
       this.searchValue = e.target.value;
     });
+    this.$root.on('click', '[data-action="sort-name"]', (e) => { this.sortFieldProductsTable(e, 'name'); });
+    this.$root.on('click', '[data-action="sort-price"]', (e) => { this.sortFieldProductsTable(e, 'price'); });
     this.$root.on('click', '[data-action="add"]', () => { console.log('add'); });
     this.$root.on('click', '[data-action="edit"]', (e) => { this.openEditModal(e); });
-    this.$root.on('click', '[data-action="delete"]', (e) => { this.deleteProduct(e); });
+    this.$root.on('click', '[data-action="delete"]', (e) => { this.openDeleteModal(e); });
   }
 }
 
