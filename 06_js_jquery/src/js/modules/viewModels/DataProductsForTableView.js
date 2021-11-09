@@ -56,6 +56,11 @@ class DataProductsForTableView {
     this.handlers.openEditModal(id);
   }
 
+  deleteProduct(event) {
+    const id = event.target.getAttribute('data-productId');
+    this.handlers.deleteProduct(id);
+  }
+
   listeners() {
     this.$root.on('click', '[data-action="search"]', () => {
       this.handlers.searchProduct(this.searchValue);
@@ -66,7 +71,7 @@ class DataProductsForTableView {
     });
     this.$root.on('click', '[data-action="add"]', () => { console.log('add'); });
     this.$root.on('click', '[data-action="edit"]', (e) => { this.openEditModal(e); });
-    this.$root.on('click', '[data-action="delete"]', () => { console.log('delete'); });
+    this.$root.on('click', '[data-action="delete"]', (e) => { this.deleteProduct(e); });
   }
 }
 

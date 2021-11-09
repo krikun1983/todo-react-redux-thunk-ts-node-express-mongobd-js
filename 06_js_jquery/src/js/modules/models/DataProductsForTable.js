@@ -1,4 +1,4 @@
-import { API_ROOT_URL } from '../../constants/Api';
+import { API_ROOT_URL, API_URL_DELETE } from '../../constants/Api';
 import ProductDataModel from './ProductDataModel';
 
 class DataProductsForTable {
@@ -32,6 +32,11 @@ class DataProductsForTable {
     } else {
       await this.getProducts(API_ROOT_URL);
     }
+  }
+
+  async deleteProduct(id) {
+    await fetch(`${API_URL_DELETE}${id}`, { method: 'DELETE' });
+    await this.getProducts(API_ROOT_URL);
   }
 }
 

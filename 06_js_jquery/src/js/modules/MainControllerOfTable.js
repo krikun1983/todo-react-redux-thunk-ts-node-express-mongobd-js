@@ -10,6 +10,7 @@ class MainControllerOfTable {
       handlers: {
         openEditModal: this.openEditModal.bind(this),
         searchProduct: this.searchProduct.bind(this),
+        deleteProduct: this.deleteProduct.bind(this),
       },
     });
   }
@@ -28,6 +29,11 @@ class MainControllerOfTable {
     const productCurrent = this.dataProductsTable.products.find((item) => (item.id === id));
     const modal = new ModalWindowController(productCurrent);
     modal.show();
+  }
+
+  async deleteProduct(id) {
+    await this.dataProductsTable.deleteProduct(id);
+    this.viewProductsTable.render(this.dataProductsTable.products);
   }
 
   // addProduct() {
