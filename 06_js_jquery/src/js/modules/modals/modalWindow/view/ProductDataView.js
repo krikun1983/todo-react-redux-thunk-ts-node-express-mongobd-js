@@ -43,7 +43,6 @@ class ProductDataView {
               </label>
               <label for="count">
                 Count:
-                <div class="modal-root_error_count"></div>
                 <input id="count" name="count" value="${productCurrent.count}" type="number" data-info="info" data-action="update-count" />
               </label>
               <label for="price">

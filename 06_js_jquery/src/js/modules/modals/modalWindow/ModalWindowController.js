@@ -56,17 +56,15 @@ class ModalWindowController {
     return false;
   }
 
-  static validationCount(count, countErrors) {
+  static validationCount(count) {
     if (count.value === '' || +count.value < 0) { $(count).val('0'); }
     const reg = /^[0-9]+$/g;
 
     if (count.value.match(reg)) {
       $(count).removeClass('error');
-      $(countErrors).text('');
       return true;
     }
     $(count).addClass('error');
-    $(countErrors).text('Count не может быть пустым и можно вводить только цифры. Другие символы не допускаются!');
     return false;
   }
 
@@ -96,13 +94,12 @@ class ModalWindowController {
     const email = document.querySelector('#email');
     const emailErrors = document.querySelector('.modal-root_error_email');
     const count = document.querySelector('#count');
-    const countErrors = document.querySelector('.modal-root_error_count');
     const price = document.querySelector('#price');
 
     if (
       ModalWindowController.validationName(name, nameError)
       && ModalWindowController.validationEmail(email, emailErrors)
-      && ModalWindowController.validationCount(count, countErrors)
+      && ModalWindowController.validationCount(count)
       && ModalWindowController.validationPrice(price)
     ) {
       btnValid.disabled = false;
