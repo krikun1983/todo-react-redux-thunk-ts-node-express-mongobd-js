@@ -30,7 +30,7 @@ class ModalWindowController {
     const nameErrorsNew = nameErrors;
     if (nameLen === 0 || nameLen > 15) {
       name.classList.add('error');
-      nameErrorsNew.textContent = 'Поле не может быть пустым или только из пробелов или не больше 15 символов';
+      nameErrorsNew.textContent = 'Поле не может быть пустым или только из пробелов или не больше 15 символов!';
       name.focus();
       return false;
     }
@@ -50,7 +50,22 @@ class ModalWindowController {
       return true;
     }
     email.classList.add('error');
-    emailErrorsNew.textContent = 'Email не может быть пустым и должен соответствовать формату e-mail';
+    emailErrorsNew.textContent = 'Email не может быть пустым и должен соответствовать формату e-mail!';
+    return false;
+  }
+
+  static validationCount(count, countErrors) {
+    const { value } = count;
+    const countErrorsNew = countErrors;
+    const letters = /^[0-9]+$/g;
+
+    if (value.match(letters)) {
+      count.classList.remove('error');
+      countErrorsNew.textContent = '';
+      return true;
+    }
+    count.classList.add('error');
+    countErrorsNew.textContent = 'Count не может быть пустым и можно вводить только цифры. Другие символы не допускаются!';
     return false;
   }
 
@@ -60,10 +75,13 @@ class ModalWindowController {
     const nameError = document.querySelector('.modal-root_error_name');
     const email = document.querySelector('#email');
     const emailErrors = document.querySelector('.modal-root_error_email');
+    const count = document.querySelector('#count');
+    const countErrors = document.querySelector('.modal-root_error_count');
 
     if (
       ModalWindowController.validationName(name, nameError)
       && ModalWindowController.validationEmail(email, emailErrors)
+      && ModalWindowController.validationCount(count, countErrors)
     ) {
       btnValid.disabled = false;
       return true;

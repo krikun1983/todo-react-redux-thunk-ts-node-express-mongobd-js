@@ -27,7 +27,8 @@ class ProductDataView {
               </label>
               <label for="count">
                 Count:
-                <input id="count" name="count" value="${productCurrent.count}" type="number" />
+                <div class="modal-root_error_count"></div>
+                <input id="count" name="count" value="${productCurrent.count}" type="number" data-action="update-count" />
               </label>
               <label for="price">
                 Price:
@@ -75,6 +76,7 @@ class ProductDataView {
   initHandlers() {
     this.$root.on('change', '[data-action="update-name"]', this.validation.all);
     this.$root.on('change', '[data-action="update-email"]', this.validation.all);
+    this.$root.on('change', '[data-action="update-count"]', this.validation.all);
 
     this.$root.on('change', 'input', this.onProductsChange.bind(this));
     this.$root.on('click', '[data-action="update-yes"]', this.handlers.onSubmit);
