@@ -28,9 +28,15 @@ class MainControllerOfTable {
     this.viewProductsTable.render(this.dataProductsTable.products);
   }
 
-  openEditModal(id) {
+  async editProduct(productCurrent) {
+    const productIndex = this.dataProductsTable.products.findIndex((product) => (product.id === productCurrent.id));
+    await this.dataProductsTable.editProduct(productIndex, productCurrent);
+    this.viewProductsTable.render(this.dataProductsTable.products);
+  }
+
+  async openEditModal(id) {
     const productCurrent = this.dataProductsTable.products.find((item) => (item.id === id));
-    const modal = new ModalWindowController(productCurrent);
+    const modal = new ModalWindowController(productCurrent, this.editProduct.bind(this));
     modal.show();
   }
 

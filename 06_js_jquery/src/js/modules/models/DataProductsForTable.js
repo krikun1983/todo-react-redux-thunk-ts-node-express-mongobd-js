@@ -1,4 +1,6 @@
-import { API_ROOT_URL, API_URL_DELETE } from '../../constants/Api';
+import {
+  API_ROOT_URL, API_URL_ADD, API_URL_DELETE, API_URL_UPDATE,
+} from '../../constants/Api';
 import ProductDataModel from './ProductDataModel';
 
 class DataProductsForTable {
@@ -57,6 +59,59 @@ class DataProductsForTable {
       });
     }
   }
+
+  async editProduct(id, productCurrent) {
+    // this.products[id] = productCurrent;
+
+    const temp = {
+      id: productCurrent.id,
+      name: productCurrent.name,
+      email: productCurrent.email,
+      count: +productCurrent.count,
+      price: +productCurrent.price,
+      delivery: {
+        country: productCurrent.delivery.country,
+        city: productCurrent.delivery.city,
+      },
+    };
+    console.log(id);
+    console.log(temp);
+    // await fetch(`${API_URL_UPDATE}${productCurrent.id}`, {
+    //   method: 'PUT',
+    //   headers: {
+    //     'Content-Type': 'application/json;charset=utf-8',
+    //   },
+    //   body: JSON.stringify(temp),
+    // });
+    // await this.getProducts(API_ROOT_URL);
+  }
+  // async editProduct(id, productCurrent) {
+  //   console.log(id);
+  //   console.log(productCurrent);
+  //   // this.products[id] = productCurrent;
+
+  //   const temp = {
+  //     name: 'Nokia',
+  //     email: 'nokia@mail.ru',
+  //     count: 100,
+  //     price: 500,
+  //     delivery: {
+  //       country: 'Russia',
+  //       city: [
+  //         'Saratov',
+  //       ],
+  //     },
+  //   };
+
+  //   await fetch(`${API_URL_ADD}`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json;charset=utf-8',
+  //     },
+  //     body: JSON.stringify(temp),
+  //   });
+  //   await this.getProducts(API_ROOT_URL);
+  // }
 
   async deleteProduct(id) {
     await fetch(`${API_URL_DELETE}${id}`, { method: 'DELETE' });

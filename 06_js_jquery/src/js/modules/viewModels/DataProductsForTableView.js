@@ -41,7 +41,7 @@ class DataProductsForTableView {
           <tr>
             <th class="sort-name" data-action="sort-name">Name ${this.statusSortName ? '▽' : '△'}</th>
             <th class="sort-price" data-action="sort-price">Price ${this.statusSortPrice ? '△' : '▽'}</th>
-            <th>Action</th>
+            <th class="table-action">Action</th>
           </tr>
         </thead>
         <tbody>

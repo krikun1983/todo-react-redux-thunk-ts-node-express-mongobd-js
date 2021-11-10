@@ -37,7 +37,12 @@ main {
   min-width: 300px
 }
 
-.modal-root__container {
+.table-dark .table-action {
+  text-align: right;
+  padding-right: 20px;
+}
+
+.modal-root-container {
   position: absolute;
   top: 0;
   right: 0;
@@ -46,14 +51,46 @@ main {
   background-color: rgba(0,0,0,.75);
 }
 
-.modal-root__wrapper {
+.modal-root {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px;
-  height: 300px;
+  width: 500px;
+  height: 700px;
   background-color: #fff;
+
+  &-form {
+    position: relative;
+    padding: 30px 20px;
+
+    label,
+    input {
+      display: block;
+    }
+
+    label {
+      margin-bottom: 10px;
+    }
+
+    input {
+      width: 75%;
+    }
+  }
+
+  &-cancel {
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    z-index: 2;
+
+    &:hover {
+      opacity: .6;
+    }
+  }
 }
 
 .modal-delete-container {
@@ -98,4 +135,16 @@ main {
       margin-left: 10px;
     }
   }
+}
+
+.modal-root_error_name,
+.modal-root_error_email {
+  font-size: 10px;
+  color: red;
+}
+
+.error {
+  color: red;
+  border: 1px solid red;
+  background-color: rgb(255, 203, 203);
 }
