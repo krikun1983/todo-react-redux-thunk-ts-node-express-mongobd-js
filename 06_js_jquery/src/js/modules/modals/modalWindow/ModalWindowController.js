@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import ProductDataModel from '../../models/ProductDataModel.js';
 import ProductDataView from './view/ProductDataView.js';
 
@@ -69,6 +70,27 @@ class ModalWindowController {
     return false;
   }
 
+  static validationPrice(price) {
+    const priceNew = price;
+
+    if (priceNew.value === '' || +price.value < 0) { priceNew.value = '0'; }
+
+    const valueOfInput = parseFloat(priceNew.value);
+
+    $('#price').on('focus', () => {
+      const re = /[$,]/g;
+      const valueNumberValue = priceNew.value.replace(re, '');
+      $('#price').attr('type', 'number');
+      priceNew.value = valueNumberValue;
+    });
+    $('#price').on('blur', () => {
+      $('#price').attr('type', 'text');
+      priceNew.value = valueOfInput.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    });
+
+    return true;
+  }
+
   static validationAll() {
     const btnValid = document.querySelector('#btn-valid');
     const name = document.querySelector('#name');
@@ -77,11 +99,13 @@ class ModalWindowController {
     const emailErrors = document.querySelector('.modal-root_error_email');
     const count = document.querySelector('#count');
     const countErrors = document.querySelector('.modal-root_error_count');
+    const price = document.querySelector('#price');
 
     if (
       ModalWindowController.validationName(name, nameError)
       && ModalWindowController.validationEmail(email, emailErrors)
       && ModalWindowController.validationCount(count, countErrors)
+      && ModalWindowController.validationPrice(price)
     ) {
       btnValid.disabled = false;
       return true;
@@ -94,11 +118,9 @@ class ModalWindowController {
     event.preventDefault();
 
     if (ModalWindowController.validationAll()) {
+      await this.onSubmitAction(this.productDataModel);
       this.productDataView.closeModal();
     }
-
-    // await this.onSubmitAction(this.productDataModel);
-
     return false;
   }
 

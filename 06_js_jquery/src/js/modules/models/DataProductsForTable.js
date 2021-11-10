@@ -74,7 +74,6 @@ class DataProductsForTable {
         city: productCurrent.delivery.city,
       },
     };
-    console.log(id);
     console.log(temp);
     // await fetch(`${API_URL_UPDATE}${productCurrent.id}`, {
     //   method: 'PUT',

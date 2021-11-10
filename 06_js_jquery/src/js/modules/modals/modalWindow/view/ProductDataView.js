@@ -32,7 +32,7 @@ class ProductDataView {
               </label>
               <label for="price">
                 Price:
-                <input id="price" name="price" value="${productCurrent.price}" type="number" />
+                <input id="price" name="price" value="${productCurrent.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}" type="text" data-action="update-price"/>
               </label>
               <label for="delivery">
                 Delivery:
@@ -42,7 +42,7 @@ class ProductDataView {
                   <option value="city">City</option>
                 </select>
               </label>
-              <label for="price">
+              <label for="">
                 Delivery Country: ${productCurrent.delivery.country ? productCurrent.delivery.country : ''}
                 Delivery city: ${this.city}
               </label>
@@ -59,8 +59,6 @@ class ProductDataView {
 
   render(productCurrent) {
     this.$root.html(this.template(productCurrent));
-    // this.$root.append(this.template(productCurrent));
-    // $(document.body).append(this.template(productCurrent));
     this.initHandlers();
   }
 
@@ -69,14 +67,12 @@ class ProductDataView {
     this.handlers.onProductsChange(name, value);
   }
 
-  // validate() {
-  //   this.$root.on('change', '[data-action="update-yes"]', this.handlers.onSubmit);
-  // }
-
   initHandlers() {
     this.$root.on('change', '[data-action="update-name"]', this.validation.all);
     this.$root.on('change', '[data-action="update-email"]', this.validation.all);
     this.$root.on('change', '[data-action="update-count"]', this.validation.all);
+    this.$root.on('focus', '[data-action="update-price"]', this.validation.all);
+    this.$root.on('blur', '[data-action="update-price"]', this.validation.all);
 
     this.$root.on('change', 'input', this.onProductsChange.bind(this));
     this.$root.on('click', '[data-action="update-yes"]', this.handlers.onSubmit);

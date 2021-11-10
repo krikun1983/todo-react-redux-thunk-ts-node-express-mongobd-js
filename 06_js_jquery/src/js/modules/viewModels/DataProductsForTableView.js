@@ -10,7 +10,7 @@ class DataProductsForTableView {
     this.templateRowForTable = (product) => `
       <tr>
         <td>${product.name} - ${product.count}</td>
-        <td>${product.price}</td>
+        <td>${product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
         <td class="btns">
           <button type="button" class="btn btn-secondary" data-action="edit" data-productId="${product.id}">Edit</button>
           <button type="button" class="btn btn-secondary" data-action="delete" data-productId="${product.id}">Delete</button>
