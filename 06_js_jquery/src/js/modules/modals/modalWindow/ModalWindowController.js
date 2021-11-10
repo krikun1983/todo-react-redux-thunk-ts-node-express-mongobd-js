@@ -27,7 +27,12 @@ class ModalWindowController {
   }
 
   static validationName(name, nameErrors) {
-    const nameLen = name.value.trim().length;
+    const letters = /  +/gm;
+    const nameNew = name;
+    const nameStr = nameNew.value.replace(letters, ' ').trim();
+
+    const nameLen = nameStr.length;
+    nameNew.value = nameStr;
     const nameErrorsNew = nameErrors;
     if (nameLen === 0 || nameLen > 15) {
       name.classList.add('error');
