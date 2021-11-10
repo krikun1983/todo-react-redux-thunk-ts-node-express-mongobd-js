@@ -7,7 +7,23 @@ class ProductDataView {
     this.validation = props.validation;
     this.city = '';
     this.delivery = '';
-    this.isCheckNames = '[a-z]{1,15}';// pattern=${this.isCheckNames}
+    this.cities = {
+      Russia: [
+        'Moscow',
+        'Saint-Petersburg',
+        'Saratov',
+      ],
+      USA: [
+        'New York',
+        'Los Angeles',
+        'Chicago',
+      ],
+      Japan: [
+        'Tokyo',
+        'Osaka',
+        'Nagasaki',
+      ],
+    };
 
     this.template = (productCurrent) => (
       `
@@ -18,25 +34,25 @@ class ProductDataView {
               <label for="name" name="nameError">
                 Name:
                 <div class="modal-root_error_name"></div>
-                <input id="name" name="name" value="${productCurrent.name}" type="text" data-action="update-name"/>
+                <input id="name" name="name" value="${productCurrent.name}" type="text" data-info="info" data-action="update-name"/>
               </label>
               <label for="email">
                 Supplier email:
                 <div class="modal-root_error_email"></div>
-                <input id="email" name="email" value="${productCurrent.email}" type="email" data-action="update-email" />
+                <input id="email" name="email" value="${productCurrent.email}" type="email" data-info="info" data-action="update-email" />
               </label>
               <label for="count">
                 Count:
                 <div class="modal-root_error_count"></div>
-                <input id="count" name="count" value="${productCurrent.count}" type="number" data-action="update-count" />
+                <input id="count" name="count" value="${productCurrent.count}" type="number" data-info="info" data-action="update-count" />
               </label>
               <label for="price">
                 Price:
-                <input id="price" name="price" value="${productCurrent.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}" type="text" data-action="update-price"/>
+                <input id="price" name="price" value="${productCurrent.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}" type="text" data-info="info" data-action="update-price"/>
               </label>
               <label for="delivery">
                 Delivery:
-                <select id="delivery" name="delivery" data-action="delivery" value=${this.delivery}>
+                <select id="delivery" name="delivery" data-info="info" data-action="delivery" value=${this.delivery}>
                   <option value="" selected>Selected</option>
                   <option value="country">Country</option>
                   <option value="city">City</option>
@@ -74,7 +90,7 @@ class ProductDataView {
     this.$root.on('focus', '[data-action="update-price"]', this.validation.all);
     this.$root.on('blur', '[data-action="update-price"]', this.validation.all);
 
-    this.$root.on('change', 'input', this.onProductsChange.bind(this));
+    this.$root.on('change', '[data-info="info"]', this.onProductsChange.bind(this));
     this.$root.on('click', '[data-action="update-yes"]', this.handlers.onSubmit);
     this.$root.on('click', '[data-action="update-no"]', this.handlers.onClose);
   }

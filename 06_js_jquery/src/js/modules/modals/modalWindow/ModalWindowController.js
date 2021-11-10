@@ -27,70 +27,63 @@ class ModalWindowController {
   }
 
   static validationName(name, nameErrors) {
-    const letters = /  +/gm;
+    const reg = /  +/gm;
     const nameNew = name;
-    const nameStr = nameNew.value.replace(letters, ' ').trim();
+    const nameStr = nameNew.value.replace(reg, ' ').trim();
 
     const nameLen = nameStr.length;
-    nameNew.value = nameStr;
-    const nameErrorsNew = nameErrors;
+    $(name).val(nameStr);
     if (nameLen === 0 || nameLen > 15) {
-      name.classList.add('error');
-      nameErrorsNew.textContent = 'Поле не может быть пустым или только из пробелов или не больше 15 символов!';
-      name.focus();
+      $(name).addClass('error');
+      $(nameErrors).text('Поле не может быть пустым или только из пробелов или не больше 15 символов!');
       return false;
     }
-    nameErrorsNew.textContent = '';
-    name.classList.remove('error');
+    $(nameErrors).text('');
+    $(name).removeClass('error');
     return true;
   }
 
   static validationEmail(email, emailErrors) {
-    const { value } = email;
-    const emailErrorsNew = emailErrors;
-    const letters = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-.]{2,20}\.+[a-zA-Z0-9-.]{2,30}$/g;
+    const reg = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-.]{2,20}\.+[a-zA-Z0-9-.]{2,30}$/g;
 
-    if (value.match(letters)) {
-      email.classList.remove('error');
-      emailErrorsNew.textContent = '';
+    if (email.value.match(reg)) {
+      $(email).removeClass('error');
+      $(emailErrors).text('');
       return true;
     }
-    email.classList.add('error');
-    emailErrorsNew.textContent = 'Email не может быть пустым и должен соответствовать формату e-mail!';
+    $(email).addClass('error');
+    $(emailErrors).text('Email не может быть пустым и должен соответствовать формату e-mail!');
     return false;
   }
 
   static validationCount(count, countErrors) {
-    const { value } = count;
-    const countErrorsNew = countErrors;
-    const letters = /^[0-9]+$/g;
+    if (count.value === '' || +count.value < 0) { $(count).val('0'); }
+    const reg = /^[0-9]+$/g;
 
-    if (value.match(letters)) {
-      count.classList.remove('error');
-      countErrorsNew.textContent = '';
+    if (count.value.match(reg)) {
+      $(count).removeClass('error');
+      $(countErrors).text('');
       return true;
     }
-    count.classList.add('error');
-    countErrorsNew.textContent = 'Count не может быть пустым и можно вводить только цифры. Другие символы не допускаются!';
+    $(count).addClass('error');
+    $(countErrors).text('Count не может быть пустым и можно вводить только цифры. Другие символы не допускаются!');
     return false;
   }
 
   static validationPrice(price) {
-    const priceNew = price;
+    if (price.value === '' || +price.value < 0) { $(price).val('0'); }
 
-    if (priceNew.value === '' || +price.value < 0) { priceNew.value = '0'; }
-
-    const valueOfInput = parseFloat(priceNew.value);
+    const valueOfInput = parseFloat(price.value);
 
     $('#price').on('focus', () => {
       const re = /[$,]/g;
-      const valueNumberValue = priceNew.value.replace(re, '');
+      const valueNumberValue = price.value.replace(re, '');
       $('#price').attr('type', 'number');
-      priceNew.value = valueNumberValue;
+      $(price).val(valueNumberValue);
     });
     $('#price').on('blur', () => {
       $('#price').attr('type', 'text');
-      priceNew.value = valueOfInput.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+      $(price).val(valueOfInput.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
     });
 
     return true;
