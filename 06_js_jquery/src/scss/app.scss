@@ -1,3 +1,5 @@
+@import 'spinner';
+
 html {
   font-family: Roboto, Arial, Helvetica, sans-serif;
 }
@@ -166,7 +168,15 @@ main {
 .error {
   color: red;
   border: 1px solid red;
-  background-color: rgb(255, 203, 203);
+  background-color: #ffcbcb;
+}
+
+#spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
 }
 
 .hidden {

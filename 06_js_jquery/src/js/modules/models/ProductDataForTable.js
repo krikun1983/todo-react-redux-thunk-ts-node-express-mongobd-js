@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import {
   API_ROOT_URL, API_URL_ADD, API_URL_DELETE, API_URL_UPDATE,
 } from '../../constants/Api';
@@ -19,6 +20,7 @@ class ProductDataForTable {
   }
 
   async getProducts(url) {
+    $('#spinner').removeClass('hidden');
     const body = await new ProductDataForTable.GetApiResource(url);
     if (body) {
       this.products = [];
@@ -26,6 +28,7 @@ class ProductDataForTable {
         this.products.push(new ProductDataModel(product));
       });
     }
+    $('#spinner').addClass('hidden');
   }
 
   async searchProduct(search) {
@@ -72,7 +75,7 @@ class ProductDataForTable {
         city: productCurrent.delivery.city,
       },
     };
-
+    $('#spinner').removeClass('hidden');
     await fetch(`${API_URL_UPDATE}${productCurrent.id}`, {
       method: 'PUT',
       headers: {
@@ -81,6 +84,7 @@ class ProductDataForTable {
       body: JSON.stringify(dataProduct),
     });
     await this.getProducts(API_ROOT_URL);
+    $('#spinner').addClass('hidden');
   }
 
   async addProduct(productCurrent) {
@@ -94,7 +98,7 @@ class ProductDataForTable {
         city: productCurrent.delivery.city,
       },
     };
-
+    $('#spinner').removeClass('hidden');
     await fetch(`${API_URL_ADD}`, {
       method: 'POST',
       headers: {
@@ -108,11 +112,14 @@ class ProductDataForTable {
         await this.editProduct({ id: product.id, ...productNew });
       }
     });
+    $('#spinner').addClass('hidden');
   }
 
   async deleteProduct(id) {
+    $('#spinner').removeClass('hidden');
     await fetch(`${API_URL_DELETE}${id}`, { method: 'DELETE' });
     await this.getProducts(API_ROOT_URL);
+    $('#spinner').addClass('hidden');
   }
 }
 
