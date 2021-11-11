@@ -22,9 +22,12 @@ class ModalWindowController {
     this.productDataView.showModal(this.productDataModel);
   }
 
-  onProductsChange(name, value) {
+  onProductsChange(name, value, checked) {
     if (name === 'country') {
       this.productDataModel.delivery[name] = value;
+    }
+    if (checked.length) {
+      this.productDataModel.delivery.city = checked;
     }
     this.productDataModel[name] = value;
   }
@@ -93,17 +96,26 @@ class ModalWindowController {
   static validationDelivery(delivery) {
     const country = $('input[name="country"]:radio:checked').val();
 
+    const checked = [];
+    $('input:checkbox:checked').each(function() {
+      checked.push($(this).val());
+    });
+
     if (delivery.value === '') {
       $('.country_list').addClass('hidden');
       $('.city_list').addClass('hidden');
-    } else if (delivery.value === 'country') {
+      return true;
+    }
+
+    if (delivery.value === 'country') {
       $('.country_list').removeClass('hidden');
       $('.city_list').addClass('hidden');
     } else if (delivery.value === 'city') {
       $('.country_list').addClass('hidden');
-      $('.city_list').removeClass('hidden');
+      $(`.city_${country}`).removeClass('hidden');
     }
-    if (country) {
+
+    if (!country || checked.length) {
       return true;
     }
     return false;

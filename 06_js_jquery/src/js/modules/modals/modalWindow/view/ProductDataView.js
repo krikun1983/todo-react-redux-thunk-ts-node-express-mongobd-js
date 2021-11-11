@@ -5,8 +5,7 @@ class ProductDataView {
     this.$root = $('.modal--add_edit-root');
     this.handlers = props.handlers;
     this.validation = props.validation;
-    this.city = '';
-    this.delivery = '';
+    this.countries = ['Russia', 'USA', 'Japan'];
     this.cities = {
       Russia: [
         'Moscow',
@@ -14,8 +13,8 @@ class ProductDataView {
         'Saratov',
       ],
       USA: [
-        'New York',
-        'Los Angeles',
+        'New-York',
+        'Los-Angeles',
         'Chicago',
       ],
       Japan: [
@@ -25,24 +24,60 @@ class ProductDataView {
       ],
     };
 
-    this.country = ['Russia', 'USA', 'Japan'];
     this.templateCountry = (country, product) => (`
       <div class="form-check">
         <input
-        class="form-check-input"
-        name="country"
-        type="radio" value="${country}"
-        id="country_${country}"
-        data-info="info"
-        data-action="update-delivery-country"
-        ${country === product.delivery.country ? 'checked' : ''} />
+          class="form-check-input"
+          name="country"
+          type="radio" value="${country}"
+          id="country_${country}"
+          data-info="info"
+          data-action="update-delivery-country"
+          ${country === product.delivery.country ? 'checked' : ''} />
         <label class="form-check-label" for="country_${country}">
           ${country}
         </label>
         </div>
     `);
 
-    this.template = (productCurrent, countryRender) => (
+    this.templateCityOfCountry = (country, cityArr, product) => {
+      let cityString = '';
+      cityArr[country].forEach((city) => {
+        cityString += `
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              name="city"
+              type="checkbox"
+              value=${city}
+              id="city_${city}"
+              data-info="info"
+              data-action="update-delivery-city"
+              ${product.delivery.city.includes(city) ? 'checked' : ''} />
+            <label class="form-check-label" for="city_${city}">
+              ${city}
+            </label>
+          </div>
+        `;
+      });
+      return cityString;
+    };
+
+    this.templateCity = (countries, cityArr, product) => {
+      let countryString = '';
+      countries.forEach((country) => {
+        countryString += `
+          <div class="city_list city_${country} hidden">
+            <p>City of ${country}</p>
+            ${this.templateCityOfCountry(country, cityArr, product)}
+          </div>
+        `;
+      });
+
+      return countryString;
+    };
+
+    this.template = (productCurrent, countryRender, cityRender) => (
       `
         <div class="modal-root-container">
           <div class="modal-root">
@@ -80,72 +115,7 @@ class ProductDataView {
                   <p>Country</p>
                   ${countryRender}
                 </div>
-
-                <div class="city_list city_russia hidden">
-                  <p>City</p>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Moscow" id="city_moscow" data-action="update-delivery-city">
-                    <label class="form-check-label" for="city_moscow">
-                      Moscow
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Saint-Petersburg" id="city_saintPetersburg" data-action="update-delivery-city">
-                    <label class="form-check-label" for="city_saintPetersburg">
-                      Saint-Petersburg
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Saratov" id="country_saratov" data-action="update-delivery-city">
-                    <label class="form-check-label" for="country_saratov">
-                      Saratov
-                    </label>
-                  </div>
-                </div>
-
-                <div class="city_list city_usa hidden">
-                  <p>City</p>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="New York" id="city_new_york" data-action="update-delivery-city">
-                    <label class="form-check-label" for="city_new_york">
-                      New York
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Los Angeles" id="city_los_angeles" data-action="update-delivery-city">
-                    <label class="form-check-label" for="city_los_angeles">
-                      Los Angeles
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Chicago" id="country_chicago" data-action="update-delivery-city">
-                    <label class="form-check-label" for="country_chicago">
-                      Chicago
-                    </label>
-                  </div>
-                </div>
-
-                <div class="city_list city_japan hidden">
-                  <p>City</p>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Tokyo" id="city_tokyo" data-action="update-delivery-city">
-                    <label class="form-check-label" for="city_tokyo">
-                      Tokyo
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Osaka" id="city_osaka" data-action="update-delivery-city">
-                    <label class="form-check-label" for="city_osaka">
-                      Osaka
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Nagasaki" id="country_nagasaki" data-action="update-delivery-city">
-                    <label class="form-check-label" for="country_nagasaki">
-                      Nagasaki
-                    </label>
-                  </div>
-                </div>
+                ${cityRender}
               </label>
               <div class="modal-root-form_btns">
                 <button id="btn-valid" class="btn btn-primary" type="submit" data-action="update-yes">Add/Update</button>
@@ -159,17 +129,23 @@ class ProductDataView {
   }
 
   render(productCurrent) {
-    let countryItem = '';
-    this.country.forEach((country) => {
-      countryItem += this.templateCountry(country, productCurrent);
+    let countryRender = '';
+    this.countries.forEach((country) => {
+      countryRender += this.templateCountry(country, productCurrent);
     });
-    this.$root.html(this.template(productCurrent, countryItem));
+    const cityRender = this.templateCity(this.countries, this.cities, productCurrent);
+    this.$root.html(this.template(productCurrent, countryRender, cityRender));
     this.initHandlers();
   }
 
   onProductsChange(event) {
     const { name, value } = event.target;
-    this.handlers.onProductsChange(name, value);
+    const checked = [];
+    $('input:checkbox:checked').each(function() {
+      checked.push($(this).val());
+    });
+
+    this.handlers.onProductsChange(name, value, checked);
   }
 
   initHandlers() {
@@ -179,6 +155,9 @@ class ProductDataView {
     this.$root.on('focus', '[data-action="update-price"]', this.validation.all);
     this.$root.on('blur', '[data-action="update-price"]', this.validation.all);
     this.$root.on('change', '[data-action="update-delivery"]', this.validation.all);
+    this.$root.on('change', '[data-action="update-delivery-country"]', () => {
+      $('body input:checkbox').prop('checked', false);
+    });
     this.$root.on('change', '[data-action="update-delivery-country"]', this.validation.all);
     this.$root.on('change', '[data-action="update-delivery-city"]', this.validation.all);
 
@@ -188,11 +167,6 @@ class ProductDataView {
   }
 
   showModal(productCurrent) {
-    if (productCurrent.delivery.city) {
-      productCurrent.delivery.city.forEach((el) => {
-        this.city += `${el},`;
-      });
-    }
     this.render(productCurrent);
   }
 

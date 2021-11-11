@@ -15,6 +15,18 @@ main {
 .table-container {
   width: 100%;
   max-width: 800px;
+
+  .table-name {
+    span {
+      display: inline-block;
+      margin-left: auto;
+    }
+  }
+
+  .sort-name,
+  .sort-price {
+    cursor: pointer;
+  }
 }
 
 .btns {

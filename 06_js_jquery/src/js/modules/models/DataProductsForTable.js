@@ -62,8 +62,7 @@ class DataProductsForTable {
 
   async editProduct(id, productCurrent) {
     // this.products[id] = productCurrent;
-
-    const temp = {
+    const dataProduct = {
       id: productCurrent.id,
       name: productCurrent.name,
       email: productCurrent.email,
@@ -74,15 +73,15 @@ class DataProductsForTable {
         city: productCurrent.delivery.city,
       },
     };
-    console.log(temp);
-    // await fetch(`${API_URL_UPDATE}${productCurrent.id}`, {
-    //   method: 'PUT',
-    //   headers: {
-    //     'Content-Type': 'application/json;charset=utf-8',
-    //   },
-    //   body: JSON.stringify(temp),
-    // });
-    // await this.getProducts(API_ROOT_URL);
+    console.log(dataProduct);
+    await fetch(`${API_URL_UPDATE}${productCurrent.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(dataProduct),
+    });
+    await this.getProducts(API_ROOT_URL);
   }
   // async editProduct(id, productCurrent) {
   //   console.log(id);

@@ -9,7 +9,8 @@ class DataProductsForTableView {
     this.handlers = props.handlers;
     this.templateRowForTable = (product) => `
       <tr>
-        <td>${product.name} - ${product.count}</td>
+        <td class="table-name">${product.name}</td>
+        <td class="table-name">${product.count} counts</td>
         <td>${product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
         <td class="btns">
           <button type="button" class="btn btn-secondary" data-action="edit" data-productId="${product.id}">Edit</button>
@@ -39,7 +40,7 @@ class DataProductsForTableView {
         <caption>List of products</caption>
         <thead class="table-dark">
           <tr>
-            <th class="sort-name" data-action="sort-name">Name ${this.statusSortName ? '▽' : '△'}</th>
+            <th class="sort-name" data-action="sort-name" colspan="2">Name ${this.statusSortName ? '▽' : '△'}</th>
             <th class="sort-price" data-action="sort-price">Price ${this.statusSortPrice ? '△' : '▽'}</th>
             <th class="table-action">Action</th>
           </tr>
