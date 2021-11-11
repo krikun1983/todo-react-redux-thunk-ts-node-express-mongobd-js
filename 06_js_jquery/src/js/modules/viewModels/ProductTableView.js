@@ -52,7 +52,8 @@ class ProductTableView {
       this.searchValue = '';
     });
     this.$root.on('input', 'input[data-action="search-value"]', (e) => {
-      this.searchValue = e.target.value;
+      const reg = /  +/gm;
+      this.searchValue = e.target.value.toLowerCase().replace(reg, ' ').trim();
     });
     this.$root.on('click', '[data-action="sort-name"]', (e) => { this.sortFieldProductsTable(e, 'name'); });
     this.$root.on('click', '[data-action="sort-price"]', (e) => { this.sortFieldProductsTable(e, 'price'); });

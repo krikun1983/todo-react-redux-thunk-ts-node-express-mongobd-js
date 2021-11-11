@@ -32,8 +32,8 @@ class ProductDataForTable {
   }
 
   async searchProduct(search) {
-    if (search.trim()) {
-      this.products = this.products.filter((product) => product.name.toLowerCase().indexOf(search.toLowerCase().trim()) !== -1);
+    if (search) {
+      this.products = this.products.filter((product) => product.name.toLowerCase().indexOf(search) !== -1);
     } else {
       await this.getProducts(API_ROOT_URL);
     }
