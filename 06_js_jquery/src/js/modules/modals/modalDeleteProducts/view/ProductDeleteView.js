@@ -24,14 +24,14 @@ class ProductDeleteView {
     this.$root.html(this.template(productCurrent));
   }
 
-  initHandlersDeleteModal() {
+  initialHandlers() {
     this.$root.on('click', '[data-action="delete-yes"]', this.handlers.onSubmit);
     this.$root.on('click', '[data-action="delete-no"]', this.handlers.onClose);
   }
 
   showModal(productCurrent) {
     this.render(productCurrent);
-    this.initHandlersDeleteModal();
+    this.initialHandlers();
   }
 
   closeModal() {

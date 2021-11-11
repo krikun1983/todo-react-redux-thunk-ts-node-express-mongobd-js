@@ -1,28 +1,11 @@
 import $ from 'jquery';
+import { citiesData, countriesData } from '../../../../constants/data';
 
 class ProductDataView {
   constructor(props) {
-    this.$root = $('.modal--add_edit-root');
+    this.$root = $('.modal-add-edit-root');
     this.handlers = props.handlers;
     this.validation = props.validation;
-    this.countries = ['Russia', 'USA', 'Japan'];
-    this.cities = {
-      Russia: [
-        'Moscow',
-        'Saint-Petersburg',
-        'Saratov',
-      ],
-      USA: [
-        'New-York',
-        'Los-Angeles',
-        'Chicago',
-      ],
-      Japan: [
-        'Tokyo',
-        'Osaka',
-        'Nagasaki',
-      ],
-    };
 
     this.templateCountry = (country, product) => (`
       <div class="form-check">
@@ -130,10 +113,10 @@ class ProductDataView {
 
   render(productCurrent) {
     let countryRender = '';
-    this.countries.forEach((country) => {
+    countriesData.forEach((country) => {
       countryRender += this.templateCountry(country, productCurrent);
     });
-    const cityRender = this.templateCity(this.countries, this.cities, productCurrent);
+    const cityRender = this.templateCity(countriesData, citiesData, productCurrent);
     this.$root.html(this.template(productCurrent, countryRender, cityRender));
     this.initHandlers();
   }

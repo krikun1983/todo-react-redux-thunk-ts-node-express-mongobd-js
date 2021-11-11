@@ -1,13 +1,13 @@
 import { API_ROOT_URL } from '../constants/Api';
 import ModalDeleteController from './modals/modalDeleteProducts/ModalDeleteController';
 import ModalWindowController from './modals/modalWindow/ModalWindowController';
-import DataProductsForTable from './models/DataProductsForTable';
-import DataProductsForTableView from './viewModels/DataProductsForTableView';
+import ProductDataForTable from './models/ProductDataForTable';
+import ProductDataForTableView from './viewModels/ProductDataForTableView';
 
 class MainControllerOfTable {
   constructor() {
-    this.dataProductsTable = new DataProductsForTable();
-    this.viewProductsTable = new DataProductsForTableView({
+    this.dataProductsTable = new ProductDataForTable();
+    this.viewProductsTable = new ProductDataForTableView({
       handlers: {
         openAddModal: this.openAddModal.bind(this),
         openEditModal: this.openEditModal.bind(this),

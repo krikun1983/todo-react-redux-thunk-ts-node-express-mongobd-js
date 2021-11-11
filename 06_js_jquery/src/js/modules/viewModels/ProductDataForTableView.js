@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-class DataProductsForTableView {
+class ProductDataForTableView {
   constructor(props) {
     this.$root = $('.table-container');
     this.searchValue = '';
@@ -94,4 +94,4 @@ class DataProductsForTableView {
   }
 }
 
-export default DataProductsForTableView;
+export default ProductDataForTableView;

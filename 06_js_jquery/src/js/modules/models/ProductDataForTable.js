@@ -3,7 +3,7 @@ import {
 } from '../../constants/Api';
 import ProductDataModel from './ProductDataModel';
 
-class DataProductsForTable {
+class ProductDataForTable {
   constructor() {
     this.products = [];
   }
@@ -19,7 +19,7 @@ class DataProductsForTable {
   }
 
   async getProducts(url) {
-    const body = await new DataProductsForTable.GetApiResource(url);
+    const body = await new ProductDataForTable.GetApiResource(url);
     if (body) {
       this.products = [];
       body.Data.forEach(async (product) => {
@@ -116,4 +116,4 @@ class DataProductsForTable {
   }
 }
 
-export default DataProductsForTable;
+export default ProductDataForTable;
