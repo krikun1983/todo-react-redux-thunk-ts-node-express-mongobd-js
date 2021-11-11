@@ -1,10 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import mainControllerOfTable from './modules/MainControllerOfTable';
+import mainController from './modules/MainController';
 import '../scss/app.scss';
 
 class App {
   static init() {
-    mainControllerOfTable.init();
+    mainController.init();
   }
 }
 

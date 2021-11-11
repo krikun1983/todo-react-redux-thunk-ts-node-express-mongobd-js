@@ -1,7 +1,7 @@
 import ProductDataModel from '../../models/ProductDataModel';
 import ProductDeleteView from './view/ProductDeleteView';
 
-class ModalDeleteController {
+class ModalProductDelController {
   constructor(initState, onSubmit) {
     this.onSubmitAction = onSubmit;
     this.productDeleteModel = new ProductDataModel(initState);
@@ -27,4 +27,4 @@ class ModalDeleteController {
   }
 }
 
-export default ModalDeleteController;
+export default ModalProductDelController;

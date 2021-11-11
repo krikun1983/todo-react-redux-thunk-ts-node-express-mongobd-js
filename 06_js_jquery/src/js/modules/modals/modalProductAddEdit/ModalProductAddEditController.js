@@ -2,7 +2,7 @@ import $ from 'jquery';
 import ProductDataModel from '../../models/ProductDataModel.js';
 import ProductDataView from './view/ProductDataView.js';
 
-class ModalWindowController {
+class ModalProductAddEditController {
   constructor(initState, onSubmit) {
     this.onSubmitAction = onSubmit;
     this.productDataModel = new ProductDataModel(initState);
@@ -13,7 +13,7 @@ class ModalWindowController {
         onClose: this.onClose.bind(this),
       },
       validation: {
-        all: ModalWindowController.validationAll.bind(this),
+        all: ModalProductAddEditController.validationAll.bind(this),
       },
     });
   }
@@ -139,11 +139,11 @@ class ModalWindowController {
     const delivery = document.querySelector('#delivery');
 
     if (
-      ModalWindowController.validationName(name, nameError)
-      && ModalWindowController.validationEmail(email, emailErrors)
-      && ModalWindowController.validationCount(count)
-      && ModalWindowController.validationPrice(price)
-      && ModalWindowController.validationDelivery(delivery)
+      ModalProductAddEditController.validationName(name, nameError)
+      && ModalProductAddEditController.validationEmail(email, emailErrors)
+      && ModalProductAddEditController.validationCount(count)
+      && ModalProductAddEditController.validationPrice(price)
+      && ModalProductAddEditController.validationDelivery(delivery)
     ) {
       btnValid.disabled = false;
       return true;
@@ -155,7 +155,7 @@ class ModalWindowController {
   async onSubmit(event) {
     event.preventDefault();
 
-    if (ModalWindowController.validationAll()) {
+    if (ModalProductAddEditController.validationAll()) {
       await this.onSubmitAction(this.productDataModel);
       this.productDataView.closeModal();
     }
@@ -167,4 +167,4 @@ class ModalWindowController {
   }
 }
 
-export default ModalWindowController;
+export default ModalProductAddEditController;

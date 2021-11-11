@@ -1,13 +1,13 @@
 import { API_ROOT_URL } from '../constants/Api';
-import ModalDeleteController from './modals/modalDeleteProducts/ModalDeleteController';
-import ModalWindowController from './modals/modalWindow/ModalWindowController';
+import ModalProductDelController from './modals/modalProductDel/ModalProductDelController';
+import ModalProductAddEditController from './modals/modalProductAddEdit/ModalProductAddEditController';
 import ProductDataForTable from './models/ProductDataForTable';
-import ProductDataForTableView from './viewModels/ProductDataForTableView';
+import ProductTableView from './viewModels/ProductTableView';
 
-class MainControllerOfTable {
+class MainController {
   constructor() {
     this.dataProductsTable = new ProductDataForTable();
-    this.viewProductsTable = new ProductDataForTableView({
+    this.viewProductsTable = new ProductTableView({
       handlers: {
         openAddModal: this.openAddModal.bind(this),
         openEditModal: this.openEditModal.bind(this),
@@ -35,7 +35,7 @@ class MainControllerOfTable {
   }
 
   async openAddModal() {
-    const modal = new ModalWindowController('', this.addProduct.bind(this));
+    const modal = new ModalProductAddEditController('', this.addProduct.bind(this));
     modal.show();
   }
 
@@ -46,7 +46,7 @@ class MainControllerOfTable {
 
   async openEditModal(id) {
     const productCurrent = this.dataProductsTable.products.find((item) => (item.id === id));
-    const modal = new ModalWindowController(productCurrent, this.editProduct.bind(this));
+    const modal = new ModalProductAddEditController(productCurrent, this.editProduct.bind(this));
     modal.show();
   }
 
@@ -57,7 +57,7 @@ class MainControllerOfTable {
 
   async openDeleteModal(id) {
     const productCurrent = this.dataProductsTable.products.find((item) => (item.id === id));
-    const modal = new ModalDeleteController(productCurrent, this.deleteProduct.bind(this));
+    const modal = new ModalProductDelController(productCurrent, this.deleteProduct.bind(this));
     modal.show();
   }
 
@@ -67,4 +67,4 @@ class MainControllerOfTable {
   }
 }
 
-export default new MainControllerOfTable();
+export default new MainController();
