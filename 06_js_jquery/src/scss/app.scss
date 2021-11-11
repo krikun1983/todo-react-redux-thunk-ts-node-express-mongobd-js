@@ -1,9 +1,11 @@
-@import 'basic';
-
 html,
 body,
 main {
   height: 100%;
+}
+
+html {
+  font-family: Roboto, Arial, Helvetica, sans-serif;
 }
 
 main {
@@ -30,7 +32,6 @@ main {
 }
 
 .btns {
-  width: 15;
   text-align: right;
 }
 

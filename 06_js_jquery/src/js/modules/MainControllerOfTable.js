@@ -9,6 +9,7 @@ class MainControllerOfTable {
     this.dataProductsTable = new DataProductsForTable();
     this.viewProductsTable = new DataProductsForTableView({
       handlers: {
+        openAddModal: this.openAddModal.bind(this),
         openEditModal: this.openEditModal.bind(this),
         searchProduct: this.searchProduct.bind(this),
         openDeleteModal: this.openDeleteModal.bind(this),
@@ -28,9 +29,18 @@ class MainControllerOfTable {
     this.viewProductsTable.render(this.dataProductsTable.products);
   }
 
+  async addProduct(productCurrent) {
+    await this.dataProductsTable.addProduct(productCurrent);
+    this.viewProductsTable.render(this.dataProductsTable.products);
+  }
+
+  async openAddModal() {
+    const modal = new ModalWindowController('', this.addProduct.bind(this));
+    modal.show();
+  }
+
   async editProduct(productCurrent) {
-    const productIndex = this.dataProductsTable.products.findIndex((product) => (product.id === productCurrent.id));
-    await this.dataProductsTable.editProduct(productIndex, productCurrent);
+    await this.dataProductsTable.editProduct(productCurrent);
     this.viewProductsTable.render(this.dataProductsTable.products);
   }
 
@@ -55,10 +65,6 @@ class MainControllerOfTable {
     this.dataProductsTable.sortTable(field, sorts);
     this.viewProductsTable.render(this.dataProductsTable.products);
   }
-
-  // addProduct() {
-  //   this.dataProductsTable.addProduct();
-  // }
 }
 
 export default new MainControllerOfTable();

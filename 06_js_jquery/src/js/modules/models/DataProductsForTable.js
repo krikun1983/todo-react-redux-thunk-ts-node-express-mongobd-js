@@ -60,8 +60,7 @@ class DataProductsForTable {
     }
   }
 
-  async editProduct(id, productCurrent) {
-    // this.products[id] = productCurrent;
+  async editProduct(productCurrent) {
     const dataProduct = {
       id: productCurrent.id,
       name: productCurrent.name,
@@ -73,7 +72,7 @@ class DataProductsForTable {
         city: productCurrent.delivery.city,
       },
     };
-    console.log(dataProduct);
+
     await fetch(`${API_URL_UPDATE}${productCurrent.id}`, {
       method: 'PUT',
       headers: {
@@ -83,33 +82,33 @@ class DataProductsForTable {
     });
     await this.getProducts(API_ROOT_URL);
   }
-  // async editProduct(id, productCurrent) {
-  //   console.log(id);
-  //   console.log(productCurrent);
-  //   // this.products[id] = productCurrent;
 
-  //   const temp = {
-  //     name: 'Nokia',
-  //     email: 'nokia@mail.ru',
-  //     count: 100,
-  //     price: 500,
-  //     delivery: {
-  //       country: 'Russia',
-  //       city: [
-  //         'Saratov',
-  //       ],
-  //     },
-  //   };
+  async addProduct(productCurrent) {
+    const productNew = {
+      name: productCurrent.name,
+      email: productCurrent.email,
+      count: +productCurrent.count,
+      price: +productCurrent.price,
+      delivery: {
+        country: productCurrent.delivery.country,
+        city: productCurrent.delivery.city,
+      },
+    };
 
-  //   await fetch(`${API_URL_ADD}`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json;charset=utf-8',
-  //     },
-  //     body: JSON.stringify(temp),
-  //   });
-  //   await this.getProducts(API_ROOT_URL);
-  // }
+    await fetch(`${API_URL_ADD}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(productNew),
+    });
+    await this.getProducts(API_ROOT_URL);
+    this.products.forEach(async (product) => {
+      if (product.name === productNew.name) {
+        await this.editProduct({ id: product.id, ...productNew });
+      }
+    });
+  }
 
   async deleteProduct(id) {
     await fetch(`${API_URL_DELETE}${id}`, { method: 'DELETE' });

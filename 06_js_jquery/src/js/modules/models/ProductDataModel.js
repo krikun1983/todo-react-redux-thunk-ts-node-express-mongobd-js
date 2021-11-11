@@ -1,11 +1,14 @@
 class ProductDataModel {
   constructor(props) {
-    this.id = props.id;
-    this.name = props.name;
-    this.count = props.count;
-    this.email = props.email;
-    this.price = props.price;
-    this.delivery = props.delivery;
+    this.id = props ? props.id : '';
+    this.name = props ? props.name : '';
+    this.count = props ? props.count : 0;
+    this.email = props ? props.email : '';
+    this.price = props ? props.price : 0;
+    this.delivery = props ? props.delivery : {
+      country: '',
+      city: [],
+    };
   }
 }
 
