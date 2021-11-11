@@ -108,7 +108,7 @@ class ProductDataView {
                 <select id="delivery" name="delivery" data-action="update-delivery">
                   <option value="" selected>Selected</option>
                   <option value="country">Country</option>
-                  <option value="city">City</option>
+                  <option value="city" disabled>City</option>
                 </select>
 
                 <div class="country_list hidden">

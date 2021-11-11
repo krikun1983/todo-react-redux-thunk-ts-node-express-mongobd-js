@@ -95,6 +95,9 @@ class ModalWindowController {
 
   static validationDelivery(delivery) {
     const country = $('input[name="country"]:radio:checked').val();
+    if (country) {
+      $('#delivery option:last').removeAttr('disabled');
+    }
 
     const checked = [];
     $('input:checkbox:checked').each(function() {
@@ -104,6 +107,8 @@ class ModalWindowController {
     if (delivery.value === '') {
       $('.country_list').addClass('hidden');
       $('.city_list').addClass('hidden');
+      $('#delivery option:last').attr('disabled', 'disabled');
+      $('body input:radio').prop('checked', false);
       return true;
     }
 
@@ -119,22 +124,6 @@ class ModalWindowController {
       return true;
     }
     return false;
-
-    // if (delivery.value === 'country') {
-    //   $('.country_list').removeClass('hidden');
-    //   $('.city_list').addClass('hidden');
-    // } else if (delivery.value === 'city') {
-    //   $('.country_list').addClass('hidden');
-    //   $('.city_list').removeClass('hidden');
-    // }
-
-    // if (delivery.value === 'country' && value === 'Russia') {
-    //   $('.city_russia').removeClass('hidden');
-    // } else if (delivery.value === 'country' && value === 'USA') {
-    //   $('.city_usa').removeClass('hidden');
-    // } else if (delivery.value === 'country' && value === 'Japan') {
-    //   $('.city_japan').removeClass('hidden');
-    // }
   }
 
   static validationAll() {
