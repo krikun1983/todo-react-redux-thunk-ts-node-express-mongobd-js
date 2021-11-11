@@ -23,6 +23,9 @@ class ModalWindowController {
   }
 
   onProductsChange(name, value) {
+    if (name === 'country') {
+      this.productDataModel.delivery[name] = value;
+    }
     this.productDataModel[name] = value;
   }
 
@@ -73,18 +76,53 @@ class ModalWindowController {
 
     const valueOfInput = parseFloat(price.value);
 
-    $('#price').on('focus', () => {
+    $(price).on('focus', () => {
       const re = /[$,]/g;
       const valueNumberValue = price.value.replace(re, '');
-      $('#price').attr('type', 'number');
+      $(price).attr('type', 'number');
       $(price).val(valueNumberValue);
     });
-    $('#price').on('blur', () => {
-      $('#price').attr('type', 'text');
+    $(price).on('blur', () => {
+      $(price).attr('type', 'text');
       $(price).val(valueOfInput.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
     });
 
     return true;
+  }
+
+  static validationDelivery(delivery) {
+    const country = $('input[name="country"]:radio:checked').val();
+
+    if (delivery.value === '') {
+      $('.country_list').addClass('hidden');
+      $('.city_list').addClass('hidden');
+    } else if (delivery.value === 'country') {
+      $('.country_list').removeClass('hidden');
+      $('.city_list').addClass('hidden');
+    } else if (delivery.value === 'city') {
+      $('.country_list').addClass('hidden');
+      $('.city_list').removeClass('hidden');
+    }
+    if (country) {
+      return true;
+    }
+    return false;
+
+    // if (delivery.value === 'country') {
+    //   $('.country_list').removeClass('hidden');
+    //   $('.city_list').addClass('hidden');
+    // } else if (delivery.value === 'city') {
+    //   $('.country_list').addClass('hidden');
+    //   $('.city_list').removeClass('hidden');
+    // }
+
+    // if (delivery.value === 'country' && value === 'Russia') {
+    //   $('.city_russia').removeClass('hidden');
+    // } else if (delivery.value === 'country' && value === 'USA') {
+    //   $('.city_usa').removeClass('hidden');
+    // } else if (delivery.value === 'country' && value === 'Japan') {
+    //   $('.city_japan').removeClass('hidden');
+    // }
   }
 
   static validationAll() {
@@ -95,12 +133,14 @@ class ModalWindowController {
     const emailErrors = document.querySelector('.modal-root_error_email');
     const count = document.querySelector('#count');
     const price = document.querySelector('#price');
+    const delivery = document.querySelector('#delivery');
 
     if (
       ModalWindowController.validationName(name, nameError)
       && ModalWindowController.validationEmail(email, emailErrors)
       && ModalWindowController.validationCount(count)
       && ModalWindowController.validationPrice(price)
+      && ModalWindowController.validationDelivery(delivery)
     ) {
       btnValid.disabled = false;
       return true;
