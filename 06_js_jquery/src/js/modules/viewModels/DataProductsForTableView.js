@@ -9,7 +9,7 @@ class DataProductsForTableView {
     this.handlers = props.handlers;
     this.templateRowForTable = (product) => `
       <tr>
-        <td>${product.name}</td>
+        <td class="name-action" data-action="edit" data-productId="${product.id}">${product.name}</td>
         <td>${product.count} counts</td>
         <td>${product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
         <td class="btns">
