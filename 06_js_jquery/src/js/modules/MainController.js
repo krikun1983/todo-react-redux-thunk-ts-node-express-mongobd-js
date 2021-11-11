@@ -3,6 +3,7 @@ import ModalProductDelController from './modals/modalProductDel/ModalProductDelC
 import ModalProductAddEditController from './modals/modalProductAddEdit/ModalProductAddEditController';
 import ProductDataForTable from './models/ProductDataForTable';
 import ProductTableView from './viewModels/ProductTableView';
+import sortFieldTable from '../utils/sortFieldTable';
 
 class MainController {
   constructor() {
@@ -62,7 +63,7 @@ class MainController {
   }
 
   sortFieldProductsTable(field, sorts) {
-    this.dataProductsTable.sortTable(field, sorts);
+    sortFieldTable(field, sorts, this.dataProductsTable.products);
     this.viewProductsTable.render(this.dataProductsTable.products);
   }
 }

@@ -39,30 +39,6 @@ class ProductDataForTable {
     }
   }
 
-  sortTable(field, sorts) {
-    if (sorts) {
-      this.products.sort((a, b) => {
-        if (a[field] < b[field]) {
-          return -1;
-        }
-        if (a[field] > b[field]) {
-          return 1;
-        }
-        return 0;
-      });
-    } else {
-      this.products.sort((a, b) => {
-        if (a[field] < b[field]) {
-          return 1;
-        }
-        if (a[field] > b[field]) {
-          return -1;
-        }
-        return 0;
-      });
-    }
-  }
-
   async editProduct(productCurrent) {
     const dataProduct = {
       id: productCurrent.id,
