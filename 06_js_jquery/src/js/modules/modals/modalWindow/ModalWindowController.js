@@ -40,6 +40,7 @@ class ModalWindowController {
     const nameLen = nameStr.length;
     $(name).val(nameStr);
     if (nameLen === 0 || nameLen > 15) {
+      name.focus();
       $(name).addClass('error');
       $(nameErrors).text('Поле не может быть пустым или только из пробелов или не больше 15 символов!');
       return false;
@@ -59,6 +60,7 @@ class ModalWindowController {
     }
     $(email).addClass('error');
     $(emailErrors).text('Email не может быть пустым и должен соответствовать формату e-mail!');
+    email.focus();
     return false;
   }
 

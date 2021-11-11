@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import ModalWindowController from '../modals/modalWindow/ModalWindowController';
 
 class ProductDataForTableView {
   constructor(props) {
@@ -33,7 +34,7 @@ class ProductDataForTableView {
           <button type="button" class="btn btn-secondary" data-action="search">Search</button>
         </div>
         <div class="col-auto btn-add">
-          <button type="button" class="btn btn-secondary" data-action="add">Add products</button>
+          <button id="btn-add" type="button" class="btn btn-secondary" data-action="add">Add products</button>
         </div>
       </form>
       <table class="table table-striped table-hover caption-top">
@@ -66,6 +67,7 @@ class ProductDataForTableView {
 
   openAddModal() {
     this.handlers.openAddModal();
+    ModalWindowController.validationAll();
   }
 
   openEditModal(event) {
