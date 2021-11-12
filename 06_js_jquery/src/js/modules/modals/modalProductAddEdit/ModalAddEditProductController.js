@@ -2,7 +2,7 @@ import $ from 'jquery';
 import ProductDataModel from '../../models/ProductDataModel.js';
 import ProductDataView from './view/ProductDataView.js';
 
-class ModalProductAddEditController {
+class ModalAddEditProductController {
   constructor(initState, onSubmit) {
     this.onSubmitAction = onSubmit;
     this.productDataModel = new ProductDataModel(initState);
@@ -13,7 +13,7 @@ class ModalProductAddEditController {
         onClose: this.onClose.bind(this),
       },
       validation: {
-        all: ModalProductAddEditController.validationAll.bind(this),
+        all: ModalAddEditProductController.validationAll.bind(this),
       },
     });
   }
@@ -129,7 +129,7 @@ class ModalProductAddEditController {
   }
 
   static validationAll() {
-    const btnValid = document.querySelector('#btn-valid');
+    const btnSubmit = document.querySelector('#btn-submit');
     const name = document.querySelector('#name');
     const nameError = document.querySelector('.modal-root_error_name');
     const email = document.querySelector('#email');
@@ -139,23 +139,23 @@ class ModalProductAddEditController {
     const delivery = document.querySelector('#delivery');
 
     if (
-      ModalProductAddEditController.validationName(name, nameError)
-      && ModalProductAddEditController.validationEmail(email, emailErrors)
-      && ModalProductAddEditController.validationCount(count)
-      && ModalProductAddEditController.validationPrice(price)
-      && ModalProductAddEditController.validationDelivery(delivery)
+      ModalAddEditProductController.validationName(name, nameError)
+      && ModalAddEditProductController.validationEmail(email, emailErrors)
+      && ModalAddEditProductController.validationCount(count)
+      && ModalAddEditProductController.validationPrice(price)
+      && ModalAddEditProductController.validationDelivery(delivery)
     ) {
-      btnValid.disabled = false;
+      btnSubmit.disabled = false;
       return true;
     }
-    btnValid.disabled = true;
+    btnSubmit.disabled = true;
     return false;
   }
 
   async onSubmit(event) {
     event.preventDefault();
 
-    if (ModalProductAddEditController.validationAll()) {
+    if (ModalAddEditProductController.validationAll()) {
       await this.onSubmitAction(this.productDataModel);
       this.productDataView.closeModal();
     }
@@ -167,4 +167,4 @@ class ModalProductAddEditController {
   }
 }
 
-export default ModalProductAddEditController;
+export default ModalAddEditProductController;

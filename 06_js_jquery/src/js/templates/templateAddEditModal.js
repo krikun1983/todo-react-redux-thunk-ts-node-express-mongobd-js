@@ -39,7 +39,7 @@ const templateAddEditModal = (productCurrent, countryRender, cityRender) => (
             ${cityRender}
           </label>
           <div class="modal-root-form_btns">
-            <button id="btn-valid" class="btn btn-primary" type="submit" data-action="update-yes">Add/Update</button>
+            <button id="btn-submit" class="btn btn-primary" type="submit" data-action="update-yes">Add/Update</button>
             <button class="btn btn-secondary" type="button" data-action="update-no" >No</button>
           </div>
         </form>

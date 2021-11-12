@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import { templateRowForTable, templateTable } from '../../templates';
-import ModalProductAddEditController from '../modals/modalProductAddEdit/ModalProductAddEditController';
+import ModalAddEditProductController from '../modals/modalProductAddEdit/ModalAddEditProductController';
 
 class ProductTableView {
   constructor(props) {
@@ -33,7 +33,7 @@ class ProductTableView {
 
   openModalAddProduct() {
     this.handlers.openModalAddProduct();
-    ModalProductAddEditController.validationAll();
+    ModalAddEditProductController.validationAll();
   }
 
   openModalEditProduct(event) {

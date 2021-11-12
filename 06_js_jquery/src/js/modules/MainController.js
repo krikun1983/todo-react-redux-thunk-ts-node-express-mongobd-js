@@ -1,6 +1,6 @@
 import { API_ROOT_URL } from '../constants/Api';
 import ModalProductDelController from './modals/modalProductDel/ModalProductDelController';
-import ModalProductAddEditController from './modals/modalProductAddEdit/ModalProductAddEditController';
+import ModalAddEditProductController from './modals/modalProductAddEdit/ModalAddEditProductController';
 import ProductData from './models/ProductData';
 import ProductTableView from './viewModels/ProductTableView';
 import sortFieldTable from '../utils/sortFieldTable';
@@ -36,7 +36,7 @@ class MainController {
   }
 
   async openModalAddProduct() {
-    const modal = new ModalProductAddEditController('', this.addProduct.bind(this));
+    const modal = new ModalAddEditProductController('', this.addProduct.bind(this));
     modal.show();
   }
 
@@ -47,7 +47,7 @@ class MainController {
 
   async openModalEditProduct(id) {
     const productCurrent = this.dataProductsTable.products.find((item) => (item.id === id));
-    const modal = new ModalProductAddEditController(productCurrent, this.editProduct.bind(this));
+    const modal = new ModalAddEditProductController(productCurrent, this.editProduct.bind(this));
     modal.show();
   }
 
