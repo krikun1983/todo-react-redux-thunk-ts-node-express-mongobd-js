@@ -31,19 +31,19 @@ class ProductTableView {
     }
   }
 
-  openAddModal() {
-    this.handlers.openAddModal();
+  openModalAddProduct() {
+    this.handlers.openModalAddProduct();
     ModalProductAddEditController.validationAll();
   }
 
-  openEditModal(event) {
+  openModalEditProduct(event) {
     const id = event.target.getAttribute('data-productId');
-    this.handlers.openEditModal(id);
+    this.handlers.openModalEditProduct(id);
   }
 
-  openDeleteModal(event) {
+  openModalDeleteProduct(event) {
     const id = event.target.getAttribute('data-productId');
-    this.handlers.openDeleteModal(id);
+    this.handlers.openModalDeleteProduct(id);
   }
 
   listeners() {
@@ -57,9 +57,9 @@ class ProductTableView {
     });
     this.$root.on('click', '[data-action="sort-name"]', (e) => { this.sortFieldProductsTable(e, 'name'); });
     this.$root.on('click', '[data-action="sort-price"]', (e) => { this.sortFieldProductsTable(e, 'price'); });
-    this.$root.on('click', '[data-action="add"]', () => { this.openAddModal(); });
-    this.$root.on('click', '[data-action="edit"]', (e) => { this.openEditModal(e); });
-    this.$root.on('click', '[data-action="delete"]', (e) => { this.openDeleteModal(e); });
+    this.$root.on('click', '[data-action="add"]', () => { this.openModalAddProduct(); });
+    this.$root.on('click', '[data-action="edit"]', (e) => { this.openModalEditProduct(e); });
+    this.$root.on('click', '[data-action="delete"]', (e) => { this.openModalDeleteProduct(e); });
   }
 }
 

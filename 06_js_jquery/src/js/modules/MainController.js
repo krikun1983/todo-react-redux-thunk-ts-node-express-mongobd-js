@@ -1,19 +1,19 @@
 import { API_ROOT_URL } from '../constants/Api';
 import ModalProductDelController from './modals/modalProductDel/ModalProductDelController';
 import ModalProductAddEditController from './modals/modalProductAddEdit/ModalProductAddEditController';
-import ProductDataForTable from './models/ProductDataForTable';
+import ProductData from './models/ProductData';
 import ProductTableView from './viewModels/ProductTableView';
 import sortFieldTable from '../utils/sortFieldTable';
 
 class MainController {
   constructor() {
-    this.dataProductsTable = new ProductDataForTable();
+    this.dataProductsTable = new ProductData();
     this.viewProductsTable = new ProductTableView({
       handlers: {
-        openAddModal: this.openAddModal.bind(this),
-        openEditModal: this.openEditModal.bind(this),
+        openModalAddProduct: this.openModalAddProduct.bind(this),
+        openModalEditProduct: this.openModalEditProduct.bind(this),
+        openModalDeleteProduct: this.openModalDeleteProduct.bind(this),
         searchProduct: this.searchProduct.bind(this),
-        openDeleteModal: this.openDeleteModal.bind(this),
         sortFieldProductsTable: this.sortFieldProductsTable.bind(this),
       },
     });
@@ -35,7 +35,7 @@ class MainController {
     this.viewProductsTable.render(this.dataProductsTable.products);
   }
 
-  async openAddModal() {
+  async openModalAddProduct() {
     const modal = new ModalProductAddEditController('', this.addProduct.bind(this));
     modal.show();
   }
@@ -45,7 +45,7 @@ class MainController {
     this.viewProductsTable.render(this.dataProductsTable.products);
   }
 
-  async openEditModal(id) {
+  async openModalEditProduct(id) {
     const productCurrent = this.dataProductsTable.products.find((item) => (item.id === id));
     const modal = new ModalProductAddEditController(productCurrent, this.editProduct.bind(this));
     modal.show();
@@ -56,7 +56,7 @@ class MainController {
     this.viewProductsTable.render(this.dataProductsTable.products);
   }
 
-  async openDeleteModal(id) {
+  async openModalDeleteProduct(id) {
     const productCurrent = this.dataProductsTable.products.find((item) => (item.id === id));
     const modal = new ModalProductDelController(productCurrent, this.deleteProduct.bind(this));
     modal.show();

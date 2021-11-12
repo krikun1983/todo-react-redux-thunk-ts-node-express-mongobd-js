@@ -4,7 +4,7 @@ import {
 } from '../../constants/Api';
 import ProductDataModel from './ProductDataModel';
 
-class ProductDataForTable {
+class ProductData {
   constructor() {
     this.products = [];
   }
@@ -21,7 +21,7 @@ class ProductDataForTable {
 
   async getProducts(url) {
     $('#spinner').removeClass('hidden');
-    const body = await new ProductDataForTable.GetApiResource(url);
+    const body = await new ProductData.GetApiResource(url);
     if (body) {
       this.products = [];
       body.Data.forEach(async (product) => {
@@ -99,4 +99,4 @@ class ProductDataForTable {
   }
 }
 
-export default ProductDataForTable;
+export default ProductData;
