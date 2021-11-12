@@ -75,19 +75,16 @@ class ProductData {
       },
     };
     $('#spinner').removeClass('hidden');
-    await fetch(`${API_URL_ADD}`, {
+    const productAdded = await fetch(`${API_URL_ADD}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
       },
       body: JSON.stringify(productNew),
     });
-    await this.getProducts(API_ROOT_URL);
-    this.products.forEach(async (product) => {
-      if (product.name === productNew.name) {
-        await this.editProduct({ id: product.id, ...productNew });
-      }
-    });
+    const productUpdate = await productAdded.json();
+    productUpdate.Data.delivery = productNew.delivery;
+    await this.editProduct(productUpdate.Data);
     $('#spinner').addClass('hidden');
   }
 
