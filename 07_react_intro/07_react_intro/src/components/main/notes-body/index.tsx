@@ -1,14 +1,15 @@
 import React from 'react';
 import useTypeSelector from '../../../store/hooks/useTypeSelector';
+import { DataNotes } from '../../../store/types/notes';
 import Notes from './notes';
 import style from './NotesBody.module.scss';
 
-const NotesBody = (): JSX.Element => {
-  const { dataNotesArray } = useTypeSelector(state => state.dataNotesArray);
+type Props = {
+  onOpenNotes: (note: DataNotes) => void;
+};
 
-  const onOpenNotes = () => {
-    console.log('Open Notes');
-  };
+const NotesBody: React.FC<Props> = ({ onOpenNotes }) => {
+  const { dataNotesArray } = useTypeSelector(state => state.dataNotesArray);
 
   return (
     <>
@@ -16,7 +17,7 @@ const NotesBody = (): JSX.Element => {
         {dataNotesArray.map(item => {
           const { id, ...rest } = item;
           return (
-            <li className={style.notes_group__item} onClick={onOpenNotes} key={id}>
+            <li className={style.notes_group__item} onClick={() => onOpenNotes(item)} key={id}>
               <Notes {...rest} />
             </li>
           );
