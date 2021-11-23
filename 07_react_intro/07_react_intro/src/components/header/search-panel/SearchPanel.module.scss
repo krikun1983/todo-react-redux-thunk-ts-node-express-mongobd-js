@@ -15,7 +15,7 @@
     font-weight: bold;
     background-color: $color-light;
     border: 1px solid $color-gray-light;
-    border-radius: $border-radius-input;
+    border-radius: $border-radius-small;
   }
 
   &__label {
@@ -44,7 +44,7 @@
     font-weight: bold;
     background-color: $color-gray;
     border: none;
-    border-radius: $border-radius-input;
+    border-radius: $border-radius-small;
     cursor: pointer;
 
     &:hover {

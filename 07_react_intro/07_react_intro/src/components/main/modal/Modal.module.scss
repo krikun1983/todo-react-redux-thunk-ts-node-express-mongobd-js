@@ -1,0 +1,83 @@
+@import './../../../style/variable';
+
+.form_add__container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(0 0 0 / 75%);
+}
+
+.form_add {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 450px;
+  height: 300px;
+  background-color: $color-white;
+  border-radius: $border-radius-small;
+  outline: 1px solid red;
+  transform: translate(-50%, -50%);
+
+  &__input {
+    position: absolute;
+    z-index: 10;
+    display: inline-block;
+    width: 100%;
+    height: 50px;
+    padding-left: 10px;
+    color: $color-gray;
+    font-size: $font-size-input-header;
+    background-color: $color-white;
+    border: none;
+    border-top-left-radius: $border-radius-small;
+    border-top-right-radius: $border-radius-small;
+    outline: none;
+    box-shadow: 0 0 4px $color-black;
+  }
+
+  &__text {
+    display: inline-block;
+    width: 100%;
+    max-width: 450px;
+    height: 180px;
+    max-height: 180px;
+    margin-top: 50px;
+    padding: 10px;
+    border: none;
+    outline: none;
+  }
+
+  &__btns {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 70px;
+    padding-right: 10px;
+
+    button {
+      padding: 8px 14px;
+      font-weight: bold;
+      border: none;
+      border-radius: $border-radius-small;
+      cursor: pointer;
+    }
+
+    &_create {
+      margin-right: 10px;
+      color: $color-white;
+      background-color: $color-cyan;
+
+      &:hover {
+        background-color: $color-cyan-dark;
+      }
+    }
+
+    &_cancel {
+      &:hover {
+        background-color: $color-gray-light;
+      }
+    }
+  }
+}
