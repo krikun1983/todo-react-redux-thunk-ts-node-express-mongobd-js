@@ -1,7 +1,12 @@
 import React, { MouseEvent } from 'react';
 import style from './Notes.module.scss';
 
-const Notes = (): JSX.Element => {
+type Props = {
+  header: string;
+  text: string;
+};
+
+const Notes: React.FC<Props> = ({ header, text }) => {
   const onDeleted = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     console.log('Deleted');
@@ -9,8 +14,8 @@ const Notes = (): JSX.Element => {
 
   return (
     <>
-      <h2 className={style.item__header}>Базы данных TODO:</h2>
-      <p className={style.item__text}>Предметная область? ВТФ?</p>
+      <h2 className={style.item__header}>{header}</h2>
+      <p className={style.item__text}>{text}</p>
       <div className={style.item__panel}>
         <button className={style.item__btn} type="button" onClick={onDeleted}>
           <svg role="img" viewBox="0 0 2048 2048" xmlns="http://www.w3.org/2000/svg">
