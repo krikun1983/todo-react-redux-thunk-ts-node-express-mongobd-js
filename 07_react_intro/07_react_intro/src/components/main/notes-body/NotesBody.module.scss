@@ -1,0 +1,13 @@
+@import './../../../style/variable';
+
+.notes_group {
+  max-width: 85%;
+  margin: auto;
+}
+
+.notes_group__item {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid $color-gray-light;
+  border-radius: $border-radius-notes;
+}

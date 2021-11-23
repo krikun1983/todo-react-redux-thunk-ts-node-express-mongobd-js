@@ -1,0 +1,37 @@
+@import './../../../../style/variable';
+
+.item__header {
+  color: $color-gray;
+  font-size: 24px;
+}
+
+.item__text {
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+
+.item__panel {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.item__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 32px;
+  background-color: transparent;
+  border: 1px solid $color-gray-light;
+  border-radius: 4px;
+  cursor: pointer;
+  fill: $color-gray;
+
+  @media screen and (min-width: 640px) {
+    &:hover {
+      background-color: $color-gray;
+      border: 1px solid $color-gray;
+      fill: $color-white;
+    }
+  }
+}
