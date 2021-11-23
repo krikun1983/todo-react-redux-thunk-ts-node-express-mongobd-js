@@ -1,0 +1,22 @@
+@import './../../../style/variable';
+
+.btns {
+  position: relative;
+  max-width: 85%;
+  margin: auto;
+}
+
+.btn {
+  position: fixed;
+  top: 50%;
+  right: 25%;
+  z-index: 5;
+  width: 60px;
+  height: 60px;
+  color: $color-white;
+  font-size: 40px;
+  background-color: $color-cyan;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
