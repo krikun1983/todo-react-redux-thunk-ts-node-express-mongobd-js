@@ -9,7 +9,7 @@ type Props = {
 };
 
 const Notes: React.FC<Props> = ({header, text}) => {
-  const handelDeleted = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleDeleted = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     console.log('Deleted');
   };
@@ -19,7 +19,7 @@ const Notes: React.FC<Props> = ({header, text}) => {
       <h2 className={style.item__header}>{header}</h2>
       <p className={style.item__text}>{text}</p>
       <div className={style.item__panel}>
-        <UIButton onClick={handelDeleted} type={'button'} variant={EnumUIButton.basket} />
+        <UIButton onClick={handleDeleted} type={'button'} variant={EnumUIButton.basket} />
       </div>
     </>
   );
