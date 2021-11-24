@@ -1,5 +1,7 @@
 import React, {FormEvent} from 'react';
 import {DataNotes} from '../../../store/types/notes';
+import UIButton from '../../../UI/UIButton';
+import EnumUIButton from '../../../UI/UIButton/type/enum-ui-button';
 import style from './Modal.module.scss';
 
 interface Props {
@@ -28,12 +30,13 @@ const Modal: React.FC<Props> = ({onCloseModalAdd, notes}) => {
           defaultValue={notes?.text ? notes.text : ''}
         />
         <div className={style.form_add__btns}>
-          <button className={style.form_add__btns_create} type="submit">
-            Create
-          </button>
-          <button className={style.form_add__btns_cancel} type="button" onClick={onCloseModalAdd}>
-            Cancel
-          </button>
+          <UIButton text="Create" type="submit" variant={EnumUIButton.create} />
+          <UIButton
+            text="Cancel"
+            type="button"
+            onClick={onCloseModalAdd}
+            variant={EnumUIButton.cancel}
+          />
         </div>
       </form>
     </div>

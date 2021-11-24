@@ -35,22 +35,4 @@
       content: '';
     }
   }
-
-  &__btn {
-    width: 100%;
-    max-width: 20%;
-    height: 30px;
-    color: $color-white;
-    font-weight: bold;
-    background-color: $color-gray;
-    border: none;
-    border-radius: $border-radius-small;
-    cursor: pointer;
-
-    &:hover {
-      color: $color-black;
-      background-color: $color-white;
-      border: 1px solid $color-gray;
-    }
-  }
 }

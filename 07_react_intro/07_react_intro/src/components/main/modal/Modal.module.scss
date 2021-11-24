@@ -54,29 +54,5 @@
     justify-content: flex-end;
     height: 70px;
     padding-right: 10px;
-
-    button {
-      padding: 8px 14px;
-      font-weight: bold;
-      border: none;
-      border-radius: $border-radius-small;
-      cursor: pointer;
-    }
-
-    &_create {
-      margin-right: 10px;
-      color: $color-white;
-      background-color: $color-cyan;
-
-      &:hover {
-        background-color: $color-cyan-dark;
-      }
-    }
-
-    &_cancel {
-      &:hover {
-        background-color: $color-gray-light;
-      }
-    }
   }
 }
