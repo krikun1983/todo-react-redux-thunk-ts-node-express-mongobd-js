@@ -1,19 +1,32 @@
-import React from 'react';
+import React, {FormEvent, useState} from 'react';
 import useTypeSelector from '../../../store/hooks/useTypeSelector';
 import {DataNotes} from '../../../store/types/notes';
 import {search} from '../../../utils/search';
+import FormAddUpdate from '../form-add-update-note/form-add-update';
 import Notes from './notes';
 import style from './NotesBody.module.scss';
 
-type Props = {
-  onOpenNotes: (note: DataNotes) => void;
-};
+const NotesList: React.FC = () => {
+  const [isOpenForm, setIsOpenForm] = useState<boolean>(false);
+  const [notes, setNotes] = useState<DataNotes>();
 
-const NotesList: React.FC<Props> = ({onOpenNotes}) => {
   const {dataNotesArray} = useTypeSelector(state => state.dataNotesArray);
   const {searchValueState} = useTypeSelector(state => state.searchValueState);
-
   const searchValue = search(dataNotesArray, searchValueState);
+
+  const handleOpenForm = (note: DataNotes) => {
+    setIsOpenForm(true);
+    setNotes(note);
+  };
+
+  const handleCloseForm = () => {
+    setIsOpenForm(false);
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log('update nodes');
+  };
 
   return (
     <>
@@ -21,12 +34,20 @@ const NotesList: React.FC<Props> = ({onOpenNotes}) => {
         {searchValue.map(item => {
           const {id, ...rest} = item;
           return (
-            <li className={style.notes_group__item} onClick={() => onOpenNotes(item)} key={id}>
+            <li className={style.notes_group__item} onClick={() => handleOpenForm(item)} key={id}>
               <Notes {...rest} />
             </li>
           );
         })}
       </ul>
+      {isOpenForm && (
+        <FormAddUpdate
+          isOpenForm={isOpenForm}
+          onCloseForm={handleCloseForm}
+          onSubmitForm={handleSubmit}
+          notes={notes}
+        />
+      )}
     </>
   );
 };
