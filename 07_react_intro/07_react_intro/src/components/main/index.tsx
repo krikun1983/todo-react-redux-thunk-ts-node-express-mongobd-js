@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import NotesBody from './notes-body';
+import React, {useState} from 'react';
 import style from './Main.module.scss';
 import BtnAddNote from './btn-add-note';
 import Modal from './modal';
-import { DataNotes } from '../../store/types/notes';
+import {DataNotes} from '../../store/types/notes';
+import NotesList from './notes-list';
 
 const Main: React.FC = () => {
   const [isModalAddShow, setModalAddShow] = useState<boolean>(false);
@@ -26,10 +26,10 @@ const Main: React.FC = () => {
 
   return (
     <main className={style.main}>
-      <NotesBody onOpenNotes={onOpenNotes} />
+      <NotesList onOpenNotes={onOpenNotes} />
       <BtnAddNote onShowModalAdd={onShowModalAdd} />
-      {isModalAddShow ? <Modal onCloseModalAdd={onCloseModalAdd} /> : ''}
-      {isModalUpdateShow ? <Modal onCloseModalAdd={onCloseModalAdd} notes={notes} /> : ''}
+      {isModalAddShow && <Modal onCloseModalAdd={onCloseModalAdd} />}
+      {isModalUpdateShow && <Modal onCloseModalAdd={onCloseModalAdd} notes={notes} />}
     </main>
   );
 };

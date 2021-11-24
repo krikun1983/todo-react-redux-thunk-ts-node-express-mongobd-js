@@ -23,16 +23,16 @@
   width: 30px;
   height: 32px;
   background-color: transparent;
+  background-image: url('./img/basket_gray.svg');
   border: 1px solid $color-gray-light;
   border-radius: 4px;
   cursor: pointer;
-  fill: $color-gray;
 
   @media screen and (min-width: 640px) {
     &:hover {
       background-color: $color-gray;
+      background-image: url('./img/basket_white.svg');
       border: 1px solid $color-gray;
-      fill: $color-white;
     }
   }
 }

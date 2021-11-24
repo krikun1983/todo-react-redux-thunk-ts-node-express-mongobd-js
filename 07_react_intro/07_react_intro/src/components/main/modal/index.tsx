@@ -1,5 +1,5 @@
-import React, { FormEvent } from 'react';
-import { DataNotes } from '../../../store/types/notes';
+import React, {FormEvent} from 'react';
+import {DataNotes} from '../../../store/types/notes';
 import style from './Modal.module.scss';
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
   notes?: DataNotes;
 }
 
-const Modal: React.FC<Props> = ({ onCloseModalAdd, notes }) => {
+const Modal: React.FC<Props> = ({onCloseModalAdd, notes}) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('add nodes');
