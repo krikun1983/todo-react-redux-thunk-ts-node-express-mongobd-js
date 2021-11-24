@@ -9,13 +9,13 @@ const SearchPanel: React.FC = () => {
   const dispatch = useDispatch();
   const [valueSearch, setValueSearch] = useState('');
 
-  const onSearchChangeFunc = (e: ChangeEvent<HTMLInputElement>) => {
+  const handelSearchChangeFunc = (e: ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
     const textValid = text;
     setValueSearch(textValid);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handelSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!valueSearch) {
       dispatch({type: SearchActionTypes.SEARCH, payload: ''});
@@ -26,7 +26,7 @@ const SearchPanel: React.FC = () => {
   };
 
   return (
-    <form className={style.form_search} onSubmit={handleSubmit}>
+    <form className={style.form_search} onSubmit={handelSubmit}>
       <label htmlFor="search" className={style.form_search__label}>
         <input
           id="search"
@@ -34,7 +34,7 @@ const SearchPanel: React.FC = () => {
           className={style.form_search__input}
           placeholder="search"
           value={valueSearch}
-          onChange={onSearchChangeFunc}
+          onChange={handelSearchChangeFunc}
         />
       </label>
       <UIButton text="Search" type="submit" variant={EnumUIButton.search} />

@@ -11,29 +11,29 @@ const Main: React.FC = () => {
   const [isModalUpdateShow, setModalUpdateShow] = useState<boolean>(false);
   const [notes, setNotes] = useState<DataNotes>();
 
-  const onOpenNotes = (note: DataNotes) => {
+  const handelOpenNotes = (note: DataNotes) => {
     setModalUpdateShow(true);
     setNotes(note);
   };
 
-  const onShowModalAdd = () => {
+  const handelShowModalAdd = () => {
     setModalAddShow(true);
   };
 
-  const onCloseModalAdd = () => {
+  const handelCloseModalAdd = () => {
     setModalAddShow(false);
     setModalUpdateShow(false);
   };
 
   return (
     <main className={style.main}>
-      <NotesList onOpenNotes={onOpenNotes} />
-      {isModalAddShow && <Modal onCloseModalAdd={onCloseModalAdd} />}
-      {isModalUpdateShow && <Modal onCloseModalAdd={onCloseModalAdd} notes={notes} />}
+      <NotesList onOpenNotes={handelOpenNotes} />
+      {isModalAddShow && <Modal onCloseModalAdd={handelCloseModalAdd} />}
+      {isModalUpdateShow && <Modal onCloseModalAdd={handelCloseModalAdd} notes={notes} />}
       <UIButton
         text="+"
         type="button"
-        onClick={onShowModalAdd}
+        onClick={handelShowModalAdd}
         variant={EnumUIButton.add_new_note}
       />
     </main>
