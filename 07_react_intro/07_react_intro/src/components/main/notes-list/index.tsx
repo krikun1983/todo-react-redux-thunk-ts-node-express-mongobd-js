@@ -2,8 +2,8 @@ import React, {FormEvent, useState} from 'react';
 import useTypeSelector from '../../../store/hooks/useTypeSelector';
 import {DataNotes} from '../../../store/types/notes';
 import {search} from '../../../utils/search';
-import FormAddUpdate from '../form-add-update-note/form-add-update';
-import Notes from './notes';
+import FormAddUpdate from '../Form-add-update-note/Form-add-update';
+import Notes from './Notes';
 import style from './NotesBody.module.scss';
 
 const NotesList: React.FC = () => {

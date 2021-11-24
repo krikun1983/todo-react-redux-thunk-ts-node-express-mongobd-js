@@ -1,6 +1,6 @@
 import React from 'react';
+import SearchPanel from './Search-panel';
 import style from './Header.module.scss';
-import SearchPanel from './search-panel';
 
 const Header: React.FC = () => {
   return (

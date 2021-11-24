@@ -1,7 +1,7 @@
 import React, {FormEvent, useState} from 'react';
 import UIButton from '../../../UI/UIButton';
 import EnumUIButton from '../../../UI/UIButton/type/enum-ui-button';
-import FormAddUpdate from './form-add-update';
+import FormAddUpdate from './Form-add-update';
 
 const FormAddUpdateNote: React.FC = () => {
   const [isOpenForm, setIsOpenForm] = useState<boolean>(false);
