@@ -1,11 +1,16 @@
 import React from 'react';
 import UiButtonProps from './type/ui-button-props';
-import './uIButton.scss';
+import cn from 'classnames';
+import style from './UIButton.module.scss';
 
 const UIButton: React.FC<UiButtonProps> = ({text, type, onClick, variant}) => {
   return (
     <>
-      <button className={`ui_btns ui_btn_${variant}`} type={type} onClick={onClick}>
+      <button
+        className={cn(style.ui_btns, style[`ui_btn_${variant}`])}
+        type={type}
+        onClick={onClick}
+      >
         {text}
       </button>
     </>
