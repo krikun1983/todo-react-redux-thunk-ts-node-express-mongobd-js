@@ -1,6 +1,6 @@
 import React, {FormEvent, useState} from 'react';
 import UIButton from '../../../UI/UIButton';
-import EnumUIButton from '../../../UI/UIButton/type/enum-ui-button';
+import UIButtonEnum from '../../../UI/UIButton/type/ui-button-enum';
 import FormAddUpdate from './Form-add-update';
 
 const FormAddUpdateNote: React.FC = () => {
@@ -25,7 +25,7 @@ const FormAddUpdateNote: React.FC = () => {
         text="+"
         type="button"
         onClick={handleClickOpen}
-        variant={EnumUIButton.add_new_note}
+        variant={UIButtonEnum.add_new_note}
       />
 
       <FormAddUpdate

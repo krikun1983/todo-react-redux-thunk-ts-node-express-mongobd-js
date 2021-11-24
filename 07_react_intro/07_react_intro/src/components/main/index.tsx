@@ -1,7 +1,7 @@
 import React from 'react';
-import style from './Main.module.scss';
 import NotesList from './Notes-list';
 import FormAddUpdateNote from './Form-add-update-note';
+import style from './Main.module.scss';
 
 const Main: React.FC = () => {
   return (
