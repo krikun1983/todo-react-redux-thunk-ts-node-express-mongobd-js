@@ -1,7 +1,7 @@
 import React, {FormEvent} from 'react';
 import {DataNotes} from '../../../store/types/notes';
-import UIButton from '../../../UI/UIButton';
-import UIButtonEnum from '../../../UI/UIButton/type/ui-button-enum';
+import Button from '../../../Ui-Kit/Button';
+import ButtonEnum from '../../../Ui-Kit/Button/type/ui-button-enum';
 import style from './FormAddUpdate.module.scss';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
   notes?: DataNotes;
 }
 
-const FormAddUpdate: React.FC<Props> = ({isOpenForm, onCloseForm, onSubmitForm, notes}) => {
+const NoteModal: React.FC<Props> = ({isOpenForm, onCloseForm, onSubmitForm, notes}) => {
   return (
     <>
       {isOpenForm && (
@@ -29,12 +29,12 @@ const FormAddUpdate: React.FC<Props> = ({isOpenForm, onCloseForm, onSubmitForm, 
               defaultValue={notes?.text && notes.text}
             />
             <div className={style.form_add__btns}>
-              <UIButton text="Create" type="submit" variant={UIButtonEnum.create} />
-              <UIButton
+              <Button text="Create" type="submit" variant={ButtonEnum.create} />
+              <Button
                 text="Cancel"
                 type="button"
                 onClick={onCloseForm}
-                variant={UIButtonEnum.cancel}
+                variant={ButtonEnum.cancel}
               />
             </div>
           </form>
@@ -44,4 +44,4 @@ const FormAddUpdate: React.FC<Props> = ({isOpenForm, onCloseForm, onSubmitForm, 
   );
 };
 
-export default FormAddUpdate;
+export default NoteModal;

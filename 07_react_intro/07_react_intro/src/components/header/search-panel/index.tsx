@@ -1,8 +1,8 @@
 import React, {FormEvent, useState, ChangeEvent} from 'react';
 import {useDispatch} from 'react-redux';
 import {SearchActionTypes} from '../../../store/types/searchValue';
-import UIButton from '../../../UI/UIButton';
-import UIButtonEnum from '../../../UI/UIButton/type/ui-button-enum';
+import Button from '../../../Ui-Kit/Button';
+import ButtonEnum from '../../../Ui-Kit/Button/type/ui-button-enum';
 import style from './SearchPanel.module.scss';
 
 const SearchPanel: React.FC = () => {
@@ -37,7 +37,7 @@ const SearchPanel: React.FC = () => {
           onChange={handleSearchChangeFunc}
         />
       </label>
-      <UIButton text="Search" type="submit" variant={UIButtonEnum.search} />
+      <Button text="Search" type="submit" variant={ButtonEnum.search} />
     </form>
   );
 };

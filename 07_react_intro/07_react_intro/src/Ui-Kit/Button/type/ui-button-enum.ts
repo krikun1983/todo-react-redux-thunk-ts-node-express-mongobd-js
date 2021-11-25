@@ -1,4 +1,4 @@
-enum UIButtonEnum {
+enum ButtonEnum {
   add_new_note = 'add_new_note',
   basket = 'basket',
   search = 'search',
@@ -6,4 +6,4 @@ enum UIButtonEnum {
   cancel = 'cancel',
 }
 
-export default UIButtonEnum;
+export default ButtonEnum;

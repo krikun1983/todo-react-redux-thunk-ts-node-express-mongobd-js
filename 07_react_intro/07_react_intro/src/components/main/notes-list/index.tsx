@@ -1,17 +1,25 @@
 import React, {FormEvent, useState} from 'react';
-import useTypeSelector from '../../../store/hooks/useTypeSelector';
+import store from '../../../store';
 import {DataNotes} from '../../../store/types/notes';
+import {RootState} from '../../../store/types/root-state';
 import {search} from '../../../utils/search';
-import FormAddUpdate from '../Form-add-update-note/Form-add-update';
+import NoteModalForm from '../NoteModal';
+import FormAddUpdate from '../NoteModal/NoteModal';
 import Notes from './Notes';
 import style from './NotesBody.module.scss';
 
 const NotesList: React.FC = () => {
   const [isOpenForm, setIsOpenForm] = useState<boolean>(false);
   const [notes, setNotes] = useState<DataNotes>();
+  const [stateOfStore, setStateOfStore] = useState<RootState>(store.getState());
 
-  const {dataNotesArray} = useTypeSelector(state => state.dataNotesArray);
-  const {searchValueState} = useTypeSelector(state => state.searchValueState);
+  store.subscribe(() => {
+    setStateOfStore(store.getState());
+  });
+
+  const {dataNotesArray} = stateOfStore.dataNotesArray;
+  const {searchValueState} = stateOfStore.searchValueState;
+
   const searchValue = search(dataNotesArray, searchValueState);
 
   const handleOpenForm = (note: DataNotes) => {
@@ -48,6 +56,7 @@ const NotesList: React.FC = () => {
           notes={notes}
         />
       )}
+      <NoteModalForm />
     </>
   );
 };
