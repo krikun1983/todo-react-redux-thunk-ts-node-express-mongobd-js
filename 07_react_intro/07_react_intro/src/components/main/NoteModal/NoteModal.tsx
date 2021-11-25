@@ -4,14 +4,14 @@ import Button from '../../../Ui-Kit/Button';
 import ButtonEnum from '../../../Ui-Kit/Button/type/ui-button-enum';
 import style from './FormAddUpdate.module.scss';
 
-interface Props {
+interface NoteModalProps {
   isOpenForm: boolean;
   onCloseForm: () => void;
   onSubmitForm: (e: FormEvent<HTMLFormElement>) => void;
   notes?: DataNotes;
 }
 
-const NoteModal: React.FC<Props> = ({isOpenForm, onCloseForm, onSubmitForm, notes}) => {
+const NoteModal: React.FC<NoteModalProps> = ({isOpenForm, onCloseForm, onSubmitForm, notes}) => {
   return (
     <>
       {isOpenForm && (

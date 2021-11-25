@@ -3,10 +3,10 @@ import cn from 'classnames';
 import style from './style/Button.module.scss';
 
 type ButtonProps = {
-  text?: string;
   type: 'button' | 'submit';
-  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
   variant: string;
+  text?: string;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
 const Button: React.FC<ButtonProps> = ({text, type, onClick, variant}) => {
