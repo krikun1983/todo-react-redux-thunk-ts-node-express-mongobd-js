@@ -1,6 +1,6 @@
 export interface DataNotes {
-  header: string;
-  text: string;
+  title: string;
+  description: string;
   id: number;
 }
 

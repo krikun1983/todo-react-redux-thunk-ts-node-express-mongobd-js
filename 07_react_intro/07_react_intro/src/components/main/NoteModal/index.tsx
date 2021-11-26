@@ -1,10 +1,15 @@
 import React, {FormEvent, useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {DataNotesActionTypes} from '../../../store/types/notes';
 import Button from '../../../Ui-Kit/Button';
 import ButtonEnum from '../../../Ui-Kit/Button/type/ui-button-enum';
 import NoteModal from './NoteModal';
 import style from './NoteModal.module.scss';
 
+let idMax = 4;
+
 const NoteModalForm: React.FC = () => {
+  const dispatch = useDispatch();
   const [isOpenForm, setIsOpenForm] = useState<boolean>(false);
 
   const handleClickOpen = () => {
@@ -15,9 +20,12 @@ const NoteModalForm: React.FC = () => {
     setIsOpenForm(false);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>, title: string, description: string) => {
     e.preventDefault();
-    console.log('add nodes');
+    dispatch({
+      type: DataNotesActionTypes.ADD_NOTE,
+      payload: {title: title, description: description, id: idMax++},
+    });
   };
 
   return (

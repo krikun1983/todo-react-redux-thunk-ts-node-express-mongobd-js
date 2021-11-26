@@ -4,11 +4,11 @@ import ButtonEnum from '../../../../Ui-Kit/Button/type/ui-button-enum';
 import style from './Notes.module.scss';
 
 type NotesProps = {
-  header: string;
-  text: string;
+  title: string;
+  description: string;
 };
 
-const Notes: React.FC<NotesProps> = ({header, text}) => {
+const Notes: React.FC<NotesProps> = ({title, description}) => {
   const handleDeleted = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     console.log('Deleted');
@@ -16,8 +16,8 @@ const Notes: React.FC<NotesProps> = ({header, text}) => {
 
   return (
     <>
-      <h2 className={style.item__header}>{header}</h2>
-      <p className={style.item__text}>{text}</p>
+      <h2 className={style.item__header}>{title}</h2>
+      <p className={style.item__text}>{description}</p>
       <div className={style.item__panel}>
         <div>
           <Button

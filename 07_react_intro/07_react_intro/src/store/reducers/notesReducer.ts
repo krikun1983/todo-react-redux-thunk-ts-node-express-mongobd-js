@@ -8,7 +8,7 @@ const initialState: DataNotesState = {
 const notesReducer = (state = initialState, action: DataNotesAction): DataNotesState => {
   switch (action.type) {
     case DataNotesActionTypes.ADD_NOTE:
-      return {...state, dataNotesArray: [...state.dataNotesArray, action.payload]};
+      return {...state, dataNotesArray: [action.payload, ...state.dataNotesArray]};
     case DataNotesActionTypes.UPDATE_NOTE:
       return {...state, dataNotesArray: [...state.dataNotesArray, action.payload]};
     case DataNotesActionTypes.DELETE_NOTE:
