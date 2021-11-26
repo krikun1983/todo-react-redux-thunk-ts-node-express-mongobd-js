@@ -4,7 +4,7 @@ import {DataNotes} from '../../../store/types/notes';
 import {RootState} from '../../../store/types/root-state';
 import {search} from '../../../utils/search';
 import NoteModalForm from '../NoteModal';
-import FormAddUpdate from '../NoteModal/NoteModal';
+import NoteModal from '../NoteModal/NoteModal';
 import Notes from './Notes';
 import style from './NotesBody.module.scss';
 
@@ -49,7 +49,7 @@ const NotesList: React.FC = () => {
         })}
       </ul>
       {isOpenForm && (
-        <FormAddUpdate
+        <NoteModal
           isOpenForm={isOpenForm}
           onCloseForm={handleCloseForm}
           onSubmitForm={handleSubmit}

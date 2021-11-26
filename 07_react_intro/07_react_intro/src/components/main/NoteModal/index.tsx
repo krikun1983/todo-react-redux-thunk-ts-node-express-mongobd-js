@@ -2,6 +2,7 @@ import React, {FormEvent, useState} from 'react';
 import Button from '../../../Ui-Kit/Button';
 import ButtonEnum from '../../../Ui-Kit/Button/type/ui-button-enum';
 import NoteModal from './NoteModal';
+import style from './NoteModal.module.scss';
 
 const NoteModalForm: React.FC = () => {
   const [isOpenForm, setIsOpenForm] = useState<boolean>(false);
@@ -21,8 +22,15 @@ const NoteModalForm: React.FC = () => {
 
   return (
     <>
-      <Button text="+" type="button" onClick={handleClickOpen} variant={ButtonEnum.add_new_note} />
-
+      <div className={style.form_add__button}>
+        <Button
+          text="+"
+          type="button"
+          onClick={handleClickOpen}
+          variant={ButtonEnum.default}
+          styles="btn_circle_blue"
+        />
+      </div>
       <NoteModal isOpenForm={isOpenForm} onCloseForm={handleClose} onSubmitForm={handleSubmit} />
     </>
   );

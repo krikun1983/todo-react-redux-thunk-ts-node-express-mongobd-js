@@ -4,15 +4,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 7px 30px;
   font-weight: bold;
   background-color: $color-white;
+  border: none;
   border-radius: $border-radius-small;
   cursor: pointer;
 }
 
-.ui_btn_basket {
-  width: 30px;
-  height: 32px;
+.btn_gray {
+  color: $color-white;
+  background-color: $color-gray;
+  border: 1px solid transparent;
+
+  @media screen and (min-width: 640px) {
+    &:hover {
+      color: $color-black;
+      background-color: $color-white;
+      border: 1px solid $color-gray;
+    }
+  }
+}
+
+.btn_icon {
+  padding: 0;
   border: 1px solid $color-gray-light;
 
   @media screen and (min-width: 640px) {
@@ -23,33 +38,14 @@
   }
 }
 
-.ui_btn_search {
+.btn_circle_blue {
+  display: inline-block;
   width: 100%;
-  max-width: 20%;
-  height: 30px;
+  height: 100%;
+  padding: 0;
   color: $color-white;
-  font-weight: bold;
-  background-color: $color-gray;
-  border: none;
-
-  &:hover {
-    color: $color-black;
-    background-color: $color-white;
-    border: 1px solid $color-gray;
-  }
-}
-
-.ui_btn_add_new_note {
-  position: fixed;
-  top: 50%;
-  right: 25%;
-  z-index: 5;
-  width: 60px;
-  height: 60px;
-  color: $color-white;
-  font-size: 40px;
+  font-size: inherit;
   background-color: $color-cyan;
-  border: none;
   border-radius: 50%;
 
   &:hover {
@@ -57,25 +53,14 @@
   }
 }
 
-.ui_btn_create,
-.ui_btn_cancel {
-  padding: 8px 14px;
-  border: none;
-}
-
-.ui_btn_create {
-  margin-right: 10px;
-  color: $color-white;
-  background-color: $color-cyan;
-
+.btn_white_blue {
   &:hover {
-    background-color: $color-cyan-dark;
+    color: $color-white;
+    background-color: $color-cyan;
   }
 }
 
-.ui_btn_cancel {
-  background-color: $color-gray-light;
-
+.btn_white_gray {
   &:hover {
     color: $color-white;
     background-color: $color-gray;

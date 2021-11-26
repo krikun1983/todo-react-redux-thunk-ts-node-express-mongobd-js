@@ -1,9 +1,6 @@
 enum ButtonEnum {
-  add_new_note = 'add_new_note',
-  basket = 'basket',
-  search = 'search',
-  create = 'create',
-  cancel = 'cancel',
+  default = 'default',
+  icon_basket = 'icon_basket',
 }
 
 export default ButtonEnum;

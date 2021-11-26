@@ -37,7 +37,9 @@ const SearchPanel: React.FC = () => {
           onChange={handleSearchChangeFunc}
         />
       </label>
-      <Button text="Search" type="submit" variant={ButtonEnum.search} />
+      <div className={style.form_search__btn}>
+        <Button text="Search" styles="btn_gray" variant={ButtonEnum.default} type="submit" />
+      </div>
     </form>
   );
 };

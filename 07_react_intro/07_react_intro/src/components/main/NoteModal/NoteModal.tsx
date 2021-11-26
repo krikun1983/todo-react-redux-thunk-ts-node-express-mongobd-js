@@ -2,7 +2,7 @@ import React, {FormEvent} from 'react';
 import {DataNotes} from '../../../store/types/notes';
 import Button from '../../../Ui-Kit/Button';
 import ButtonEnum from '../../../Ui-Kit/Button/type/ui-button-enum';
-import style from './FormAddUpdate.module.scss';
+import style from './NoteModal.module.scss';
 
 interface NoteModalProps {
   isOpenForm: boolean;
@@ -29,12 +29,18 @@ const NoteModal: React.FC<NoteModalProps> = ({isOpenForm, onCloseForm, onSubmitF
               defaultValue={notes?.text && notes.text}
             />
             <div className={style.form_add__btns}>
-              <Button text="Create" type="submit" variant={ButtonEnum.create} />
+              <Button
+                text="Create"
+                type="submit"
+                variant={ButtonEnum.default}
+                styles="btn_white_blue"
+              />
               <Button
                 text="Cancel"
                 type="button"
                 onClick={onCloseForm}
-                variant={ButtonEnum.cancel}
+                variant={ButtonEnum.default}
+                styles="btn_white_gray"
               />
             </div>
           </form>

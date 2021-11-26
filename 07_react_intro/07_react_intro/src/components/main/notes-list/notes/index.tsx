@@ -19,7 +19,15 @@ const Notes: React.FC<NotesProps> = ({header, text}) => {
       <h2 className={style.item__header}>{header}</h2>
       <p className={style.item__text}>{text}</p>
       <div className={style.item__panel}>
-        <Button onClick={handleDeleted} type={'button'} variant={ButtonEnum.basket} />
+        <div>
+          <Button
+            className={style.form_search__btn}
+            variant={ButtonEnum.icon_basket}
+            onClick={handleDeleted}
+            type="button"
+            styles="btn_icon"
+          />
+        </div>
       </div>
     </>
   );
