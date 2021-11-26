@@ -74,6 +74,7 @@ const NotesList: React.FC = () => {
           isOpenFormDeleteNote={isOpenFormDeleteNote}
           onDeleteNote={handleDeleteNote}
           onCloseForm={handleCloseFormDeleteNote}
+          onIsOpenFormDeleteNote={setIsOpenFormDeleteNote}
         />
       )}
       {isOpenForm && (
@@ -82,6 +83,7 @@ const NotesList: React.FC = () => {
           onCloseForm={handleCloseForm}
           onSubmitForm={handleSubmit}
           notes={notes}
+          onIsOpenForm={setIsOpenForm}
         />
       )}
       <NoteModalForm />

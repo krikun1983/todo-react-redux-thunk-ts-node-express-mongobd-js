@@ -40,7 +40,12 @@ const NoteModalForm: React.FC = () => {
           styles="btn_circle_blue"
         />
       </div>
-      <NoteModal isOpenForm={isOpenForm} onCloseForm={handleClose} onSubmitForm={handleSubmit} />
+      <NoteModal
+        isOpenForm={isOpenForm}
+        onCloseForm={handleClose}
+        onSubmitForm={handleSubmit}
+        onIsOpenForm={setIsOpenForm}
+      />
     </>
   );
 };

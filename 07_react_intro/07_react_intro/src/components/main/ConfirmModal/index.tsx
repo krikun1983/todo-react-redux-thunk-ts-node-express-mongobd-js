@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Dispatch, MouseEvent, SetStateAction} from 'react';
 import Button from '../../../Ui-Kit/Button';
 import ButtonEnum from '../../../Ui-Kit/Button/type/ui-button-enum';
 import style from './ConfirmModal.module.scss';
@@ -6,18 +6,27 @@ import style from './ConfirmModal.module.scss';
 type ConfirmModalProps = {
   isOpenFormDeleteNote: boolean;
   onDeleteNote: () => void;
-  onCloseForm: () => void;
+  onCloseForm: (e: MouseEvent<HTMLButtonElement | HTMLDivElement>) => void;
+  onIsOpenFormDeleteNote: Dispatch<SetStateAction<boolean>>;
 };
 
 const ConfirmModal: React.FC<ConfirmModalProps> = ({
   isOpenFormDeleteNote,
   onDeleteNote,
   onCloseForm,
+  onIsOpenFormDeleteNote,
 }) => {
+  const handleModalClose = (e: MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLDivElement;
+    if (target.classList.contains(style.modal__container)) {
+      onIsOpenFormDeleteNote(false);
+    }
+  };
+
   return (
     <>
       {isOpenFormDeleteNote && (
-        <div className={style.modal__container}>
+        <div className={style.modal__container} onClick={handleModalClose}>
           <div className={style.modal__wrapper}>
             <div className={style.modal__question}>Are you sure you need to delete the note?</div>
             <div className={style.modal__btns}>

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, useState} from 'react';
+import React, {ChangeEvent, Dispatch, FormEvent, MouseEvent, SetStateAction, useState} from 'react';
 import {DataNotes} from '../../../store/types/notes';
 import Button from '../../../Ui-Kit/Button';
 import ButtonEnum from '../../../Ui-Kit/Button/type/ui-button-enum';
@@ -9,9 +9,16 @@ interface NoteModalProps {
   onCloseForm: () => void;
   onSubmitForm: (e: FormEvent<HTMLFormElement>, title: string, description: string) => void;
   notes?: DataNotes;
+  onIsOpenForm: Dispatch<SetStateAction<boolean>>;
 }
 
-const NoteModal: React.FC<NoteModalProps> = ({isOpenForm, onCloseForm, onSubmitForm, notes}) => {
+const NoteModal: React.FC<NoteModalProps> = ({
+  isOpenForm,
+  onCloseForm,
+  onSubmitForm,
+  notes,
+  onIsOpenForm,
+}) => {
   const [valueTitle, setValueTitle] = useState<string>(notes ? notes.title : '');
   const [valueDescription, setValueDescription] = useState<string>(notes ? notes.description : '');
 
@@ -29,6 +36,13 @@ const NoteModal: React.FC<NoteModalProps> = ({isOpenForm, onCloseForm, onSubmitF
     }
   };
 
+  const handleModalClose = (e: MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLDivElement;
+    if (target.classList.contains(style.form_add__container)) {
+      onIsOpenForm(false);
+    }
+  };
+
   const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (valueTitle.trim() || valueDescription.trim()) {
@@ -41,7 +55,7 @@ const NoteModal: React.FC<NoteModalProps> = ({isOpenForm, onCloseForm, onSubmitF
   return (
     <>
       {isOpenForm && (
-        <div className={style.form_add__container}>
+        <div className={style.form_add__container} onClick={handleModalClose}>
           <form className={style.form_add} onSubmit={handleSubmitForm}>
             <input
               type="text"
