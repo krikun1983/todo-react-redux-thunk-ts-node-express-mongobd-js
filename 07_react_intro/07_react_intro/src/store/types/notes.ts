@@ -5,7 +5,7 @@ export interface DataNotes {
 }
 
 export interface DataNotesState {
-  dataNotesArray: DataNotes[];
+  dataNotesState: DataNotes[];
 }
 
 export interface DataNotesAction {

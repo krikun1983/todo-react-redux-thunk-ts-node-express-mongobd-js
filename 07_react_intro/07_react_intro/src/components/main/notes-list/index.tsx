@@ -23,10 +23,10 @@ const NotesList: React.FC = () => {
     setStateOfStore(store.getState());
   });
 
-  const {dataNotesArray} = stateOfStore.dataNotesArray;
-  const {searchValueState} = stateOfStore.searchValueState;
+  const {dataNotesState} = stateOfStore.dataNotesState;
+  const {searchNoteState} = stateOfStore.searchNoteState;
 
-  const searchValue = search(dataNotesArray, searchValueState);
+  const searchValue = search(dataNotesState, searchNoteState);
 
   const handleOpenForm = (note: DataNotes) => {
     setIsOpenForm(true);

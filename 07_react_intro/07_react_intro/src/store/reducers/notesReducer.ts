@@ -1,32 +1,32 @@
-import dataNotes from '../../constants/data-notes';
+import DATA_NOTES from '../../constants/data-notes';
 import {DataNotes, DataNotesAction, DataNotesActionTypes, DataNotesState} from '../types/notes';
 
 const initialState: DataNotesState = {
-  dataNotesArray: [...dataNotes],
+  dataNotesState: [...DATA_NOTES],
 };
 
 export const notesReducer = (state = initialState, action: DataNotesAction): DataNotesState => {
   switch (action.type) {
     case DataNotesActionTypes.ADD_NOTE:
-      return {...state, dataNotesArray: [action.payload as DataNotes, ...state.dataNotesArray]};
+      return {...state, dataNotesState: [action.payload as DataNotes, ...state.dataNotesState]};
     case DataNotesActionTypes.UPDATE_NOTE:
-      return {...state, dataNotesArray: [...state.dataNotesArray, action.payload as DataNotes]};
+      return {...state, dataNotesState: [...state.dataNotesState, action.payload as DataNotes]};
     case DataNotesActionTypes.REMOVE_NOTE:
       return {
         ...state,
-        dataNotesArray: [...state.dataNotesArray.filter(note => note.id !== action.payload)],
+        dataNotesState: [...state.dataNotesState.filter(note => note.id !== action.payload)],
       };
     default:
       return state;
   }
 };
 
-export const addNoteAction = (payload: DataNotes) => ({
+export const addNoteAction = (payload: DataNotes): DataNotesAction => ({
   type: DataNotesActionTypes.ADD_NOTE,
   payload,
 });
 
-export const removeNoteAction = (payload: number) => ({
+export const removeNoteAction = (payload: number): DataNotesAction => ({
   type: DataNotesActionTypes.REMOVE_NOTE,
   payload,
 });

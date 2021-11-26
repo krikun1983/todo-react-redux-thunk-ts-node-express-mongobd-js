@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
 import {notesReducer} from './notesReducer';
-import {searchReducer} from './searchValueReducer';
+import {searchReducer} from './searchReducer';
 
 const rootReducer = combineReducers({
-  dataNotesArray: notesReducer,
-  searchValueState: searchReducer,
+  dataNotesState: notesReducer,
+  searchNoteState: searchReducer,
 });
 
 export default rootReducer;

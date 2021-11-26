@@ -1,6 +1,6 @@
 import React, {FormEvent, useState, ChangeEvent} from 'react';
 import {useDispatch} from 'react-redux';
-import {searchNoteAction} from '../../../store/reducers/searchValueReducer';
+import {searchNoteAction} from '../../../store/reducers/searchReducer';
 import Button from '../../../Ui-Kit/Button';
 import ButtonEnum from '../../../Ui-Kit/Button/type/ui-button-enum';
 import style from './SearchPanel.module.scss';

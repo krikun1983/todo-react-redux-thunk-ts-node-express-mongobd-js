@@ -1,5 +1,5 @@
 export interface SearchState {
-  searchValueState: string;
+  searchNoteState: string;
 }
 
 export interface SearchAction {

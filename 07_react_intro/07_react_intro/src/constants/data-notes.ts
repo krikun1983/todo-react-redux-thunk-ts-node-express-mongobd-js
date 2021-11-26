@@ -1,4 +1,4 @@
-const dataNotes = [
+const DATA_NOTES = [
   {
     title: 'Базы данных TODO',
     description: 'Предметная область? ВТФ?',
@@ -17,4 +17,4 @@ const dataNotes = [
   },
 ];
 
-export default dataNotes;
+export default DATA_NOTES;
