@@ -16,17 +16,26 @@ const NoteModal: React.FC<NoteModalProps> = ({isOpenForm, onCloseForm, onSubmitF
   const [valueDescription, setValueDescription] = useState<string>(notes ? notes.description : '');
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValueTitle(e.target.value);
+    const title = e.target.value;
+    if (title.length > 30) return;
+    if (title.length !== 0) {
+      setValueTitle(title);
+    }
   };
   const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setValueDescription(e.target.value);
+    const description = e.target.value;
+    if (description.length !== 0) {
+      setValueDescription(description);
+    }
   };
 
   const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmitForm(e, valueTitle, valueDescription);
-    setValueTitle('');
-    setValueDescription('');
+    if (valueTitle.trim() || valueDescription.trim()) {
+      onSubmitForm(e, valueTitle, valueDescription);
+      setValueTitle('');
+      setValueDescription('');
+    }
   };
 
   return (
