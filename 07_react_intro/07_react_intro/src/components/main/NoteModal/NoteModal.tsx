@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Dispatch, FormEvent, MouseEvent, SetStateAction, useState} from 'react';
+import React, {ChangeEvent, Dispatch, FormEvent, SetStateAction, useState} from 'react';
 import {DataNotes} from '../../../store/types/notes';
 import Button from '../../../Ui-Kit/Button';
 import ButtonEnum from '../../../Ui-Kit/Button/type/ui-button-enum';
@@ -36,13 +36,6 @@ const NoteModal: React.FC<NoteModalProps> = ({
     }
   };
 
-  const handleModalClose = (e: MouseEvent<HTMLDivElement>) => {
-    const target = e.target as HTMLDivElement;
-    if (target.classList.contains(style.form_add__container)) {
-      onIsOpenForm(false);
-    }
-  };
-
   const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (valueTitle.trim() || valueDescription.trim()) {
@@ -55,8 +48,12 @@ const NoteModal: React.FC<NoteModalProps> = ({
   return (
     <>
       {isOpenForm && (
-        <div className={style.form_add__container} onClick={handleModalClose}>
-          <form className={style.form_add} onSubmit={handleSubmitForm}>
+        <div className={style.form_add__container} onClick={() => onIsOpenForm(false)}>
+          <form
+            className={style.form_add}
+            onSubmit={handleSubmitForm}
+            onClick={e => e.stopPropagation()}
+          >
             <input
               type="text"
               className={style.form_add__input}

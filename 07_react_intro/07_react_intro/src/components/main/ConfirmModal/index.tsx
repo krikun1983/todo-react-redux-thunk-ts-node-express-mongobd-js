@@ -16,18 +16,11 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
   onCloseForm,
   onIsOpenFormDeleteNote,
 }) => {
-  const handleModalClose = (e: MouseEvent<HTMLDivElement>) => {
-    const target = e.target as HTMLDivElement;
-    if (target.classList.contains(style.modal__container)) {
-      onIsOpenFormDeleteNote(false);
-    }
-  };
-
   return (
     <>
       {isOpenFormDeleteNote && (
-        <div className={style.modal__container} onClick={handleModalClose}>
-          <div className={style.modal__wrapper}>
+        <div className={style.modal__container} onClick={() => onIsOpenFormDeleteNote(false)}>
+          <div className={style.modal__wrapper} onClick={e => e.stopPropagation()}>
             <div className={style.modal__question}>Are you sure you need to delete the note?</div>
             <div className={style.modal__btns}>
               <Button
