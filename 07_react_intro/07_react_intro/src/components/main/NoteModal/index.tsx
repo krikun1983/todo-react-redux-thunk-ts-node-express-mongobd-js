@@ -26,6 +26,7 @@ const NoteModalForm: React.FC = () => {
       type: DataNotesActionTypes.ADD_NOTE,
       payload: {title: title, description: description, id: idMax++},
     });
+    handleClose();
   };
 
   return (

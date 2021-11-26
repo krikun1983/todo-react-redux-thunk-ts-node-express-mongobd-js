@@ -6,14 +6,10 @@ import style from './Notes.module.scss';
 type NotesProps = {
   title: string;
   description: string;
+  onOpenFormDeleteNote: (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
-const Notes: React.FC<NotesProps> = ({title, description}) => {
-  const handleDeleted = (e: MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    console.log('Deleted');
-  };
-
+const Notes: React.FC<NotesProps> = ({title, description, onOpenFormDeleteNote}) => {
   return (
     <>
       <h2 className={style.item__header}>{title}</h2>
@@ -23,7 +19,7 @@ const Notes: React.FC<NotesProps> = ({title, description}) => {
           <Button
             className={style.form_search__btn}
             variant={ButtonEnum.icon_basket}
-            onClick={handleDeleted}
+            onClick={onOpenFormDeleteNote}
             type="button"
             styles="btn_icon"
           />

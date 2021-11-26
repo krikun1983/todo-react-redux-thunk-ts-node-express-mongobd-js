@@ -54,6 +54,8 @@
 }
 
 .btn_white_blue {
+  font-size: inherit;
+
   &:hover {
     color: $color-white;
     background-color: $color-cyan;
@@ -61,6 +63,8 @@
 }
 
 .btn_white_gray {
+  font-size: inherit;
+
   &:hover {
     color: $color-white;
     background-color: $color-gray;

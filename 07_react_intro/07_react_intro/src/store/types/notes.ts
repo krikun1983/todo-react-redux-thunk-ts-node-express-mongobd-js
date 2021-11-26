@@ -10,7 +10,7 @@ export interface DataNotesState {
 
 export interface DataNotesAction {
   type: string;
-  payload: DataNotes;
+  payload: DataNotes | DataNotes[];
 }
 
 export enum DataNotesActionTypes {
