@@ -13,13 +13,11 @@
 .ui_btn_basket {
   width: 30px;
   height: 32px;
-  background-image: url('./../img/basket_gray.svg');
   border: 1px solid $color-gray-light;
 
   @media screen and (min-width: 640px) {
     &:hover {
       background-color: $color-gray;
-      background-image: url('./../img/basket_white.svg');
       border: 1px solid $color-gray;
     }
   }
