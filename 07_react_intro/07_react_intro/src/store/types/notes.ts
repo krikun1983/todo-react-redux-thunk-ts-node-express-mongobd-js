@@ -10,13 +10,13 @@ export interface DataNotesState {
 
 export interface DataNotesAction {
   type: string;
-  payload: DataNotes | DataNotes[];
+  payload: DataNotes | number;
 }
 
 export enum DataNotesActionTypes {
   ADD_NOTE = 'ADD_NOTE',
   UPDATE_NOTE = 'UPDATE_NOTE',
-  DELETE_NOTE = 'DELETE_NOTE',
+  REMOVE_NOTE = 'REMOVE_NOTE',
 }
 
 interface DataNotesAddAction {
@@ -28,7 +28,7 @@ interface DataNotesUPDATEAction {
 }
 
 interface DataNotesDeleteAction {
-  type: DataNotesActionTypes.DELETE_NOTE;
+  type: DataNotesActionTypes.REMOVE_NOTE;
 }
 
 export type DataNotesSuccess = DataNotesAddAction | DataNotesUPDATEAction | DataNotesDeleteAction;

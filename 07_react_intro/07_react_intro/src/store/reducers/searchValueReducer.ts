@@ -4,7 +4,7 @@ const initialState: SearchState = {
   searchValueState: '',
 };
 
-const searchReducer = (state = initialState, action: SearchAction): SearchState => {
+export const searchReducer = (state = initialState, action: SearchAction): SearchState => {
   switch (action.type) {
     case SearchActionTypes.SEARCH:
       return {...state, searchValueState: action.payload};
@@ -13,4 +13,4 @@ const searchReducer = (state = initialState, action: SearchAction): SearchState 
   }
 };
 
-export default searchReducer;
+export const searchNoteAction = (payload: string) => ({type: SearchActionTypes.SEARCH, payload});

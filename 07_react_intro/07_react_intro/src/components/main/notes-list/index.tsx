@@ -1,7 +1,8 @@
 import React, {FormEvent, MouseEvent, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import store from '../../../store';
-import {DataNotes, DataNotesActionTypes} from '../../../store/types/notes';
+import {removeNoteAction} from '../../../store/reducers/notesReducer';
+import {DataNotes} from '../../../store/types/notes';
 import {RootState} from '../../../store/types/root-state';
 import {search} from '../../../utils/search';
 import ConfirmModal from '../ConfirmModal';
@@ -16,7 +17,7 @@ const NotesList: React.FC = () => {
   const [notes, setNotes] = useState<DataNotes>();
   const [isOpenForm, setIsOpenForm] = useState<boolean>(false);
   const [isOpenFormDeleteNote, setIsOpenFormDeleteNote] = useState<boolean>(false);
-  const [noteIdDelete, setNoteIdDelete] = useState<number>();
+  const [noteIdDelete, setNoteIdDelete] = useState<number>(0);
 
   store.subscribe(() => {
     setStateOfStore(store.getState());
@@ -47,8 +48,7 @@ const NotesList: React.FC = () => {
   };
 
   const handleDeleteNote = () => {
-    const state = dataNotesArray.filter(note => note.id !== noteIdDelete);
-    dispatch({type: DataNotesActionTypes.DELETE_NOTE, payload: state});
+    dispatch(removeNoteAction(noteIdDelete));
     handleCloseFormDeleteNote();
   };
 

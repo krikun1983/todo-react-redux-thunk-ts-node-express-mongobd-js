@@ -1,6 +1,6 @@
 import React, {FormEvent, useState, ChangeEvent} from 'react';
 import {useDispatch} from 'react-redux';
-import {SearchActionTypes} from '../../../store/types/searchValue';
+import {searchNoteAction} from '../../../store/reducers/searchValueReducer';
 import Button from '../../../Ui-Kit/Button';
 import ButtonEnum from '../../../Ui-Kit/Button/type/ui-button-enum';
 import style from './SearchPanel.module.scss';
@@ -18,10 +18,10 @@ const SearchPanel: React.FC = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!valueSearch) {
-      dispatch({type: SearchActionTypes.SEARCH, payload: ''});
+      dispatch(searchNoteAction(''));
       return;
     }
-    dispatch({type: SearchActionTypes.SEARCH, payload: valueSearch.trim()});
+    dispatch(searchNoteAction(valueSearch.trim()));
     setValueSearch('');
   };
 
