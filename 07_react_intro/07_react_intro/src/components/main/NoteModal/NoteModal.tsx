@@ -1,7 +1,7 @@
 import React, {ChangeEvent, Dispatch, FormEvent, SetStateAction, useState} from 'react';
-import {DataNote} from '../../../store/types/notes';
-import Button from '../../../Ui-Kit/Button';
-import ButtonEnum from '../../../Ui-Kit/Button/type/ui-button-enum';
+import {DataNote} from 'store/types/notes';
+import Button from 'Ui-Kit/Button';
+import ButtonEnum from 'Ui-Kit/Button/type/ui-button-enum';
 import style from './NoteModal.module.scss';
 
 interface NoteModalProps {

@@ -1,6 +1,6 @@
 import React, {Dispatch, MouseEvent, SetStateAction} from 'react';
-import Button from '../../../Ui-Kit/Button';
-import ButtonEnum from '../../../Ui-Kit/Button/type/ui-button-enum';
+import Button from 'Ui-Kit/Button';
+import ButtonEnum from 'Ui-Kit/Button/type/ui-button-enum';
 import style from './ConfirmModal.module.scss';
 
 type ConfirmModalProps = {

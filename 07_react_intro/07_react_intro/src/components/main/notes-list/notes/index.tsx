@@ -1,6 +1,6 @@
 import React, {MouseEvent} from 'react';
-import Button from '../../../../Ui-Kit/Button';
-import ButtonEnum from '../../../../Ui-Kit/Button/type/ui-button-enum';
+import Button from 'Ui-Kit/Button';
+import ButtonEnum from 'Ui-Kit/Button/type/ui-button-enum';
 import style from './Notes.module.scss';
 
 type NotesProps = {

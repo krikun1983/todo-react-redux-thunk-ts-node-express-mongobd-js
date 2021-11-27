@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '../../components/Header';
-import Main from '../../components/Main';
+import Header from 'components/Header';
+import Main from 'components/Main';
 
 const App: React.FC = () => {
   return (
@@ -12,4 +12,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-// className="hidden"

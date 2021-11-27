@@ -1,4 +1,4 @@
-import {DataNote} from '../store/types/notes';
+import {DataNote} from 'store/types/notes';
 
 export const search = (arr: DataNote[], text: string): DataNote[] => {
   if (!text.length) return arr;

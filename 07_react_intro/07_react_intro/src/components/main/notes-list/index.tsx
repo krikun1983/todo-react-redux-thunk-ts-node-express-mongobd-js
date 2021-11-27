@@ -1,10 +1,10 @@
 import React, {FormEvent, MouseEvent, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import store from '../../../store';
-import {removeNoteActionAsync} from '../../../store/asyncActions/note-action-async';
-import {DataNote} from '../../../store/types/notes';
-import {RootState} from '../../../store/types/root-state';
-import {search} from '../../../utils/search';
+import store from 'store';
+import {removeNoteActionAsync} from 'store/asyncActions/note-action-async';
+import {DataNote} from 'store/types/notes';
+import {RootState} from 'store/types/root-state';
+import {search} from 'utils/search';
 import ConfirmModal from '../ConfirmModal';
 import NoteModalForm from '../NoteModal';
 import NoteModal from '../NoteModal/NoteModal';
