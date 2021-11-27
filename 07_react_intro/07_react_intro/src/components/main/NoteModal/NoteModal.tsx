@@ -1,5 +1,5 @@
 import React, {ChangeEvent, Dispatch, FormEvent, SetStateAction, useState} from 'react';
-import {DataNotes} from '../../../store/types/notes';
+import {DataNote} from '../../../store/types/notes';
 import Button from '../../../Ui-Kit/Button';
 import ButtonEnum from '../../../Ui-Kit/Button/type/ui-button-enum';
 import style from './NoteModal.module.scss';
@@ -8,7 +8,7 @@ interface NoteModalProps {
   isOpenForm: boolean;
   onCloseForm: () => void;
   onSubmitForm: (e: FormEvent<HTMLFormElement>, title: string, description: string) => void;
-  notes?: DataNotes;
+  notes?: DataNote;
   onIsOpenForm: Dispatch<SetStateAction<boolean>>;
 }
 

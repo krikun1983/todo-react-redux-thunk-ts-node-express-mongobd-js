@@ -1,5 +1,5 @@
 import DATA_NOTES from '../../constants/data-notes';
-import {DataNotes, DataNotesAction, DataNotesActionTypes, DataNotesState} from '../types/notes';
+import {DataNote, DataNotesAction, DataNotesActionTypes, DataNotesState} from '../types/notes';
 
 const initialState: DataNotesState = {
   dataNotesState: [...DATA_NOTES],
@@ -8,9 +8,9 @@ const initialState: DataNotesState = {
 export const notesReducer = (state = initialState, action: DataNotesAction): DataNotesState => {
   switch (action.type) {
     case DataNotesActionTypes.ADD_NOTE:
-      return {...state, dataNotesState: [action.payload as DataNotes, ...state.dataNotesState]};
+      return {...state, dataNotesState: [action.payload as DataNote, ...state.dataNotesState]};
     case DataNotesActionTypes.UPDATE_NOTE:
-      return {...state, dataNotesState: [...state.dataNotesState, action.payload as DataNotes]};
+      return {...state, dataNotesState: [...state.dataNotesState, action.payload as DataNote]};
     case DataNotesActionTypes.REMOVE_NOTE:
       return {
         ...state,
@@ -21,7 +21,7 @@ export const notesReducer = (state = initialState, action: DataNotesAction): Dat
   }
 };
 
-export const addNoteAction = (payload: DataNotes): DataNotesAction => ({
+export const addNoteAction = (payload: DataNote): DataNotesAction => ({
   type: DataNotesActionTypes.ADD_NOTE,
   payload,
 });

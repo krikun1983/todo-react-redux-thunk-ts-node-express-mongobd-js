@@ -1,6 +1,6 @@
 import React, {FormEvent, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {addNoteAction} from '../../../store/reducers/notesReducer';
+import {addNoteActionAsync} from '../../../store/asyncActions/note-action-async';
 import Button from '../../../Ui-Kit/Button';
 import ButtonEnum from '../../../Ui-Kit/Button/type/ui-button-enum';
 import NoteModal from './NoteModal';
@@ -22,7 +22,7 @@ const NoteModalForm: React.FC = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>, title: string, description: string) => {
     e.preventDefault();
-    dispatch(addNoteAction({title: title, description: description, id: idMax++}));
+    dispatch(addNoteActionAsync({title: title, description: description, id: idMax++}));
     handleClose();
   };
 

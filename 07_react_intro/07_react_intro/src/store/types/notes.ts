@@ -1,16 +1,16 @@
-export interface DataNotes {
+export interface DataNote {
   title: string;
   description: string;
   id: number;
 }
 
 export interface DataNotesState {
-  dataNotesState: DataNotes[];
+  dataNotesState: DataNote[];
 }
 
 export interface DataNotesAction {
   type: string;
-  payload: DataNotes | number;
+  payload: DataNote | number | DataNote[];
 }
 
 export enum DataNotesActionTypes {
