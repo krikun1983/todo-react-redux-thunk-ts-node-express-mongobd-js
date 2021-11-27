@@ -1,4 +1,4 @@
-import DATA_NOTES from 'constants/data-notes';
+import DATA_NOTES from 'constants/dataNotes';
 import {DataNote, DataNotesAction, DataNotesActionTypes, DataNotesState} from '../types/notes';
 
 const initialState: DataNotesState = {

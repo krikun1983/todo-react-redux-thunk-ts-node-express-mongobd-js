@@ -18,17 +18,3 @@ export enum DataNotesActionTypes {
   UPDATE_NOTE = 'UPDATE_NOTE',
   REMOVE_NOTE = 'REMOVE_NOTE',
 }
-
-interface DataNotesAddAction {
-  type: DataNotesActionTypes.ADD_NOTE;
-}
-
-interface DataNotesUPDATEAction {
-  type: DataNotesActionTypes.UPDATE_NOTE;
-}
-
-interface DataNotesDeleteAction {
-  type: DataNotesActionTypes.REMOVE_NOTE;
-}
-
-export type DataNotesSuccess = DataNotesAddAction | DataNotesUPDATEAction | DataNotesDeleteAction;

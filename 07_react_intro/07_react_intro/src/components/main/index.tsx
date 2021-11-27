@@ -1,5 +1,5 @@
 import React from 'react';
-import NotesList from './Notes-list';
+import NotesList from './NotesList';
 import style from './Main.module.scss';
 
 const Main: React.FC = () => {
