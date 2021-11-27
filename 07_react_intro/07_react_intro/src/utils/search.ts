@@ -4,8 +4,8 @@ export const search = (arr: DataNote[], text: string): DataNote[] => {
   if (!text.length) return arr;
   const array = arr.filter(item => {
     return (
-      item.title.toLowerCase().indexOf(text.toLowerCase()) > -1 ||
-      item.description.toLowerCase().indexOf(text.toLowerCase()) > -1
+      item.title.toLowerCase().includes(text.toLowerCase()) ||
+      item.description.toLowerCase().includes(text.toLowerCase())
     );
   });
   return array;
