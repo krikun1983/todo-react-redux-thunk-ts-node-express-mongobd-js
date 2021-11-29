@@ -25,15 +25,14 @@ const NoteModal: React.FC<NoteModalProps> = ({
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const title = e.target.value;
     if (title.length > 30) return;
-    if (title.length !== 0) {
-      setValueTitle(title);
-    }
+
+    setValueTitle(title);
   };
+
   const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const description = e.target.value;
-    if (description.length !== 0) {
-      setValueDescription(description);
-    }
+
+    setValueDescription(description);
   };
 
   const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
