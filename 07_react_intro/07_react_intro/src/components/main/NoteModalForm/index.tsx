@@ -4,7 +4,7 @@ import {addNoteActionAsync} from 'store/asyncActions/noteActionAsync';
 import Button from 'Ui-Kit/Button';
 import ButtonEnum from 'Ui-Kit/Button/type/ui-button-enum';
 import NoteModal from './NoteModal';
-import style from './NoteModal.module.scss';
+import style from './NoteModalForm.module.scss';
 
 let idMax = 4;
 

@@ -1,20 +1,20 @@
 import React, {FormEvent, MouseEvent, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import store from 'store';
-import {removeNoteActionAsync} from 'store/asyncActions/noteActionAsync';
+import {removeNoteActionAsync, updateNoteActionAsync} from 'store/asyncActions/noteActionAsync';
 import {DataNote} from 'store/types/notes';
 import {RootState} from 'store/types/rootState';
 import {search} from 'utils/search';
 import ConfirmModal from '../ConfirmModal';
-import NoteModalForm from '../NoteModal';
-import NoteModal from '../NoteModal/NoteModal';
+import NoteModalForm from '../NoteModalForm';
+import NoteModal from '../NoteModalForm/NoteModal';
 import Notes from './Notes';
 import style from './NotesBody.module.scss';
 
 const NotesList: React.FC = () => {
   const dispatch = useDispatch();
   const [stateOfStore, setStateOfStore] = useState<RootState>(store.getState());
-  const [notes, setNotes] = useState<DataNote>();
+  const [noteCurrent, setNoteCurrent] = useState<DataNote>();
   const [isOpenForm, setIsOpenForm] = useState<boolean>(false);
   const [isOpenFormDeleteNote, setIsOpenFormDeleteNote] = useState<boolean>(false);
   const [noteIdDelete, setNoteIdDelete] = useState<number>(0);
@@ -30,7 +30,7 @@ const NotesList: React.FC = () => {
 
   const handleOpenForm = (note: DataNote) => {
     setIsOpenForm(true);
-    setNotes(note);
+    setNoteCurrent(note);
   };
 
   const handleCloseForm = () => {
@@ -52,9 +52,29 @@ const NotesList: React.FC = () => {
     handleCloseFormDeleteNote();
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const changeNote = (
+    arr: DataNote[],
+    id: number,
+    title: string,
+    description: string,
+  ): DataNote[] => {
+    const idx = arr.findIndex(item => item.id === id);
+    const newItem = {...arr[idx]};
+    newItem.title = title;
+    newItem.description = description;
+    return [...arr.slice(0, idx), newItem, ...arr.slice(idx + 1)];
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>, title: string, description: string) => {
     e.preventDefault();
-    console.log('update nodes');
+    const dataNotesUpdate = changeNote(
+      dataNotesState,
+      noteCurrent?.id as number,
+      title,
+      description,
+    );
+    dispatch(updateNoteActionAsync(dataNotesUpdate));
+    handleCloseForm();
   };
 
   return (
@@ -82,7 +102,7 @@ const NotesList: React.FC = () => {
           isOpenForm={isOpenForm}
           onCloseForm={handleCloseForm}
           onSubmitForm={handleSubmit}
-          notes={notes}
+          note={noteCurrent}
           onIsOpenForm={setIsOpenForm}
         />
       )}

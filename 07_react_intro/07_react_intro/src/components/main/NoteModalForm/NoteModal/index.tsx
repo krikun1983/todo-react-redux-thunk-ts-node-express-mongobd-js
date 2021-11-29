@@ -2,13 +2,13 @@ import React, {ChangeEvent, Dispatch, FormEvent, SetStateAction, useState} from 
 import {DataNote} from 'store/types/notes';
 import Button from 'Ui-Kit/Button';
 import ButtonEnum from 'Ui-Kit/Button/type/ui-button-enum';
-import style from './NoteModal.module.scss';
+import style from '../NoteModalForm.module.scss';
 
 interface NoteModalProps {
   isOpenForm: boolean;
   onCloseForm: () => void;
   onSubmitForm: (e: FormEvent<HTMLFormElement>, title: string, description: string) => void;
-  notes?: DataNote;
+  note?: DataNote;
   onIsOpenForm: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -16,11 +16,11 @@ const NoteModal: React.FC<NoteModalProps> = ({
   isOpenForm,
   onCloseForm,
   onSubmitForm,
-  notes,
+  note,
   onIsOpenForm,
 }) => {
-  const [valueTitle, setValueTitle] = useState<string>(notes ? notes.title : '');
-  const [valueDescription, setValueDescription] = useState<string>(notes ? notes.description : '');
+  const [valueTitle, setValueTitle] = useState<string>(note ? note.title : '');
+  const [valueDescription, setValueDescription] = useState<string>(note ? note.description : '');
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const title = e.target.value;

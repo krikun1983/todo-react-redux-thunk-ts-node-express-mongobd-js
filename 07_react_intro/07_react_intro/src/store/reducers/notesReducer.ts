@@ -10,7 +10,7 @@ export const notesReducer = (state = initialState, action: DataNotesAction): Dat
     case DataNotesActionTypes.ADD_NOTE:
       return {...state, dataNotesState: [action.payload as DataNote, ...state.dataNotesState]};
     case DataNotesActionTypes.UPDATE_NOTE:
-      return {...state, dataNotesState: [...state.dataNotesState, action.payload as DataNote]};
+      return {...state, dataNotesState: [...(action.payload as DataNote[])]};
     case DataNotesActionTypes.REMOVE_NOTE:
       return {
         ...state,
@@ -23,6 +23,11 @@ export const notesReducer = (state = initialState, action: DataNotesAction): Dat
 
 export const addNoteAction = (payload: DataNote): DataNotesAction => ({
   type: DataNotesActionTypes.ADD_NOTE,
+  payload,
+});
+
+export const updateNoteAction = (payload: DataNote[]): DataNotesAction => ({
+  type: DataNotesActionTypes.UPDATE_NOTE,
   payload,
 });
 
