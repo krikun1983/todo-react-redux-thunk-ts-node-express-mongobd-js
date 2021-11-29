@@ -1,4 +1,12 @@
-import React, {ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect, useState} from 'react';
+import React, {
+  ChangeEvent,
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import {DataNote} from 'store/types/notes';
 import Button from 'Ui-Kit/Button';
 import ButtonEnum from 'Ui-Kit/Button/type/ui-button-enum';
@@ -33,6 +41,22 @@ const NoteModal: React.FC<NoteModalProps> = ({
 
   const [errorTitle, setErrorTitle] = useState<boolean>(false);
   const [errorDescription, setErrorDescription] = useState<boolean>(false);
+
+  const divRef = useRef() as React.MutableRefObject<HTMLFormElement>;
+
+  useEffect(() => {
+    const closeFormIfClickOutside = (e: globalThis.MouseEvent) => {
+      if (isOpenForm && divRef.current && !divRef.current.contains(e.target as HTMLFormElement)) {
+        onIsOpenForm(false);
+      }
+    };
+
+    document.addEventListener('mousedown', e => closeFormIfClickOutside(e));
+
+    return () => {
+      document.removeEventListener('mousedown', e => closeFormIfClickOutside(e));
+    };
+  }, [isOpenForm]);
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const title = e.target.value;
@@ -101,11 +125,11 @@ const NoteModal: React.FC<NoteModalProps> = ({
   return (
     <>
       {isOpenForm && (
-        <div className={style.form_add__container} onClick={() => onIsOpenForm(false)}>
+        <div className={style.form_add__container}>
           <form
             className={style.form_add}
             onSubmit={handleSubmitForm}
-            onClick={e => e.stopPropagation()}
+            ref={divRef}
             style={{backgroundColor: valueBgColorNote, color: valueColorNote}}
           >
             <input
