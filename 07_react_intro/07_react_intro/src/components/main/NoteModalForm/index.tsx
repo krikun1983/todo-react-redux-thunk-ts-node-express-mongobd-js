@@ -20,9 +20,23 @@ const NoteModalForm: React.FC = () => {
     setIsOpenForm(false);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>, title: string, description: string) => {
+  const handleSubmit = (
+    e: FormEvent<HTMLFormElement>,
+    title: string,
+    description: string,
+    bgColor: string,
+    color: string,
+  ) => {
     e.preventDefault();
-    dispatch(addNoteActionAsync({title: title, description: description, id: idMax++}));
+    dispatch(
+      addNoteActionAsync({
+        title: title,
+        description: description,
+        bgColor: bgColor,
+        color: color,
+        id: idMax++,
+      }),
+    );
     handleClose();
   };
 

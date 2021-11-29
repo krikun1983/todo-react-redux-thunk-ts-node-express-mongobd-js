@@ -1,6 +1,8 @@
 export interface DataNote {
   title: string;
   description: string;
+  bgColor: string;
+  color: string;
   id: number;
 }
 

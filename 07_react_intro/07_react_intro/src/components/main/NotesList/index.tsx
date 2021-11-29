@@ -57,21 +57,33 @@ const NotesList: React.FC = () => {
     id: number,
     title: string,
     description: string,
+    bgColor: string,
+    color: string,
   ): DataNote[] => {
     const idx = arr.findIndex(item => item.id === id);
     const newItem = {...arr[idx]};
     newItem.title = title;
     newItem.description = description;
+    newItem.bgColor = bgColor;
+    newItem.color = color;
     return [...arr.slice(0, idx), newItem, ...arr.slice(idx + 1)];
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>, title: string, description: string) => {
+  const handleSubmit = (
+    e: FormEvent<HTMLFormElement>,
+    title: string,
+    description: string,
+    bgColor: string,
+    color: string,
+  ) => {
     e.preventDefault();
     const dataNotesUpdate = changeNote(
       dataNotesState,
       noteCurrent?.id as number,
       title,
       description,
+      bgColor,
+      color,
     );
     dispatch(updateNoteActionAsync(dataNotesUpdate));
     handleCloseForm();
@@ -81,9 +93,14 @@ const NotesList: React.FC = () => {
     <>
       <ul className={style.notes_group}>
         {searchValue.map(item => {
-          const {id, ...rest} = item;
+          const {id, color, bgColor, ...rest} = item;
           return (
-            <li className={style.notes_group__item} onClick={() => handleOpenForm(item)} key={id}>
+            <li
+              className={style.notes_group__item}
+              style={{backgroundColor: bgColor, color: color}}
+              onClick={() => handleOpenForm(item)}
+              key={id}
+            >
               <Notes {...rest} onOpenFormDeleteNote={e => handleOpenFormDeleteNote(e, id)} />
             </li>
           );

@@ -8,7 +8,13 @@ import style from '../NoteModalForm.module.scss';
 interface NoteModalProps {
   isOpenForm: boolean;
   onCloseForm: () => void;
-  onSubmitForm: (e: FormEvent<HTMLFormElement>, title: string, description: string) => void;
+  onSubmitForm: (
+    e: FormEvent<HTMLFormElement>,
+    title: string,
+    description: string,
+    bgColor: string,
+    color: string,
+  ) => void;
   note?: DataNote;
   onIsOpenForm: Dispatch<SetStateAction<boolean>>;
 }
@@ -22,6 +28,8 @@ const NoteModal: React.FC<NoteModalProps> = ({
 }) => {
   const [valueTitle, setValueTitle] = useState<string>(note ? note.title : '');
   const [valueDescription, setValueDescription] = useState<string>(note ? note.description : '');
+  const [valueBgColorNote, setValueBgColorNote] = useState<string>(note ? note.bgColor : '#ffffff');
+  const [valueColorNote, setValueColorNote] = useState<string>(note ? note.color : '#000000');
 
   const [errorTitle, setErrorTitle] = useState<boolean>(false);
   const [errorDescription, setErrorDescription] = useState<boolean>(false);
@@ -35,6 +43,16 @@ const NoteModal: React.FC<NoteModalProps> = ({
   const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const description = e.target.value;
     setValueDescription(description);
+  };
+
+  const handleBgColorChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const BgColor = e.target.value;
+    setValueBgColorNote(BgColor);
+  };
+
+  const handleColorChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const color = e.target.value;
+    setValueColorNote(color);
   };
 
   const validate = () => {
@@ -75,7 +93,7 @@ const NoteModal: React.FC<NoteModalProps> = ({
       !errorDescription &&
       (valueTitle.trim().length > 0 || valueDescription.trim().length > 0)
     ) {
-      onSubmitForm(e, valueTitle, valueDescription);
+      onSubmitForm(e, valueTitle, valueDescription, valueBgColorNote, valueColorNote);
       resetForm();
     }
   };
@@ -88,6 +106,7 @@ const NoteModal: React.FC<NoteModalProps> = ({
             className={style.form_add}
             onSubmit={handleSubmitForm}
             onClick={e => e.stopPropagation()}
+            style={{backgroundColor: valueBgColorNote, color: valueColorNote}}
           >
             <input
               type="text"
@@ -109,6 +128,25 @@ const NoteModal: React.FC<NoteModalProps> = ({
               {errorDescription && 'The Description field cannot contain only spaces'}
             </div>
             <div className={style.form_add__btns}>
+              <label htmlFor="bg-color">
+                Background Note
+                <input
+                  className={style.form_add__colors}
+                  type="color"
+                  onChange={handleBgColorChange}
+                  value={valueBgColorNote}
+                  id="bg-color"
+                />
+              </label>
+              <label htmlFor="bg-color">
+                Color text note
+                <input
+                  className={style.form_add__colors}
+                  type="color"
+                  onChange={handleColorChange}
+                  value={valueColorNote}
+                />
+              </label>
               <Button
                 text="Create"
                 type="submit"
