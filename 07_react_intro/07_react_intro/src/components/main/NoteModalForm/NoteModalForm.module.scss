@@ -70,3 +70,29 @@
     font-size: 40px;
   }
 }
+
+.form_field_title_error,
+.form_field_desc_error {
+  height: 12px;
+  color: $color-error-dark;
+  font-size: 12px;
+}
+
+.form_field_title_error {
+  position: absolute;
+  top: 30px;
+  right: 10px;
+  z-index: 30;
+}
+
+.form_field_desc_error {
+  position: absolute;
+  right: 10px;
+  bottom: 80px;
+  z-index: 30;
+}
+
+.form_field_error {
+  background-color: $color-error;
+  border: 1px solid $color-error-dark;
+}
