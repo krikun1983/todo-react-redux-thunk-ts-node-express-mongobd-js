@@ -21,17 +21,17 @@ export const notesReducer = (state = initialState, action: DataNotesAction): Dat
   }
 };
 
-export const addNoteAction = (payload: DataNote): DataNotesAction => ({
+export const addNote = (payload: DataNote): DataNotesAction => ({
   type: DataNotesActionTypes.ADD_NOTE,
   payload,
 });
 
-export const updateNoteAction = (payload: DataNote[]): DataNotesAction => ({
+export const updateNote = (payload: DataNote[]): DataNotesAction => ({
   type: DataNotesActionTypes.UPDATE_NOTE,
   payload,
 });
 
-export const removeNoteAction = (payload: number): DataNotesAction => ({
+export const removeNote = (payload: number): DataNotesAction => ({
   type: DataNotesActionTypes.REMOVE_NOTE,
   payload,
 });

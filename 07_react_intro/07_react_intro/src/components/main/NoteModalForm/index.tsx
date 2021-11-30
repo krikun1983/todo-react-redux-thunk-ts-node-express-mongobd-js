@@ -1,6 +1,6 @@
 import React, {FormEvent, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {addNoteActionAsync} from 'store/asyncActions/noteActionAsync';
+import {addNoteAction} from 'store/asyncActions/noteActionAsync';
 import Button from 'Ui-Kit/Button';
 import ButtonEnum from 'Ui-Kit/Button/type/ui-button-enum';
 import NoteModal from './NoteModal';
@@ -29,7 +29,7 @@ const NoteModalForm: React.FC = () => {
   ) => {
     e.preventDefault();
     dispatch(
-      addNoteActionAsync({
+      addNoteAction({
         title: title,
         description: description,
         bgColor: bgColor,

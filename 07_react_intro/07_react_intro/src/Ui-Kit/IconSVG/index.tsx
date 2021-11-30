@@ -12,7 +12,7 @@ type IconSvgProp = {
 const IconSvg: React.FC<IconSvgProp> = ({name, fill, width, height, className}) => {
   return (
     <>
-      {name === 'basket' && (
+      {name === 'basket' && ( // fucn switch
         <svg
           role="img"
           viewBox="0 0 2048 2048"

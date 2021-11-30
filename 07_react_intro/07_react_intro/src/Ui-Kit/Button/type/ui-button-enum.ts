@@ -1,5 +1,5 @@
 enum ButtonEnum {
-  default = 'default',
+  default = 'default', // caps blue
   icon_basket = 'icon_basket',
 }
 

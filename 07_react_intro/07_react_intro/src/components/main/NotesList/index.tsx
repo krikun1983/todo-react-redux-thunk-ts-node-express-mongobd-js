@@ -1,7 +1,7 @@
 import React, {FormEvent, MouseEvent, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import store from 'store';
-import {removeNoteActionAsync, updateNoteActionAsync} from 'store/asyncActions/noteActionAsync';
+import {removeNoteAction, updateNoteAction} from 'store/asyncActions/noteActionAsync';
 import {DataNote} from 'store/types/notes';
 import {RootState} from 'store/types/rootState';
 import {search} from 'utils/search';
@@ -48,7 +48,7 @@ const NotesList: React.FC = () => {
   };
 
   const handleDeleteNote = () => {
-    dispatch(removeNoteActionAsync(noteIdDelete));
+    dispatch(removeNoteAction(noteIdDelete));
     handleCloseFormDeleteNote();
   };
 
@@ -85,7 +85,7 @@ const NotesList: React.FC = () => {
       bgColor,
       color,
     );
-    dispatch(updateNoteActionAsync(dataNotesUpdate));
+    dispatch(updateNoteAction(dataNotesUpdate));
     handleCloseForm();
   };
 
