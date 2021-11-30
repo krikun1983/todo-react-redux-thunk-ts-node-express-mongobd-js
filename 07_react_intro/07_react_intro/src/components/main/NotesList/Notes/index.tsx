@@ -17,11 +17,10 @@ const Notes: React.FC<NotesProps> = ({title, description, onOpenFormDeleteNote})
       <div className={style.item__panel}>
         <div>
           <Button
-            className={style.form_search__btn}
             variant={ButtonEnum.icon_basket}
+            styles="btn_icon"
             onClick={onOpenFormDeleteNote}
             type="button"
-            styles="btn_icon"
           />
         </div>
       </div>

@@ -9,7 +9,7 @@ import ConfirmModal from '../ConfirmModal';
 import NoteModalForm from '../NoteModalForm';
 import NoteModal from '../NoteModalForm/NoteModal';
 import Notes from './Notes';
-import style from './NotesBody.module.scss';
+import style from './NotesList.module.scss';
 
 const NotesList: React.FC = () => {
   const dispatch = useDispatch();

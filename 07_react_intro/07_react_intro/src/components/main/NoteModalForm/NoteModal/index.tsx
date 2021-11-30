@@ -45,7 +45,7 @@ const NoteModal: React.FC<NoteModalProps> = ({
   const divRef = useRef() as React.MutableRefObject<HTMLFormElement>;
 
   useEffect(() => {
-    const closeFormIfClickOutside = (e: globalThis.MouseEvent) => {
+    const closeFormIfClickOutside = (e: MouseEvent) => {
       if (isOpenForm && divRef.current && !divRef.current.contains(e.target as HTMLFormElement)) {
         onIsOpenForm(false);
       }
