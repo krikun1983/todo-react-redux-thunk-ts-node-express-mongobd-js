@@ -1,7 +1,7 @@
 import React, {FormEvent, MouseEvent, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import store from 'store';
-import {removeNoteAction, updateNoteAction} from 'store/asyncActions/noteActionAsync';
+import {removeNoteAction, updateNoteAction} from 'store/noteActions/noteActions';
 import {DataNote} from 'store/types/notes';
 import {RootState} from 'store/types/rootState';
 import {search} from 'utils/search';
@@ -52,23 +52,6 @@ const NotesList: React.FC = () => {
     handleCloseFormDeleteNote();
   };
 
-  const changeNote = (
-    arr: DataNote[],
-    id: number,
-    title: string,
-    description: string,
-    bgColor: string,
-    color: string,
-  ): DataNote[] => {
-    const idx = arr.findIndex(item => item.id === id);
-    const newItem = {...arr[idx]};
-    newItem.title = title;
-    newItem.description = description;
-    newItem.bgColor = bgColor;
-    newItem.color = color;
-    return [...arr.slice(0, idx), newItem, ...arr.slice(idx + 1)];
-  };
-
   const handleSubmit = (
     e: FormEvent<HTMLFormElement>,
     title: string,
@@ -77,15 +60,7 @@ const NotesList: React.FC = () => {
     color: string,
   ) => {
     e.preventDefault();
-    const dataNotesUpdate = changeNote(
-      dataNotesState,
-      noteCurrent?.id as number,
-      title,
-      description,
-      bgColor,
-      color,
-    );
-    dispatch(updateNoteAction(dataNotesUpdate));
+    dispatch(updateNoteAction({title, description, bgColor, color, id: noteCurrent?.id as number}));
     handleCloseForm();
   };
 

@@ -1,6 +1,6 @@
 import React, {FormEvent, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {addNoteAction} from 'store/asyncActions/noteActionAsync';
+import {addNoteAction} from 'store/noteActions/noteActions';
 import Button from 'Ui-Kit/Button';
 import ButtonEnum from 'Ui-Kit/Button/type/ui-button-enum';
 import NoteModal from './NoteModal';
