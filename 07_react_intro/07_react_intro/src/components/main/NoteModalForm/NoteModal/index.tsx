@@ -172,7 +172,7 @@ const NoteModal: React.FC<NoteModalProps> = ({
                 />
               </label>
               <Button
-                text="Create"
+                text={note ? 'Update' : 'Create'}
                 type="submit"
                 variant={ButtonEnum.default}
                 styles="btn_white_blue"
