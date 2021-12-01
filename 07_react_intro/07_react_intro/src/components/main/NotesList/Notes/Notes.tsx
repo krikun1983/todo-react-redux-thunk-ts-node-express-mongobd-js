@@ -2,6 +2,7 @@ import React, {MouseEvent} from 'react';
 import Button from 'Ui-Kit/Button';
 import IconSVG from 'Ui-Kit/IconSVG';
 import {IconNameEnum} from 'Ui-Kit/IconSVG/IconSVG';
+import cn from 'classnames';
 import style from './Notes.module.scss';
 
 type NotesProps = {
@@ -13,7 +14,7 @@ type NotesProps = {
 const Notes: React.FC<NotesProps> = ({title, description, onOpenFormDeleteNote}) => {
   return (
     <>
-      <h2 className={style.item__header}>{title}</h2>
+      <h2 className={cn(style.item__header, style.overflow)}>{title}</h2>
       <p className={style.item__text}>{description}</p>
       <div className={style.item__panel}>
         <Button
