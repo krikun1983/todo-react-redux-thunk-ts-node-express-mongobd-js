@@ -9,7 +9,6 @@ import React, {
 } from 'react';
 import {DataNote} from 'store/types/notes';
 import Button from 'Ui-Kit/Button';
-import ButtonEnum from 'Ui-Kit/Button/type/ui-button-enum';
 import cn from 'classnames';
 import style from '../NoteModalForm.module.scss';
 
@@ -171,17 +170,11 @@ const NoteModal: React.FC<NoteModalProps> = ({
                   value={valueColorNote}
                 />
               </label>
-              <Button
-                text={note ? 'Update' : 'Create'}
-                type="submit"
-                variant={ButtonEnum.default}
-                styles="btn_white_blue"
-              />
+              <Button text={note ? 'Update' : 'Create'} type="submit" styles="btn_white_blue" />
               <Button
                 text="Cancel"
                 type="button"
                 onClick={handleCloseForm}
-                variant={ButtonEnum.default}
                 styles="btn_white_gray"
               />
             </div>

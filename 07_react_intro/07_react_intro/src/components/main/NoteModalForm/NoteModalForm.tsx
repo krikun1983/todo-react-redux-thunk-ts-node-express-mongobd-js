@@ -2,7 +2,8 @@ import React, {FormEvent, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {addNoteAction} from 'store/noteActions/noteActions';
 import Button from 'Ui-Kit/Button';
-import ButtonEnum from 'Ui-Kit/Button/type/ui-button-enum';
+import IconSVG from 'Ui-Kit/IconSVG';
+import {IconNameEnum} from 'Ui-Kit/IconSVG/IconSVG';
 import NoteModal from './NoteModal';
 import style from './NoteModalForm.module.scss';
 
@@ -44,10 +45,9 @@ const NoteModalForm: React.FC = () => {
     <>
       <div className={style.form_add__button}>
         <Button
-          text="+"
           type="button"
           onClick={handleClickOpen}
-          variant={ButtonEnum.default}
+          icon={<IconSVG name={IconNameEnum.PLUS} width="45" height="45" className="white_white" />}
           styles="btn_circle_blue"
         />
       </div>

@@ -1,7 +1,6 @@
 import {Dispatch} from 'redux';
 import store from 'store';
 import {toggleLoaderAction} from 'store/reducers/loaderReducer';
-
 import {addNote, removeNote, updateNote} from '../reducers/notesReducer';
 import {DataNote} from '../types/notes';
 

@@ -1,5 +1,14 @@
-.basket_gray_white {
+.gray_white {
   fill: #838282;
+
+  &:hover {
+    transition: 0.2s;
+    fill: #fff;
+  }
+}
+
+.white_white {
+  fill: #fff;
 
   &:hover {
     transition: 0.2s;
