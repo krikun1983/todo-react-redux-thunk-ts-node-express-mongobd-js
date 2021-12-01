@@ -1,12 +1,4 @@
-import React, {
-  ChangeEvent,
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, {ChangeEvent, FormEvent, useEffect, useRef, useState} from 'react';
 import {DataNote} from 'store/types/notes';
 import Button from 'Ui-Kit/Button';
 import cn from 'classnames';
@@ -22,17 +14,10 @@ interface NoteModalProps {
     bgColor: string,
     color: string,
   ) => void;
-  note?: DataNote;
-  onIsOpenForm: Dispatch<SetStateAction<boolean>>;
+  note?: DataNote | null;
 }
 
-const NoteModal: React.FC<NoteModalProps> = ({
-  isOpenForm,
-  onCloseForm,
-  onSubmitForm,
-  note,
-  onIsOpenForm,
-}) => {
+const NoteModal: React.FC<NoteModalProps> = ({isOpenForm, onCloseForm, onSubmitForm, note}) => {
   const [valueTitle, setValueTitle] = useState<string>(note ? note.title : '');
   const [valueDescription, setValueDescription] = useState<string>(note ? note.description : '');
   const [valueBgColorNote, setValueBgColorNote] = useState<string>(note ? note.bgColor : '#ffffff');
@@ -46,7 +31,7 @@ const NoteModal: React.FC<NoteModalProps> = ({
   useEffect(() => {
     const closeFormIfClickOutside = (e: MouseEvent) => {
       if (isOpenForm && divRef.current && !divRef.current.contains(e.target as HTMLFormElement)) {
-        onIsOpenForm(false);
+        onCloseForm();
       }
     };
 

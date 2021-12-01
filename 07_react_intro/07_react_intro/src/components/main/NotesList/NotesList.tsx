@@ -14,7 +14,7 @@ import style from './NotesList.module.scss';
 const NotesList: React.FC = () => {
   const dispatch = useDispatch();
   const [stateOfStore, setStateOfStore] = useState<RootState>(store.getState());
-  const [noteCurrent, setNoteCurrent] = useState<DataNote>();
+  const [noteCurrent, setNoteCurrent] = useState<DataNote | null>(null);
   const [isOpenForm, setIsOpenForm] = useState<boolean>(false);
   const [isOpenFormDeleteNote, setIsOpenFormDeleteNote] = useState<boolean>(false);
   const [noteIdDelete, setNoteIdDelete] = useState<number>(0);
@@ -35,6 +35,7 @@ const NotesList: React.FC = () => {
 
   const handleCloseForm = () => {
     setIsOpenForm(false);
+    setNoteCurrent(null);
   };
 
   const handleOpenFormDeleteNote = (e: MouseEvent<HTMLButtonElement>, id: number) => {
@@ -95,7 +96,6 @@ const NotesList: React.FC = () => {
           onCloseForm={handleCloseForm}
           onSubmitForm={handleSubmit}
           note={noteCurrent}
-          onIsOpenForm={setIsOpenForm}
         />
       )}
       <NoteModalForm />
