@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import store from 'store';
 import {RootState} from 'store/types/rootState';
-import style from './SpinnerLoader.module.scss';
+import style from './Loader.module.scss';
 
 const Loader: React.FC = () => {
   const [stateOfStore, setStateOfStore] = useState<RootState>(store.getState());
