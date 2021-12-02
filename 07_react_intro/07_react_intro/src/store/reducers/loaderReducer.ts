@@ -7,9 +7,7 @@ export interface LoaderAction {
   payload: boolean;
 }
 
-export enum LoaderActionTypes {
-  TOGGLE_LOADER = 'TOGGLE_LOADER',
-}
+const LOADER_ACTION = 'LOADER_ACTION';
 
 const initialState: LoaderState = {
   isLoaderState: false,
@@ -20,7 +18,7 @@ export const loaderReducer = (
   action: LoaderAction,
 ): LoaderState => {
   switch (action.type) {
-    case LoaderActionTypes.TOGGLE_LOADER:
+    case LOADER_ACTION:
       return {...state, isLoaderState: action.payload};
     default:
       return state;
@@ -28,6 +26,6 @@ export const loaderReducer = (
 };
 
 export const toggleLoaderAction = (payload: boolean): LoaderAction => ({
-  type: LoaderActionTypes.TOGGLE_LOADER,
+  type: LOADER_ACTION,
   payload,
 });
