@@ -9,6 +9,7 @@ import {DataNote} from 'store/types/notes';
 import Button from 'Ui-Kit/Button';
 import cn from 'classnames';
 import style from '../NoteModalForm.module.scss';
+import validateInput from 'utils/validateInput';
 
 interface NoteModalProps {
   isOpenForm: boolean;
@@ -88,32 +89,14 @@ const NoteModal: React.FC<NoteModalProps> = ({
     setValueColorNote(color);
   };
 
-  const validate = () => {
-    if (
-      valueTitle.length === 0 ||
-      (valueTitle.length && valueTitle.trim().length)
-    ) {
-      setErrorTitle(false);
-    } else {
-      setErrorTitle(true);
-    }
-    if (
-      valueDescription.length === 0 ||
-      (valueDescription.length && valueDescription.trim().length)
-    ) {
-      setErrorDescription(false);
-    } else {
-      setErrorDescription(true);
-    }
-  };
-
   const resetForm = (): void => {
     setValueTitle('');
     setValueDescription('');
   };
 
   useEffect(() => {
-    validate();
+    validateInput(valueTitle, setErrorTitle);
+    validateInput(valueDescription, setErrorDescription);
   }, [valueTitle, valueDescription]);
 
   const handleCloseForm = () => {
