@@ -45,6 +45,15 @@ const NoteModal: React.FC<NoteModalProps> = ({
 
   const divRef = useRef() as React.MutableRefObject<HTMLFormElement>;
 
+  const resetForm = (): void => {
+    setValueNote(initValue);
+  };
+
+  const handleCloseForm = () => {
+    onCloseForm();
+    resetForm();
+  };
+
   useEffect(() => {
     const closeFormIfClickOutside = (e: MouseEvent) => {
       if (
@@ -88,19 +97,10 @@ const NoteModal: React.FC<NoteModalProps> = ({
     setValueNote(prev => ({...prev, color: color}));
   };
 
-  const resetForm = (): void => {
-    setValueNote(initValue);
-  };
-
   useEffect(() => {
     validateInput(valueNote.title, setErrorTitle);
     validateInput(valueNote.description, setErrorDescription);
   }, [valueNote.title, valueNote.description]);
-
-  const handleCloseForm = () => {
-    onCloseForm();
-    resetForm();
-  };
 
   const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -111,13 +111,6 @@ const NoteModal: React.FC<NoteModalProps> = ({
       (valueNote.title.trim().length > 0 ||
         valueNote.description.trim().length > 0)
     ) {
-      onSubmitForm(
-        e,
-        valueNote.title,
-        valueNote.description,
-        valueNote.bgColor,
-        valueNote.color,
-      );
       onSubmitForm(
         e,
         valueNote.title,
