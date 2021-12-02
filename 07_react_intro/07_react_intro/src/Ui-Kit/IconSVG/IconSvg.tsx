@@ -14,7 +14,13 @@ export enum IconNameEnum {
   PLUS = 'plus',
 }
 
-const IconSVG: React.FC<IconSVGProp> = ({name, width, height, fill, className}) => {
+const IconSVG: React.FC<IconSVGProp> = ({
+  name,
+  width,
+  height,
+  fill,
+  className,
+}) => {
   const handleCurrentSVG = () => {
     switch (name) {
       case 'basket': {

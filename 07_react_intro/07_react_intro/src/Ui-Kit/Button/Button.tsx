@@ -9,10 +9,20 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
-const Button: React.FC<ButtonProps> = ({styles, text, onClick, icon, ...attr}) => {
+const Button: React.FC<ButtonProps> = ({
+  styles,
+  text,
+  onClick,
+  icon,
+  ...attr
+}) => {
   return (
     <>
-      <button {...attr} className={cn(style.ui_btns, style[styles])} onClick={onClick}>
+      <button
+        {...attr}
+        className={cn(style.ui_btns, style[styles])}
+        onClick={onClick}
+      >
         {icon ? icon : text}
       </button>
     </>

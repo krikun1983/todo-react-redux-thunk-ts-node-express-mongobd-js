@@ -1,4 +1,10 @@
-import React, {ChangeEvent, FormEvent, useEffect, useRef, useState} from 'react';
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import {DataNote} from 'store/types/notes';
 import Button from 'Ui-Kit/Button';
 import cn from 'classnames';
@@ -17,11 +23,22 @@ interface NoteModalProps {
   note?: DataNote | null;
 }
 
-const NoteModal: React.FC<NoteModalProps> = ({isOpenForm, onCloseForm, onSubmitForm, note}) => {
+const NoteModal: React.FC<NoteModalProps> = ({
+  isOpenForm,
+  onCloseForm,
+  onSubmitForm,
+  note,
+}) => {
   const [valueTitle, setValueTitle] = useState<string>(note ? note.title : '');
-  const [valueDescription, setValueDescription] = useState<string>(note ? note.description : '');
-  const [valueBgColorNote, setValueBgColorNote] = useState<string>(note ? note.bgColor : '#ffffff');
-  const [valueColorNote, setValueColorNote] = useState<string>(note ? note.color : '#000000');
+  const [valueDescription, setValueDescription] = useState<string>(
+    note ? note.description : '',
+  );
+  const [valueBgColorNote, setValueBgColorNote] = useState<string>(
+    note ? note.bgColor : '#ffffff',
+  );
+  const [valueColorNote, setValueColorNote] = useState<string>(
+    note ? note.color : '#000000',
+  );
 
   const [errorTitle, setErrorTitle] = useState<boolean>(false);
   const [errorDescription, setErrorDescription] = useState<boolean>(false);
@@ -30,15 +47,23 @@ const NoteModal: React.FC<NoteModalProps> = ({isOpenForm, onCloseForm, onSubmitF
 
   useEffect(() => {
     const closeFormIfClickOutside = (e: MouseEvent) => {
-      if (isOpenForm && divRef.current && !divRef.current.contains(e.target as HTMLFormElement)) {
+      if (
+        isOpenForm &&
+        divRef.current &&
+        !divRef.current.contains(e.target as HTMLFormElement)
+      ) {
         onCloseForm();
       }
     };
 
-    document.addEventListener('mousedown', e => closeFormIfClickOutside(e));
+    document.addEventListener('mousedown', (e: MouseEvent) =>
+      closeFormIfClickOutside(e),
+    );
 
     return () => {
-      document.removeEventListener('mousedown', e => closeFormIfClickOutside(e));
+      document.removeEventListener('mousedown', (e: MouseEvent) =>
+        closeFormIfClickOutside(e),
+      );
     };
   }, [isOpenForm]);
 
@@ -64,7 +89,10 @@ const NoteModal: React.FC<NoteModalProps> = ({isOpenForm, onCloseForm, onSubmitF
   };
 
   const validate = () => {
-    if (valueTitle.length === 0 || (valueTitle.length && valueTitle.trim().length)) {
+    if (
+      valueTitle.length === 0 ||
+      (valueTitle.length && valueTitle.trim().length)
+    ) {
       setErrorTitle(false);
     } else {
       setErrorTitle(true);
@@ -101,7 +129,13 @@ const NoteModal: React.FC<NoteModalProps> = ({isOpenForm, onCloseForm, onSubmitF
       !errorDescription &&
       (valueTitle.trim().length > 0 || valueDescription.trim().length > 0)
     ) {
-      onSubmitForm(e, valueTitle, valueDescription, valueBgColorNote, valueColorNote);
+      onSubmitForm(
+        e,
+        valueTitle,
+        valueDescription,
+        valueBgColorNote,
+        valueColorNote,
+      );
       resetForm();
     }
   };
@@ -118,7 +152,10 @@ const NoteModal: React.FC<NoteModalProps> = ({isOpenForm, onCloseForm, onSubmitF
           >
             <input
               type="text"
-              className={cn(style.form_add__input, errorTitle && style.form_field_error)}
+              className={cn(
+                style.form_add__input,
+                errorTitle && style.form_field_error,
+              )}
               placeholder="Enter title"
               onChange={handleTitleChange}
               value={valueTitle}
@@ -127,13 +164,17 @@ const NoteModal: React.FC<NoteModalProps> = ({isOpenForm, onCloseForm, onSubmitF
               {errorTitle && 'The Title field cannot contain only spaces'}
             </div>
             <textarea
-              className={cn(style.form_add__text, errorDescription && style.form_field_error)}
+              className={cn(
+                style.form_add__text,
+                errorDescription && style.form_field_error,
+              )}
               placeholder="note text"
               onChange={handleDescriptionChange}
               value={valueDescription}
             />
             <div className={style.form_field_desc_error}>
-              {errorDescription && 'The Description field cannot contain only spaces'}
+              {errorDescription &&
+                'The Description field cannot contain only spaces'}
             </div>
             <div className={style.form_add__btns}>
               <label htmlFor="bg-color">
@@ -155,7 +196,11 @@ const NoteModal: React.FC<NoteModalProps> = ({isOpenForm, onCloseForm, onSubmitF
                   value={valueColorNote}
                 />
               </label>
-              <Button text={note ? 'Update' : 'Create'} type="submit" styles="btn_white_blue" />
+              <Button
+                text={note ? 'Update' : 'Create'}
+                type="submit"
+                styles="btn_white_blue"
+              />
               <Button
                 text="Cancel"
                 type="button"

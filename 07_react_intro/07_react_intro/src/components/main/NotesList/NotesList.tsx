@@ -1,7 +1,10 @@
 import React, {FormEvent, MouseEvent, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import store from 'store';
-import {removeNoteAction, updateNoteAction} from 'store/noteActions/noteActions';
+import {
+  removeNoteAction,
+  updateNoteAction,
+} from 'store/noteActions/noteActions';
 import {DataNote} from 'store/types/notes';
 import {RootState} from 'store/types/rootState';
 import {search} from 'utils/search';
@@ -16,7 +19,8 @@ const NotesList: React.FC = () => {
   const [stateOfStore, setStateOfStore] = useState<RootState>(store.getState());
   const [noteCurrent, setNoteCurrent] = useState<DataNote | null>(null);
   const [isOpenForm, setIsOpenForm] = useState<boolean>(false);
-  const [isOpenFormDeleteNote, setIsOpenFormDeleteNote] = useState<boolean>(false);
+  const [isOpenFormDeleteNote, setIsOpenFormDeleteNote] =
+    useState<boolean>(false);
   const [noteIdDelete, setNoteIdDelete] = useState<number>(0);
 
   store.subscribe(() => {
@@ -38,7 +42,10 @@ const NotesList: React.FC = () => {
     setNoteCurrent(null);
   };
 
-  const handleOpenFormDeleteNote = (e: MouseEvent<HTMLButtonElement>, id: number) => {
+  const handleOpenFormDeleteNote = (
+    e: MouseEvent<HTMLButtonElement>,
+    id: number,
+  ) => {
     e.stopPropagation();
     setIsOpenFormDeleteNote(true);
     setNoteIdDelete(id);
@@ -61,23 +68,36 @@ const NotesList: React.FC = () => {
     color: string,
   ) => {
     e.preventDefault();
-    dispatch(updateNoteAction({title, description, bgColor, color, id: noteCurrent?.id as number}));
+    dispatch(
+      updateNoteAction({
+        title,
+        description,
+        bgColor,
+        color,
+        id: noteCurrent?.id as number,
+      }),
+    );
     handleCloseForm();
   };
 
   return (
     <>
       <ul className={style.notes_group}>
-        {searchValue.map(item => {
-          const {id, color, bgColor, ...rest} = item;
+        {searchValue.map((note: DataNote) => {
+          const {id, color, bgColor, ...rest} = note;
           return (
             <li
               className={style.notes_group__item}
               style={{backgroundColor: bgColor, color: color}}
-              onClick={() => handleOpenForm(item)}
+              onClick={() => handleOpenForm(note)}
               key={id}
             >
-              <Notes {...rest} onOpenFormDeleteNote={e => handleOpenFormDeleteNote(e, id)} />
+              <Notes
+                {...rest}
+                onOpenFormDeleteNote={(e: MouseEvent<HTMLButtonElement>) =>
+                  handleOpenFormDeleteNote(e, id)
+                }
+              />
             </li>
           );
         })}

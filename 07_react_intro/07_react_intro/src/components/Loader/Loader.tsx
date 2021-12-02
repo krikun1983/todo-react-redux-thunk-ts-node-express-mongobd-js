@@ -16,7 +16,10 @@ const Loader: React.FC = () => {
     <>
       {isLoaderState && (
         <div className={style.spinner__container}>
-          <div className={style.spinner__wrapper} style={{width: '180px', height: '180px'}}>
+          <div
+            className={style.spinner__wrapper}
+            style={{width: '180px', height: '180px'}}
+          >
             <div className={style.lds_roller}>
               <div></div>
               <div></div>

@@ -47,11 +47,22 @@ const NoteModalForm: React.FC = () => {
         <Button
           type="button"
           onClick={handleClickOpen}
-          icon={<IconSVG name={IconNameEnum.PLUS} width="45" height="45" className="white_white" />}
+          icon={
+            <IconSVG
+              name={IconNameEnum.PLUS}
+              width="45"
+              height="45"
+              className="white_white"
+            />
+          }
           styles="btn_circle_blue"
         />
       </div>
-      <NoteModal isOpenForm={isOpenForm} onCloseForm={handleClose} onSubmitForm={handleSubmit} />
+      <NoteModal
+        isOpenForm={isOpenForm}
+        onCloseForm={handleClose}
+        onSubmitForm={handleSubmit}
+      />
     </>
   );
 };

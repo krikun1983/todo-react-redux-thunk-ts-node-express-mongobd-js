@@ -18,11 +18,23 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
   return (
     <>
       {isOpenFormDeleteNote && (
-        <div className={style.modal__container} onClick={() => onIsOpenFormDeleteNote(false)}>
-          <div className={style.modal__wrapper} onClick={e => e.stopPropagation()}>
-            <div className={style.modal__question}>Are you sure you need to delete the note?</div>
+        <div
+          className={style.modal__container}
+          onClick={() => onIsOpenFormDeleteNote(false)}
+        >
+          <div
+            className={style.modal__wrapper}
+            onClick={(e: MouseEvent) => e.stopPropagation()}
+          >
+            <div className={style.modal__question}>
+              Are you sure you need to delete the note?
+            </div>
             <div className={style.modal__btns}>
-              <Button text="Yes" onClick={onDeleteNote} styles="btn_white_blue" />
+              <Button
+                text="Yes"
+                onClick={onDeleteNote}
+                styles="btn_white_blue"
+              />
               <Button text="No" onClick={onCloseForm} styles="btn_white_gray" />
             </div>
           </div>

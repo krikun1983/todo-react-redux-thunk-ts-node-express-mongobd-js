@@ -11,7 +11,11 @@ type NotesProps = {
   onOpenFormDeleteNote: (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
-const Notes: React.FC<NotesProps> = ({title, description, onOpenFormDeleteNote}) => {
+const Notes: React.FC<NotesProps> = ({
+  title,
+  description,
+  onOpenFormDeleteNote,
+}) => {
   return (
     <>
       <h2 className={cn(style.item__header, style.overflow)}>{title}</h2>
@@ -22,7 +26,12 @@ const Notes: React.FC<NotesProps> = ({title, description, onOpenFormDeleteNote})
           onClick={onOpenFormDeleteNote}
           type="button"
           icon={
-            <IconSVG name={IconNameEnum.BASKET} width="30" height="32" className="gray_white" />
+            <IconSVG
+              name={IconNameEnum.BASKET}
+              width="30"
+              height="32"
+              className="gray_white"
+            />
           }
         />
       </div>

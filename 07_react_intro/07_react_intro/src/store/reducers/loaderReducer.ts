@@ -15,7 +15,10 @@ const initialState: LoaderState = {
   isLoaderState: false,
 };
 
-export const loaderReducer = (state = initialState, action: LoaderAction): LoaderState => {
+export const loaderReducer = (
+  state = initialState,
+  action: LoaderAction,
+): LoaderState => {
   switch (action.type) {
     case LoaderActionTypes.TOGGLE_LOADER:
       return {...state, isLoaderState: action.payload};

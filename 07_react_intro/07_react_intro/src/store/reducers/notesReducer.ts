@@ -1,32 +1,51 @@
 import DATA_NOTES from 'constants/dataNotes';
-import {DataNote, DataNotesAction, DataNotesActionTypes, DataNotesState} from '../types/notes';
+import {
+  DataNote,
+  DataNotesAction,
+  DataNotesActionTypes,
+  DataNotesState,
+} from '../types/notes';
 
 const initialState: DataNotesState = {
   dataNotesState: [...DATA_NOTES],
 };
 
-export const notesReducer = (state = initialState, action: DataNotesAction): DataNotesState => {
+export const notesReducer = (
+  state = initialState,
+  action: DataNotesAction,
+): DataNotesState => {
   switch (action.type) {
     case DataNotesActionTypes.ADD_NOTE:
-      return {...state, dataNotesState: [action.payload as DataNote, ...state.dataNotesState]};
+      return {
+        ...state,
+        dataNotesState: [action.payload as DataNote, ...state.dataNotesState],
+      };
     case DataNotesActionTypes.UPDATE_NOTE:
       return {
         ...state,
         dataNotesState: [
           ...state.dataNotesState.slice(
             0,
-            state.dataNotesState.findIndex(item => item.id === (action.payload as DataNote).id),
+            state.dataNotesState.findIndex(
+              (note: DataNote) => note.id === (action.payload as DataNote).id,
+            ),
           ),
           action.payload as DataNote,
           ...state.dataNotesState.slice(
-            state.dataNotesState.findIndex(item => item.id === (action.payload as DataNote).id) + 1,
+            state.dataNotesState.findIndex(
+              (note: DataNote) => note.id === (action.payload as DataNote).id,
+            ) + 1,
           ),
         ],
       };
     case DataNotesActionTypes.REMOVE_NOTE:
       return {
         ...state,
-        dataNotesState: [...state.dataNotesState.filter(note => note.id !== action.payload)],
+        dataNotesState: [
+          ...state.dataNotesState.filter(
+            (note: DataNote) => note.id !== action.payload,
+          ),
+        ],
       };
     default:
       return state;
