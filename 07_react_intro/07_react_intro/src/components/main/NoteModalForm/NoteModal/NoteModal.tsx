@@ -24,22 +24,21 @@ interface NoteModalProps {
   note?: DataNote | null;
 }
 
+const initValue = {
+  title: '',
+  description: '',
+  bgColor: '#ffffff',
+  color: '#000000',
+  id: 0,
+};
+
 const NoteModal: React.FC<NoteModalProps> = ({
   isOpenForm,
   onCloseForm,
   onSubmitForm,
   note,
 }) => {
-  const [valueTitle, setValueTitle] = useState<string>(note ? note.title : '');
-  const [valueDescription, setValueDescription] = useState<string>(
-    note ? note.description : '',
-  );
-  const [valueBgColorNote, setValueBgColorNote] = useState<string>(
-    note ? note.bgColor : '#ffffff',
-  );
-  const [valueColorNote, setValueColorNote] = useState<string>(
-    note ? note.color : '#000000',
-  );
+  const [valueNote, setValueNote] = useState<DataNote>(note ? note : initValue);
 
   const [errorTitle, setErrorTitle] = useState<boolean>(false);
   const [errorDescription, setErrorDescription] = useState<boolean>(false);
@@ -71,33 +70,32 @@ const NoteModal: React.FC<NoteModalProps> = ({
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const title = e.target.value;
     if (title.length > 30) return;
-    setValueTitle(title);
+    setValueNote(prev => ({...prev, title: title}));
   };
 
   const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const description = e.target.value;
-    setValueDescription(description);
+    setValueNote(prev => ({...prev, description: description}));
   };
 
   const handleBgColorChange = (e: ChangeEvent<HTMLInputElement>) => {
     const BgColor = e.target.value;
-    setValueBgColorNote(BgColor);
+    setValueNote(prev => ({...prev, bgColor: BgColor}));
   };
 
   const handleColorChange = (e: ChangeEvent<HTMLInputElement>) => {
     const color = e.target.value;
-    setValueColorNote(color);
+    setValueNote(prev => ({...prev, color: color}));
   };
 
   const resetForm = (): void => {
-    setValueTitle('');
-    setValueDescription('');
+    setValueNote(initValue);
   };
 
   useEffect(() => {
-    validateInput(valueTitle, setErrorTitle);
-    validateInput(valueDescription, setErrorDescription);
-  }, [valueTitle, valueDescription]);
+    validateInput(valueNote.title, setErrorTitle);
+    validateInput(valueNote.description, setErrorDescription);
+  }, [valueNote.title, valueNote.description]);
 
   const handleCloseForm = () => {
     onCloseForm();
@@ -110,14 +108,22 @@ const NoteModal: React.FC<NoteModalProps> = ({
     if (
       !errorTitle &&
       !errorDescription &&
-      (valueTitle.trim().length > 0 || valueDescription.trim().length > 0)
+      (valueNote.title.trim().length > 0 ||
+        valueNote.description.trim().length > 0)
     ) {
       onSubmitForm(
         e,
-        valueTitle,
-        valueDescription,
-        valueBgColorNote,
-        valueColorNote,
+        valueNote.title,
+        valueNote.description,
+        valueNote.bgColor,
+        valueNote.color,
+      );
+      onSubmitForm(
+        e,
+        valueNote.title,
+        valueNote.description,
+        valueNote.bgColor,
+        valueNote.color,
       );
       resetForm();
     }
@@ -131,7 +137,10 @@ const NoteModal: React.FC<NoteModalProps> = ({
             className={style.form_add}
             onSubmit={handleSubmitForm}
             ref={divRef}
-            style={{backgroundColor: valueBgColorNote, color: valueColorNote}}
+            style={{
+              backgroundColor: valueNote.bgColor,
+              color: valueNote.color,
+            }}
           >
             <input
               type="text"
@@ -141,7 +150,7 @@ const NoteModal: React.FC<NoteModalProps> = ({
               )}
               placeholder="Enter title"
               onChange={handleTitleChange}
-              value={valueTitle}
+              value={valueNote.title}
             />
             <div className={style.form_field_title_error}>
               {errorTitle && 'The Title field cannot contain only spaces'}
@@ -153,7 +162,7 @@ const NoteModal: React.FC<NoteModalProps> = ({
               )}
               placeholder="note text"
               onChange={handleDescriptionChange}
-              value={valueDescription}
+              value={valueNote.description}
             />
             <div className={style.form_field_desc_error}>
               {errorDescription &&
@@ -166,7 +175,7 @@ const NoteModal: React.FC<NoteModalProps> = ({
                   className={style.form_add__colors}
                   type="color"
                   onChange={handleBgColorChange}
-                  value={valueBgColorNote}
+                  value={valueNote.bgColor}
                   id="bg-color"
                 />
               </label>
@@ -176,7 +185,7 @@ const NoteModal: React.FC<NoteModalProps> = ({
                   className={style.form_add__colors}
                   type="color"
                   onChange={handleColorChange}
-                  value={valueColorNote}
+                  value={valueNote.color}
                 />
               </label>
               <Button
