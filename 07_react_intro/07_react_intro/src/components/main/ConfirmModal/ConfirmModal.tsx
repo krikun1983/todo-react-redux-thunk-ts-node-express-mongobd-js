@@ -6,21 +6,21 @@ type ConfirmModalProps = {
   isOpenFormDeleteNote: boolean;
   onDeleteNote: () => void;
   onCloseForm: (e: MouseEvent<HTMLButtonElement | HTMLDivElement>) => void;
-  onIsOpenFormDeleteNote: Dispatch<SetStateAction<boolean>>;
+  onOpenFormDeleteNote: Dispatch<SetStateAction<boolean>>;
 };
 
 const ConfirmModal: React.FC<ConfirmModalProps> = ({
   isOpenFormDeleteNote,
   onDeleteNote,
   onCloseForm,
-  onIsOpenFormDeleteNote,
+  onOpenFormDeleteNote,
 }) => {
   return (
     <>
       {isOpenFormDeleteNote && (
         <div
           className={style.modal__container}
-          onClick={() => onIsOpenFormDeleteNote(false)}
+          onClick={() => onOpenFormDeleteNote(false)}
         >
           <div
             className={style.modal__wrapper}

@@ -49,11 +49,6 @@ const NoteModal: React.FC<NoteModalProps> = ({
     setValueNote(initValue);
   };
 
-  const handleCloseForm = () => {
-    onCloseForm();
-    resetForm();
-  };
-
   useEffect(() => {
     const closeFormIfClickOutside = (e: MouseEvent) => {
       if (
@@ -189,7 +184,7 @@ const NoteModal: React.FC<NoteModalProps> = ({
               <Button
                 text="Cancel"
                 type="button"
-                onClick={handleCloseForm}
+                onClick={onCloseForm}
                 styles="btn_white_gray"
               />
             </div>

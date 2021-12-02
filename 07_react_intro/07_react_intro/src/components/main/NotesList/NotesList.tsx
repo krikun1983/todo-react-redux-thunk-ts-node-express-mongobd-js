@@ -107,7 +107,7 @@ const NotesList: React.FC = () => {
           isOpenFormDeleteNote={isOpenFormDeleteNote}
           onDeleteNote={handleDeleteNote}
           onCloseForm={handleCloseFormDeleteNote}
-          onIsOpenFormDeleteNote={setIsOpenFormDeleteNote}
+          onOpenFormDeleteNote={setIsOpenFormDeleteNote}
         />
       )}
       {isOpenForm && (
