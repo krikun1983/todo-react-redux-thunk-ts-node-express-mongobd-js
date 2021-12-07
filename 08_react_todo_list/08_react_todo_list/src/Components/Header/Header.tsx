@@ -1,5 +1,5 @@
-import React, {ChangeEvent, useState} from 'react';
-import {Input} from 'UI-Kit';
+import React, {ChangeEvent, FormEvent, useState} from 'react';
+import {Button, Input} from 'UI-Kit';
 import {InputNameEnum} from 'UI-Kit/Input/Input';
 import style from './Header.module.scss';
 
@@ -26,6 +26,16 @@ const Header: React.FC = () => {
   const handleTask = (e: ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
     setValueTask(text);
+  };
+
+  const handleSubmitCategory = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(valueCategory);
+  };
+
+  const handleSubmitTask = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(valueTask);
   };
 
   return (
@@ -56,24 +66,42 @@ const Header: React.FC = () => {
         <input type="range" />
       </div>
       <div className={style.header__bottom}>
-        <Input
-          width="200px"
-          height="25px"
-          type="text"
-          value={valueCategory}
-          onChange={handleCategory}
-          styles={InputNameEnum.TEXT}
-          placeholder="Enter category title"
-        />
-        <Input
-          width="200px"
-          height="25px"
-          type="text"
-          value={valueTask}
-          onChange={handleTask}
-          styles={InputNameEnum.TEXT}
-          placeholder="Text input with button"
-        />
+        <form onSubmit={handleSubmitCategory}>
+          <Input
+            width="200px"
+            height="25px"
+            type="text"
+            value={valueCategory}
+            onChange={handleCategory}
+            styles={InputNameEnum.TEXT}
+            placeholder="Enter category title"
+          />
+          <Button
+            width="50px"
+            height="25px"
+            styles="btn_blue"
+            type="submit"
+            text="add"
+          />
+        </form>
+        <form onSubmit={handleSubmitTask}>
+          <Input
+            width="200px"
+            height="25px"
+            type="text"
+            value={valueTask}
+            onChange={handleTask}
+            styles={InputNameEnum.TEXT}
+            placeholder="Text input with button"
+          />
+          <Button
+            width="50px"
+            height="25px"
+            styles="btn_blue"
+            type="submit"
+            text="add"
+          />
+        </form>
       </div>
     </header>
   );

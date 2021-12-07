@@ -1,0 +1,18 @@
+@import 'style/variable';
+
+.ui_btns {
+  font-weight: bold;
+  border: none;
+  border-top-right-radius: $border-radius-small;
+  border-bottom-right-radius: $border-radius-small;
+  cursor: pointer;
+}
+
+.btn_blue {
+  color: $color-white;
+  background-color: $color-cyan-dark;
+
+  &:hover {
+    background-color: $color-cyan;
+  }
+}
