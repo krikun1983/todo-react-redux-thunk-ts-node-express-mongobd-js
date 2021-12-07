@@ -1,3 +1,9 @@
+@mixin flex-between() {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 $color-white: #fff;
 $color-black: #000;
 $color-light: #f4f4f4;

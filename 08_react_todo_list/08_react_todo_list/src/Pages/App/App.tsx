@@ -1,7 +1,13 @@
 import React from 'react';
+import {Header, Main} from 'Components';
 
 const App: React.FC = () => {
-  return <div className="App">Hi new task</div>;
+  return (
+    <>
+      <Header />
+      <Main />
+    </>
+  );
 };
 
 export default App;

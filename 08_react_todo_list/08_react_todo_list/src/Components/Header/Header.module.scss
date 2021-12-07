@@ -1,0 +1,29 @@
+@import 'style/variable';
+
+.header {
+  max-width: $mobile-max;
+  margin: 10px auto;
+  padding: 15px 0;
+  border-bottom: 2px solid $color-gray-light;
+
+  &__top {
+    @include flex-between();
+
+    h1 {
+      color: $color-cyan-dark;
+    }
+  }
+
+  &__filter {
+    width: 310px;
+    @include flex-between();
+
+    label {
+      font-size: 14px;
+    }
+  }
+
+  &__bottom {
+    @include flex-between();
+  }
+}
