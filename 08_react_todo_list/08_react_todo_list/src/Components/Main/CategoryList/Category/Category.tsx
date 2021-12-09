@@ -1,76 +1,39 @@
-import React from 'react';
+import React, {useState} from 'react';
 import DATA_CATEGORIES from 'Redux/data/data-categories';
+import style from './Category.module.scss';
 
 interface CategoryProps {
   id: number;
   category: string;
-  list?: number[];
-  onClick: (id: number) => void;
+  listChild: number[];
   onClickCategory: (id: number) => void;
 }
 
 interface CategoryType {
   category: string;
-  parentId: null | number;
-  children: null | CategoryType;
+  parentId: number | null;
+  children: number[];
   id: number;
 }
-// const subCategoryCur: CategoryType[] = [];
-
-// const nest = (
-//   items: CategoryType[],
-//   id: number | null | undefined = null,
-// ): unknown =>
-//   items
-//     .filter((item: CategoryType) => item.parentId === id)
-//     .map((item: CategoryType) => ({
-//       ...item,
-//       children: nest(items, item.id),
-//     }));
-
-// const categoryMap = nest(DATA_CATEGORIES);
-// console.log(categoryMap);
 
 const Category: React.FC<CategoryProps> = ({
   id,
   category,
-  list,
+  listChild,
   onClickCategory,
-}): JSX.Element => {
-  // return (
-  //   <>
-  //     {DATA_CATEGORIES.map(elem => {
-  //       return (
-  //         <React.Fragment key={uuid()}>
-  //           {elem.category === category ? <p>{elem.category}</p> : null}
-  //           {elem.parentId === id ? <p>{elem.category}</p> : null}
-  //         </React.Fragment>
-  //       );
-  //     })}
-  //   </>
-  // );
-
-  const renderInnerList = (listChildren: number[] | undefined) => {
+}) => {
+  const [categories, setCategories] = useState<CategoryType[]>(DATA_CATEGORIES);
+  const renderList = (list: number[]) => {
     return (
       <ul style={{marginLeft: '10px'}}>
-        {listChildren?.map(idChildren => {
-          return DATA_CATEGORIES[idChildren - 1].children.length > 0 ? (
+        {list.map(idChildren => {
+          return (
             <Category
               key={idChildren}
               id={idChildren}
-              category={DATA_CATEGORIES[idChildren - 1].category}
-              list={DATA_CATEGORIES[idChildren - 1].children}
+              category={categories[idChildren - 1].category}
+              listChild={categories[idChildren - 1].children}
               onClickCategory={onClickCategory}
-              onClick={() => onClickCategory(id)}
-            />
-          ) : (
-            <Category
-              key={idChildren}
-              id={idChildren}
-              category={DATA_CATEGORIES[idChildren - 1].category}
-              list={DATA_CATEGORIES[idChildren - 1].children}
-              onClickCategory={onClickCategory}
-              onClick={() => onClickCategory(id)}
             />
           );
         })}
@@ -80,8 +43,15 @@ const Category: React.FC<CategoryProps> = ({
 
   return (
     <li>
-      {category}
-      {renderInnerList(list)}
+      <div className={style.category} onClick={() => onClickCategory(id)}>
+        <div className={style.category__name}>{category}</div>
+        <div className={style.category__btns}>
+          <button>Edit</button>
+          <button>Delete</button>
+          <button>Add Nested</button>
+        </div>
+      </div>
+      {listChild.length > 0 && renderList(listChild)}
     </li>
   );
 };

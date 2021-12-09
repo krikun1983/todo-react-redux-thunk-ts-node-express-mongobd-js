@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import DATA_CATEGORIES, {DATA_IDS} from 'Redux/data/data-categories';
 import Category from './Category/Category';
-import style from './CategoryList.module.scss';
 
 interface CategoryListProps {
   onClickCategory: (id: number) => void;
@@ -21,26 +20,17 @@ const CategoryList: React.FC<CategoryListProps> = ({onClickCategory}) => {
   return (
     <ul>
       {ids.map(id => {
-        return categories[id - 1].parentId === null ? (
-          categories[id - 1].children.length > 0 ? (
+        return (
+          categories[id - 1].parentId === null && (
             <Category
               key={id}
               id={id}
               category={categories[id - 1].category}
-              list={categories[id - 1].children}
+              listChild={categories[id - 1].children}
               onClickCategory={onClickCategory}
-              onClick={() => onClickCategory(id)}
-            />
-          ) : (
-            <Category
-              key={id}
-              id={id}
-              category={categories[id - 1].category}
-              onClickCategory={onClickCategory}
-              onClick={() => onClickCategory(id)}
             />
           )
-        ) : null;
+        );
       })}
     </ul>
   );

@@ -1,4 +1,4 @@
-export const DATA_IDS = [1, 2, 3, 4, 5, 6];
+export const DATA_IDS = [1, 2, 3, 4, 5, 6, 7];
 
 const DATA_CATEGORIES = [
   {
@@ -34,8 +34,14 @@ const DATA_CATEGORIES = [
   {
     category: '6 категория',
     parentId: 3,
-    children: [],
+    children: [7],
     id: 6,
+  },
+  {
+    category: '7 категория',
+    parentId: 6,
+    children: [],
+    id: 7,
   },
 ];
 

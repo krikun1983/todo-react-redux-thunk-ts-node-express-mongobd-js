@@ -1,0 +1,11 @@
+@import 'style/variable';
+
+.category {
+  outline: 1px solid red;
+  cursor: pointer;
+  @include flex-between();
+}
+
+.category__name {
+  color: $color-cyan-dark;
+}
