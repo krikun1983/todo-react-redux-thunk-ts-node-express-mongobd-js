@@ -4,6 +4,12 @@
   justify-content: space-between;
 }
 
+@mixin flex-start() {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
 $color-white: #fff;
 $color-black: #000;
 $color-light: #f4f4f4;

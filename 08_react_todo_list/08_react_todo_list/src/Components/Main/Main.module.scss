@@ -4,4 +4,15 @@
   width: $mobile-max;
   margin: auto;
   padding: 15px 0;
+  @include flex-start();
+
+  &__categories {
+    width: 46%;
+    outline: 1px solid red;
+  }
+
+  &__tasks {
+    width: 52%;
+    outline: 1px solid green;
+  }
 }
