@@ -1,32 +1,25 @@
-import React, {useState} from 'react';
-import DATA_CATEGORIES, {DATA_IDS} from 'Redux/data/data-categories';
+import React from 'react';
+import useTypeSelector from 'ReduxStore/hooks/useTypeSelector';
 import Category from './Category/Category';
 
 interface CategoryListProps {
   onClickCategory: (id: number) => void;
 }
 
-interface CategoryType {
-  category: string;
-  parentId: number | null;
-  children: number[];
-  id: number;
-}
-
 const CategoryList: React.FC<CategoryListProps> = ({onClickCategory}) => {
-  const [ids, setIds] = useState<number[]>(DATA_IDS);
-  const [categories, setCategories] = useState<CategoryType[]>(DATA_CATEGORIES);
+  const {dataCategoryState} = useTypeSelector(state => state.dataCategoryState);
+  const {dataIdsState} = useTypeSelector(state => state.dataIdsState);
 
   return (
     <ul>
-      {ids.map(id => {
+      {dataIdsState.map(id => {
         return (
-          categories[id - 1].parentId === null && (
+          dataCategoryState[id - 1].parentId === null && (
             <Category
               key={id}
               id={id}
-              category={categories[id - 1].category}
-              listChild={categories[id - 1].children}
+              category={dataCategoryState[id - 1].category}
+              listChild={dataCategoryState[id - 1].children}
               onClickCategory={onClickCategory}
             />
           )

@@ -1,4 +1,3 @@
-import {TaskType} from 'Components/Main/Main';
 import React from 'react';
 import style from './Task.module.scss';
 
@@ -10,8 +9,8 @@ interface TaskProps {
 const Task: React.FC<TaskProps> = ({title, description}) => {
   return (
     <>
-      <h3>{title}</h3>
-      <p>{description}</p>
+      <h3 className={style.task__title}>{title}</h3>
+      <p className={style.task__description}>{description}</p>
     </>
   );
 };

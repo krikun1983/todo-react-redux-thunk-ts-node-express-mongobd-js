@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import DATA_TASKS from 'Redux/data/data-tasks';
+import useTypeSelector from 'ReduxStore/hooks/useTypeSelector';
 import CategoryList from './CategoryList/CategoryList';
 import style from './Main.module.scss';
 import TaskList from './TaskList/TaskList';
@@ -12,9 +12,11 @@ export interface TaskType {
 }
 
 const Main: React.FC = () => {
+  const {dataTaskState} = useTypeSelector(state => state.dataTaskState);
   const [tasks, setTasks] = useState<TaskType[]>([]);
+
   const handleClickCategory = (id: number) => {
-    const currentTasks = DATA_TASKS.filter(task => task.categoryId === id);
+    const currentTasks = dataTaskState.filter(task => task.categoryId === id);
     setTasks(currentTasks);
   };
 

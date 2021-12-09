@@ -13,7 +13,7 @@ const TaskList: React.FC<TaskListProps> = ({tasks}) => {
       {tasks.map((task: TaskType) => {
         const {id, ...rest} = task;
         return (
-          <li key={id}>
+          <li key={id} className={style.task}>
             <Task {...rest} />
           </li>
         );

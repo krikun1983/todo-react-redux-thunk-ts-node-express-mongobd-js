@@ -1,6 +1,6 @@
 export const DATA_IDS = [1, 2, 3, 4, 5, 6, 7];
 
-const DATA_CATEGORIES = [
+export const DATA_CATEGORIES = [
   {
     category: '1 категория',
     parentId: null,
@@ -44,5 +44,3 @@ const DATA_CATEGORIES = [
     id: 7,
   },
 ];
-
-export default DATA_CATEGORIES;

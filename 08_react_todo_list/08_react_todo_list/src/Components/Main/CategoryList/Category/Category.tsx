@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import DATA_CATEGORIES from 'Redux/data/data-categories';
+import React from 'react';
+import useTypeSelector from 'ReduxStore/hooks/useTypeSelector';
 import style from './Category.module.scss';
 
 interface CategoryProps {
@@ -9,20 +9,13 @@ interface CategoryProps {
   onClickCategory: (id: number) => void;
 }
 
-interface CategoryType {
-  category: string;
-  parentId: number | null;
-  children: number[];
-  id: number;
-}
-
 const Category: React.FC<CategoryProps> = ({
   id,
   category,
   listChild,
   onClickCategory,
 }) => {
-  const [categories, setCategories] = useState<CategoryType[]>(DATA_CATEGORIES);
+  const {dataCategoryState} = useTypeSelector(state => state.dataCategoryState);
   const renderList = (list: number[]) => {
     return (
       <ul style={{marginLeft: '10px'}}>
@@ -31,8 +24,8 @@ const Category: React.FC<CategoryProps> = ({
             <Category
               key={idChildren}
               id={idChildren}
-              category={categories[idChildren - 1].category}
-              listChild={categories[idChildren - 1].children}
+              category={dataCategoryState[idChildren - 1].category}
+              listChild={dataCategoryState[idChildren - 1].children}
               onClickCategory={onClickCategory}
             />
           );
