@@ -1,6 +1,6 @@
 import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {addCategoryAction} from 'ReduxStore/reducers/categoryState';
+import {addCategoryAction} from 'ReduxStore/categoryAction/categoryAction';
 import {Button, IconSVG, Input} from 'UI-Kit';
 import {IconNameEnum} from 'UI-Kit/IconSVG/IconSVG';
 import {InputNameEnum} from 'UI-Kit/Input/Input';

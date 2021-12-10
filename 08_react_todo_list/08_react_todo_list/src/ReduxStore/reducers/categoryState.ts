@@ -48,9 +48,7 @@ export const categoryReducer = (
   }
 };
 
-export const addCategoryAction = (
-  payload: DataCategory,
-): DataCategoryAction => ({
+export const addCategory = (payload: DataCategory): DataCategoryAction => ({
   type: DataCategoryActionTypes.ADD_CATEGORY,
   payload,
 });
