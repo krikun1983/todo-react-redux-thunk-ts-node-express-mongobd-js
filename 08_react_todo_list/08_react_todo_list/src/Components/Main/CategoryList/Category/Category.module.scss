@@ -1,11 +1,27 @@
 @import 'style/variable';
 
 .category {
-  outline: 1px solid red;
+  margin-bottom: -1px;
+  padding: 0 5px;
+  border: 1px solid $color-gray;
   cursor: pointer;
   @include flex-between();
+
+  &__btn_edit {
+    width: 40px;
+  }
+
+  &__name {
+    width: 100%;
+    color: $color-cyan-dark;
+  }
+
+  &__btns {
+    width: 80px;
+    @include flex-between();
+  }
 }
 
-.category__name {
-  color: $color-cyan-dark;
+.child {
+  margin-left: 8px;
 }

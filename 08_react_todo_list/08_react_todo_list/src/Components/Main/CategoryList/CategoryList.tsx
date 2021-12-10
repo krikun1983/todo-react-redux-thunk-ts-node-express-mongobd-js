@@ -14,12 +14,12 @@ const CategoryList: React.FC<CategoryListProps> = ({onClickCategory}) => {
     <ul>
       {dataIdsState.map(id => {
         return (
-          dataCategoryState[id - 1].parentId === null && (
+          dataCategoryState[id].parentId === null && (
             <Category
               key={id}
               id={id}
-              category={dataCategoryState[id - 1].category}
-              listChild={dataCategoryState[id - 1].children}
+              category={dataCategoryState[id].category}
+              listChild={dataCategoryState[id].children}
               onClickCategory={onClickCategory}
             />
           )

@@ -4,7 +4,8 @@ import style from './Button.module.scss';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   styles: string;
-  text: string;
+  text?: string;
+  icon?: React.ReactElement;
   width?: string;
   height?: string;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
@@ -13,6 +14,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button: React.FC<ButtonProps> = ({
   styles,
   text,
+  icon,
   width,
   height,
   onClick,
@@ -23,10 +25,10 @@ const Button: React.FC<ButtonProps> = ({
       <button
         {...attr}
         style={{width: width, height: height}}
-        className={cn(style.ui_btns, style[styles])}
+        className={cn(style.ui_btns, text && style.ui_btn, style[styles])}
         onClick={onClick}
       >
-        {text}
+        {icon ? icon : text}
       </button>
     </>
   );

@@ -6,6 +6,11 @@
   border-top-right-radius: $border-radius-small;
   border-bottom-right-radius: $border-radius-small;
   cursor: pointer;
+  @include flex-between();
+}
+
+.ui_btn {
+  padding: 5px 12px;
 }
 
 .btn_blue {
@@ -15,4 +20,20 @@
   &:hover {
     background-color: $color-cyan;
   }
+}
+
+.btn_gray {
+  color: $color-white;
+  background-color: $color-gray;
+  border: 1px solid transparent;
+
+  &:hover {
+    color: $color-black;
+    background-color: $color-white;
+    border: 1px solid $color-gray;
+  }
+}
+
+.btn_icon_bg_white {
+  background-color: $color-white;
 }

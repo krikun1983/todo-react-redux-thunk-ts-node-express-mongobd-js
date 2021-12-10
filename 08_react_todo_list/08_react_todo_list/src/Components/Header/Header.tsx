@@ -1,5 +1,6 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
-import {Button, Input} from 'UI-Kit';
+import {Button, IconSVG, Input} from 'UI-Kit';
+import {IconNameEnum} from 'UI-Kit/IconSVG/IconSVG';
 import {InputNameEnum} from 'UI-Kit/Input/Input';
 import style from './Header.module.scss';
 
@@ -51,22 +52,39 @@ const Header: React.FC = () => {
             styles={InputNameEnum.CHECKBOX}
           />
           <label htmlFor="checkbox">Show done</label>
-          <Input
-            width="200px"
-            height="25px"
-            type="text"
-            value={valueSearch}
-            onChange={handleSearch}
-            styles={InputNameEnum.TEXT}
-            placeholder="Search"
-          />
+          <span className={style.header__filter_btn}>
+            <Input
+              width="200px"
+              height="25px"
+              type="text"
+              value={valueSearch}
+              onChange={handleSearch}
+              styles={InputNameEnum.TEXT}
+              placeholder="Search"
+            />
+            <Button
+              styles="btn_icon_bg_white"
+              type="button"
+              icon={
+                <IconSVG
+                  name={IconNameEnum.CLOSE}
+                  width="15"
+                  height="20"
+                  className="gray_blue_dark"
+                />
+              }
+            />
+          </span>
         </div>
       </div>
       <div className={style.header__medium}>
         <input type="range" />
       </div>
       <div className={style.header__bottom}>
-        <form onSubmit={handleSubmitCategory}>
+        <form
+          onSubmit={handleSubmitCategory}
+          className={style.header__bottom_form}
+        >
           <Input
             width="200px"
             height="25px"
@@ -76,15 +94,9 @@ const Header: React.FC = () => {
             styles={InputNameEnum.TEXT}
             placeholder="Enter category title"
           />
-          <Button
-            width="50px"
-            height="25px"
-            styles="btn_blue"
-            type="submit"
-            text="add"
-          />
+          <Button styles="btn_blue" type="submit" text="add" />
         </form>
-        <form onSubmit={handleSubmitTask}>
+        <form onSubmit={handleSubmitTask} className={style.header__bottom_form}>
           <Input
             width="200px"
             height="25px"

@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import useTypeSelector from 'ReduxStore/hooks/useTypeSelector';
+import {Button, IconSVG} from 'UI-Kit';
+import {IconNameEnum} from 'UI-Kit/IconSVG/IconSVG';
 import style from './Category.module.scss';
 
 interface CategoryProps {
@@ -16,16 +18,18 @@ const Category: React.FC<CategoryProps> = ({
   onClickCategory,
 }) => {
   const {dataCategoryState} = useTypeSelector(state => state.dataCategoryState);
+  const [childShow, setChildShow] = useState<boolean>(true);
+
   const renderList = (list: number[]) => {
     return (
-      <ul style={{marginLeft: '10px'}}>
+      <ul className={style.child}>
         {list.map(idChildren => {
           return (
             <Category
               key={idChildren}
               id={idChildren}
-              category={dataCategoryState[idChildren - 1].category}
-              listChild={dataCategoryState[idChildren - 1].children}
+              category={dataCategoryState[idChildren].category}
+              listChild={dataCategoryState[idChildren].children}
               onClickCategory={onClickCategory}
             />
           );
@@ -36,15 +40,74 @@ const Category: React.FC<CategoryProps> = ({
 
   return (
     <li>
-      <div className={style.category} onClick={() => onClickCategory(id)}>
-        <div className={style.category__name}>{category}</div>
+      <div className={style.category}>
+        <div className={style.category__btn_edit}>
+          {listChild.length > 0 && (
+            <Button
+              styles="btn_icon_bg_white"
+              type="button"
+              onClick={() => setChildShow(!childShow)}
+              icon={
+                <IconSVG
+                  name={
+                    childShow
+                      ? IconNameEnum.ARROW_TOP
+                      : IconNameEnum.ARROW_BOTTOM
+                  }
+                  width="15"
+                  height="20"
+                  className="blue_dark_gray"
+                />
+              }
+            />
+          )}
+        </div>
+        <div
+          className={style.category__name}
+          onClick={() => onClickCategory(id)}
+        >
+          {category}
+        </div>
         <div className={style.category__btns}>
-          <button>Edit</button>
-          <button>Delete</button>
-          <button>Add Nested</button>
+          <Button
+            styles="btn_icon_bg_white"
+            type="button"
+            icon={
+              <IconSVG
+                name={IconNameEnum.EDIT}
+                width="30"
+                height="30"
+                className="blue_dark_gray"
+              />
+            }
+          />
+          <Button
+            styles="btn_icon_bg_white"
+            type="button"
+            icon={
+              <IconSVG
+                name={IconNameEnum.BASKET}
+                width="26"
+                height="26"
+                className="blue_dark_gray"
+              />
+            }
+          />
+          <Button
+            styles="btn_icon_bg_white"
+            type="button"
+            icon={
+              <IconSVG
+                name={IconNameEnum.PLUS}
+                width="26"
+                height="26"
+                className="blue_dark_gray"
+              />
+            }
+          />
         </div>
       </div>
-      {listChild.length > 0 && renderList(listChild)}
+      {childShow && listChild.length > 0 && renderList(listChild)}
     </li>
   );
 };

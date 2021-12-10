@@ -22,9 +22,26 @@
       font-size: 14px;
       cursor: pointer;
     }
+
+    input {
+      padding-right: 22px;
+    }
+
+    &_btn {
+      position: relative;
+
+      button {
+        position: absolute;
+        top: 3px;
+        right: 5px;
+      }
+    }
   }
 
   &__bottom {
+    &_form {
+      @include flex-between();
+    }
     @include flex-between();
   }
 }

@@ -8,7 +8,7 @@ export interface DataCategory {
 }
 
 export interface DataCategoryState {
-  dataCategoryState: DataCategory[];
+  dataCategoryState: {[key: number]: DataCategory};
   dataIdsState: number[];
 }
 
@@ -24,7 +24,7 @@ export enum DataCategoryActionTypes {
 }
 
 const initialState: DataCategoryState = {
-  dataCategoryState: [...DATA_CATEGORIES],
+  dataCategoryState: DATA_CATEGORIES,
   dataIdsState: [...DATA_IDS],
 };
 
@@ -36,10 +36,6 @@ export const categoryReducer = (
     case DataCategoryActionTypes.ADD_CATEGORY:
       return {
         ...state,
-        dataCategoryState: [
-          action.payload as DataCategory,
-          ...state.dataCategoryState,
-        ],
       };
     default:
       return state;
