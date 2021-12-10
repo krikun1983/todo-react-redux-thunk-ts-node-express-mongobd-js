@@ -1,14 +1,17 @@
 import React from 'react';
-import useTypeSelector from 'ReduxStore/hooks/useTypeSelector';
+import {useSelector} from 'react-redux';
+import {RootState} from 'ReduxStore/types/rootState';
 import Category from './Category/Category';
 
-interface CategoryListProps {
+interface Props {
   onClickCategory: (id: number) => void;
 }
 
-const CategoryList: React.FC<CategoryListProps> = ({onClickCategory}) => {
-  const {dataCategoryState} = useTypeSelector(state => state.dataCategoryState);
-  const {dataIdsState} = useTypeSelector(state => state.dataIdsState);
+const CategoryList: React.FC<Props> = ({onClickCategory}) => {
+  const {dataCategoryState} = useSelector(
+    (state: RootState) => state.dataCategoryState,
+  );
+  const {dataIdsState} = useSelector((state: RootState) => state.dataIdsState);
 
   return (
     <ul>

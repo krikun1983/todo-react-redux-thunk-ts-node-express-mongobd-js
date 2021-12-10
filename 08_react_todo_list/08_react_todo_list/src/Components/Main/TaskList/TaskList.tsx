@@ -1,13 +1,19 @@
 import React from 'react';
-import {TaskType} from '../Main';
 import Task from './Task/Task';
 import style from './TaskList.module.scss';
 
-interface TaskListProps {
+interface Props {
   tasks: TaskType[];
 }
 
-const TaskList: React.FC<TaskListProps> = ({tasks}) => {
+export interface TaskType {
+  title: string;
+  description: string;
+  categoryId: number;
+  id: number;
+}
+
+const TaskList: React.FC<Props> = ({tasks}) => {
   return (
     <ul>
       {tasks.map((task: TaskType) => {

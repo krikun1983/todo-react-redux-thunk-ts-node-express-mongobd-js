@@ -1,42 +1,23 @@
 import React, {useState} from 'react';
-import useTypeSelector from 'ReduxStore/hooks/useTypeSelector';
 import {Button, IconSVG} from 'UI-Kit';
 import {IconNameEnum} from 'UI-Kit/IconSVG/IconSVG';
 import style from './Category.module.scss';
+import CategoryChild from './CategoryChild/CategoryChild';
 
-interface CategoryProps {
+interface Props {
   id: number;
   category: string;
   listChild: number[];
   onClickCategory: (id: number) => void;
 }
 
-const Category: React.FC<CategoryProps> = ({
+const Category: React.FC<Props> = ({
   id,
   category,
   listChild,
   onClickCategory,
 }) => {
-  const {dataCategoryState} = useTypeSelector(state => state.dataCategoryState);
   const [childShow, setChildShow] = useState<boolean>(true);
-
-  const renderList = (list: number[]) => {
-    return (
-      <ul className={style.child}>
-        {list.map(idChildren => {
-          return (
-            <Category
-              key={idChildren}
-              id={idChildren}
-              category={dataCategoryState[idChildren].category}
-              listChild={dataCategoryState[idChildren].children}
-              onClickCategory={onClickCategory}
-            />
-          );
-        })}
-      </ul>
-    );
-  };
 
   return (
     <li>
@@ -107,7 +88,9 @@ const Category: React.FC<CategoryProps> = ({
           />
         </div>
       </div>
-      {childShow && listChild.length > 0 && renderList(listChild)}
+      {childShow && listChild.length > 0 && (
+        <CategoryChild list={listChild} onClickCategory={onClickCategory} />
+      )}
     </li>
   );
 };

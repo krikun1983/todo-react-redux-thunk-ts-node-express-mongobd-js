@@ -1,14 +1,21 @@
-import React, {ChangeEvent, FormEvent, useState} from 'react';
+import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {addCategoryAction} from 'ReduxStore/reducers/categoryState';
 import {Button, IconSVG, Input} from 'UI-Kit';
 import {IconNameEnum} from 'UI-Kit/IconSVG/IconSVG';
 import {InputNameEnum} from 'UI-Kit/Input/Input';
+import validateInput from 'utils/validateInput';
 import style from './Header.module.scss';
 
+let idMax = 8;
+
 const Header: React.FC = () => {
+  const dispatch = useDispatch();
   const [checked, setChecked] = useState(true);
   const [valueSearch, setValueSearch] = useState('');
   const [valueCategory, setValueCategory] = useState('');
   const [valueTask, setValueTask] = useState('');
+  const [errorCategory, setErrorCategory] = useState<boolean>(false);
 
   const handleChecked = () => {
     setChecked(!checked);
@@ -19,19 +26,38 @@ const Header: React.FC = () => {
     setValueSearch(text);
   };
 
-  const handleCategory = (e: ChangeEvent<HTMLInputElement>) => {
-    const text = e.target.value;
-    setValueCategory(text);
+  const resetForm = (): void => {
+    setValueCategory('');
   };
 
-  const handleTask = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleCategory = (e: ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
-    setValueTask(text);
+    if (text.length > 20) return;
+    setValueCategory(text);
   };
 
   const handleSubmitCategory = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(valueCategory);
+    if (!errorCategory && valueCategory.trim().length > 0) {
+      dispatch(
+        addCategoryAction({
+          category: valueCategory,
+          parentId: null,
+          children: [],
+          id: idMax++,
+        }),
+      );
+    }
+    resetForm();
+  };
+
+  useEffect(() => {
+    validateInput(valueCategory, setErrorCategory);
+  }, [valueCategory]);
+
+  const handleTask = (e: ChangeEvent<HTMLInputElement>) => {
+    const text = e.target.value;
+    setValueTask(text);
   };
 
   const handleSubmitTask = (e: FormEvent<HTMLFormElement>) => {

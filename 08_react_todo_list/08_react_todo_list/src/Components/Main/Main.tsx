@@ -2,14 +2,7 @@ import React, {useState} from 'react';
 import useTypeSelector from 'ReduxStore/hooks/useTypeSelector';
 import CategoryList from './CategoryList/CategoryList';
 import style from './Main.module.scss';
-import TaskList from './TaskList/TaskList';
-
-export interface TaskType {
-  title: string;
-  description: string;
-  categoryId: number;
-  id: number;
-}
+import TaskList, {TaskType} from './TaskList/TaskList';
 
 const Main: React.FC = () => {
   const {dataTaskState} = useTypeSelector(state => state.dataTaskState);

@@ -1,12 +1,12 @@
 import React from 'react';
 import style from './Task.module.scss';
 
-interface TaskProps {
+interface Props {
   title: string;
   description: string;
 }
 
-const Task: React.FC<TaskProps> = ({title, description}) => {
+const Task: React.FC<Props> = ({title, description}) => {
   return (
     <>
       <h3 className={style.task__title}>{title}</h3>

@@ -1,4 +1,4 @@
-import React, {ButtonHTMLAttributes, MouseEvent} from 'react';
+import React, {ButtonHTMLAttributes} from 'react';
 import cn from 'classnames';
 import style from './Button.module.scss';
 
@@ -8,7 +8,6 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: React.ReactElement;
   width?: string;
   height?: string;
-  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,7 +16,6 @@ const Button: React.FC<ButtonProps> = ({
   icon,
   width,
   height,
-  onClick,
   ...attr
 }) => {
   return (
@@ -26,7 +24,6 @@ const Button: React.FC<ButtonProps> = ({
         {...attr}
         style={{width: width, height: height}}
         className={cn(style.ui_btns, text && style.ui_btn, style[styles])}
-        onClick={onClick}
       >
         {icon ? icon : text}
       </button>

@@ -14,13 +14,14 @@ export interface DataCategoryState {
 
 export interface DataCategoryAction {
   type: string;
-  payload: DataCategory | number | DataCategory[];
+  payload: DataCategory;
 }
 
 export enum DataCategoryActionTypes {
   ADD_CATEGORY = 'ADD_CATEGORY',
   UPDATE_CATEGORY = 'UPDATE_CATEGORY',
   REMOVE_CATEGORY = 'REMOVE_CATEGORY',
+  ADD_IDS = 'ADD_IDS',
 }
 
 const initialState: DataCategoryState = {
@@ -36,8 +37,20 @@ export const categoryReducer = (
     case DataCategoryActionTypes.ADD_CATEGORY:
       return {
         ...state,
+        dataIdsState: [action.payload.id, ...state.dataIdsState],
+        dataCategoryState: {
+          ...state.dataCategoryState,
+          [action.payload.id]: action.payload,
+        },
       };
     default:
       return state;
   }
 };
+
+export const addCategoryAction = (
+  payload: DataCategory,
+): DataCategoryAction => ({
+  type: DataCategoryActionTypes.ADD_CATEGORY,
+  payload,
+});
