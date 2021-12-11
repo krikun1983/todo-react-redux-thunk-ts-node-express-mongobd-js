@@ -4,6 +4,7 @@ import {useDispatch} from 'react-redux';
 import {updateCategoryAction} from 'ReduxStore/categoryAction/categoryAction';
 import {Button, IconSVG} from 'UI-Kit';
 import {IconNameEnum} from 'UI-Kit/IconSVG/IconSVG';
+import validateInput from 'utils/validateInput';
 import style from './Category.module.scss';
 import CategoryChild from './CategoryChild/CategoryChild';
 
@@ -27,24 +28,32 @@ const Category: React.FC<Props> = ({
   const [editCategory, setEditCategory] = React.useState<boolean>(false);
   const [valueEditCategory, setValueEditCategory] =
     React.useState<string>(category);
+  const [errorEditCategory, setErrorEditCategory] =
+    React.useState<boolean>(false);
 
   const handleEditCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameCategory = e.target.value;
     setValueEditCategory(nameCategory);
   };
 
-  const handleSubmitCategory = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleEditCategorySubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setEditCategory(false);
-    dispatch(
-      updateCategoryAction({
-        category: valueEditCategory,
-        parentId: parentId,
-        children: listChild,
-        id,
-      }),
-    );
+    if (!errorEditCategory && valueEditCategory.trim().length) {
+      dispatch(
+        updateCategoryAction({
+          category: valueEditCategory,
+          parentId: parentId,
+          children: listChild,
+          id,
+        }),
+      );
+    }
   };
+
+  React.useEffect(() => {
+    validateInput(valueEditCategory, setErrorEditCategory);
+  }, [valueEditCategory]);
 
   return (
     <li>
@@ -124,10 +133,11 @@ const Category: React.FC<Props> = ({
             <EditInput
               height="30px"
               value={valueEditCategory}
+              disabled={errorEditCategory}
               edit={editCategory}
               setEdit={setEditCategory}
               onEdit={handleEditCategory}
-              onSubmit={handleSubmitCategory}
+              onSubmit={handleEditCategorySubmit}
             />
           </>
         )}

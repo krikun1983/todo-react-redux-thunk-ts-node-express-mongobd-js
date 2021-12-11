@@ -6,6 +6,7 @@ import style from './EditInput.module.scss';
 interface Prop {
   height: string;
   value: string;
+  disabled: boolean;
   edit: boolean;
   setEdit: React.Dispatch<React.SetStateAction<boolean>>;
   onEdit: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -15,6 +16,7 @@ interface Prop {
 const EditInput: React.FC<Prop> = ({
   height,
   value,
+  disabled,
   edit,
   setEdit,
   onEdit,
@@ -55,7 +57,13 @@ const EditInput: React.FC<Prop> = ({
           value={value}
           onChange={onEdit}
         />
-        <Button styles="btn_blue" height={height} type="submit" text="Edit" />
+        <Button
+          styles="btn_blue"
+          height={height}
+          type="submit"
+          text="Edit"
+          disabled={disabled}
+        />
       </form>
     </div>
   );

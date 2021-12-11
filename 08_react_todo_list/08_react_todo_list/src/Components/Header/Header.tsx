@@ -38,7 +38,7 @@ const Header: React.FC = () => {
 
   const handleSubmitCategory = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!errorCategory && valueCategory.trim().length > 0) {
+    if (!errorCategory && valueCategory.trim().length) {
       dispatch(
         addCategoryAction({
           category: valueCategory,
@@ -120,7 +120,12 @@ const Header: React.FC = () => {
             styles={InputNameEnum.TEXT}
             placeholder="Enter category title"
           />
-          <Button styles="btn_blue" type="submit" text="add" />
+          <Button
+            styles="btn_blue"
+            type="submit"
+            text="add"
+            disabled={errorCategory}
+          />
         </form>
         <form onSubmit={handleSubmitTask} className={style.header__bottom_form}>
           <Input

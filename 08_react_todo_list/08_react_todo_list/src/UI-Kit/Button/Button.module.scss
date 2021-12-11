@@ -9,6 +9,14 @@
   @include flex-between();
 }
 
+.ui_btns:disabled {
+  background-color: $color-gray-light;
+
+  &:hover {
+    background-color: $color-gray-light;
+  }
+}
+
 .ui_btn {
   padding: 5px 12px;
 }
