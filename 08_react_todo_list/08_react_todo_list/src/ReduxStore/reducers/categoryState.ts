@@ -43,6 +43,17 @@ export const categoryReducer = (
           [action.payload.id]: action.payload,
         },
       };
+    case DataCategoryActionTypes.UPDATE_CATEGORY:
+      return {
+        ...state,
+        dataCategoryState: {
+          ...state.dataCategoryState,
+          [action.payload.id]: {
+            ...state.dataCategoryState[action.payload.id],
+            category: action.payload.category,
+          },
+        },
+      };
     default:
       return state;
   }
@@ -50,5 +61,10 @@ export const categoryReducer = (
 
 export const addCategory = (payload: DataCategory): DataCategoryAction => ({
   type: DataCategoryActionTypes.ADD_CATEGORY,
+  payload,
+});
+
+export const updateCategory = (payload: DataCategory): DataCategoryAction => ({
+  type: DataCategoryActionTypes.UPDATE_CATEGORY,
   payload,
 });

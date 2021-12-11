@@ -1,8 +1,8 @@
-import React, {ButtonHTMLAttributes} from 'react';
+import React from 'react';
 import cn from 'classnames';
 import style from './Button.module.scss';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   styles: string;
   text?: string;
   icon?: React.ReactElement;

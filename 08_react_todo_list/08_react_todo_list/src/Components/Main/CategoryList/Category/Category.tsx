@@ -1,4 +1,7 @@
-import React, {useState} from 'react';
+import EditInput from 'Components/Main/EditInput/EditInput';
+import React from 'react';
+import {useDispatch} from 'react-redux';
+import {updateCategoryAction} from 'ReduxStore/categoryAction/categoryAction';
 import {Button, IconSVG} from 'UI-Kit';
 import {IconNameEnum} from 'UI-Kit/IconSVG/IconSVG';
 import style from './Category.module.scss';
@@ -7,6 +10,7 @@ import CategoryChild from './CategoryChild/CategoryChild';
 interface Props {
   id: number;
   category: string;
+  parentId: number | null;
   listChild: number[];
   onClickCategory: (id: number) => void;
 }
@@ -14,79 +18,119 @@ interface Props {
 const Category: React.FC<Props> = ({
   id,
   category,
+  parentId,
   listChild,
   onClickCategory,
 }) => {
-  const [childShow, setChildShow] = useState<boolean>(true);
+  const dispatch = useDispatch();
+  const [childShow, setChildShow] = React.useState<boolean>(true);
+  const [editCategory, setEditCategory] = React.useState<boolean>(false);
+  const [valueEditCategory, setValueEditCategory] =
+    React.useState<string>(category);
+
+  const handleEditCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const nameCategory = e.target.value;
+    setValueEditCategory(nameCategory);
+  };
+
+  const handleSubmitCategory = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setEditCategory(false);
+    dispatch(
+      updateCategoryAction({
+        category: valueEditCategory,
+        parentId: parentId,
+        children: listChild,
+        id,
+      }),
+    );
+  };
 
   return (
     <li>
       <div className={style.category}>
-        <div className={style.category__btn_edit}>
-          {listChild.length > 0 && (
-            <Button
-              styles="btn_icon_bg_white"
-              type="button"
-              onClick={() => setChildShow(!childShow)}
-              icon={
-                <IconSVG
-                  name={
-                    childShow
-                      ? IconNameEnum.ARROW_TOP
-                      : IconNameEnum.ARROW_BOTTOM
+        {!editCategory ? (
+          <>
+            <div className={style.category__btn_child}>
+              {listChild.length > 0 && (
+                <Button
+                  styles="btn_icon_bg_white"
+                  type="button"
+                  onClick={() => setChildShow(!childShow)}
+                  icon={
+                    <IconSVG
+                      name={
+                        childShow
+                          ? IconNameEnum.ARROW_TOP
+                          : IconNameEnum.ARROW_BOTTOM
+                      }
+                      width="15"
+                      height="20"
+                      className="blue_dark_gray"
+                    />
                   }
-                  width="15"
-                  height="20"
-                  className="blue_dark_gray"
                 />
-              }
+              )}
+            </div>
+            <div
+              className={style.category__name}
+              onClick={() => onClickCategory(id)}
+            >
+              {category}
+            </div>
+            <div className={style.category__btns}>
+              <Button
+                title="Edit name category"
+                styles="btn_icon_bg_white"
+                type="button"
+                onClick={() => setEditCategory(true)}
+                icon={
+                  <IconSVG
+                    name={IconNameEnum.EDIT}
+                    width="30"
+                    height="30"
+                    className="blue_dark_gray"
+                  />
+                }
+              />
+              <Button
+                styles="btn_icon_bg_white"
+                type="button"
+                icon={
+                  <IconSVG
+                    name={IconNameEnum.BASKET}
+                    width="26"
+                    height="26"
+                    className="blue_dark_gray"
+                  />
+                }
+              />
+              <Button
+                styles="btn_icon_bg_white"
+                type="button"
+                icon={
+                  <IconSVG
+                    name={IconNameEnum.PLUS}
+                    width="26"
+                    height="26"
+                    className="blue_dark_gray"
+                  />
+                }
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            <EditInput
+              height="30px"
+              value={valueEditCategory}
+              edit={editCategory}
+              setEdit={setEditCategory}
+              onEdit={handleEditCategory}
+              onSubmit={handleSubmitCategory}
             />
-          )}
-        </div>
-        <div
-          className={style.category__name}
-          onClick={() => onClickCategory(id)}
-        >
-          {category}
-        </div>
-        <div className={style.category__btns}>
-          <Button
-            styles="btn_icon_bg_white"
-            type="button"
-            icon={
-              <IconSVG
-                name={IconNameEnum.EDIT}
-                width="30"
-                height="30"
-                className="blue_dark_gray"
-              />
-            }
-          />
-          <Button
-            styles="btn_icon_bg_white"
-            type="button"
-            icon={
-              <IconSVG
-                name={IconNameEnum.BASKET}
-                width="26"
-                height="26"
-                className="blue_dark_gray"
-              />
-            }
-          />
-          <Button
-            styles="btn_icon_bg_white"
-            type="button"
-            icon={
-              <IconSVG
-                name={IconNameEnum.PLUS}
-                width="26"
-                height="26"
-                className="blue_dark_gray"
-              />
-            }
-          />
-        </div>
+          </>
+        )}
       </div>
       {childShow && listChild.length > 0 && (
         <CategoryChild list={listChild} onClickCategory={onClickCategory} />

@@ -21,6 +21,7 @@ const CategoryList: React.FC<Props> = ({onClickCategory}) => {
             <Category
               key={id}
               id={id}
+              parentId={dataCategoryState[id].parentId}
               category={dataCategoryState[id].category}
               listChild={dataCategoryState[id].children}
               onClickCategory={onClickCategory}

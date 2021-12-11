@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import useTypeSelector from 'ReduxStore/hooks/useTypeSelector';
 import CategoryList from './CategoryList/CategoryList';
 import style from './Main.module.scss';
@@ -6,7 +6,7 @@ import TaskList, {TaskType} from './TaskList/TaskList';
 
 const Main: React.FC = () => {
   const {dataTaskState} = useTypeSelector(state => state.dataTaskState);
-  const [tasks, setTasks] = useState<TaskType[]>([]);
+  const [tasks, setTasks] = React.useState<TaskType[]>([]);
 
   const handleClickCategory = (id: number) => {
     const currentTasks = dataTaskState.filter(task => task.categoryId === id);

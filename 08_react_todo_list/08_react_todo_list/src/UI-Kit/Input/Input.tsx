@@ -1,14 +1,13 @@
-import React, {ChangeEvent, InputHTMLAttributes} from 'react';
+import React from 'react';
 import cn from 'classnames';
 import style from './Input.module.scss';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id?: string;
   styles: string;
   name?: string;
   width?: string;
   height?: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export enum InputNameEnum {
@@ -22,7 +21,6 @@ const Input: React.FC<InputProps> = ({
   checked,
   width,
   height,
-  onChange,
   id,
   ...attr
 }) => {
@@ -35,7 +33,6 @@ const Input: React.FC<InputProps> = ({
         checked={checked}
         value={value}
         id={id}
-        onChange={onChange}
       />
     </>
   );
