@@ -1,12 +1,17 @@
-import EditInput from 'Components/Main/EditInput/EditInput';
-import React from 'react';
-import {useDispatch} from 'react-redux';
-import {updateCategoryAction} from 'ReduxStore/categoryAction/categoryAction';
+import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  addChildAction,
+  updateCategoryAction,
+} from 'ReduxStore/categoryAction/categoryAction';
+import FieldFormInput from 'Components/Main/FieldFormInput/FieldFormInput';
+import CategoryChild from './CategoryChild/CategoryChild';
 import {Button, IconSVG} from 'UI-Kit';
 import {IconNameEnum} from 'UI-Kit/IconSVG/IconSVG';
 import validateInput from 'utils/validateInput';
 import style from './Category.module.scss';
-import CategoryChild from './CategoryChild/CategoryChild';
+import {RootState} from 'ReduxStore/types/rootState';
+import maxIds from 'utils/maxIds';
 
 interface Props {
   id: number;
@@ -24,12 +29,38 @@ const Category: React.FC<Props> = ({
   onClickCategory,
 }) => {
   const dispatch = useDispatch();
-  const [childShow, setChildShow] = React.useState<boolean>(true);
-  const [editCategory, setEditCategory] = React.useState<boolean>(false);
-  const [valueEditCategory, setValueEditCategory] =
-    React.useState<string>(category);
-  const [errorEditCategory, setErrorEditCategory] =
-    React.useState<boolean>(false);
+  const {dataIdsState} = useSelector((state: RootState) => state.dataIdsState);
+
+  const [showChildren, setShowChildren] = useState<boolean>(true);
+
+  const [addChild, setAddChild] = useState<boolean>(false);
+  const [valueAddChild, setValueAddChild] = useState<string>('');
+  const [errorAddChild, setErrorAddChild] = useState<boolean>(false);
+
+  const [editCategory, setEditCategory] = useState<boolean>(false);
+  const [valueEditCategory, setValueEditCategory] = useState<string>(category);
+  const [errorEditCategory, setErrorEditCategory] = useState<boolean>(false);
+
+  const handleAddChild = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const nameNewChild = e.target.value;
+    setValueAddChild(nameNewChild);
+  };
+
+  const handleAddChildSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setAddChild(false);
+    if (!errorAddChild && valueAddChild.trim().length) {
+      dispatch(
+        addChildAction({
+          category: valueAddChild,
+          parentId: id,
+          children: [],
+          id: maxIds(dataIdsState),
+        }),
+      );
+      setValueAddChild('');
+    }
+  };
 
   const handleEditCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameCategory = e.target.value;
@@ -53,7 +84,8 @@ const Category: React.FC<Props> = ({
 
   React.useEffect(() => {
     validateInput(valueEditCategory, setErrorEditCategory);
-  }, [valueEditCategory]);
+    validateInput(valueAddChild, setErrorAddChild);
+  }, [valueEditCategory, valueAddChild]);
 
   return (
     <li>
@@ -65,11 +97,11 @@ const Category: React.FC<Props> = ({
                 <Button
                   styles="btn_icon_bg_white"
                   type="button"
-                  onClick={() => setChildShow(!childShow)}
+                  onClick={() => setShowChildren(!showChildren)}
                   icon={
                     <IconSVG
                       name={
-                        childShow
+                        showChildren
                           ? IconNameEnum.ARROW_TOP
                           : IconNameEnum.ARROW_BOTTOM
                       }
@@ -117,6 +149,7 @@ const Category: React.FC<Props> = ({
               <Button
                 styles="btn_icon_bg_white"
                 type="button"
+                onClick={() => setAddChild(true)}
                 icon={
                   <IconSVG
                     name={IconNameEnum.PLUS}
@@ -130,9 +163,10 @@ const Category: React.FC<Props> = ({
           </>
         ) : (
           <>
-            <EditInput
+            <FieldFormInput
               height="30px"
               value={valueEditCategory}
+              btnName="Edit"
               disabled={errorEditCategory}
               edit={editCategory}
               setEdit={setEditCategory}
@@ -142,7 +176,21 @@ const Category: React.FC<Props> = ({
           </>
         )}
       </div>
-      {childShow && listChild.length > 0 && (
+      {addChild && (
+        <>
+          <FieldFormInput
+            height="30px"
+            value={valueAddChild}
+            btnName="Add"
+            disabled={errorAddChild}
+            edit={addChild}
+            setEdit={setAddChild}
+            onEdit={handleAddChild}
+            onSubmit={handleAddChildSubmit}
+          />
+        </>
+      )}
+      {showChildren && listChild.length > 0 && (
         <CategoryChild list={listChild} onClickCategory={onClickCategory} />
       )}
     </li>

@@ -21,7 +21,7 @@ export enum DataCategoryActionTypes {
   ADD_CATEGORY = 'ADD_CATEGORY',
   UPDATE_CATEGORY = 'UPDATE_CATEGORY',
   REMOVE_CATEGORY = 'REMOVE_CATEGORY',
-  ADD_IDS = 'ADD_IDS',
+  ADD_CATEGORY_CHILD = 'ADD_CATEGORY_CHILD',
 }
 
 const initialState: DataCategoryState = {
@@ -54,6 +54,23 @@ export const categoryReducer = (
           },
         },
       };
+    case DataCategoryActionTypes.ADD_CATEGORY_CHILD:
+      return {
+        ...state,
+        dataIdsState: [...state.dataIdsState, action.payload.id],
+        dataCategoryState: {
+          ...state.dataCategoryState,
+          [action.payload.id]: action.payload,
+          [action.payload.parentId as number]: {
+            ...state.dataCategoryState[action.payload.parentId as number],
+            children: [
+              action.payload.id,
+              ...state.dataCategoryState[action.payload.parentId as number]
+                .children,
+            ],
+          },
+        },
+      };
     default:
       return state;
   }
@@ -61,6 +78,13 @@ export const categoryReducer = (
 
 export const addCategory = (payload: DataCategory): DataCategoryAction => ({
   type: DataCategoryActionTypes.ADD_CATEGORY,
+  payload,
+});
+
+export const addCategoryChild = (
+  payload: DataCategory,
+): DataCategoryAction => ({
+  type: DataCategoryActionTypes.ADD_CATEGORY_CHILD,
   payload,
 });
 

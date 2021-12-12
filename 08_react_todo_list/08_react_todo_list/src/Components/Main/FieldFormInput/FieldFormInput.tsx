@@ -1,11 +1,12 @@
 import React from 'react';
 import {Button, Input} from 'UI-Kit';
 import {InputNameEnum} from 'UI-Kit/Input/Input';
-import style from './EditInput.module.scss';
+import style from './FieldFormInput.module.scss';
 
 interface Prop {
   height: string;
   value: string;
+  btnName: string;
   disabled: boolean;
   edit: boolean;
   setEdit: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,9 +14,10 @@ interface Prop {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const EditInput: React.FC<Prop> = ({
+const FieldFormInput: React.FC<Prop> = ({
   height,
   value,
+  btnName,
   disabled,
   edit,
   setEdit,
@@ -61,7 +63,7 @@ const EditInput: React.FC<Prop> = ({
           styles="btn_blue"
           height={height}
           type="submit"
-          text="Edit"
+          text={btnName}
           disabled={disabled}
         />
       </form>
@@ -69,4 +71,4 @@ const EditInput: React.FC<Prop> = ({
   );
 };
 
-export default EditInput;
+export default FieldFormInput;

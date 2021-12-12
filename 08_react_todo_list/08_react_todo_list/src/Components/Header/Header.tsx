@@ -1,16 +1,17 @@
 import React from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {addCategoryAction} from 'ReduxStore/categoryAction/categoryAction';
+import {RootState} from 'ReduxStore/types/rootState';
 import {Button, IconSVG, Input} from 'UI-Kit';
 import {IconNameEnum} from 'UI-Kit/IconSVG/IconSVG';
 import {InputNameEnum} from 'UI-Kit/Input/Input';
+import maxIds from 'utils/maxIds';
 import validateInput from 'utils/validateInput';
 import style from './Header.module.scss';
 
-let idMax = 8;
-
 const Header: React.FC = () => {
   const dispatch = useDispatch();
+  const {dataIdsState} = useSelector((state: RootState) => state.dataIdsState);
   const [checked, setChecked] = React.useState(true);
   const [valueSearch, setValueSearch] = React.useState('');
   const [valueCategory, setValueCategory] = React.useState('');
@@ -44,7 +45,7 @@ const Header: React.FC = () => {
           category: valueCategory,
           parentId: null,
           children: [],
-          id: idMax++,
+          id: maxIds(dataIdsState),
         }),
       );
     }
