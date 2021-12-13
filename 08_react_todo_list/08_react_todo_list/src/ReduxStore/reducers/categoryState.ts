@@ -1,4 +1,9 @@
 import {DATA_CATEGORIES, DATA_IDS} from 'ReduxStore/data/data-categories';
+import {
+  findIdsForDel,
+  getDataCategoryStateClone,
+  getDataIdsStateWithoutIdsDel,
+} from 'ReduxStore/services/services';
 
 export interface DataCategory {
   category: string;
@@ -20,7 +25,7 @@ export interface DataCategoryAction {
 export enum DataCategoryActionTypes {
   ADD_CATEGORY = 'ADD_CATEGORY',
   UPDATE_CATEGORY = 'UPDATE_CATEGORY',
-  REMOVE_CATEGORY = 'REMOVE_CATEGORY',
+  DELETE_CATEGORY = 'DELETE_CATEGORY',
   ADD_CATEGORY_CHILD = 'ADD_CATEGORY_CHILD',
 }
 
@@ -52,6 +57,19 @@ export const categoryReducer = (
             ...state.dataCategoryState[action.payload.id],
             category: action.payload.category,
           },
+        },
+      };
+    case DataCategoryActionTypes.DELETE_CATEGORY:
+      return {
+        ...state,
+        dataIdsState: [
+          ...getDataIdsStateWithoutIdsDel(
+            state.dataIdsState,
+            findIdsForDel([], state.dataCategoryState, action.payload.id),
+          ),
+        ],
+        dataCategoryState: {
+          ...getDataCategoryStateClone(state.dataCategoryState, action.payload),
         },
       };
     case DataCategoryActionTypes.ADD_CATEGORY_CHILD:
@@ -90,5 +108,10 @@ export const addCategoryChild = (
 
 export const updateCategory = (payload: DataCategory): DataCategoryAction => ({
   type: DataCategoryActionTypes.UPDATE_CATEGORY,
+  payload,
+});
+
+export const delCategory = (payload: DataCategory): DataCategoryAction => ({
+  type: DataCategoryActionTypes.DELETE_CATEGORY,
   payload,
 });

@@ -1,17 +1,19 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
+import {DataCategory} from 'ReduxStore/reducers/categoryState';
 import {RootState} from 'ReduxStore/types/rootState';
 import Category from './Category/Category';
 
 interface Props {
   onClickCategory: (id: number) => void;
+  onDelCategory: (currentCategory: DataCategory) => void;
 }
 
-const CategoryList: React.FC<Props> = ({onClickCategory}) => {
+const CategoryList: React.FC<Props> = ({onClickCategory, onDelCategory}) => {
+  const {dataIdsState} = useSelector((state: RootState) => state.dataIdsState);
   const {dataCategoryState} = useSelector(
     (state: RootState) => state.dataCategoryState,
   );
-  const {dataIdsState} = useSelector((state: RootState) => state.dataIdsState);
 
   return (
     <ul>
@@ -25,6 +27,7 @@ const CategoryList: React.FC<Props> = ({onClickCategory}) => {
               category={dataCategoryState[id].category}
               listChild={dataCategoryState[id].children}
               onClickCategory={onClickCategory}
+              onDelCategory={onDelCategory}
             />
           )
         );

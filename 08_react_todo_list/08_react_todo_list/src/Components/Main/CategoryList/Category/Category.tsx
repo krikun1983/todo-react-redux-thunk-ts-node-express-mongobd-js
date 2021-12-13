@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   addChildAction,
@@ -12,6 +12,7 @@ import validateInput from 'utils/validateInput';
 import style from './Category.module.scss';
 import {RootState} from 'ReduxStore/types/rootState';
 import maxIds from 'utils/maxIds';
+import {DataCategory} from 'ReduxStore/reducers/categoryState';
 
 interface Props {
   id: number;
@@ -19,6 +20,7 @@ interface Props {
   parentId: number | null;
   listChild: number[];
   onClickCategory: (id: number) => void;
+  onDelCategory: (currentCategory: DataCategory) => void;
 }
 
 const Category: React.FC<Props> = ({
@@ -27,6 +29,7 @@ const Category: React.FC<Props> = ({
   parentId,
   listChild,
   onClickCategory,
+  onDelCategory,
 }) => {
   const dispatch = useDispatch();
   const {dataIdsState} = useSelector((state: RootState) => state.dataIdsState);
@@ -82,10 +85,19 @@ const Category: React.FC<Props> = ({
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     validateInput(valueEditCategory, setErrorEditCategory);
     validateInput(valueAddChild, setErrorAddChild);
   }, [valueEditCategory, valueAddChild]);
+
+  const handleDelCategory = () => {
+    onDelCategory({
+      category,
+      parentId,
+      children: listChild,
+      id,
+    });
+  };
 
   return (
     <li>
@@ -137,6 +149,7 @@ const Category: React.FC<Props> = ({
               <Button
                 styles="btn_icon_bg_white"
                 type="button"
+                onClick={handleDelCategory}
                 icon={
                   <IconSVG
                     name={IconNameEnum.BASKET}
@@ -191,7 +204,11 @@ const Category: React.FC<Props> = ({
         </>
       )}
       {showChildren && listChild.length > 0 && (
-        <CategoryChild list={listChild} onClickCategory={onClickCategory} />
+        <CategoryChild
+          list={listChild}
+          onClickCategory={onClickCategory}
+          onDelCategory={onDelCategory}
+        />
       )}
     </li>
   );
