@@ -33,7 +33,7 @@ const Header: React.FC = () => {
 
   const handleCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
-    if (text.length > 20) return;
+    if (text.length > 26) return;
     setValueCategory(text);
   };
 
@@ -81,7 +81,7 @@ const Header: React.FC = () => {
           <label htmlFor="checkbox">Show done</label>
           <span className={style.header__filter_btn}>
             <Input
-              width="200px"
+              width="250px"
               height="25px"
               type="text"
               value={valueSearch}
@@ -113,7 +113,7 @@ const Header: React.FC = () => {
           className={style.header__bottom_form}
         >
           <Input
-            width="200px"
+            width="240px"
             height="25px"
             type="text"
             value={valueCategory}
@@ -130,7 +130,7 @@ const Header: React.FC = () => {
         </form>
         <form onSubmit={handleSubmitTask} className={style.header__bottom_form}>
           <Input
-            width="200px"
+            width="240px"
             height="25px"
             type="text"
             value={valueTask}
