@@ -1,10 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {addCategoryAction} from 'ReduxStore/categoryAction/categoryAction';
 import {RootState} from 'ReduxStore/types/rootState';
 import {Button, IconSVG, Input} from 'UI-Kit';
 import {IconNameEnum} from 'UI-Kit/IconSVG/IconSVG';
-import {InputNameEnum} from 'UI-Kit/Input/Input';
 import maxIds from 'utils/maxIds';
 import validateInput from 'utils/validateInput';
 import style from './Header.module.scss';
@@ -12,11 +11,11 @@ import style from './Header.module.scss';
 const Header: React.FC = () => {
   const dispatch = useDispatch();
   const {dataIdsState} = useSelector((state: RootState) => state.dataIdsState);
-  const [checked, setChecked] = React.useState(true);
-  const [valueSearch, setValueSearch] = React.useState('');
-  const [valueCategory, setValueCategory] = React.useState('');
-  const [valueTask, setValueTask] = React.useState('');
-  const [errorCategory, setErrorCategory] = React.useState<boolean>(false);
+  const [checked, setChecked] = useState<boolean>(true);
+  const [valueSearch, setValueSearch] = useState<string>('');
+  const [valueCategory, setValueCategory] = useState<string>('');
+  const [valueTask, setValueTask] = useState<string>('');
+  const [errorCategory, setErrorCategory] = useState<boolean>(false);
 
   const handleChecked = () => {
     setChecked(!checked);
@@ -52,7 +51,7 @@ const Header: React.FC = () => {
     resetForm();
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     validateInput(valueCategory, setErrorCategory);
   }, [valueCategory]);
 
@@ -71,22 +70,20 @@ const Header: React.FC = () => {
       <div className={style.header__top}>
         <h1>TO-DO List</h1>
         <div className={style.header__filter}>
-          <Input
+          <input
             id="checkbox"
             type="checkbox"
             checked={checked}
             onChange={handleChecked}
-            styles={InputNameEnum.CHECKBOX}
+            className={style.checkbox}
           />
           <label htmlFor="checkbox">Show done</label>
           <span className={style.header__filter_btn}>
             <Input
               width="250px"
               height="25px"
-              type="text"
               value={valueSearch}
               onChange={handleSearch}
-              styles={InputNameEnum.TEXT}
               placeholder="Search"
             />
             <Button
@@ -115,10 +112,8 @@ const Header: React.FC = () => {
           <Input
             width="240px"
             height="25px"
-            type="text"
             value={valueCategory}
             onChange={handleCategory}
-            styles={InputNameEnum.TEXT}
             placeholder="Enter category title"
           />
           <Button
@@ -132,10 +127,8 @@ const Header: React.FC = () => {
           <Input
             width="240px"
             height="25px"
-            type="text"
             value={valueTask}
             onChange={handleTask}
-            styles={InputNameEnum.TEXT}
             placeholder="Text input with button"
           />
           <Button

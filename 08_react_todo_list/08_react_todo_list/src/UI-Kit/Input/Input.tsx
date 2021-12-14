@@ -1,38 +1,20 @@
 import React from 'react';
-import cn from 'classnames';
 import style from './Input.module.scss';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  id?: string;
-  styles: string;
-  name?: string;
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   width?: string;
   height?: string;
 }
 
-export enum InputNameEnum {
-  CHECKBOX = 'checkbox',
-  TEXT = 'text',
-}
-
-const Input: React.FC<InputProps> = ({
-  styles,
-  value,
-  checked,
-  width,
-  height,
-  id,
-  ...attr
-}) => {
+const Input: React.FC<Props> = ({value, width, height, ...attr}) => {
   return (
     <>
       <input
         {...attr}
+        type="text"
         style={{width: width, height: height}}
-        className={cn(style.ui_input, style[styles])}
-        checked={checked}
+        className={style.ui_input}
         value={value}
-        id={id}
       />
     </>
   );

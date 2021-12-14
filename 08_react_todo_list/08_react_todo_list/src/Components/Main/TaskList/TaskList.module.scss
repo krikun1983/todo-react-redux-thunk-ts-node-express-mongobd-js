@@ -1,5 +1,8 @@
 @import 'style/variable';
 
 .task {
-  outline: 1px solid red;
+  margin-bottom: -1px;
+  padding-left: 10px;
+  border: 1px solid $color-cyan-dark;
+  @include flex-between();
 }

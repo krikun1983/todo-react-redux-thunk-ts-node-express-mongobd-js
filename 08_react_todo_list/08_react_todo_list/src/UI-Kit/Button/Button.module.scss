@@ -44,4 +44,14 @@
 
 .btn_icon_bg_white {
   background-color: $color-white;
+  border-radius: 0;
+}
+
+.btn_icon_bg_white:disabled {
+  background-color: $color-white;
+
+  &:hover {
+    background-color: $color-white;
+    cursor: default;
+  }
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import {Button, Input} from 'UI-Kit';
-import {InputNameEnum} from 'UI-Kit/Input/Input';
 import style from './FieldFormInput.module.scss';
 
 interface Prop {
@@ -51,14 +50,7 @@ const FieldFormInput: React.FC<Prop> = ({
   return (
     <div className={style.edit}>
       <form onSubmit={onSubmit} className={style.edit_form} ref={editFormRef}>
-        <Input
-          width="100%"
-          height={height}
-          type="text"
-          styles={InputNameEnum.TEXT}
-          value={value}
-          onChange={onEdit}
-        />
+        <Input width="100%" height={height} value={value} onChange={onEdit} />
         <Button
           styles="btn_blue"
           height={height}
