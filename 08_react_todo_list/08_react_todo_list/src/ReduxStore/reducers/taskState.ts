@@ -4,6 +4,7 @@ export interface DataTask {
   title: string;
   description: string;
   categoryId: number;
+  isDone: boolean;
   id: number;
 }
 
@@ -27,6 +28,7 @@ const initialSTate: DataTaskState = {
 export enum DataTaskActionTypes {
   ADD_TASK = 'ADD_TASK',
   SHOW_CURRENT_TASK = 'SHOW_CURRENT_TASK',
+  UPDATE_IS_DONE_TASK = 'UPDATE_IS_DONE_TASK',
   UPDATE_TASK = 'UPDATE_TASK',
   REMOVE_TASK = 'REMOVE_TASK',
 }
@@ -54,6 +56,17 @@ export const tasksReducer = (
         ...state,
         dataTaskIdCurrentState: action.payload as number,
       };
+    case DataTaskActionTypes.UPDATE_IS_DONE_TASK:
+      return {
+        ...state,
+        dataTaskState: {
+          ...state.dataTaskState,
+          [action.payload as number]: {
+            ...state.dataTaskState[action.payload as number],
+            isDone: !state.dataTaskState[action.payload as number].isDone,
+          },
+        },
+      };
     default:
       return state;
   }
@@ -66,5 +79,10 @@ export const addTask = (payload: DataTask): DataTaskAction => ({
 
 export const showTaskAction = (payload: number): DataTaskAction => ({
   type: DataTaskActionTypes.SHOW_CURRENT_TASK,
+  payload,
+});
+
+export const isDoneTaskAction = (payload: number): DataTaskAction => ({
+  type: DataTaskActionTypes.UPDATE_IS_DONE_TASK,
   payload,
 });

@@ -69,6 +69,7 @@ const Header: React.FC = () => {
           title: valueTask,
           description: '',
           categoryId: dataTaskIdCurrentState,
+          isDone: false,
           id: maxIds(dataTaskIdsState),
         }),
       );
