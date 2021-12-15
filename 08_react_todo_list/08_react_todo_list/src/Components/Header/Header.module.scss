@@ -38,6 +38,32 @@
     }
   }
 
+  &__medium {
+    margin: 10px 0;
+
+    .progress {
+      progress {
+        width: 100%;
+        height: 10px;
+        background-color: #00fefd;
+        border: 0;
+        border-radius: 10px;
+      }
+
+      progress::-webkit-progress-bar {
+        width: 100%;
+        background-color: $color-gray-light;
+        border-radius: 10px;
+      }
+
+      progress::-webkit-progress-value {
+        width: 100%;
+        background-color: $color-cyan-dark;
+        border-radius: 10px;
+      }
+    }
+  }
+
   &__bottom {
     &_form {
       @include flex-between();

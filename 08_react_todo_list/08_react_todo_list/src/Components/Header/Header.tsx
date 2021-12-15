@@ -13,6 +13,9 @@ import style from './Header.module.scss';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
+  const {dataTaskState} = useSelector(
+    (state: RootState) => state.dataTaskState,
+  );
   const {dataIdsState} = useSelector((state: RootState) => state.dataIdsState);
   const {dataTaskIdsState} = useSelector(
     (state: RootState) => state.dataTaskIdsState,
@@ -93,6 +96,15 @@ const Header: React.FC = () => {
     validateInput(valueTask, setErrorTask);
   }, [valueCategory, valueTask]);
 
+  const progressBar = [
+    ...dataTaskIdsState.filter(
+      id => dataTaskState[id].categoryId === dataTaskIdCurrentState,
+    ),
+  ];
+  const progressValue = [
+    ...progressBar.filter(id => dataTaskState[id].isDone === true),
+  ];
+
   return (
     <header className={style.header}>
       <div className={style.header__top}>
@@ -131,7 +143,16 @@ const Header: React.FC = () => {
         </div>
       </div>
       <div className={style.header__medium}>
-        <input type="range" />
+        <div className={style.progress}>
+          <progress
+            max={progressBar.length}
+            value={progressValue.length}
+          ></progress>
+          <div className={style.progress__value}></div>
+          <div className={style.progress__bg}>
+            <div className={style.progress__bar}></div>
+          </div>
+        </div>
       </div>
       <div className={style.header__bottom}>
         <form
