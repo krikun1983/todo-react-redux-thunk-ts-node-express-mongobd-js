@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {addCategoryAction} from 'ReduxStore/categoryAction/categoryAction';
+import {addCategoryAction} from 'ReduxStore/actions/categoryAction';
+import {addTaskAction} from 'ReduxStore/actions/taskAction';
 import {RootState} from 'ReduxStore/types/rootState';
 import {Button, IconSVG, Input} from 'UI-Kit';
 import {IconNameEnum} from 'UI-Kit/IconSVG/IconSVG';
@@ -11,11 +12,18 @@ import style from './Header.module.scss';
 const Header: React.FC = () => {
   const dispatch = useDispatch();
   const {dataIdsState} = useSelector((state: RootState) => state.dataIdsState);
+  const {dataTaskIdsState} = useSelector(
+    (state: RootState) => state.dataTaskIdsState,
+  );
+  const {dataTaskIdCurrentState} = useSelector(
+    (state: RootState) => state.dataTaskIdCurrentState,
+  );
   const [checked, setChecked] = useState<boolean>(true);
   const [valueSearch, setValueSearch] = useState<string>('');
   const [valueCategory, setValueCategory] = useState<string>('');
   const [valueTask, setValueTask] = useState<string>('');
   const [errorCategory, setErrorCategory] = useState<boolean>(false);
+  const [errorTask, setErrorTask] = useState<boolean>(false);
 
   const handleChecked = () => {
     setChecked(!checked);
@@ -24,10 +32,6 @@ const Header: React.FC = () => {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
     setValueSearch(text);
-  };
-
-  const resetForm = (): void => {
-    setValueCategory('');
   };
 
   const handleCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,22 +52,34 @@ const Header: React.FC = () => {
         }),
       );
     }
-    resetForm();
+    setValueCategory('');
   };
-
-  useEffect(() => {
-    validateInput(valueCategory, setErrorCategory);
-  }, [valueCategory]);
 
   const handleTask = (e: React.ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
+    if (text.length > 30) return;
     setValueTask(text);
   };
 
   const handleSubmitTask = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(valueTask);
+    if (!errorTask && valueTask.trim().length && dataTaskIdCurrentState > 0) {
+      dispatch(
+        addTaskAction({
+          title: valueTask,
+          description: '',
+          categoryId: dataTaskIdCurrentState,
+          id: maxIds(dataTaskIdsState),
+        }),
+      );
+    }
+    setValueTask('');
   };
+
+  useEffect(() => {
+    validateInput(valueCategory, setErrorCategory);
+    validateInput(valueTask, setErrorTask);
+  }, [valueCategory, valueTask]);
 
   return (
     <header className={style.header}>

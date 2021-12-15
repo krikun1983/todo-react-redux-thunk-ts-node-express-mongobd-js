@@ -1,27 +1,31 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
+import {RootState} from 'ReduxStore/types/rootState';
 import Task from './Task/Task';
 import style from './TaskList.module.scss';
 
-export interface TaskType {
-  title: string;
-  description: string;
-  categoryId: number;
-  id: number;
-}
+const TaskList: React.FC = () => {
+  const {dataTaskState} = useSelector(
+    (state: RootState) => state.dataTaskState,
+  );
 
-interface Props {
-  tasks: TaskType[];
-}
+  const {dataTaskIdsState} = useSelector(
+    (state: RootState) => state.dataTaskIdsState,
+  );
 
-const TaskList: React.FC<Props> = ({tasks}) => {
+  const {dataTaskIdCurrentState} = useSelector(
+    (state: RootState) => state.dataTaskIdCurrentState,
+  );
+
   return (
     <ul>
-      {tasks.map((task: TaskType) => {
-        const {id, ...rest} = task;
+      {dataTaskIdsState.map(id => {
         return (
-          <li key={id} className={style.task}>
-            <Task {...rest} />
-          </li>
+          dataTaskState[id].categoryId === dataTaskIdCurrentState && (
+            <li key={dataTaskState[id].id} className={style.task}>
+              <Task {...dataTaskState[id]} />
+            </li>
+          )
         );
       })}
     </ul>

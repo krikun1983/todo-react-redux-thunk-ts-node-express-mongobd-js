@@ -1,4 +1,5 @@
 import {Dispatch} from 'redux';
+import {ASYNC_TIME} from 'ReduxStore/constants/asyncTime';
 import {
   addCategory,
   addCategoryChild,
@@ -7,8 +8,6 @@ import {
   updateCategory,
 } from 'ReduxStore/reducers/categoryState';
 import {toggleLoaderAction} from 'ReduxStore/reducers/loaderState';
-
-const ASYNC_TIME = 750;
 
 export const addCategoryAction =
   (category: DataCategory) =>

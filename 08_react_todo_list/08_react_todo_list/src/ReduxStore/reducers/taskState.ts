@@ -8,20 +8,25 @@ export interface DataTask {
 }
 
 export interface DataTaskState {
-  dataTaskState: DataTask[];
+  dataTaskState: {[key: number]: DataTask};
+  dataTaskIdsState: number[];
+  dataTaskIdCurrentState: number;
 }
 
 export interface DataTaskAction {
   type: string;
-  payload: DataTask;
+  payload: DataTask | number;
 }
 
 const initialSTate: DataTaskState = {
-  dataTaskState: [...DATA_TASKS],
+  dataTaskState: {...DATA_TASKS.tasks},
+  dataTaskIdsState: [...DATA_TASKS.ids],
+  dataTaskIdCurrentState: 0,
 };
 
 export enum DataTaskActionTypes {
   ADD_TASK = 'ADD_TASK',
+  SHOW_CURRENT_TASK = 'SHOW_CURRENT_TASK',
   UPDATE_TASK = 'UPDATE_TASK',
   REMOVE_TASK = 'REMOVE_TASK',
 }
@@ -34,9 +39,32 @@ export const tasksReducer = (
     case DataTaskActionTypes.ADD_TASK:
       return {
         ...state,
-        dataTaskState: [action.payload as DataTask, ...state.dataTaskState],
+        dataTaskIdsState: [
+          (action.payload as DataTask).id,
+          ...state.dataTaskIdsState,
+        ],
+        dataTaskState: {
+          ...state.dataTaskState,
+          [(action.payload as DataTask).id]: action.payload as DataTask,
+        },
+        dataTaskIdCurrentState: (action.payload as DataTask).categoryId,
+      };
+    case DataTaskActionTypes.SHOW_CURRENT_TASK:
+      return {
+        ...state,
+        dataTaskIdCurrentState: action.payload as number,
       };
     default:
       return state;
   }
 };
+
+export const addTask = (payload: DataTask): DataTaskAction => ({
+  type: DataTaskActionTypes.ADD_TASK,
+  payload,
+});
+
+export const showTaskAction = (payload: number): DataTaskAction => ({
+  type: DataTaskActionTypes.SHOW_CURRENT_TASK,
+  payload,
+});

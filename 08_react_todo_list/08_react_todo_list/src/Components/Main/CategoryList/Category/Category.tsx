@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   addChildAction,
   updateCategoryAction,
-} from 'ReduxStore/categoryAction/categoryAction';
+} from 'ReduxStore/actions/categoryAction';
 import FieldFormInput from 'Components/Main/FieldFormInput/FieldFormInput';
 import CategoryChild from './CategoryChild/CategoryChild';
 import {Button, IconSVG} from 'UI-Kit';

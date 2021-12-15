@@ -1,23 +1,17 @@
-import React, {useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {delCategoryAction} from 'ReduxStore/categoryAction/categoryAction';
+import React from 'react';
+import {useDispatch} from 'react-redux';
+import {delCategoryAction} from 'ReduxStore/actions/categoryAction';
 import {DataCategory} from 'ReduxStore/reducers/categoryState';
-import {RootState} from 'ReduxStore/types/rootState';
+import {showTaskAction} from 'ReduxStore/reducers/taskState';
 import CategoryList from './CategoryList/CategoryList';
 import style from './Main.module.scss';
-import TaskList, {TaskType} from './TaskList/TaskList';
+import TaskList from './TaskList/TaskList';
 
 const Main: React.FC = () => {
   const dispatch = useDispatch();
-  const {dataTaskState} = useSelector(
-    (state: RootState) => state.dataTaskState,
-  );
-
-  const [tasks, setTasks] = useState<TaskType[]>([]);
 
   const handleClickCategory = (id: number) => {
-    const currentTasks = dataTaskState.filter(task => task.categoryId === id);
-    setTasks(currentTasks);
+    dispatch(showTaskAction(id));
   };
 
   const handleDelCategory = (currentCategory: DataCategory) => {
@@ -33,7 +27,7 @@ const Main: React.FC = () => {
         />
       </div>
       <div className={style.main__tasks}>
-        <TaskList tasks={tasks} />
+        <TaskList />
       </div>
     </main>
   );
