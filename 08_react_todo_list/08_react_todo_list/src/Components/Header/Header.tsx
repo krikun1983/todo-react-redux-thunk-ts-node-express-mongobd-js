@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {addCategoryAction} from 'ReduxStore/actions/categoryAction';
 import {addTaskAction} from 'ReduxStore/actions/taskAction';
+import {searchNoteAction} from 'ReduxStore/reducers/searchReducer';
 import {isShowDoneTasksAction} from 'ReduxStore/reducers/taskState';
 import {RootState} from 'ReduxStore/types/rootState';
 import {Button, IconSVG, Input} from 'UI-Kit';
@@ -22,8 +23,10 @@ const Header: React.FC = () => {
   const {isShowTaskOfDone} = useSelector(
     (state: RootState) => state.isShowTaskOfDone,
   );
+  const {searchNoteState} = useSelector(
+    (state: RootState) => state.searchNoteState,
+  );
 
-  const [valueSearch, setValueSearch] = useState<string>('');
   const [valueCategory, setValueCategory] = useState<string>('');
   const [valueTask, setValueTask] = useState<string>('');
   const [errorCategory, setErrorCategory] = useState<boolean>(false);
@@ -35,7 +38,11 @@ const Header: React.FC = () => {
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
-    setValueSearch(text);
+    dispatch(searchNoteAction(text.trim()));
+  };
+
+  const handleSearchReset = () => {
+    dispatch(searchNoteAction(''));
   };
 
   const handleCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,13 +110,14 @@ const Header: React.FC = () => {
             <Input
               width="250px"
               height="25px"
-              value={valueSearch}
+              value={searchNoteState}
               onChange={handleSearch}
               placeholder="Search"
             />
             <Button
               styles="btn_icon_bg_white"
               type="button"
+              onClick={handleSearchReset}
               icon={
                 <IconSVG
                   name={IconNameEnum.CLOSE}

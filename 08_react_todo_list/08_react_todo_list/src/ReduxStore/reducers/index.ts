@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
 import {categoryReducer} from './categoryState';
 import {loaderReducer} from './loaderState';
+import {searchReducer} from './searchReducer';
 import {tasksReducer} from './taskState';
 
 const rootReducer = combineReducers({
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
   dataTaskIdsState: tasksReducer,
   dataTaskIdCurrentState: tasksReducer,
   isShowTaskOfDone: tasksReducer,
+  searchNoteState: searchReducer,
   isLoaderState: loaderReducer,
 });
 
