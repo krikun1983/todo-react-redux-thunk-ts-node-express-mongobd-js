@@ -14,7 +14,7 @@ interface Props {
 
 const Task: React.FC<Props> = ({title, description, isDone, id}) => {
   const dispatch = useDispatch();
-  const [editCategory, setEditCategory] = useState<boolean>(false);
+  const [editTask, setTaskCategory] = useState<boolean>(false);
 
   const handleChecked = () => {
     dispatch(isDoneTaskAction(id));
@@ -40,7 +40,7 @@ const Task: React.FC<Props> = ({title, description, isDone, id}) => {
         styles="btn_icon_bg_white"
         type="button"
         disabled={isDone}
-        onClick={() => setEditCategory(true)}
+        onClick={() => setTaskCategory(true)}
         icon={
           <IconSVG
             name={IconNameEnum.EDIT}

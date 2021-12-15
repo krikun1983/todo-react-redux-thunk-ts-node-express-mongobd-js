@@ -17,8 +17,8 @@ const TaskList: React.FC = () => {
   const {isShowTaskOfDone} = useSelector(
     (state: RootState) => state.isShowTaskOfDone,
   );
-  const {searchNoteState} = useSelector(
-    (state: RootState) => state.searchNoteState,
+  const {searchTaskState} = useSelector(
+    (state: RootState) => state.searchTaskState,
   );
 
   let arrayIdsTask = [...dataTaskIdsState];
@@ -29,12 +29,12 @@ const TaskList: React.FC = () => {
     ];
   }
 
-  if (searchNoteState) {
+  if (searchTaskState) {
     arrayIdsTask = [
       ...arrayIdsTask.filter(id =>
         dataTaskState[id].title
           .toLowerCase()
-          .includes(searchNoteState.toLowerCase()),
+          .includes(searchTaskState.toLowerCase()),
       ),
     ];
   }

@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
   dataTaskIdsState: tasksReducer,
   dataTaskIdCurrentState: tasksReducer,
   isShowTaskOfDone: tasksReducer,
-  searchNoteState: searchReducer,
+  searchTaskState: searchReducer,
   isLoaderState: loaderReducer,
 });
 

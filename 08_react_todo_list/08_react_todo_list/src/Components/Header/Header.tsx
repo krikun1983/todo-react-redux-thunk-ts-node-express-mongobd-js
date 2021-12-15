@@ -26,8 +26,8 @@ const Header: React.FC = () => {
   const {isShowTaskOfDone} = useSelector(
     (state: RootState) => state.isShowTaskOfDone,
   );
-  const {searchNoteState} = useSelector(
-    (state: RootState) => state.searchNoteState,
+  const {searchTaskState} = useSelector(
+    (state: RootState) => state.searchTaskState,
   );
 
   const [valueCategory, setValueCategory] = useState<string>('');
@@ -122,7 +122,7 @@ const Header: React.FC = () => {
             <Input
               width="250px"
               height="25px"
-              value={searchNoteState}
+              value={searchTaskState}
               onChange={handleSearch}
               placeholder="Search"
             />

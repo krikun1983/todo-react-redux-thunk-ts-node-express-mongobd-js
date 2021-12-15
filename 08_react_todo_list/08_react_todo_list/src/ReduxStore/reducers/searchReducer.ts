@@ -1,5 +1,5 @@
 export interface SearchState {
-  searchNoteState: string;
+  searchTaskState: string;
 }
 
 export interface SearchAction {
@@ -10,7 +10,7 @@ export interface SearchAction {
 const searchAction = 'search';
 
 const initialState: SearchState = {
-  searchNoteState: '',
+  searchTaskState: '',
 };
 
 export const searchReducer = (
@@ -19,7 +19,7 @@ export const searchReducer = (
 ): SearchState => {
   switch (action.type) {
     case searchAction:
-      return {...state, searchNoteState: action.payload};
+      return {...state, searchTaskState: action.payload};
     default:
       return state;
   }
