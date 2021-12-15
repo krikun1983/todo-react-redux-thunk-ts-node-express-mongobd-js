@@ -1,5 +1,6 @@
 const DATA_TASKS = {
   ids: [1, 2, 3, 4, 5, 6],
+  isShowTaskOfDone: true,
   idCurrent: 0,
   tasks: {
     1: {

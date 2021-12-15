@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {addCategoryAction} from 'ReduxStore/actions/categoryAction';
 import {addTaskAction} from 'ReduxStore/actions/taskAction';
+import {isShowDoneTasksAction} from 'ReduxStore/reducers/taskState';
 import {RootState} from 'ReduxStore/types/rootState';
 import {Button, IconSVG, Input} from 'UI-Kit';
 import {IconNameEnum} from 'UI-Kit/IconSVG/IconSVG';
@@ -18,7 +19,10 @@ const Header: React.FC = () => {
   const {dataTaskIdCurrentState} = useSelector(
     (state: RootState) => state.dataTaskIdCurrentState,
   );
-  const [checked, setChecked] = useState<boolean>(true);
+  const {isShowTaskOfDone} = useSelector(
+    (state: RootState) => state.isShowTaskOfDone,
+  );
+
   const [valueSearch, setValueSearch] = useState<string>('');
   const [valueCategory, setValueCategory] = useState<string>('');
   const [valueTask, setValueTask] = useState<string>('');
@@ -26,7 +30,7 @@ const Header: React.FC = () => {
   const [errorTask, setErrorTask] = useState<boolean>(false);
 
   const handleChecked = () => {
-    setChecked(!checked);
+    dispatch(isShowDoneTasksAction(isShowTaskOfDone));
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,7 +94,7 @@ const Header: React.FC = () => {
           <input
             id="checkbox"
             type="checkbox"
-            checked={checked}
+            checked={isShowTaskOfDone}
             onChange={handleChecked}
             className={style.checkbox}
           />

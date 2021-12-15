@@ -8,18 +8,27 @@ const TaskList: React.FC = () => {
   const {dataTaskState} = useSelector(
     (state: RootState) => state.dataTaskState,
   );
-
   const {dataTaskIdsState} = useSelector(
     (state: RootState) => state.dataTaskIdsState,
   );
-
   const {dataTaskIdCurrentState} = useSelector(
     (state: RootState) => state.dataTaskIdCurrentState,
   );
+  const {isShowTaskOfDone} = useSelector(
+    (state: RootState) => state.isShowTaskOfDone,
+  );
+
+  let arrayIdsTask = dataTaskIdsState;
+
+  if (!isShowTaskOfDone) {
+    arrayIdsTask = dataTaskIdsState.filter(
+      id => dataTaskState[id].isDone === false,
+    );
+  }
 
   return (
     <ul>
-      {dataTaskIdsState.map(id => {
+      {arrayIdsTask.map(id => {
         return (
           dataTaskState[id].categoryId === dataTaskIdCurrentState && (
             <li key={dataTaskState[id].id} className={style.task}>
