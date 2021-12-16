@@ -4,8 +4,7 @@
   font-weight: bold;
   background-color: transparent;
   border: none;
-  border-top-right-radius: $border-radius-small;
-  border-bottom-right-radius: $border-radius-small;
+  border-radius: $border-radius-small;
   cursor: pointer;
   @include flex-between();
 }

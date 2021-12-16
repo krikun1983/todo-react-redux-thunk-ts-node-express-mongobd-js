@@ -13,7 +13,8 @@ import style from './Category.module.scss';
 import {RootState} from 'ReduxStore/types/rootState';
 import maxIds from 'utils/maxIds';
 import {DataCategory} from 'ReduxStore/reducers/categoryState';
-import {NavLink, useSearchParams} from 'react-router-dom';
+import {NavLink, useNavigate, useSearchParams} from 'react-router-dom';
+import ConfirmModal from 'Components/ConfirmModal/ConfirmModal';
 
 interface Props {
   id: number;
@@ -37,6 +38,7 @@ const Category: React.FC<Props> = ({
 
   const [searchTask] = useSearchParams();
   const querySearch = searchTask.get('task');
+  const navigate = useNavigate();
 
   const [showChildren, setShowChildren] = useState<boolean>(true);
 
@@ -47,6 +49,8 @@ const Category: React.FC<Props> = ({
   const [editCategory, setEditCategory] = useState<boolean>(false);
   const [valueEditCategory, setValueEditCategory] = useState<string>(category);
   const [errorEditCategory, setErrorEditCategory] = useState<boolean>(false);
+  const [isOpenFormDelCategory, setIsOpenFormDelCategory] =
+    useState<boolean>(false);
 
   const handleAddChild = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameNewChild = e.target.value;
@@ -94,6 +98,14 @@ const Category: React.FC<Props> = ({
     validateInput(valueAddChild, setErrorAddChild);
   }, [valueEditCategory, valueAddChild]);
 
+  const handleOpenFormDelCategory = () => {
+    setIsOpenFormDelCategory(true);
+  };
+
+  const handleCloseFormDelCategory = () => {
+    setIsOpenFormDelCategory(false);
+  };
+
   const handleDelCategory = () => {
     onDelCategory({
       category,
@@ -101,6 +113,7 @@ const Category: React.FC<Props> = ({
       children: listChild,
       id,
     });
+    navigate('/');
   };
 
   return (
@@ -161,7 +174,7 @@ const Category: React.FC<Props> = ({
                 <Button
                   styles="btn_icon_bg_white"
                   type="button"
-                  onClick={handleDelCategory}
+                  onClick={handleOpenFormDelCategory}
                   icon={
                     <IconSVG
                       name={IconNameEnum.BASKET}
@@ -221,6 +234,14 @@ const Category: React.FC<Props> = ({
           list={listChild}
           onClickCategory={onClickCategory}
           onDelCategory={onDelCategory}
+        />
+      )}
+      {isOpenFormDelCategory && (
+        <ConfirmModal
+          isOpenFormDelCategory={isOpenFormDelCategory}
+          onDelCategory={handleDelCategory}
+          onCloseForm={handleCloseFormDelCategory}
+          onOpenFormDeleteCategory={setIsOpenFormDelCategory}
         />
       )}
     </li>

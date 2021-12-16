@@ -190,7 +190,7 @@ const Header: React.FC = () => {
           <Button
             styles="btn_blue"
             type="submit"
-            text="add"
+            text="Add"
             disabled={errorCategory}
           />
         </form>
@@ -208,7 +208,7 @@ const Header: React.FC = () => {
             height="25px"
             styles="btn_blue"
             type="submit"
-            text="add"
+            text="Add"
             disabled={location.pathname === '/'}
           />
         </form>
