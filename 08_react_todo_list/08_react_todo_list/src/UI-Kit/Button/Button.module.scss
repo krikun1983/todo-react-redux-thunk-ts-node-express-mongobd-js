@@ -2,6 +2,7 @@
 
 .ui_btns {
   font-weight: bold;
+  background-color: transparent;
   border: none;
   border-top-right-radius: $border-radius-small;
   border-bottom-right-radius: $border-radius-small;
@@ -43,7 +44,6 @@
 }
 
 .btn_icon_bg_white {
-  background-color: $color-white;
   border-radius: 0;
 }
 

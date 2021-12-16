@@ -13,3 +13,7 @@ li {
 body {
   font-family: $font-family-main;
 }
+
+.active {
+  background-color: $color-cyan-light;
+}

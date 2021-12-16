@@ -1,0 +1,19 @@
+@import 'style/variable';
+
+.not__found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 250px;
+  margin: 100px auto 0;
+  color: $color-black;
+
+  &_img {
+    width: 100%;
+  }
+
+  &_text {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+}

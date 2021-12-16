@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {Link, useLocation} from 'react-router-dom';
+import {useSearchParams} from 'react-router-dom';
 import {addCategoryAction} from 'ReduxStore/actions/categoryAction';
 import {addTaskAction} from 'ReduxStore/actions/taskAction';
-import {searchNoteAction} from 'ReduxStore/reducers/searchReducer';
 import {isShowDoneTasksAction} from 'ReduxStore/reducers/taskState';
 import {RootState} from 'ReduxStore/types/rootState';
 import {Button, IconSVG, Input} from 'UI-Kit';
 import {IconNameEnum} from 'UI-Kit/IconSVG/IconSVG';
 import maxIds from 'utils/maxIds';
 import validateInput from 'utils/validateInput';
+import cn from 'classnames';
 import style from './Header.module.scss';
 
 const Header: React.FC = () => {
@@ -26,14 +28,16 @@ const Header: React.FC = () => {
   const {isShowTaskOfDone} = useSelector(
     (state: RootState) => state.isShowTaskOfDone,
   );
-  const {searchTaskState} = useSelector(
-    (state: RootState) => state.searchTaskState,
-  );
 
   const [valueCategory, setValueCategory] = useState<string>('');
   const [valueTask, setValueTask] = useState<string>('');
   const [errorCategory, setErrorCategory] = useState<boolean>(false);
   const [errorTask, setErrorTask] = useState<boolean>(false);
+
+  const [searchTask, setSearchTask] = useSearchParams();
+  const querySearch = searchTask.get('task');
+
+  const location = useLocation();
 
   const handleChecked = () => {
     dispatch(isShowDoneTasksAction(isShowTaskOfDone));
@@ -41,11 +45,15 @@ const Header: React.FC = () => {
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
-    dispatch(searchNoteAction(text.trim()));
+    if (text.trim()) {
+      setSearchTask({task: text.trim()});
+    } else {
+      setSearchTask({});
+    }
   };
 
   const handleSearchReset = () => {
-    dispatch(searchNoteAction(''));
+    setSearchTask({});
   };
 
   const handleCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,34 +116,53 @@ const Header: React.FC = () => {
   return (
     <header className={style.header}>
       <div className={style.header__top}>
-        <h1>TO-DO List</h1>
-        <div className={style.header__filter}>
-          <input
-            id="checkbox"
-            type="checkbox"
-            checked={isShowTaskOfDone}
-            onChange={handleChecked}
-            className={style.checkbox}
-          />
-          <label htmlFor="checkbox">Show done</label>
+        <h1>
+          <Link to="/" title="Home">
+            TO-DO List
+          </Link>
+        </h1>
+        <div
+          className={cn(
+            style.header__filter,
+            location.pathname === '/' && style.end,
+          )}
+        >
+          {location.pathname !== '/' && (
+            <>
+              <input
+                id="checkbox"
+                type="checkbox"
+                checked={isShowTaskOfDone}
+                onChange={handleChecked}
+                className={style.checkbox}
+              />
+              <label htmlFor="checkbox">Show done</label>
+            </>
+          )}
           <span className={style.header__filter_btn}>
-            <Input
-              width="250px"
-              height="25px"
-              value={searchTaskState}
+            <input
+              style={{width: '250px', height: '25px', paddingLeft: '5px'}}
+              type="text"
+              value={typeof querySearch === 'string' ? querySearch : ''}
               onChange={handleSearch}
               placeholder="Search"
+              disabled={location.pathname === '/'}
             />
             <Button
               styles="btn_icon_bg_white"
               type="button"
               onClick={handleSearchReset}
+              disabled={location.pathname === '/'}
               icon={
                 <IconSVG
                   name={IconNameEnum.CLOSE}
                   width="15"
                   height="20"
-                  className="gray_blue_dark"
+                  className={
+                    location.pathname === '/'
+                      ? 'gray_blue_dark_disabled'
+                      : 'gray_blue_dark'
+                  }
                 />
               }
             />
@@ -143,16 +170,10 @@ const Header: React.FC = () => {
         </div>
       </div>
       <div className={style.header__medium}>
-        <div className={style.progress}>
-          <progress
-            max={progressBar.length}
-            value={progressValue.length}
-          ></progress>
-          <div className={style.progress__value}></div>
-          <div className={style.progress__bg}>
-            <div className={style.progress__bar}></div>
-          </div>
-        </div>
+        <progress
+          max={progressBar.length}
+          value={progressValue.length}
+        ></progress>
       </div>
       <div className={style.header__bottom}>
         <form
@@ -180,6 +201,7 @@ const Header: React.FC = () => {
             value={valueTask}
             onChange={handleTask}
             placeholder="Text input with button"
+            disabled={location.pathname === '/'}
           />
           <Button
             width="50px"
@@ -187,6 +209,7 @@ const Header: React.FC = () => {
             styles="btn_blue"
             type="submit"
             text="add"
+            disabled={location.pathname === '/'}
           />
         </form>
       </div>

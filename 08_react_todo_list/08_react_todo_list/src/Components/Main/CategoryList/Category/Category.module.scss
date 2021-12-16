@@ -4,7 +4,11 @@
   margin-bottom: -1px;
   border: 1px solid $color-gray;
   cursor: pointer;
-  @include flex-between();
+
+  &__link {
+    text-decoration: none;
+    @include flex-between();
+  }
 
   &__btn_child {
     width: 40px;

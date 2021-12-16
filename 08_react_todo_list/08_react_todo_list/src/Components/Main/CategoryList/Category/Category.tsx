@@ -13,6 +13,7 @@ import style from './Category.module.scss';
 import {RootState} from 'ReduxStore/types/rootState';
 import maxIds from 'utils/maxIds';
 import {DataCategory} from 'ReduxStore/reducers/categoryState';
+import {NavLink, useSearchParams} from 'react-router-dom';
 
 interface Props {
   id: number;
@@ -33,6 +34,9 @@ const Category: React.FC<Props> = ({
 }) => {
   const dispatch = useDispatch();
   const {dataIdsState} = useSelector((state: RootState) => state.dataIdsState);
+
+  const [searchTask] = useSearchParams();
+  const querySearch = searchTask.get('task');
 
   const [showChildren, setShowChildren] = useState<boolean>(true);
 
@@ -102,92 +106,101 @@ const Category: React.FC<Props> = ({
   return (
     <li>
       <div className={style.category}>
-        {!editCategory ? (
-          <>
-            <div className={style.category__btn_child}>
-              {listChild.length > 0 && (
+        <NavLink
+          to={
+            querySearch
+              ? `/categories/${id}?task=${querySearch}`
+              : `/categories/${id}`
+          }
+          className={style.category__link}
+        >
+          {!editCategory ? (
+            <>
+              <div className={style.category__btn_child}>
+                {listChild.length > 0 && (
+                  <Button
+                    styles="btn_icon_bg_white"
+                    type="button"
+                    onClick={() => setShowChildren(!showChildren)}
+                    icon={
+                      <IconSVG
+                        name={
+                          showChildren
+                            ? IconNameEnum.ARROW_TOP
+                            : IconNameEnum.ARROW_BOTTOM
+                        }
+                        width="15"
+                        height="20"
+                        className="blue_dark_gray"
+                      />
+                    }
+                  />
+                )}
+              </div>
+              <div
+                className={style.category__name}
+                onClick={() => onClickCategory(id)}
+              >
+                {category}
+              </div>
+              <div className={style.category__btns}>
                 <Button
+                  title="Edit name category"
                   styles="btn_icon_bg_white"
                   type="button"
-                  onClick={() => setShowChildren(!showChildren)}
+                  onClick={() => setEditCategory(true)}
                   icon={
                     <IconSVG
-                      name={
-                        showChildren
-                          ? IconNameEnum.ARROW_TOP
-                          : IconNameEnum.ARROW_BOTTOM
-                      }
-                      width="15"
-                      height="20"
+                      name={IconNameEnum.EDIT}
+                      width="30"
+                      height="30"
                       className="blue_dark_gray"
                     />
                   }
                 />
-              )}
-            </div>
-            <div
-              className={style.category__name}
-              onClick={() => onClickCategory(id)}
-            >
-              {category}
-            </div>
-            <div className={style.category__btns}>
-              <Button
-                title="Edit name category"
-                styles="btn_icon_bg_white"
-                type="button"
-                onClick={() => setEditCategory(true)}
-                icon={
-                  <IconSVG
-                    name={IconNameEnum.EDIT}
-                    width="30"
-                    height="30"
-                    className="blue_dark_gray"
-                  />
-                }
+                <Button
+                  styles="btn_icon_bg_white"
+                  type="button"
+                  onClick={handleDelCategory}
+                  icon={
+                    <IconSVG
+                      name={IconNameEnum.BASKET}
+                      width="26"
+                      height="26"
+                      className="blue_dark_gray"
+                    />
+                  }
+                />
+                <Button
+                  styles="btn_icon_bg_white"
+                  type="button"
+                  onClick={() => setAddChild(true)}
+                  icon={
+                    <IconSVG
+                      name={IconNameEnum.PLUS}
+                      width="26"
+                      height="26"
+                      className="blue_dark_gray"
+                    />
+                  }
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              <FieldFormInput
+                height="30px"
+                value={valueEditCategory}
+                btnName="Edit"
+                disabled={errorEditCategory}
+                edit={editCategory}
+                setEdit={setEditCategory}
+                onEdit={handleEditCategory}
+                onSubmit={handleEditCategorySubmit}
               />
-              <Button
-                styles="btn_icon_bg_white"
-                type="button"
-                onClick={handleDelCategory}
-                icon={
-                  <IconSVG
-                    name={IconNameEnum.BASKET}
-                    width="26"
-                    height="26"
-                    className="blue_dark_gray"
-                  />
-                }
-              />
-              <Button
-                styles="btn_icon_bg_white"
-                type="button"
-                onClick={() => setAddChild(true)}
-                icon={
-                  <IconSVG
-                    name={IconNameEnum.PLUS}
-                    width="26"
-                    height="26"
-                    className="blue_dark_gray"
-                  />
-                }
-              />
-            </div>
-          </>
-        ) : (
-          <>
-            <FieldFormInput
-              height="30px"
-              value={valueEditCategory}
-              btnName="Edit"
-              disabled={errorEditCategory}
-              edit={editCategory}
-              setEdit={setEditCategory}
-              onEdit={handleEditCategory}
-              onSubmit={handleEditCategorySubmit}
-            />
-          </>
-        )}
+            </>
+          )}
+        </NavLink>
       </div>
       {addChild && (
         <>
