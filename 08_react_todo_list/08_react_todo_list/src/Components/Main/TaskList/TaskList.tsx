@@ -8,7 +8,7 @@ import style from './TaskList.module.scss';
 const TaskList: React.FC = () => {
   const location = useLocation();
   const [searchTask] = useSearchParams();
-  const querySearch = searchTask.get('task');
+  const querySearch = searchTask.get('search');
 
   const {dataTaskState} = useSelector(
     (state: RootState) => state.dataTaskState,

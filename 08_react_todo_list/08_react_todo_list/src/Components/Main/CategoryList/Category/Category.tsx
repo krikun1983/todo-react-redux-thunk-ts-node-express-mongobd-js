@@ -37,7 +37,7 @@ const Category: React.FC<Props> = ({
   const {dataIdsState} = useSelector((state: RootState) => state.dataIdsState);
 
   const [searchTask] = useSearchParams();
-  const querySearch = searchTask.get('task');
+  const querySearch = searchTask.get('search');
   const navigate = useNavigate();
 
   const [showChildren, setShowChildren] = useState<boolean>(true);
@@ -122,7 +122,7 @@ const Category: React.FC<Props> = ({
         <NavLink
           to={
             querySearch
-              ? `/categories/${id}?task=${querySearch}`
+              ? `/categories/${id}?search=${querySearch}`
               : `/categories/${id}`
           }
           className={style.category__link}

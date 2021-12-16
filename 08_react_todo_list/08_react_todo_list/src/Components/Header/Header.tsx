@@ -35,7 +35,7 @@ const Header: React.FC = () => {
   const [errorTask, setErrorTask] = useState<boolean>(false);
 
   const [searchTask, setSearchTask] = useSearchParams();
-  const querySearch = searchTask.get('task');
+  const querySearch = searchTask.get('search');
 
   const location = useLocation();
 
@@ -46,7 +46,7 @@ const Header: React.FC = () => {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
     if (text.trim()) {
-      setSearchTask({task: text.trim()});
+      setSearchTask({search: text.trim()});
     } else {
       setSearchTask({});
     }
