@@ -66,83 +66,85 @@ const TaskEditPage: React.FC = () => {
   };
 
   return (
-    <div className={style.edit}>
-      <h1 className={style.edit__heading}>{valueTask.title}</h1>
-      <div className={style.edit__wrapper}>
-        <div className={style.edit__categories}>
-          {dataIdsState.map(ids => {
-            return (
-              <div
-                key={ids}
-                className={cn(
-                  style.edit__categories_item,
-                  dataCategoryState[ids].id === valueTask.categoryId &&
-                    style.edit__categories_item_active,
-                )}
-              >
-                <h3 className={style.edit__categories_item_name}>
-                  {dataCategoryState[ids].category}
-                </h3>
+    <form onSubmit={handleSubmitForm}>
+      <div className={style.edit}>
+        <h1 className={style.edit__heading}>{valueTask.title}</h1>
+        <div className={style.edit__wrapper}>
+          <div className={style.edit__categories}>
+            {dataIdsState.map(ids => {
+              return (
+                <div
+                  key={ids}
+                  className={cn(
+                    style.edit__categories_item,
+                    dataCategoryState[ids].id === valueTask.categoryId &&
+                      style.edit__categories_item_active,
+                  )}
+                >
+                  <h3 className={style.edit__categories_item_name}>
+                    {dataCategoryState[ids].category}
+                  </h3>
+                  <Button
+                    styles="btn_icon_bg_white"
+                    type="button"
+                    onClick={() => handleTaskMove(dataCategoryState[ids].id)}
+                    icon={
+                      <IconSVG
+                        name={IconNameEnum.CHOICE}
+                        width="26"
+                        height="26"
+                        className={
+                          dataCategoryState[ids].id === valueTask.categoryId
+                            ? 'blue_dark_gray'
+                            : 'gray_blue_dark'
+                        }
+                      />
+                    }
+                  />
+                </div>
+              );
+            })}
+          </div>
+          <div className={style.edit__task}>
+            <div className={style.edit__task_btns_wrapper}>
+              <div className={style.edit__task_btns}>
                 <Button
-                  styles="btn_icon_bg_white"
+                  styles="btn_blue"
+                  type="submit"
+                  text="Save change"
+                  disabled={errorTaskTitle}
+                />
+                <Button
+                  styles="btn_gray"
                   type="button"
-                  onClick={() => handleTaskMove(dataCategoryState[ids].id)}
-                  icon={
-                    <IconSVG
-                      name={IconNameEnum.CHOICE}
-                      width="26"
-                      height="26"
-                      className={
-                        dataCategoryState[ids].id === valueTask.categoryId
-                          ? 'blue_dark_gray'
-                          : 'gray_blue_dark'
-                      }
-                    />
-                  }
+                  text="Chancel"
+                  onClick={handleSubmitFormChancel}
                 />
               </div>
-            );
-          })}
-        </div>
-        <form className={style.edit__task} onSubmit={handleSubmitForm}>
-          <div className={style.edit__task_btns_wrapper}>
-            <div className={style.edit__task_btns}>
-              <Button
-                styles="btn_blue"
-                type="submit"
-                text="Save change"
-                disabled={errorTaskTitle}
-              />
-              <Button
-                styles="btn_gray"
-                type="button"
-                text="Chancel"
-                onClick={handleSubmitFormChancel}
-              />
             </div>
-          </div>
-          <div className={style.edit__task_input}>
-            <input value={valueTask.title} onChange={handleTaskTitle} />
-          </div>
-          <div className={style.edit__task_check}>
-            <input
-              id="checkboxEdit"
-              type="checkbox"
-              className={style.checkbox_edit}
-              checked={valueTask.isDone}
-              onChange={handleTaskChecked}
+            <div className={style.edit__task_input}>
+              <input value={valueTask.title} onChange={handleTaskTitle} />
+            </div>
+            <div className={style.edit__task_check}>
+              <input
+                id="checkboxEdit"
+                type="checkbox"
+                className={style.checkbox_edit}
+                checked={valueTask.isDone}
+                onChange={handleTaskChecked}
+              />
+              <label htmlFor="checkboxEdit">Show done</label>
+            </div>
+            <textarea
+              className={cn(style.edit__task__description)}
+              value={valueTask.description}
+              onChange={handleTaskDescription}
+              placeholder="category text"
             />
-            <label htmlFor="checkboxEdit">Show done</label>
           </div>
-          <textarea
-            className={cn(style.edit__task__description)}
-            value={valueTask.description}
-            onChange={handleTaskDescription}
-            placeholder="category text"
-          />
-        </form>
+        </div>
       </div>
-    </div>
+    </form>
   );
 };
 
