@@ -50,6 +50,10 @@ const Category: React.FC<Props> = ({
   const [isOpenFormDelCategory, setIsOpenFormDelCategory] =
     useState<boolean>(false);
 
+  const handleShowChildren = () => {
+    setShowChildren(!showChildren);
+  };
+
   const handleAddChild = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameNewChild = e.target.value;
     setValueAddChild(nameNewChild);
@@ -132,7 +136,7 @@ const Category: React.FC<Props> = ({
                   <Button
                     styles="btn_icon_bg_white"
                     type="button"
-                    onClick={() => setShowChildren(!showChildren)}
+                    onClick={handleShowChildren}
                     icon={
                       <IconSVG
                         name={
