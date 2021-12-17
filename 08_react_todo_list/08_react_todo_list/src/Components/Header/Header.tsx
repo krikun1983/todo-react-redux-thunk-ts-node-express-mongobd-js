@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Link, useLocation} from 'react-router-dom';
+import {Link, useLocation, useParams} from 'react-router-dom';
 import {useSearchParams} from 'react-router-dom';
 import {addCategoryAction} from 'ReduxStore/actions/categoryAction';
 import {addTaskAction} from 'ReduxStore/actions/taskAction';
@@ -15,15 +15,14 @@ import style from './Header.module.scss';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
+  const params = useParams();
+
   const {dataTaskState} = useSelector(
     (state: RootState) => state.dataTaskState,
   );
   const {dataIdsState} = useSelector((state: RootState) => state.dataIdsState);
   const {dataTaskIdsState} = useSelector(
     (state: RootState) => state.dataTaskIdsState,
-  );
-  const {dataTaskIdCurrentState} = useSelector(
-    (state: RootState) => state.dataTaskIdCurrentState,
   );
   const {isShowTasksDone} = useSelector(
     (state: RootState) => state.isShowTasksDone,
@@ -85,12 +84,12 @@ const Header: React.FC = () => {
 
   const handleSubmitTask = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!errorTask && valueTask.trim().length && dataTaskIdCurrentState > 0) {
+    if (!errorTask && valueTask.trim().length && +(params.id as string) > 0) {
       dispatch(
         addTaskAction({
           title: valueTask,
           description: '',
-          categoryId: dataTaskIdCurrentState,
+          categoryId: +(params.id as string),
           isDone: false,
           id: maxIds(dataTaskIdsState),
         }),
@@ -106,7 +105,7 @@ const Header: React.FC = () => {
 
   const progressBar = [
     ...dataTaskIdsState.filter(
-      id => dataTaskState[id].categoryId === dataTaskIdCurrentState,
+      id => dataTaskState[id].categoryId === +(params.id as string),
     ),
   ];
   const progressValue = [

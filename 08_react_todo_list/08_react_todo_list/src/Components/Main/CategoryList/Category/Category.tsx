@@ -21,7 +21,6 @@ interface Props {
   category: string;
   parentId: number | null;
   listChild: number[];
-  onClickCategory: (id: number) => void;
   onDelCategory: (currentCategory: DataCategory) => void;
 }
 
@@ -30,7 +29,6 @@ const Category: React.FC<Props> = ({
   category,
   parentId,
   listChild,
-  onClickCategory,
   onDelCategory,
 }) => {
   const dispatch = useDispatch();
@@ -150,12 +148,7 @@ const Category: React.FC<Props> = ({
                   />
                 )}
               </div>
-              <div
-                className={style.category__name}
-                onClick={() => onClickCategory(id)}
-              >
-                {category}
-              </div>
+              <div className={style.category__name}>{category}</div>
               <div className={style.category__btns}>
                 <Button
                   title="Edit name category"
@@ -228,11 +221,7 @@ const Category: React.FC<Props> = ({
         </>
       )}
       {showChildren && listChild.length > 0 && (
-        <CategoryChild
-          list={listChild}
-          onClickCategory={onClickCategory}
-          onDelCategory={onDelCategory}
-        />
+        <CategoryChild list={listChild} onDelCategory={onDelCategory} />
       )}
       {isOpenFormDelCategory && (
         <ConfirmModal

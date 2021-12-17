@@ -8,7 +8,6 @@ const rootReducer = combineReducers({
   dataIdsState: categoryReducer,
   dataTaskState: tasksReducer,
   dataTaskIdsState: tasksReducer,
-  dataTaskIdCurrentState: tasksReducer,
   isShowTasksDone: tasksReducer,
   isLoaderState: loaderReducer,
 });

@@ -7,15 +7,10 @@ import style from './CategoryChild.module.scss';
 
 interface Prop {
   list: number[];
-  onClickCategory: (id: number) => void;
   onDelCategory: (currentCategory: DataCategory) => void;
 }
 
-const CategoryChild: React.FC<Prop> = ({
-  list,
-  onClickCategory,
-  onDelCategory,
-}) => {
+const CategoryChild: React.FC<Prop> = ({list, onDelCategory}) => {
   const {dataCategoryState} = useSelector(
     (state: RootState) => state.dataCategoryState,
   );
@@ -30,7 +25,6 @@ const CategoryChild: React.FC<Prop> = ({
             parentId={dataCategoryState[idChildren].parentId}
             category={dataCategoryState[idChildren].category}
             listChild={dataCategoryState[idChildren].children}
-            onClickCategory={onClickCategory}
             onDelCategory={onDelCategory}
           />
         );
