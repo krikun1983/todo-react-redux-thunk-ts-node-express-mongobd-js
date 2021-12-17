@@ -12,7 +12,7 @@ export interface DataTaskState {
   dataTaskState: {[key: number]: DataTask};
   dataTaskIdsState: number[];
   dataTaskIdCurrentState: number;
-  isShowTaskOfDone: boolean;
+  isShowTasksDone: boolean;
 }
 
 export interface DataTaskAction {
@@ -24,7 +24,7 @@ const initialSTate: DataTaskState = {
   dataTaskState: {...DATA_TASKS.tasks},
   dataTaskIdsState: [...DATA_TASKS.ids],
   dataTaskIdCurrentState: DATA_TASKS.idCurrent,
-  isShowTaskOfDone: DATA_TASKS.isShowTaskOfDone,
+  isShowTasksDone: DATA_TASKS.isShowTasksDone,
 };
 
 export enum DataTaskActionTypes {
@@ -61,7 +61,7 @@ export const tasksReducer = (
     case DataTaskActionTypes.SHOW_DONE_TASKS:
       return {
         ...state,
-        isShowTaskOfDone: !action.payload as boolean,
+        isShowTasksDone: !action.payload as boolean,
       };
     case DataTaskActionTypes.UPDATE_IS_DONE_TASK:
       return {

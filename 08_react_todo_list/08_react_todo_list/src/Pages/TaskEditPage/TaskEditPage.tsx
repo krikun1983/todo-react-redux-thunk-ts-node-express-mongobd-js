@@ -140,10 +140,7 @@ const TaskEditPage: React.FC = () => {
             <label htmlFor="checkboxEdit">Show done</label>
           </div>
           <textarea
-            className={cn(
-              style.edit__task__description,
-              // errorDescription && style.form_field_error,
-            )}
+            className={cn(style.edit__task__description)}
             value={valueTask.description}
             onChange={handleTaskDescription}
             placeholder="category text"

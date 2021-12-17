@@ -17,13 +17,13 @@ const TaskList: React.FC = () => {
   const {dataTaskIdsState} = useSelector(
     (state: RootState) => state.dataTaskIdsState,
   );
-  const {isShowTaskOfDone} = useSelector(
-    (state: RootState) => state.isShowTaskOfDone,
+  const {isShowTasksDone} = useSelector(
+    (state: RootState) => state.isShowTasksDone,
   );
 
   let arrayIdsTask = [...dataTaskIdsState];
 
-  if (!isShowTaskOfDone) {
+  if (!isShowTasksDone) {
     arrayIdsTask = [
       ...dataTaskIdsState.filter(id => dataTaskState[id].isDone === false),
     ];

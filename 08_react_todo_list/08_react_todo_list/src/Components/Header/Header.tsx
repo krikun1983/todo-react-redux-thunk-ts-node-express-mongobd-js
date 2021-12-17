@@ -25,8 +25,8 @@ const Header: React.FC = () => {
   const {dataTaskIdCurrentState} = useSelector(
     (state: RootState) => state.dataTaskIdCurrentState,
   );
-  const {isShowTaskOfDone} = useSelector(
-    (state: RootState) => state.isShowTaskOfDone,
+  const {isShowTasksDone} = useSelector(
+    (state: RootState) => state.isShowTasksDone,
   );
 
   const [valueCategory, setValueCategory] = useState<string>('');
@@ -40,7 +40,7 @@ const Header: React.FC = () => {
   const location = useLocation();
 
   const handleChecked = () => {
-    dispatch(isShowDoneTasksAction(isShowTaskOfDone));
+    dispatch(isShowDoneTasksAction(isShowTasksDone));
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -132,7 +132,7 @@ const Header: React.FC = () => {
               <input
                 id="checkbox"
                 type="checkbox"
-                checked={isShowTaskOfDone}
+                checked={isShowTasksDone}
                 onChange={handleChecked}
                 className={style.checkbox}
               />
