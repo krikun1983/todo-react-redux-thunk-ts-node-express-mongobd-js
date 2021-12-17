@@ -14,5 +14,7 @@
 
   &__tasks {
     width: 52%;
+    height: 80vh;
+    overflow-y: auto;
   }
 }

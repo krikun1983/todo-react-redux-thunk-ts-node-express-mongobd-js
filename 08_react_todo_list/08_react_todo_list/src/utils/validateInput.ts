@@ -4,7 +4,7 @@ const validateInput = (
   value: string,
   setState: Dispatch<SetStateAction<boolean>>,
 ): void => {
-  if (value.length === 0 || (value.length && value.trim().length)) {
+  if (value.length && value.trim().length) {
     setState(false);
   } else {
     setState(true);

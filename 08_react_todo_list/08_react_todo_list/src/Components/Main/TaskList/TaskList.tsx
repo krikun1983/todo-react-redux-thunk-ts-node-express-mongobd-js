@@ -1,11 +1,12 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
-import {useLocation, useSearchParams} from 'react-router-dom';
+import {useLocation, useParams, useSearchParams} from 'react-router-dom';
 import {RootState} from 'ReduxStore/types/rootState';
 import Task from './Task/Task';
 import style from './TaskList.module.scss';
 
 const TaskList: React.FC = () => {
+  const params = useParams();
   const location = useLocation();
   const [searchTask] = useSearchParams();
   const querySearch = searchTask.get('search');
@@ -15,9 +16,6 @@ const TaskList: React.FC = () => {
   );
   const {dataTaskIdsState} = useSelector(
     (state: RootState) => state.dataTaskIdsState,
-  );
-  const {dataTaskIdCurrentState} = useSelector(
-    (state: RootState) => state.dataTaskIdCurrentState,
   );
   const {isShowTaskOfDone} = useSelector(
     (state: RootState) => state.isShowTaskOfDone,
@@ -46,7 +44,7 @@ const TaskList: React.FC = () => {
       {location.pathname !== '/' &&
         arrayIdsTask.map(id => {
           return (
-            dataTaskState[id].categoryId === dataTaskIdCurrentState && (
+            dataTaskState[id].categoryId === +(params.id as string) && (
               <li key={dataTaskState[id].id} className={style.task}>
                 <Task {...dataTaskState[id]} />
               </li>

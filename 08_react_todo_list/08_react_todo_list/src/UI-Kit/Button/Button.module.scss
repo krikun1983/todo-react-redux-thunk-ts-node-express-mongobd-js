@@ -24,9 +24,11 @@
 .btn_blue {
   color: $color-white;
   background-color: $color-cyan-dark;
+  border: 1px solid transparent;
 
   &:hover {
     background-color: $color-cyan;
+    border: 1px solid transparent;
   }
 }
 

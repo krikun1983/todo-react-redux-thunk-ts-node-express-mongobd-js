@@ -1,20 +1,20 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useDispatch} from 'react-redux';
+import {Link} from 'react-router-dom';
 import {isDoneTaskAction} from 'ReduxStore/reducers/taskState';
-import {Button, IconSVG} from 'UI-Kit';
+import {IconSVG} from 'UI-Kit';
 import {IconNameEnum} from 'UI-Kit/IconSVG/IconSVG';
 import style from './Task.module.scss';
 
 interface Props {
   title: string;
-  description: string;
+  categoryId: number;
   isDone: boolean;
   id: number;
 }
 
-const Task: React.FC<Props> = ({title, description, isDone, id}) => {
+const Task: React.FC<Props> = ({title, categoryId, isDone, id}) => {
   const dispatch = useDispatch();
-  const [editTask, setTaskCategory] = useState<boolean>(false);
 
   const handleChecked = () => {
     dispatch(isDoneTaskAction(id));
@@ -34,22 +34,14 @@ const Task: React.FC<Props> = ({title, description, isDone, id}) => {
       <h3 className={isDone ? style.task__title_gray : style.task__title}>
         {title}
       </h3>
-      {/* <p className={style.task__description}>{description}</p> */}
-      <Button
-        title="Edit name task"
-        styles="btn_icon_bg_white"
-        type="button"
-        disabled={isDone}
-        onClick={() => setTaskCategory(true)}
-        icon={
-          <IconSVG
-            name={IconNameEnum.EDIT}
-            width="30"
-            height="30"
-            className={isDone ? 'gray_blue_dark_disabled' : 'blue_dark_gray'}
-          />
-        }
-      />
+      <Link to={`/categories/${categoryId}/task/${id}/edit`}>
+        <IconSVG
+          name={IconNameEnum.EDIT}
+          width="30"
+          height="30"
+          className="blue_dark_gray"
+        />
+      </Link>
     </>
   );
 };

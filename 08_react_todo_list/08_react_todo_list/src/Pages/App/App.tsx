@@ -12,7 +12,10 @@ const App: React.FC = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/categories/:id" element={<HomePage />} />
         <Route path="/categories/:id?search=:value" element={<HomePage />} />
-        <Route path="/task/:id" element={<TaskEditPage />} />
+        <Route
+          path="/categories/:categoryId/task/:id/edit"
+          element={<TaskEditPage />}
+        />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Loader />

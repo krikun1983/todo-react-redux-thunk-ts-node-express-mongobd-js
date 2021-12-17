@@ -16,6 +16,7 @@ export enum IconNameEnum {
   CLOSE = 'close',
   ARROW_TOP = 'arrow_top',
   ARROW_BOTTOM = 'arrow_bottom',
+  CHOICE = 'choice',
 }
 
 const IconSVG: React.FC<IconSVGProp> = ({
@@ -116,6 +117,21 @@ h29.012v-3.4H20.961c-0.939,0-1.699,0.761-1.699,1.7v48.503C19.262,73.404,20.021,7
             xmlns="http://www.w3.org/2000/svg"
           >
             <path d="M0,24l4,4l10-10l10,10l4-4L18,14L28,4l-4-4L14,10L4,0L0,4l10,10L0,24z" />
+          </svg>
+        );
+      }
+      case IconNameEnum.CHOICE: {
+        return (
+          <svg
+            role="img"
+            viewBox="0 0 459 459"
+            className={style[className]}
+            fill={fill}
+            width={width}
+            height={height}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M178.5,140.25v-102L0,216.75l178.5,178.5V290.7c127.5,0,216.75,40.8,280.5,130.05C433.5,293.25,357,165.75,178.5,140.25z" />
           </svg>
         );
       }
