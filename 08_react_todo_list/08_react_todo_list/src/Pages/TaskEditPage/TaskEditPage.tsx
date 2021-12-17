@@ -38,6 +38,7 @@ const TaskEditPage: React.FC = () => {
 
   const handleTaskTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const title = e.target.value;
+    if (title.trim().length > 40) return;
     setValueTask(prev => ({...prev, title: title.trim()}));
   };
 
