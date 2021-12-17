@@ -6,7 +6,7 @@ import {addCategoryAction} from 'ReduxStore/actions/categoryAction';
 import {addTaskAction} from 'ReduxStore/actions/taskAction';
 import {isShowDoneTasksAction} from 'ReduxStore/reducers/taskState';
 import {RootState} from 'ReduxStore/types/rootState';
-import {Button, IconSVG, Input} from 'UI-Kit';
+import {Button, IconSVG} from 'UI-Kit';
 import {IconNameEnum} from 'UI-Kit/IconSVG/IconSVG';
 import maxIds from 'utils/maxIds';
 import validateInput from 'utils/validateInput';
@@ -180,9 +180,8 @@ const Header: React.FC = () => {
           onSubmit={handleSubmitCategory}
           className={style.header__bottom_form}
         >
-          <Input
-            width="240px"
-            height="25px"
+          <input
+            className={style.header__bottom_form_input}
             value={valueCategory}
             onChange={handleCategory}
             placeholder="Enter category title"
@@ -196,7 +195,8 @@ const Header: React.FC = () => {
           />
         </form>
         <form onSubmit={handleSubmitTask} className={style.header__bottom_form}>
-          <Input
+          <input
+            className={style.header__bottom_form_input}
             width="240px"
             height="25px"
             value={valueTask}

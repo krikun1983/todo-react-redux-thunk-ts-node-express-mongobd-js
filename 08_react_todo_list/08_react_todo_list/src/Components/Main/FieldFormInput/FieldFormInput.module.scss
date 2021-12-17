@@ -6,5 +6,9 @@
 
   &_form {
     @include flex-between();
+
+    input {
+      width: 100%;
+    }
   }
 }

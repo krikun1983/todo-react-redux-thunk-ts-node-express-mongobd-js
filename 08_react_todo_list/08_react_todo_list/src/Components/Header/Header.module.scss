@@ -72,6 +72,12 @@
   &__bottom {
     &_form {
       @include flex-between();
+
+      &_input {
+        width: 240px;
+        height: 25px;
+        padding: 0 5px;
+      }
     }
     @include flex-between();
   }

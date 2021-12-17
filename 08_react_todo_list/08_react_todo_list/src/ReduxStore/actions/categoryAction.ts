@@ -1,5 +1,5 @@
 import {Dispatch} from 'redux';
-import {ASYNC_TIME} from 'ReduxStore/constants/asyncTime';
+import {ASYNC_TIME} from './constants/asyncTime';
 import {
   addCategory,
   addCategoryChild,

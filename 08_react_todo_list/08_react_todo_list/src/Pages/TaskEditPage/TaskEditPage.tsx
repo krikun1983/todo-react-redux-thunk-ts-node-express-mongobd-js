@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigate, useParams} from 'react-router-dom';
 import {RootState} from 'ReduxStore/types/rootState';
-import {Button, IconSVG, Input} from 'UI-Kit';
+import {Button, IconSVG} from 'UI-Kit';
 import {IconNameEnum} from 'UI-Kit/IconSVG/IconSVG';
 import cn from 'classnames';
 import style from './TaskEditPage.module.scss';
@@ -122,12 +122,7 @@ const TaskEditPage: React.FC = () => {
             </div>
           </div>
           <div className={style.edit__task_input}>
-            <Input
-              width="300px"
-              height="30px"
-              value={valueTask.title}
-              onChange={handleTaskTitle}
-            />
+            <input value={valueTask.title} onChange={handleTaskTitle} />
           </div>
           <div className={style.edit__task_check}>
             <input
