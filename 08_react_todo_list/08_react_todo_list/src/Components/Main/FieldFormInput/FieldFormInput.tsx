@@ -3,7 +3,6 @@ import {Button} from 'UI-Kit';
 import style from './FieldFormInput.module.scss';
 
 interface Prop {
-  height: string;
   value: string;
   btnName: string;
   disabled: boolean;
@@ -14,7 +13,6 @@ interface Prop {
 }
 
 const FieldFormInput: React.FC<Prop> = ({
-  height,
   value,
   btnName,
   disabled,
@@ -50,10 +48,9 @@ const FieldFormInput: React.FC<Prop> = ({
   return (
     <div className={style.edit}>
       <form onSubmit={onSubmit} className={style.edit_form} ref={editFormRef}>
-        <input height={height} value={value} onChange={onEdit} />
+        <input value={value} onChange={onEdit} />
         <Button
           styles="btn_blue"
-          height={height}
           type="submit"
           text={btnName}
           disabled={disabled}

@@ -188,7 +188,6 @@ const Header: React.FC = () => {
           />
           <Button
             styles="btn_blue"
-            height="25px"
             type="submit"
             text="Add"
             disabled={errorCategory}
@@ -197,16 +196,12 @@ const Header: React.FC = () => {
         <form onSubmit={handleSubmitTask} className={style.header__bottom_form}>
           <input
             className={style.header__bottom_form_input}
-            width="240px"
-            height="25px"
             value={valueTask}
             onChange={handleTask}
             placeholder="Enter task title"
             disabled={location.pathname === '/'}
           />
           <Button
-            width="50px"
-            height="25px"
             styles="btn_blue"
             type="submit"
             text="Add"

@@ -202,7 +202,6 @@ const Category: React.FC<Props> = ({
           ) : (
             <>
               <FieldFormInput
-                height="30px"
                 value={valueEditCategory}
                 btnName="Edit"
                 disabled={errorEditCategory}
@@ -218,7 +217,6 @@ const Category: React.FC<Props> = ({
       {addChild && (
         <>
           <FieldFormInput
-            height="30px"
             value={valueAddChild}
             btnName="Add"
             disabled={errorAddChild}

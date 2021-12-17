@@ -26,7 +26,6 @@ const TaskEditPage: React.FC = () => {
 
   const [valueTask, setValueTask] = useState<DataTask>(taskCurrent);
   const [errorTaskTitle, setErrorTaskTitle] = useState<boolean>(false);
-  console.log(errorTaskTitle);
 
   const handleTaskMove = (choiceIdCategory: number) => {
     setValueTask(prev => ({...prev, categoryId: choiceIdCategory}));

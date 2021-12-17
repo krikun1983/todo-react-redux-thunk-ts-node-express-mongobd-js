@@ -6,23 +6,13 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   styles: string;
   text?: string;
   icon?: React.ReactElement;
-  width?: string;
-  height?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({
-  styles,
-  text,
-  icon,
-  width,
-  height,
-  ...attr
-}) => {
+const Button: React.FC<ButtonProps> = ({styles, text, icon, ...attr}) => {
   return (
     <>
       <button
         {...attr}
-        style={{width: width, height: height}}
         className={cn(style.ui_btns, text && style.ui_btn, style[styles])}
       >
         {icon ? icon : text}
