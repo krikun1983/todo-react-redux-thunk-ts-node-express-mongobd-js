@@ -1,4 +1,4 @@
-import DATA_TASKS from 'ReduxStore/data/data-tasks';
+import DATA_TASKS from '../data/data-tasks.json';
 
 export interface DataTask {
   title: string;

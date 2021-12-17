@@ -1,4 +1,4 @@
-import {DATA_CATEGORIES, DATA_IDS} from 'ReduxStore/data/data-categories';
+import DATA_CATEGORIES from '../data/data-categories.json';
 import {
   findIdsForDel,
   getDataCategoryStateClone,
@@ -30,8 +30,8 @@ export enum DataCategoryActionTypes {
 }
 
 const initialState: DataCategoryState = {
-  dataCategoryState: DATA_CATEGORIES,
-  dataIdsState: [...DATA_IDS],
+  dataCategoryState: {...DATA_CATEGORIES.data_categories},
+  dataIdsState: [...DATA_CATEGORIES.ids],
 };
 
 export const categoryReducer = (
