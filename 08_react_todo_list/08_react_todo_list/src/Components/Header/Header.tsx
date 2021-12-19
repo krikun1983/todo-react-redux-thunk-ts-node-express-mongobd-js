@@ -185,12 +185,7 @@ const Header: React.FC = () => {
             onChange={handleCategory}
             placeholder="Enter category title"
           />
-          <Button
-            styles="btn_blue"
-            type="submit"
-            text="Add"
-            disabled={errorCategory}
-          />
+          <Button styles="btn_blue" type="submit" text="Add" />
         </form>
         <form onSubmit={handleSubmitTask} className={style.header__bottom_form}>
           <input
@@ -204,7 +199,7 @@ const Header: React.FC = () => {
             styles="btn_blue"
             type="submit"
             text="Add"
-            disabled={location.pathname === '/' || errorTask}
+            disabled={location.pathname === '/'}
           />
         </form>
       </div>

@@ -39,14 +39,12 @@ const TaskEditPage: React.FC = () => {
   const handleTaskTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const title = e.target.value;
     if (title.trim().length > 40) return;
-    setValueTask(prev => ({...prev, title: title.trim()}));
+    setValueTask(prev => ({...prev, title: title}));
   };
 
   const handleTaskDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const description = e.target.value;
-    if (description.trim()) {
-      setValueTask(prev => ({...prev, description: description.trim()}));
-    }
+    setValueTask(prev => ({...prev, description: description}));
   };
 
   useEffect(() => {
@@ -56,7 +54,15 @@ const TaskEditPage: React.FC = () => {
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!errorTaskTitle && valueTask.title.trim().length) {
-      dispatch(updateTaskAction(valueTask));
+      dispatch(
+        updateTaskAction({
+          title: valueTask.title,
+          description: valueTask.description.trim(),
+          categoryId: valueTask.categoryId,
+          isDone: valueTask.isDone,
+          id: valueTask.id,
+        }),
+      );
       navigate(`/categories/${params.categoryId}`);
     }
   };
