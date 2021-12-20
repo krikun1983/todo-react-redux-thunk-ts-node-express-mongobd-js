@@ -1,19 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {Link, useLocation, useParams} from 'react-router-dom';
 import {useSearchParams} from 'react-router-dom';
-import {addCategoryAction} from 'ReduxStore/actions/categoryAction';
-import {addTaskAction} from 'ReduxStore/actions/taskAction';
-import {isShowDoneTasksAction} from 'ReduxStore/reducers/taskState';
 import {RootState} from 'ReduxStore/types/rootState';
 import {Button, IconSVG, IconNameEnum} from 'UI-Kit';
 import maxIds from 'utils/maxIds';
 import validateInput from 'utils/validateInput';
 import cn from 'classnames';
 import style from './Header.module.scss';
+import useDispatcher from 'hook/useDispatcher';
 
 const Header: React.FC = () => {
-  const dispatch = useDispatch();
+  const {setShowDoneTasksAction, setAddCategoryAction, setAddTaskAction} =
+    useDispatcher();
+
   const params = useParams();
 
   const {dataTaskState} = useSelector(
@@ -38,7 +38,7 @@ const Header: React.FC = () => {
   const location = useLocation();
 
   const handleChecked = () => {
-    dispatch(isShowDoneTasksAction(isShowTasksDone));
+    setShowDoneTasksAction(isShowTasksDone);
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,14 +63,12 @@ const Header: React.FC = () => {
   const handleSubmitCategory = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!errorCategory && valueCategory.trim().length) {
-      dispatch(
-        addCategoryAction({
-          category: valueCategory,
-          parentId: null,
-          children: [],
-          id: maxIds(dataIdsState),
-        }),
-      );
+      setAddCategoryAction({
+        category: valueCategory,
+        parentId: null,
+        children: [],
+        id: maxIds(dataIdsState),
+      });
     }
     setValueCategory('');
   };
@@ -84,15 +82,13 @@ const Header: React.FC = () => {
   const handleSubmitTask = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!errorTask && valueTask.trim().length && +(params.id as string) > 0) {
-      dispatch(
-        addTaskAction({
-          title: valueTask,
-          description: '',
-          categoryId: +(params.id as string),
-          isDone: false,
-          id: maxIds(dataTaskIdsState),
-        }),
-      );
+      setAddTaskAction({
+        title: valueTask,
+        description: '',
+        categoryId: +(params.id as string),
+        isDone: false,
+        id: maxIds(dataTaskIdsState),
+      });
     }
     setValueTask('');
   };

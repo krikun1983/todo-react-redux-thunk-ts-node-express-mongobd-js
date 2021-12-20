@@ -1,10 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {NavLink, useNavigate, useSearchParams} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {
-  addChildAction,
-  updateCategoryAction,
-} from 'ReduxStore/actions/categoryAction';
+import {useSelector} from 'react-redux';
 import {RootState} from 'ReduxStore/types/rootState';
 import {DataCategory} from 'ReduxStore/reducers/categoryState';
 import {Button, IconNameEnum, IconSVG} from 'UI-Kit';
@@ -14,6 +10,7 @@ import FieldFormInput from 'Components/Main/FieldFormInput';
 import CategoryChild from './CategoryChild';
 import ConfirmModal from 'Components/ConfirmModal';
 import style from './Category.module.scss';
+import useDispatcher from 'hook/useDispatcher';
 
 interface Props {
   id: number;
@@ -30,7 +27,8 @@ const Category: React.FC<Props> = ({
   listChild,
   onDelCategory,
 }) => {
-  const dispatch = useDispatch();
+  const {setAddChildAction, setUpdateCategoryAction} = useDispatcher();
+
   const {dataIdsState} = useSelector((state: RootState) => state.dataIdsState);
 
   const [searchTask] = useSearchParams();
@@ -62,14 +60,12 @@ const Category: React.FC<Props> = ({
     e.preventDefault();
     setAddChild(false);
     if (!errorAddChild && valueAddChild.trim().length) {
-      dispatch(
-        addChildAction({
-          category: valueAddChild,
-          parentId: id,
-          children: [],
-          id: maxIds(dataIdsState),
-        }),
-      );
+      setAddChildAction({
+        category: valueAddChild,
+        parentId: id,
+        children: [],
+        id: maxIds(dataIdsState),
+      });
       setValueAddChild('');
     }
   };
@@ -84,14 +80,12 @@ const Category: React.FC<Props> = ({
     setEditCategory(false);
 
     if (!errorEditCategory && valueEditCategory.trim().length) {
-      dispatch(
-        updateCategoryAction({
-          category: valueEditCategory,
-          parentId: parentId,
-          children: listChild,
-          id,
-        }),
-      );
+      setUpdateCategoryAction({
+        category: valueEditCategory,
+        parentId: parentId,
+        children: listChild,
+        id,
+      });
     }
   };
 

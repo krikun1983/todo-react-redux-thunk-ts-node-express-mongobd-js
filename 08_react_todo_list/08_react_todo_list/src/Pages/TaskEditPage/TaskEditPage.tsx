@@ -1,19 +1,20 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {useNavigate, useParams} from 'react-router-dom';
 import {RootState} from 'ReduxStore/types/rootState';
 import {Button, IconSVG, IconNameEnum} from 'UI-Kit';
 import {DataTask} from 'ReduxStore/reducers/taskState';
-import {updateTaskAction} from 'ReduxStore/actions/taskAction';
 import validateInput from 'utils/validateInput';
 import cn from 'classnames';
 import style from './TaskEditPage.module.scss';
+import useDispatcher from 'hook/useDispatcher';
 
 const TaskEditPage: React.FC = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
+  const {setUpdateTaskAction} = useDispatcher();
+
   const {dataTaskState} = useSelector(
     (state: RootState) => state.dataTaskState,
   );
@@ -53,15 +54,13 @@ const TaskEditPage: React.FC = () => {
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!errorTaskTitle && valueTask.title.trim().length) {
-      dispatch(
-        updateTaskAction({
-          title: valueTask.title,
-          description: valueTask.description.trim(),
-          categoryId: valueTask.categoryId,
-          isDone: valueTask.isDone,
-          id: valueTask.id,
-        }),
-      );
+      setUpdateTaskAction({
+        title: valueTask.title,
+        description: valueTask.description.trim(),
+        categoryId: valueTask.categoryId,
+        isDone: valueTask.isDone,
+        id: valueTask.id,
+      });
       navigate(`/categories/${params.categoryId}`);
     }
   };

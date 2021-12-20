@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {useSelector} from 'react-redux';
 import {DataCategory} from 'ReduxStore/reducers/categoryState';
 import {RootState} from 'ReduxStore/types/rootState';
@@ -33,4 +33,4 @@ const CategoryChild: React.FC<Prop> = ({list, onDelCategory}) => {
   );
 };
 
-export default CategoryChild;
+export default memo(CategoryChild);

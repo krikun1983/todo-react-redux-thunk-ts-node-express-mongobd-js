@@ -1,7 +1,6 @@
+import useDispatcher from 'hook/useDispatcher';
 import React, {memo} from 'react';
-import {useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {isDoneTaskAction} from 'ReduxStore/reducers/taskState';
 import {IconNameEnum, IconSVG} from 'UI-Kit';
 import style from './Task.module.scss';
 
@@ -13,10 +12,10 @@ interface Props {
 }
 
 const Task: React.FC<Props> = ({title, categoryId, isDone, id}) => {
-  const dispatch = useDispatch();
+  const {setDoneTaskAction} = useDispatcher();
 
   const handleChecked = () => {
-    dispatch(isDoneTaskAction(id));
+    setDoneTaskAction(id);
   };
 
   return (
