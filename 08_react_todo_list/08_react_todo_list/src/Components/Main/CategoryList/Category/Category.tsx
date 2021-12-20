@@ -82,6 +82,7 @@ const Category: React.FC<Props> = ({
   const handleEditCategorySubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setEditCategory(false);
+
     if (!errorEditCategory && valueEditCategory.trim().length) {
       dispatch(
         updateCategoryAction({
@@ -120,16 +121,16 @@ const Category: React.FC<Props> = ({
   return (
     <li>
       <div className={style.category}>
-        <NavLink
-          to={
-            querySearch
-              ? `/categories/${id}?search=${querySearch}`
-              : `/categories/${id}`
-          }
-          className={style.category__link}
-        >
-          {!editCategory ? (
-            <>
+        {!editCategory ? (
+          <>
+            <NavLink
+              to={
+                querySearch
+                  ? `/categories/${id}?search=${querySearch}`
+                  : `/categories/${id}`
+              }
+              className={style.category__link}
+            >
               <div className={style.category__btn_child}>
                 {listChild.length > 0 && (
                   <Button
@@ -194,21 +195,21 @@ const Category: React.FC<Props> = ({
                   }
                 />
               </div>
-            </>
-          ) : (
-            <>
-              <FieldFormInput
-                value={valueEditCategory}
-                btnName="Edit"
-                disabled={errorEditCategory}
-                edit={editCategory}
-                setEdit={setEditCategory}
-                onEdit={handleEditCategory}
-                onSubmit={handleEditCategorySubmit}
-              />
-            </>
-          )}
-        </NavLink>
+            </NavLink>
+          </>
+        ) : (
+          <>
+            <FieldFormInput
+              value={valueEditCategory}
+              btnName="Edit"
+              disabled={errorEditCategory}
+              edit={editCategory}
+              setEdit={setEditCategory}
+              onEdit={handleEditCategory}
+              onSubmit={handleEditCategorySubmit}
+            />
+          </>
+        )}
       </div>
       {addChild && (
         <>
