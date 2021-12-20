@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import {useLocation, useParams, useSearchParams} from 'react-router-dom';
 import {RootState} from 'ReduxStore/types/rootState';
-import Task from './Task/Task';
+import Task from './Task';
 import style from './TaskList.module.scss';
 
 const TaskList: React.FC = () => {

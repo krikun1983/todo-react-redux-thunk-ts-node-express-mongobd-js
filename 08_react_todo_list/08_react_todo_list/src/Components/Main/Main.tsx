@@ -2,9 +2,9 @@ import React from 'react';
 import {useDispatch} from 'react-redux';
 import {delCategoryAction} from 'ReduxStore/actions/categoryAction';
 import {DataCategory} from 'ReduxStore/reducers/categoryState';
-import CategoryList from './CategoryList/CategoryList';
+import CategoryList from './CategoryList';
+import TaskList from './TaskList';
 import style from './Main.module.scss';
-import TaskList from './TaskList/TaskList';
 
 const Main: React.FC = () => {
   const dispatch = useDispatch();

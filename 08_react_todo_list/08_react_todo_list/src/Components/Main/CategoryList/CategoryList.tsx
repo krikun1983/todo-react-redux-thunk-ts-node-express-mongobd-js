@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import {DataCategory} from 'ReduxStore/reducers/categoryState';
 import {RootState} from 'ReduxStore/types/rootState';
-import Category from './Category/Category';
+import Category from './Category';
 
 interface Props {
   onDelCategory: (currentCategory: DataCategory) => void;

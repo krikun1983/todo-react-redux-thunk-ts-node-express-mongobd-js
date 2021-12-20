@@ -3,7 +3,7 @@ import {useLocation} from 'react-router-dom';
 import style from './NotFoundPage.module.scss';
 import img from './img/404.png';
 
-const NotFoundPage = (): JSX.Element => {
+const NotFoundPage: React.FC = () => {
   const location = useLocation();
   return (
     <>

@@ -2,8 +2,7 @@ import React from 'react';
 import {useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {isDoneTaskAction} from 'ReduxStore/reducers/taskState';
-import {IconSVG} from 'UI-Kit';
-import {IconNameEnum} from 'UI-Kit/IconSVG/IconSVG';
+import {IconNameEnum, IconSVG} from 'UI-Kit';
 import style from './Task.module.scss';
 
 interface Props {

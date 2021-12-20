@@ -2,13 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigate, useParams} from 'react-router-dom';
 import {RootState} from 'ReduxStore/types/rootState';
-import {Button, IconSVG} from 'UI-Kit';
-import {IconNameEnum} from 'UI-Kit/IconSVG/IconSVG';
-import cn from 'classnames';
-import style from './TaskEditPage.module.scss';
+import {Button, IconSVG, IconNameEnum} from 'UI-Kit';
 import {DataTask} from 'ReduxStore/reducers/taskState';
 import {updateTaskAction} from 'ReduxStore/actions/taskAction';
 import validateInput from 'utils/validateInput';
+import cn from 'classnames';
+import style from './TaskEditPage.module.scss';
 
 const TaskEditPage: React.FC = () => {
   const params = useParams();

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Button} from 'UI-Kit';
 import style from './FieldFormInput.module.scss';
 
@@ -23,7 +23,7 @@ const FieldFormInput: React.FC<Prop> = ({
 }) => {
   const editFormRef = React.useRef() as React.MutableRefObject<HTMLFormElement>;
 
-  React.useEffect(() => {
+  useEffect(() => {
     const closeEditFormIfClickOutside = (e: MouseEvent) => {
       if (
         edit &&

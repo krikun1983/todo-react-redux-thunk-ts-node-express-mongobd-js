@@ -1,20 +1,19 @@
 import React, {useEffect, useState} from 'react';
+import {NavLink, useNavigate, useSearchParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   addChildAction,
   updateCategoryAction,
 } from 'ReduxStore/actions/categoryAction';
-import FieldFormInput from 'Components/Main/FieldFormInput/FieldFormInput';
-import CategoryChild from './CategoryChild/CategoryChild';
-import {Button, IconSVG} from 'UI-Kit';
-import {IconNameEnum} from 'UI-Kit/IconSVG/IconSVG';
-import validateInput from 'utils/validateInput';
-import style from './Category.module.scss';
 import {RootState} from 'ReduxStore/types/rootState';
-import maxIds from 'utils/maxIds';
 import {DataCategory} from 'ReduxStore/reducers/categoryState';
-import {NavLink, useNavigate, useSearchParams} from 'react-router-dom';
-import ConfirmModal from 'Components/ConfirmModal/ConfirmModal';
+import {Button, IconNameEnum, IconSVG} from 'UI-Kit';
+import validateInput from 'utils/validateInput';
+import maxIds from 'utils/maxIds';
+import FieldFormInput from 'Components/Main/FieldFormInput';
+import CategoryChild from './CategoryChild';
+import ConfirmModal from 'Components/ConfirmModal';
+import style from './Category.module.scss';
 
 interface Props {
   id: number;

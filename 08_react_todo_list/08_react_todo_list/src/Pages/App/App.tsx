@@ -1,9 +1,9 @@
-import HomePage from 'Pages/HomePage/HomePages';
-import NotFoundPage from 'Pages/NotFoundPage/NotFoundPage';
-import TaskEditPage from 'Pages/TaskEditPage/TaskEditPage';
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
-import Loader from 'UI-Kit/Loader/Loader';
+import HomePage from 'Pages/HomePage';
+import TaskEditPage from 'Pages/TaskEditPage';
+import NotFoundPage from 'Pages/NotFoundPage';
+import {Loader} from 'UI-Kit';
 
 const App: React.FC = () => {
   return (
