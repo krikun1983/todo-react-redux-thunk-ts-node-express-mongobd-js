@@ -3,7 +3,7 @@ import {
   findIdsForDel,
   getDataCategoryStateClone,
   getDataIdsStateWithoutIdsDel,
-} from 'ReduxStore/utils/services';
+} from 'ReduxStore/utils/utils';
 
 export interface DataCategory {
   category: string;
