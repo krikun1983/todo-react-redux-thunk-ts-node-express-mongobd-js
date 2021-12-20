@@ -1,16 +1,14 @@
 import React, {memo} from 'react';
 import {useSelector} from 'react-redux';
-import {DataCategory} from 'ReduxStore/reducers/categoryState';
 import {RootState} from 'ReduxStore/types/rootState';
 import Category from '..';
 import style from './CategoryChild.module.scss';
 
 interface Prop {
   list: number[];
-  onDelCategory: (currentCategory: DataCategory) => void;
 }
 
-const CategoryChild: React.FC<Prop> = ({list, onDelCategory}) => {
+const CategoryChild: React.FC<Prop> = ({list}) => {
   const {dataCategoryState} = useSelector(
     (state: RootState) => state.dataCategoryState,
   );
@@ -25,7 +23,6 @@ const CategoryChild: React.FC<Prop> = ({list, onDelCategory}) => {
             parentId={dataCategoryState[idChildren].parentId}
             category={dataCategoryState[idChildren].category}
             listChild={dataCategoryState[idChildren].children}
-            onDelCategory={onDelCategory}
           />
         );
       })}

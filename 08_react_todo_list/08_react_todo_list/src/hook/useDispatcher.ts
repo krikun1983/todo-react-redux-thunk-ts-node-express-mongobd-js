@@ -14,7 +14,18 @@ import {
   isShowDoneTasksAction,
 } from 'ReduxStore/reducers/taskState';
 
-const useDispatcher = () => {
+interface DispatchMemo {
+  setDoneTaskAction: (id: number) => void;
+  setAddTaskAction: (task: DataTask) => void;
+  setUpdateTaskAction: (task: DataTask) => void;
+  setShowDoneTasksAction: (isShowTasksDone: boolean) => void;
+  setAddCategoryAction: (category: DataCategory) => void;
+  setAddChildAction: (category: DataCategory) => void;
+  setUpdateCategoryAction: (category: DataCategory) => void;
+  setDelCategoryAction: (category: DataCategory) => void;
+}
+
+const useDispatcher = (): DispatchMemo => {
   const dispatch = useDispatch();
 
   return useMemo(

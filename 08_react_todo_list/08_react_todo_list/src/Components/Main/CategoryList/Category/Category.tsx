@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {NavLink, useNavigate, useSearchParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {RootState} from 'ReduxStore/types/rootState';
-import {DataCategory} from 'ReduxStore/reducers/categoryState';
 import {Button, IconNameEnum, IconSVG} from 'UI-Kit';
 import validateInput from 'utils/validateInput';
 import maxIds from 'utils/maxIds';
@@ -17,17 +16,11 @@ interface Props {
   category: string;
   parentId: number | null;
   listChild: number[];
-  onDelCategory: (currentCategory: DataCategory) => void;
 }
 
-const Category: React.FC<Props> = ({
-  id,
-  category,
-  parentId,
-  listChild,
-  onDelCategory,
-}) => {
-  const {setAddChildAction, setUpdateCategoryAction} = useDispatcher();
+const Category: React.FC<Props> = ({id, category, parentId, listChild}) => {
+  const {setAddChildAction, setUpdateCategoryAction, setDelCategoryAction} =
+    useDispatcher();
 
   const {dataIdsState} = useSelector((state: RootState) => state.dataIdsState);
 
@@ -56,38 +49,44 @@ const Category: React.FC<Props> = ({
     setValueAddChild(nameNewChild);
   };
 
-  const handleAddChildSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setAddChild(false);
-    if (!errorAddChild && valueAddChild.trim().length) {
-      setAddChildAction({
-        category: valueAddChild,
-        parentId: id,
-        children: [],
-        id: maxIds(dataIdsState),
-      });
-      setValueAddChild('');
-    }
-  };
+  const handleAddChildSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setAddChild(false);
+      if (!errorAddChild && valueAddChild.trim().length) {
+        setAddChildAction({
+          category: valueAddChild,
+          parentId: id,
+          children: [],
+          id: maxIds(dataIdsState),
+        });
+        setValueAddChild('');
+      }
+    },
+    [valueAddChild],
+  );
 
   const handleEditCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameCategory = e.target.value;
     setValueEditCategory(nameCategory);
   };
 
-  const handleEditCategorySubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setEditCategory(false);
+  const handleEditCategorySubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setEditCategory(false);
 
-    if (!errorEditCategory && valueEditCategory.trim().length) {
-      setUpdateCategoryAction({
-        category: valueEditCategory,
-        parentId: parentId,
-        children: listChild,
-        id,
-      });
-    }
-  };
+      if (!errorEditCategory && valueEditCategory.trim().length) {
+        setUpdateCategoryAction({
+          category: valueEditCategory,
+          parentId: parentId,
+          children: listChild,
+          id,
+        });
+      }
+    },
+    [valueEditCategory],
+  );
 
   useEffect(() => {
     validateInput(valueEditCategory, setErrorEditCategory);
@@ -102,15 +101,15 @@ const Category: React.FC<Props> = ({
     setIsOpenFormDelCategory(false);
   };
 
-  const handleDelCategory = () => {
-    onDelCategory({
+  const handleDelCategory = useCallback(() => {
+    setDelCategoryAction({
       category,
       parentId,
       children: listChild,
       id,
     });
     navigate('/');
-  };
+  }, [setDelCategoryAction]);
 
   return (
     <li>
@@ -219,7 +218,7 @@ const Category: React.FC<Props> = ({
         </>
       )}
       {showChildren && listChild.length > 0 && (
-        <CategoryChild list={listChild} onDelCategory={onDelCategory} />
+        <CategoryChild list={listChild} />
       )}
       {isOpenFormDelCategory && (
         <ConfirmModal

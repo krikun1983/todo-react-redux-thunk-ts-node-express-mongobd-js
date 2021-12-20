@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {Link, useLocation, useParams} from 'react-router-dom';
 import {useSearchParams} from 'react-router-dom';
@@ -60,18 +60,21 @@ const Header: React.FC = () => {
     setValueCategory(text);
   };
 
-  const handleSubmitCategory = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!errorCategory && valueCategory.trim().length) {
-      setAddCategoryAction({
-        category: valueCategory,
-        parentId: null,
-        children: [],
-        id: maxIds(dataIdsState),
-      });
-    }
-    setValueCategory('');
-  };
+  const handleSubmitCategory = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      if (!errorCategory && valueCategory.trim().length) {
+        setAddCategoryAction({
+          category: valueCategory,
+          parentId: null,
+          children: [],
+          id: maxIds(dataIdsState),
+        });
+      }
+      setValueCategory('');
+    },
+    [valueCategory],
+  );
 
   const handleTask = (e: React.ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
