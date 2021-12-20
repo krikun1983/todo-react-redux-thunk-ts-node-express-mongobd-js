@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {isDoneTaskAction} from 'ReduxStore/reducers/taskState';
@@ -45,4 +45,4 @@ const Task: React.FC<Props> = ({title, categoryId, isDone, id}) => {
   );
 };
 
-export default Task;
+export default memo(Task);
