@@ -14,16 +14,15 @@ import useDispatcher from 'hook/useDispatcher';
 interface Props {
   id: number;
 }
+
 const Category: React.FC<Props> = ({id}) => {
   const {setAddChildAction, setUpdateCategoryAction, setDelCategoryAction} =
     useDispatcher();
 
   const {dataIdsState} = useSelector((state: RootState) => state.dataIdsState);
-  const {dataCategoryState} = useSelector(
-    (state: RootState) => state.dataCategoryState,
+  const currentCategory = useSelector(
+    (state: RootState) => state.dataCategoryState.dataCategoryState[id],
   );
-
-  const item = dataCategoryState[id];
 
   const [searchTask] = useSearchParams();
   const querySearch = searchTask.get('search');
@@ -37,7 +36,7 @@ const Category: React.FC<Props> = ({id}) => {
 
   const [editCategory, setEditCategory] = useState<boolean>(false);
   const [valueEditCategory, setValueEditCategory] = useState<string>(
-    item.category,
+    currentCategory.category,
   );
   const [errorEditCategory, setErrorEditCategory] = useState<boolean>(false);
   const [isOpenFormDelCategory, setIsOpenFormDelCategory] =
@@ -82,8 +81,8 @@ const Category: React.FC<Props> = ({id}) => {
       if (!errorEditCategory && valueEditCategory.trim().length) {
         setUpdateCategoryAction({
           category: valueEditCategory,
-          parentId: item.parentId,
-          children: item.children,
+          parentId: currentCategory.parentId,
+          children: currentCategory.children,
           id,
         });
       }
@@ -106,9 +105,9 @@ const Category: React.FC<Props> = ({id}) => {
 
   const handleDelCategory = useCallback(() => {
     setDelCategoryAction({
-      category: item.category,
-      parentId: item.parentId,
-      children: item.children,
+      category: currentCategory.category,
+      parentId: currentCategory.parentId,
+      children: currentCategory.children,
       id,
     });
     navigate('/');
@@ -128,7 +127,7 @@ const Category: React.FC<Props> = ({id}) => {
               className={style.category__link}
             >
               <div className={style.category__btn_child}>
-                {item.children.length > 0 && (
+                {currentCategory.children.length > 0 && (
                   <Button
                     styles="btn_icon_bg_white"
                     type="button"
@@ -148,7 +147,9 @@ const Category: React.FC<Props> = ({id}) => {
                   />
                 )}
               </div>
-              <div className={style.category__name}>{item.category}</div>
+              <div className={style.category__name}>
+                {currentCategory.category}
+              </div>
               <div className={style.category__btns}>
                 <Button
                   title="Edit name category"
@@ -220,8 +221,8 @@ const Category: React.FC<Props> = ({id}) => {
           />
         </>
       )}
-      {showChildren && dataCategoryState[id].children.length > 0 && (
-        <CategoryChild list={dataCategoryState[id].children} />
+      {showChildren && currentCategory.children.length > 0 && (
+        <CategoryChild list={currentCategory.children} />
       )}
       {isOpenFormDelCategory && (
         <ConfirmModal
