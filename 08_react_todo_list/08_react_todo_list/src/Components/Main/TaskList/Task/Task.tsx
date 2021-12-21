@@ -1,5 +1,5 @@
 import useDispatcher from 'hook/useDispatcher';
-import React, {memo} from 'react';
+import React, {memo, useCallback} from 'react';
 import {Link} from 'react-router-dom';
 import {IconNameEnum, IconSVG} from 'UI-Kit';
 import style from './Task.module.scss';
@@ -14,9 +14,9 @@ interface Props {
 const Task: React.FC<Props> = ({title, categoryId, isDone, id}) => {
   const {setDoneTaskAction} = useDispatcher();
 
-  const handleChecked = () => {
+  const handleChecked = useCallback(() => {
     setDoneTaskAction(id);
-  };
+  }, [setDoneTaskAction]);
 
   return (
     <>

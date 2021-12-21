@@ -14,13 +14,7 @@ const CategoryList: React.FC = () => {
       {dataIdsState.map(id => {
         return (
           dataCategoryState[id].parentId === null && (
-            <Category
-              key={id}
-              id={id}
-              parentId={dataCategoryState[id].parentId}
-              category={dataCategoryState[id].category}
-              listChild={dataCategoryState[id].children}
-            />
+            <Category key={id} id={id} />
           )
         );
       })}

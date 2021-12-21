@@ -13,16 +13,17 @@ import useDispatcher from 'hook/useDispatcher';
 
 interface Props {
   id: number;
-  category: string;
-  parentId: number | null;
-  listChild: number[];
 }
-
-const Category: React.FC<Props> = ({id, category, parentId, listChild}) => {
+const Category: React.FC<Props> = ({id}) => {
   const {setAddChildAction, setUpdateCategoryAction, setDelCategoryAction} =
     useDispatcher();
 
   const {dataIdsState} = useSelector((state: RootState) => state.dataIdsState);
+  const {dataCategoryState} = useSelector(
+    (state: RootState) => state.dataCategoryState,
+  );
+
+  const item = dataCategoryState[id];
 
   const [searchTask] = useSearchParams();
   const querySearch = searchTask.get('search');
@@ -35,7 +36,9 @@ const Category: React.FC<Props> = ({id, category, parentId, listChild}) => {
   const [errorAddChild, setErrorAddChild] = useState<boolean>(false);
 
   const [editCategory, setEditCategory] = useState<boolean>(false);
-  const [valueEditCategory, setValueEditCategory] = useState<string>(category);
+  const [valueEditCategory, setValueEditCategory] = useState<string>(
+    item.category,
+  );
   const [errorEditCategory, setErrorEditCategory] = useState<boolean>(false);
   const [isOpenFormDelCategory, setIsOpenFormDelCategory] =
     useState<boolean>(false);
@@ -79,8 +82,8 @@ const Category: React.FC<Props> = ({id, category, parentId, listChild}) => {
       if (!errorEditCategory && valueEditCategory.trim().length) {
         setUpdateCategoryAction({
           category: valueEditCategory,
-          parentId: parentId,
-          children: listChild,
+          parentId: item.parentId,
+          children: item.children,
           id,
         });
       }
@@ -103,9 +106,9 @@ const Category: React.FC<Props> = ({id, category, parentId, listChild}) => {
 
   const handleDelCategory = useCallback(() => {
     setDelCategoryAction({
-      category,
-      parentId,
-      children: listChild,
+      category: item.category,
+      parentId: item.parentId,
+      children: item.children,
       id,
     });
     navigate('/');
@@ -125,7 +128,7 @@ const Category: React.FC<Props> = ({id, category, parentId, listChild}) => {
               className={style.category__link}
             >
               <div className={style.category__btn_child}>
-                {listChild.length > 0 && (
+                {item.children.length > 0 && (
                   <Button
                     styles="btn_icon_bg_white"
                     type="button"
@@ -145,7 +148,7 @@ const Category: React.FC<Props> = ({id, category, parentId, listChild}) => {
                   />
                 )}
               </div>
-              <div className={style.category__name}>{category}</div>
+              <div className={style.category__name}>{item.category}</div>
               <div className={style.category__btns}>
                 <Button
                   title="Edit name category"
@@ -217,8 +220,8 @@ const Category: React.FC<Props> = ({id, category, parentId, listChild}) => {
           />
         </>
       )}
-      {showChildren && listChild.length > 0 && (
-        <CategoryChild list={listChild} />
+      {showChildren && dataCategoryState[id].children.length > 0 && (
+        <CategoryChild list={dataCategoryState[id].children} />
       )}
       {isOpenFormDelCategory && (
         <ConfirmModal

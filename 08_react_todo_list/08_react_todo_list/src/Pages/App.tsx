@@ -3,7 +3,6 @@ import {Route, Routes} from 'react-router-dom';
 import HomePage from 'Pages/HomePage';
 import TaskEditPage from 'Pages/TaskEditPage';
 import NotFoundPage from 'Pages/NotFoundPage';
-import {Loader} from 'UI-Kit';
 
 const App: React.FC = () => {
   return (
@@ -18,7 +17,6 @@ const App: React.FC = () => {
         />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      <Loader />
     </>
   );
 };
