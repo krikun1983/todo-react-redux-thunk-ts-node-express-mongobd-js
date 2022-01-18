@@ -1,0 +1,110 @@
+@import 'style/variable';
+
+.header {
+  max-width: $mobile-max;
+  margin: 10px auto;
+  padding: 15px 0;
+  border-bottom: 2px solid $color-gray-light;
+
+  &__top {
+    @include flex-between();
+
+    h1 {
+      a {
+        color: $color-cyan-dark;
+        text-decoration: none;
+      }
+    }
+  }
+
+  &__filter {
+    width: 40%;
+    @include flex-between();
+
+    label {
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    input {
+      padding-right: 22px;
+    }
+
+    &_btn {
+      position: relative;
+
+      button {
+        position: absolute;
+        top: 3px;
+        right: 5px;
+      }
+    }
+  }
+
+  &__filter.end {
+    justify-content: flex-end;
+  }
+
+  &__medium {
+    margin: 10px 0;
+
+    progress {
+      width: 100%;
+      height: 10px;
+      background-color: #00fefd;
+      border: 0;
+      border-radius: 10px;
+    }
+
+    progress::-webkit-progress-bar {
+      width: 100%;
+      background-color: $color-gray-light;
+      border-radius: 10px;
+    }
+
+    progress::-webkit-progress-value {
+      width: 100%;
+      background-color: $color-cyan-dark;
+      border-radius: 10px;
+    }
+  }
+
+  &__bottom {
+    &_form {
+      @include flex-between();
+
+      &_input {
+        width: 240px;
+        height: 25px;
+        padding: 0 5px;
+      }
+    }
+    @include flex-between();
+  }
+}
+
+.checkbox {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.checkbox + label::before {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  background-repeat: no-repeat;
+  border: 1px solid $color-cyan-dark;
+  border-radius: $border-radius-small;
+  cursor: pointer;
+  content: '';
+}
+
+.checkbox:checked + label::before {
+  background-color: $color-cyan-dark;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
+  background-position: 1px;
+  background-size: 14px;
+  border-color: $color-cyan-dark;
+}

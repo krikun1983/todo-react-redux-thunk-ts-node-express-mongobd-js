@@ -1,0 +1,14 @@
+{
+  "name": "09_react_node_js",
+  "version": "1.0.0",
+  "description": "NodeJs + ReactTS",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "cd ./client && npm run build && cd ../server && npm run start:dev",
+    "start:dev": "cd ./client && npm i && npm run build && cd ../server && npm i && npm run start:dev"
+  },
+  "keywords": [],
+  "author": "Stanislav Akhmadeev",
+  "license": "ISC"
+}

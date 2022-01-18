@@ -1,0 +1,10 @@
+@import 'style/variable';
+
+.task__title {
+  color: $color-cyan-dark;
+}
+
+.task__title_gray {
+  color: $color-gray;
+  text-decoration: line-through;
+}

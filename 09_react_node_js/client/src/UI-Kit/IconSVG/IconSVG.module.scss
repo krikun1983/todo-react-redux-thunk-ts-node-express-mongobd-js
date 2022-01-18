@@ -1,0 +1,41 @@
+@import 'style/variable';
+
+.gray_white {
+  fill: $color-gray;
+
+  &:hover {
+    transition: 0.2s;
+    fill: $color-white;
+  }
+}
+
+.white_white {
+  fill: $color-white;
+
+  &:hover {
+    transition: 0.2s;
+    fill: $color-white;
+  }
+}
+
+.blue_dark_gray {
+  fill: $color-cyan-dark;
+
+  &:hover {
+    transition: 0.2s;
+    fill: $color-gray;
+  }
+}
+
+.gray_blue_dark {
+  fill: $color-gray;
+
+  &:hover {
+    transition: 0.2s;
+    fill: $color-cyan-dark;
+  }
+}
+
+.gray_blue_dark_disabled {
+  fill: $color-gray;
+}
