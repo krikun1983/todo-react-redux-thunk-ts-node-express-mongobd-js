@@ -1,0 +1,5 @@
+{
+  "port": 5000,
+  "DB_URL": "mongodb+srv://administrator:12345@cluster0.inz7e.mongodb.net/node_js_server?retryWrites=true&w=majority",
+  "secret": "SECRET_KEY_RANDOM"
+}

@@ -1,0 +1,29 @@
+@import 'style/variable';
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  max-width: $mobile-max;
+  margin: 10px auto;
+
+  &__username {
+    margin-right: 15px;
+    color: $color-cyan-dark;
+    font-weight: bold;
+  }
+
+  &__links {
+    padding: 10px 15px;
+    color: $color-cyan-dark;
+    font-weight: bold;
+    text-decoration: none;
+    border: 1px solid $color-cyan-dark;
+    border-radius: 4px;
+
+    &:hover {
+      color: $color-white;
+      background-color: $color-cyan-dark;
+    }
+  }
+}

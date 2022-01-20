@@ -3,7 +3,6 @@
 .header {
   max-width: $mobile-max;
   margin: 10px auto;
-  padding: 15px 0;
   border-bottom: 2px solid $color-gray-light;
 
   &__top {
@@ -70,6 +69,8 @@
   }
 
   &__bottom {
+    padding-bottom: 10px;
+
     &_form {
       @include flex-between();
 

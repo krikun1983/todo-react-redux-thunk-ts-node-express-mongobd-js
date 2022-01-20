@@ -1,0 +1,30 @@
+@import 'style/variable';
+
+.login {
+  width: 100%;
+  max-width: $mobile-max;
+  height: 100%;
+  margin: 10px auto;
+  padding: 15px 0;
+
+  &__content {
+    max-width: 60%;
+    margin: auto;
+    padding: 15px;
+    background-color: $color-light;
+
+    label {
+      font-weight: bold;
+    }
+  }
+
+  &__heading {
+    margin: 10px 0;
+    color: $color-cyan-dark;
+  }
+
+  &__errors {
+    margin-top: 10px;
+    color: $color-error-dark;
+  }
+}

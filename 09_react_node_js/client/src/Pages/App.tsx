@@ -1,23 +1,21 @@
 import React from 'react';
-import {Route, Routes} from 'react-router-dom';
-import HomePage from 'Pages/HomePage';
-import TaskEditPage from 'Pages/TaskEditPage';
-import NotFoundPage from 'Pages/NotFoundPage';
+import useAuth from 'hook/useAuth';
+import {useRoutes} from 'router/routes';
+import AuthContext from 'context/authContext';
+import Navbar from 'Components/Header/Navbar';
 
 const App: React.FC = () => {
+  const {login, logout, token, userId, userName} = useAuth();
+  const isAuthenticated = !!token;
+
+  const routes = useRoutes(isAuthenticated);
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/categories/:id" element={<HomePage />} />
-        <Route path="/categories/:id?search=:value" element={<HomePage />} />
-        <Route
-          path="/categories/:categoryId/task/:id/edit"
-          element={<TaskEditPage />}
-        />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </>
+    <AuthContext.Provider
+      value={{login, logout, token, userId, userName, isAuthenticated}}
+    >
+      {isAuthenticated && <Navbar />}
+      <>{routes}</>
+    </AuthContext.Provider>
   );
 };
 
