@@ -1,7 +1,26 @@
 import {Dispatch} from 'redux';
 import {ASYNC_TIME} from './constants/asyncTime';
 import {toggleLoaderAction} from 'ReduxStore/reducers/loaderState';
-import {addTask, DataTask, updateTask} from 'ReduxStore/reducers/taskState';
+import {
+  addTask,
+  addTasksDefault,
+  DataTask,
+  updateTask,
+} from 'ReduxStore/reducers/taskState';
+
+export const addTaskDefaultAction =
+  (token: string) =>
+  (dispatch: Dispatch): void => {
+    dispatch(toggleLoaderAction(true));
+
+    fetch('http://localhost:5000/api/tasks', {
+      headers: {Authorization: `Bearer ${token}`},
+    })
+      .then(response => response.json())
+      .then(json => dispatch(addTasksDefault(json)));
+
+    dispatch(toggleLoaderAction(false));
+  };
 
 export const addTaskAction =
   (task: DataTask) =>

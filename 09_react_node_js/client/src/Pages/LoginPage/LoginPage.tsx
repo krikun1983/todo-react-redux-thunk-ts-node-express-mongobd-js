@@ -1,10 +1,4 @@
-import React, {
-  ChangeEvent,
-  FormEvent,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import React, {ChangeEvent, FormEvent, useContext, useState} from 'react';
 import useHTTP from 'hook/useHTTP';
 import {Button} from 'UI-Kit';
 import MyInput from 'UI-Kit/Input/MyInput';
@@ -15,10 +9,6 @@ const LoginPage: React.FC = () => {
   const auth = useContext(AuthContext);
   const {loading, errors, request, clearError} = useHTTP();
   const [form, setForm] = useState({username: '', password: ''});
-
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
 
   const handleAuth = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({...form, [e.target.name]: e.target.value});

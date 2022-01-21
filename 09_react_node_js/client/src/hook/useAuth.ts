@@ -1,8 +1,12 @@
 import {useCallback, useState, useEffect} from 'react';
+import {useDispatch} from 'react-redux';
+import {clearCategoryOutput} from 'ReduxStore/reducers/categoryState';
+import {clearTasksOutput} from 'ReduxStore/reducers/taskState';
 
 const storageName = 'userData';
 
 const useAuth = () => {
+  const dispatch = useDispatch();
   const [token, setToken] = useState('');
   const [userId, setUserId] = useState('');
   const [userName, setUserName] = useState('');
@@ -26,6 +30,8 @@ const useAuth = () => {
     setToken('');
     setUserId('');
     setUserName('');
+    dispatch(clearCategoryOutput());
+    dispatch(clearTasksOutput());
 
     localStorage.removeItem(storageName);
   }, []);

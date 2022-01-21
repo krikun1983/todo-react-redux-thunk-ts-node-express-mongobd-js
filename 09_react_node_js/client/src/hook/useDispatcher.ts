@@ -3,10 +3,15 @@ import {useDispatch} from 'react-redux';
 import {
   addCategoryAction,
   addChildAction,
+  addDefaultCategoryAction,
   delCategoryAction,
   updateCategoryAction,
 } from 'ReduxStore/actions/categoryAction';
-import {addTaskAction, updateTaskAction} from 'ReduxStore/actions/taskAction';
+import {
+  addTaskAction,
+  addTaskDefaultAction,
+  updateTaskAction,
+} from 'ReduxStore/actions/taskAction';
 import {DataCategory} from 'ReduxStore/reducers/categoryState';
 import {
   DataTask,
@@ -16,9 +21,11 @@ import {
 
 interface DispatchMemo {
   setDoneTaskAction: (id: number) => void;
+  setAddDefaultTasksAction: (token: string) => void;
   setAddTaskAction: (task: DataTask) => void;
   setUpdateTaskAction: (task: DataTask) => void;
   setShowDoneTasksAction: (isShowTasksDone: boolean) => void;
+  setAddDefaultCategoryAction: (token: string) => void;
   setAddCategoryAction: (category: DataCategory) => void;
   setAddChildAction: (category: DataCategory) => void;
   setUpdateCategoryAction: (category: DataCategory) => void;
@@ -31,10 +38,14 @@ const useDispatcher = (): DispatchMemo => {
   return useMemo(
     () => ({
       setDoneTaskAction: (id: number) => dispatch(isDoneTaskAction(id)),
+      setAddDefaultTasksAction: (token: string) =>
+        dispatch(addTaskDefaultAction(token)),
       setAddTaskAction: (task: DataTask) => dispatch(addTaskAction(task)),
       setUpdateTaskAction: (task: DataTask) => dispatch(updateTaskAction(task)),
       setShowDoneTasksAction: (isShowTasksDone: boolean) =>
         dispatch(isShowDoneTasksAction(isShowTasksDone)),
+      setAddDefaultCategoryAction: (token: string) =>
+        dispatch(addDefaultCategoryAction(token)),
       setAddCategoryAction: (category: DataCategory) =>
         dispatch(addCategoryAction(category)),
       setAddChildAction: (category: DataCategory) =>
@@ -50,8 +61,10 @@ const useDispatcher = (): DispatchMemo => {
       addChildAction,
       updateTaskAction,
       updateCategoryAction,
+      addDefaultCategoryAction,
       addCategoryAction,
       addTaskAction,
+      addTaskDefaultAction,
       delCategoryAction,
     ],
   );

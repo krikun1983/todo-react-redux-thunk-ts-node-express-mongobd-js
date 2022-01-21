@@ -1,4 +1,6 @@
-import React from 'react';
+import AuthContext from 'context/authContext';
+import useDispatcher from 'hook/useDispatcher';
+import React, {useContext, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import {useLocation, useParams, useSearchParams} from 'react-router-dom';
 import {RootState} from 'ReduxStore/types/rootState';
@@ -11,6 +13,9 @@ const TaskList: React.FC = () => {
   const [searchTask] = useSearchParams();
   const querySearch = searchTask.get('search');
 
+  const {setAddDefaultTasksAction} = useDispatcher();
+  const auth = useContext(AuthContext);
+
   const {dataTaskState} = useSelector(
     (state: RootState) => state.dataTaskState,
   );
@@ -20,6 +25,10 @@ const TaskList: React.FC = () => {
   const {isShowTasksDone} = useSelector(
     (state: RootState) => state.isShowTasksDone,
   );
+
+  useEffect(() => {
+    setAddDefaultTasksAction(auth.token);
+  }, []);
 
   let arrayIdsTask = [...dataTaskIdsState];
 

@@ -1,5 +1,3 @@
-import DATA_TASKS from '../data/data-tasks.json';
-
 export interface DataTask {
   title: string;
   description: string;
@@ -14,18 +12,26 @@ export interface DataTaskState {
   isShowTasksDone: boolean;
 }
 
+export interface DataTaskDefault {
+  ids: number[];
+  tasks: {[key: number]: DataTask};
+  isShowTasksDone: boolean;
+}
+
 export interface DataTaskAction {
   type: string;
-  payload: DataTask | number | boolean;
+  payload: DataTask | number | boolean | DataTaskDefault;
 }
 
 const initialSTate: DataTaskState = {
-  dataTaskState: {...DATA_TASKS.tasks},
-  dataTaskIdsState: [...DATA_TASKS.ids],
-  isShowTasksDone: DATA_TASKS.isShowTasksDone,
+  dataTaskState: {},
+  dataTaskIdsState: [],
+  isShowTasksDone: true,
 };
 
 export enum DataTaskActionTypes {
+  ADD_TASK_DEFAULT = 'ADD_TASK_DEFAULT',
+  CLEAR_TASKS_OUTPUT = 'CLEAR_TASKS_OUTPUT',
   ADD_TASK = 'ADD_TASK',
   SHOW_DONE_TASKS = 'SHOW_DONE_TASKS',
   UPDATE_IS_DONE_TASK = 'UPDATE_IS_DONE_TASK',
@@ -37,6 +43,26 @@ export const tasksReducer = (
   action: DataTaskAction,
 ): DataTaskState => {
   switch (action.type) {
+    case DataTaskActionTypes.ADD_TASK_DEFAULT:
+      return {
+        ...state,
+        dataTaskIdsState: [
+          ...state.dataTaskIdsState,
+          ...(action.payload as DataTaskDefault).ids,
+        ],
+        dataTaskState: {
+          ...state.dataTaskState,
+          ...(action.payload as DataTaskDefault).tasks,
+        },
+        isShowTasksDone: (action.payload as DataTaskDefault).isShowTasksDone,
+      };
+    case DataTaskActionTypes.CLEAR_TASKS_OUTPUT:
+      return {
+        ...state,
+        dataTaskIdsState: [],
+        dataTaskState: {},
+        isShowTasksDone: true,
+      };
     case DataTaskActionTypes.ADD_TASK:
       return {
         ...state,
@@ -79,6 +105,15 @@ export const tasksReducer = (
       return state;
   }
 };
+
+export const addTasksDefault = (payload: DataTaskDefault): DataTaskAction => ({
+  type: DataTaskActionTypes.ADD_TASK_DEFAULT,
+  payload,
+});
+
+export const clearTasksOutput = () => ({
+  type: DataTaskActionTypes.CLEAR_TASKS_OUTPUT,
+});
 
 export const addTask = (payload: DataTask): DataTaskAction => ({
   type: DataTaskActionTypes.ADD_TASK,

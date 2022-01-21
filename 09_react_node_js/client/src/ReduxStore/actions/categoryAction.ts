@@ -3,11 +3,26 @@ import {ASYNC_TIME} from './constants/asyncTime';
 import {
   addCategory,
   addCategoryChild,
+  addDefaultCategory,
   DataCategory,
   delCategory,
   updateCategory,
 } from 'ReduxStore/reducers/categoryState';
 import {toggleLoaderAction} from 'ReduxStore/reducers/loaderState';
+
+export const addDefaultCategoryAction =
+  (token: string) =>
+  (dispatch: Dispatch): void => {
+    dispatch(toggleLoaderAction(true));
+
+    fetch('http://localhost:5000/api/categories', {
+      headers: {Authorization: `Bearer ${token}`},
+    })
+      .then(response => response.json())
+      .then(json => dispatch(addDefaultCategory(json)));
+
+    dispatch(toggleLoaderAction(false));
+  };
 
 export const addCategoryAction =
   (category: DataCategory) =>

@@ -4,6 +4,8 @@ import jwt from 'jsonwebtoken';
 import config from 'config';
 import User from './models/User.js';
 import Role from './models/Role.js';
+import Category from './models/Category.js';
+import fs from 'fs';
 
 const generateAccessToken = (id, roles) => {
   const payload = {
@@ -60,8 +62,48 @@ class AuthController {
     return res.json(users);
   }
 
-  async getCategories(req, res) {
+  async createCategory(req, res) {
+    try {
+      const { category, parentId, children } = req.body;
+      const categoryNew = await Category.create({ category, parentId, children });
+      res.status(200).json(categoryNew);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
 
+  async getCategoryAll(req, res) {
+    try {
+      fs.readFile('./data_default/data_categories.json', 'utf8', (err, data) => {
+        if (err) {
+          console.log(`Error reading file from disk: ${err}`);
+        } else {
+          const databases = JSON.parse(data);
+          return res.json(databases);
+        }
+      });
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
+
+  async getTasksAll(req, res) {
+    try {
+      fs.readFile('./data_default/data_tasks.json', 'utf8', (err, data) => {
+        if (err) {
+          console.log(`Error reading file from disk: ${err}`);
+        } else {
+          const databases = JSON.parse(data);
+          return res.json(databases);
+        }
+      })
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
+
+
+  async getCategoryOne(req, res) {
   }
 }
 
