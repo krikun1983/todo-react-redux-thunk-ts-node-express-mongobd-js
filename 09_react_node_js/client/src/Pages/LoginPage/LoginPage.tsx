@@ -1,4 +1,11 @@
-import React, {ChangeEvent, FormEvent, useContext, useState} from 'react';
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import useHTTP from 'hook/useHTTP';
 import {Button} from 'UI-Kit';
 import MyInput from 'UI-Kit/Input/MyInput';
@@ -9,6 +16,12 @@ const LoginPage: React.FC = () => {
   const auth = useContext(AuthContext);
   const {loading, errors, request, clearError} = useHTTP();
   const [form, setForm] = useState({username: '', password: ''});
+  const usernameInputFocus =
+    useRef() as React.MutableRefObject<HTMLInputElement>;
+
+  useEffect(() => {
+    usernameInputFocus.current.focus();
+  }, []);
 
   const handleAuth = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({...form, [e.target.name]: e.target.value});
@@ -37,6 +50,7 @@ const LoginPage: React.FC = () => {
               type="text"
               name="username"
               onChange={handleAuth}
+              ref={usernameInputFocus}
             />
           </div>
           <div>
