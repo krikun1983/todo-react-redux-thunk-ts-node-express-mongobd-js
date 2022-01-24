@@ -16,7 +16,7 @@ const CategoryList: React.FC = () => {
   const auth = useContext(AuthContext);
 
   useEffect(() => {
-    setAddDefaultCategoryAction(auth.token);
+    setAddDefaultCategoryAction(auth.accessToken);
   }, []);
 
   return (

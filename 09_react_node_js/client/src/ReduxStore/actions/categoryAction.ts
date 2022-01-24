@@ -9,13 +9,14 @@ import {
   updateCategory,
 } from 'ReduxStore/reducers/categoryState';
 import {toggleLoaderAction} from 'ReduxStore/reducers/loaderState';
+import {BASE_URL} from './constants/base_URL';
 
 export const addDefaultCategoryAction =
   (token: string) =>
   (dispatch: Dispatch): void => {
     dispatch(toggleLoaderAction(true));
 
-    fetch('http://localhost:5000/api/categories', {
+    fetch(`${BASE_URL}/categories`, {
       headers: {Authorization: `Bearer ${token}`},
     })
       .then(response => response.json())

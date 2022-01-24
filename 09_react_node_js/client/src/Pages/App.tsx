@@ -5,13 +5,20 @@ import AuthContext from 'context/authContext';
 import Navbar from 'Components/Header/Navbar';
 
 const App: React.FC = () => {
-  const {login, logout, token, userId, userName} = useAuth();
-  const isAuthenticated = !!token;
+  const {login, logout, accessToken, userId, userName} = useAuth();
+  const isAuthenticated = !!accessToken;
 
   const routes = useRoutes(isAuthenticated);
   return (
     <AuthContext.Provider
-      value={{login, logout, token, userId, userName, isAuthenticated}}
+      value={{
+        login,
+        logout,
+        accessToken,
+        userId,
+        userName,
+        isAuthenticated,
+      }}
     >
       {isAuthenticated && <Navbar />}
       <>{routes}</>

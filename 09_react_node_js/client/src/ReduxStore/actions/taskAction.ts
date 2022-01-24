@@ -7,13 +7,14 @@ import {
   DataTask,
   updateTask,
 } from 'ReduxStore/reducers/taskState';
+import {BASE_URL} from './constants/base_URL';
 
 export const addTaskDefaultAction =
   (token: string) =>
   (dispatch: Dispatch): void => {
     dispatch(toggleLoaderAction(true));
 
-    fetch('http://localhost:5000/api/tasks', {
+    fetch(`${BASE_URL}/tasks`, {
       headers: {Authorization: `Bearer ${token}`},
     })
       .then(response => response.json())

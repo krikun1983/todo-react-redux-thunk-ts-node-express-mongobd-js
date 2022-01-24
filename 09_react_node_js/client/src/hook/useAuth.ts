@@ -7,12 +7,12 @@ const storageName = 'userData';
 
 const useAuth = () => {
   const dispatch = useDispatch();
-  const [token, setToken] = useState('');
+  const [accessToken, setAccessToken] = useState('');
   const [userId, setUserId] = useState('');
   const [userName, setUserName] = useState('');
 
-  const login = useCallback((jwtToken, id, user) => {
-    setToken(jwtToken);
+  const login = useCallback((jwtAccessToken, id, user) => {
+    setAccessToken(jwtAccessToken);
     setUserId(id);
     setUserName(user);
 
@@ -20,14 +20,14 @@ const useAuth = () => {
       storageName,
       JSON.stringify({
         userId: id,
-        token: jwtToken,
+        accessToken: jwtAccessToken,
         userName: user,
       }),
     );
   }, []);
 
   const logout = useCallback(() => {
-    setToken('');
+    setAccessToken('');
     setUserId('');
     setUserName('');
     dispatch(clearCategoryOutput());
@@ -39,12 +39,12 @@ const useAuth = () => {
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem(storageName) as string);
 
-    if (data && data.token) {
-      login(data.token, data.userId, data.userName);
+    if (data && data.accessToken) {
+      login(data.accessToken, data.userId, data.userName);
     }
   }, [login]);
 
-  return {login, logout, token, userId, userName};
+  return {login, logout, accessToken, userId, userName};
 };
 
 export default useAuth;

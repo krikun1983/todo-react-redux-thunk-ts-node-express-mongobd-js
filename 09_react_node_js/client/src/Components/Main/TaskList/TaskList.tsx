@@ -14,6 +14,7 @@ const TaskList: React.FC = () => {
   const querySearch = searchTask.get('search');
 
   const {setAddDefaultTasksAction} = useDispatcher();
+
   const auth = useContext(AuthContext);
 
   const {dataTaskState} = useSelector(
@@ -27,7 +28,7 @@ const TaskList: React.FC = () => {
   );
 
   useEffect(() => {
-    setAddDefaultTasksAction(auth.token);
+    setAddDefaultTasksAction(auth.accessToken);
   }, []);
 
   let arrayIdsTask = [...dataTaskIdsState];

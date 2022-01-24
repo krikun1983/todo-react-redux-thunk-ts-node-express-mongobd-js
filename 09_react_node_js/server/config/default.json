@@ -1,5 +1,15 @@
 {
   "port": 5000,
   "DB_URL": "mongodb+srv://administrator:12345@cluster0.inz7e.mongodb.net/node_js_server?retryWrites=true&w=majority",
-  "secret": "SECRET_KEY_RANDOM"
+  "jwtConfig": {
+    "access_secret": "jwt-secret-key",
+    "tokens": {
+      "access": {
+        "type": "access",
+        "expiresIn": "24h"
+      }
+    }
+  },
+  "baseUrl": "http://localhost:5000",
+  "clientUrl": "http://localhost:3000"
 }
