@@ -1,20 +1,18 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {useNavigate, useParams} from 'react-router-dom';
 import {RootState} from 'ReduxStore/types/rootState';
 import {Button, IconSVG, IconNameEnum} from 'UI-Kit';
-import {clearTasksOutput, DataTask} from 'ReduxStore/reducers/taskState';
+import {DataTask} from 'ReduxStore/reducers/taskState';
 import validateInput from 'utils/validateInput';
 import cn from 'classnames';
 import style from './TaskEditPage.module.scss';
 import useDispatcher from 'hook/useDispatcher';
 import AuthContext from 'context/authContext';
-import {clearCategoryOutput} from 'ReduxStore/reducers/categoryState';
 
 const TaskEditPage: React.FC = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const {setUpdateTaskAction} = useDispatcher();
 
@@ -67,15 +65,11 @@ const TaskEditPage: React.FC = () => {
         isDone: valueTask.isDone,
         _id: valueTask._id,
       });
-      dispatch(clearTasksOutput());
-      dispatch(clearCategoryOutput());
       navigate(`/categories/${params.categoryId}`);
     }
   };
 
   const handleSubmitFormChancel = () => {
-    dispatch(clearTasksOutput());
-    dispatch(clearCategoryOutput());
     navigate(`/categories/${params.categoryId}`);
   };
 

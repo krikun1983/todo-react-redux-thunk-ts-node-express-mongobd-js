@@ -6,6 +6,7 @@ import {
   DataTask,
   DataTaskBD,
   isDoneTask,
+  updateTask,
 } from 'ReduxStore/reducers/taskState';
 import {BASE_URL} from './constants/base_URL';
 
@@ -81,7 +82,9 @@ export const updateTaskAction =
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(task),
-    });
+    })
+      .then(response => response.json())
+      .then(json => dispatch(updateTask(json)));
 
     dispatch(toggleLoaderAction(false));
   };

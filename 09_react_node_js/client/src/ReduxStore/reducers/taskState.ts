@@ -38,6 +38,7 @@ export enum DataTaskActionTypes {
   ADD_TASK = 'ADD_TASK',
   SHOW_DONE_TASKS = 'SHOW_DONE_TASKS',
   UPDATE_IS_DONE_TASK = 'UPDATE_IS_DONE_TASK',
+  UPDATE_TASK = 'UPDATE_TASK',
 }
 
 export const tasksReducer = (
@@ -93,6 +94,16 @@ export const tasksReducer = (
           },
         },
       };
+    case DataTaskActionTypes.UPDATE_TASK:
+      return {
+        ...state,
+        dataTaskState: {
+          ...state.dataTaskState,
+          [(action.payload as DataTask)._id]: {
+            ...(action.payload as DataTask),
+          },
+        },
+      };
     default:
       return state;
   }
@@ -119,5 +130,10 @@ export const isShowDoneTasksAction = (payload: boolean): DataTaskAction => ({
 
 export const isDoneTask = (payload: string): DataTaskAction => ({
   type: DataTaskActionTypes.UPDATE_IS_DONE_TASK,
+  payload,
+});
+
+export const updateTask = (payload: DataTask): DataTaskAction => ({
+  type: DataTaskActionTypes.UPDATE_TASK,
   payload,
 });
