@@ -12,6 +12,28 @@ class CategoryController {
     }
   }
 
+  async createChildCategory(req, res, next) {
+    try {
+      const category = await categoryService.createChildCategory(req.body);
+
+      res.json(category);
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+
+  async updateCategory(req, res, next) {
+    try {
+      const category = await categoryService.updateCategory(req.body);
+
+      res.json(category);
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+
   async getCategoryAll(req, res, next) {
     try {
       const categories = await categoryService.getCategoryAll();

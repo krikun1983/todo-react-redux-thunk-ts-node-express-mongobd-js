@@ -38,8 +38,6 @@ export const addCategoryAction =
   (token: string, category: DataCategoryBD) =>
   (dispatch: Dispatch): void => {
     dispatch(toggleLoaderAction(true));
-    console.log(category);
-    console.log(JSON.stringify(category));
 
     fetch(`${BASE_URL}/categories/create`, {
       method: 'POST',
@@ -52,8 +50,8 @@ export const addCategoryAction =
       .then(response => response.json())
       .then(json => {
         dispatch(addCategory({...category, _id: json._id}));
-        console.log(json);
       });
+
     dispatch(toggleLoaderAction(false));
   };
 
@@ -82,13 +80,22 @@ export const delCategoryAction =
   };
 
 export const addChildAction =
-  (category: DataCategory) =>
+  (token: string, category: DataCategoryBD) =>
   (dispatch: Dispatch): void => {
     dispatch(toggleLoaderAction(true));
-    Promise.resolve().then(() => {
-      setTimeout(() => {
-        dispatch(addCategoryChild(category));
-        dispatch(toggleLoaderAction(false));
-      }, ASYNC_TIME);
-    });
+
+    fetch(`${BASE_URL}/categories/create/child`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(category),
+    })
+      .then(response => response.json())
+      .then(json => {
+        dispatch(addCategoryChild({...category, _id: json._id}));
+      });
+
+    dispatch(toggleLoaderAction(false));
   };

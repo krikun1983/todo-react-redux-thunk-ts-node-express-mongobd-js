@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {NavLink, useNavigate, useSearchParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {RootState} from 'ReduxStore/types/rootState';
@@ -10,6 +10,7 @@ import CategoryChild from './CategoryChild';
 import ConfirmModal from 'Components/ConfirmModal';
 import style from './Category.module.scss';
 import useDispatcher from 'hook/useDispatcher';
+import AuthContext from 'context/authContext';
 
 interface Props {
   id: string;
@@ -42,6 +43,8 @@ const Category: React.FC<Props> = ({id}) => {
   const [isOpenFormDelCategory, setIsOpenFormDelCategory] =
     useState<boolean>(false);
 
+  const auth = useContext(AuthContext);
+
   const handleShowChildren = () => {
     setShowChildren(!showChildren);
   };
@@ -56,12 +59,11 @@ const Category: React.FC<Props> = ({id}) => {
       e.preventDefault();
       setAddChild(false);
       if (!errorAddChild && valueAddChild.trim().length) {
-        // setAddChildAction({
-        //   category: valueAddChild,
-        //   parentId: id,
-        //   children: [],
-        //   id: maxIds(dataIdsState),
-        // });
+        setAddChildAction(auth.accessToken, {
+          category: valueAddChild,
+          parentId: id,
+          children: [],
+        });
         setValueAddChild('');
       }
     },

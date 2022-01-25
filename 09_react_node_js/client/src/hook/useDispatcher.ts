@@ -27,7 +27,7 @@ interface DispatchMemo {
   setShowDoneTasksAction: (isShowTasksDone: boolean) => void;
   setAddDefaultCategoryAction: (token: string) => void;
   setAddCategoryAction: (accessToken: string, category: DataCategoryBD) => void;
-  setAddChildAction: (category: DataCategory) => void;
+  setAddChildAction: (accessToken: string, category: DataCategoryBD) => void;
   setUpdateCategoryAction: (category: DataCategory) => void;
   setDelCategoryAction: (category: DataCategory) => void;
 }
@@ -48,8 +48,8 @@ const useDispatcher = (): DispatchMemo => {
         dispatch(addDefaultCategoryAction(token)),
       setAddCategoryAction: (accessToken: string, category: DataCategoryBD) =>
         dispatch(addCategoryAction(accessToken, category)),
-      setAddChildAction: (category: DataCategory) =>
-        dispatch(addChildAction(category)),
+      setAddChildAction: (accessToken: string, category: DataCategoryBD) =>
+        dispatch(addChildAction(accessToken, category)),
       setUpdateCategoryAction: (category: DataCategory) =>
         dispatch(updateCategoryAction(category)),
       setDelCategoryAction: (category: DataCategory) =>
