@@ -1,8 +1,11 @@
-export interface DataTask {
+export interface DataTaskBD {
   title: string;
   description: string;
   categoryId: string;
   isDone: boolean;
+}
+
+export interface DataTask extends DataTaskBD {
   _id: string;
 }
 

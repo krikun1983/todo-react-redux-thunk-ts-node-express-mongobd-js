@@ -1,7 +1,7 @@
 import { taskService } from './services/index.js';
 
-class CategoryController {
-  async createCategory(req, res, next) {
+class TaskController {
+  async createTask(req, res, next) {
     try {
       const task = await taskService.createTask(req.body);
 
@@ -12,7 +12,29 @@ class CategoryController {
     }
   }
 
-  async getCategoryAll(req, res, next) {
+  async updateTask(req, res, next) {
+    try {
+      const task = await taskService.updateTask(req.body);
+
+      res.json(task);
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+
+  async deleteTask(req, res, next) {
+    try {
+      const task = await taskService.deleteTask(req.body);
+
+      res.json(task);
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+
+  async getTaskAll(req, res, next) {
     try {
       const tasks = await taskService.getTaskAll();
 
@@ -23,4 +45,4 @@ class CategoryController {
   }
 }
 
-export default new CategoryController();
+export default new TaskController();

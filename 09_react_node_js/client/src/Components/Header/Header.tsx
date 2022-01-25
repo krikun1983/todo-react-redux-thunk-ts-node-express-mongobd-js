@@ -4,7 +4,6 @@ import {Link, useLocation, useParams} from 'react-router-dom';
 import {useSearchParams} from 'react-router-dom';
 import {RootState} from 'ReduxStore/types/rootState';
 import {Button, IconSVG, IconNameEnum} from 'UI-Kit';
-import maxIds from 'utils/maxIds';
 import validateInput from 'utils/validateInput';
 import cn from 'classnames';
 import style from './Header.module.scss';
@@ -20,7 +19,7 @@ const Header: React.FC = () => {
   const {dataTaskState} = useSelector(
     (state: RootState) => state.dataTaskState,
   );
-  const {dataIdsState} = useSelector((state: RootState) => state.dataIdsState);
+
   const {dataTaskIdsState} = useSelector(
     (state: RootState) => state.dataTaskIdsState,
   );
@@ -85,17 +84,16 @@ const Header: React.FC = () => {
   };
 
   const handleSubmitTask = (e: React.FormEvent<HTMLFormElement>) => {
-    //   e.preventDefault();
-    //   if (!errorTask && valueTask.trim().length && (params.id as string) > 0) {
-    //     setAddTaskAction({
-    //       title: valueTask,
-    //       description: '',
-    //       categoryId: params.id as string,
-    //       isDone: false,
-    //       id: maxIds(dataTaskIdsState),
-    //     });
-    //   }
-    //   setValueTask('');
+    e.preventDefault();
+    if (!errorTask && valueTask.trim().length && params.id !== '') {
+      setAddTaskAction(auth.accessToken, {
+        title: valueTask,
+        description: '',
+        categoryId: params.id as string,
+        isDone: false,
+      });
+    }
+    setValueTask('');
   };
 
   useEffect(() => {

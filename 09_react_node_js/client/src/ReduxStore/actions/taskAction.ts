@@ -5,20 +5,10 @@ import {
   addTask,
   addTasksDefault,
   DataTask,
+  DataTaskBD,
   updateTask,
 } from 'ReduxStore/reducers/taskState';
 import {BASE_URL} from './constants/base_URL';
-
-// "ids": [1, 2, 3, 4, 5, 6],
-//   "isShowTasksDone": true,
-//   "tasks": {
-//     "1": {
-//       "title": "Купить ноутбук",
-//       "description": "Посмотреть обзор на ноутбуки",
-//       "categoryId": 1,
-//       "isDone": false,
-//       "id": 1
-//     },
 
 export const addTaskDefaultAction =
   (token: string) =>
@@ -43,15 +33,22 @@ export const addTaskDefaultAction =
   };
 
 export const addTaskAction =
-  (task: DataTask) =>
+  (token: string, task: DataTaskBD) =>
   (dispatch: Dispatch): void => {
     dispatch(toggleLoaderAction(true));
-    Promise.resolve().then(() => {
-      setTimeout(() => {
-        dispatch(addTask(task));
-        dispatch(toggleLoaderAction(false));
-      }, ASYNC_TIME);
-    });
+
+    fetch(`${BASE_URL}/tasks/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(task),
+    })
+      .then(response => response.json())
+      .then(json => dispatch(addTask(json)));
+
+    dispatch(toggleLoaderAction(false));
   };
 
 export const updateTaskAction =
