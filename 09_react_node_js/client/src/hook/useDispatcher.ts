@@ -32,7 +32,7 @@ interface DispatchMemo {
     accessToken: string,
     category: DataCategory,
   ) => void;
-  setDelCategoryAction: (category: DataCategory) => void;
+  setDelCategoryAction: (accessToken: string, category: DataCategory) => void;
 }
 
 const useDispatcher = (): DispatchMemo => {
@@ -55,8 +55,8 @@ const useDispatcher = (): DispatchMemo => {
         dispatch(addChildAction(accessToken, category)),
       setUpdateCategoryAction: (accessToken: string, category: DataCategory) =>
         dispatch(updateCategoryAction(accessToken, category)),
-      setDelCategoryAction: (category: DataCategory) =>
-        dispatch(delCategoryAction(category)),
+      setDelCategoryAction: (accessToken: string, category: DataCategory) =>
+        dispatch(delCategoryAction(accessToken, category)),
     }),
     [
       isDoneTaskAction,

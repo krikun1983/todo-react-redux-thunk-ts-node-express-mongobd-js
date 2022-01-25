@@ -8,5 +8,6 @@ categoriesRouter.get('/', roleMiddleware(['ADMIN']), categoryController.getCateg
 categoriesRouter.post('/create', roleMiddleware(['ADMIN']), categoryController.createCategory);
 categoriesRouter.post('/create/child', roleMiddleware(['ADMIN']), categoryController.createChildCategory);
 categoriesRouter.post('/update', roleMiddleware(['ADMIN']), categoryController.updateCategory);
+categoriesRouter.post('/delete', roleMiddleware(['ADMIN']), categoryController.deleteCategory);
 
 export default categoriesRouter;

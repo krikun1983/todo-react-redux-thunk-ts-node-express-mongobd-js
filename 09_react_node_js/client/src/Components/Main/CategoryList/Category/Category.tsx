@@ -4,7 +4,6 @@ import {useSelector} from 'react-redux';
 import {RootState} from 'ReduxStore/types/rootState';
 import {Button, IconNameEnum, IconSVG} from 'UI-Kit';
 import validateInput from 'utils/validateInput';
-import maxIds from 'utils/maxIds';
 import FieldFormInput from 'Components/Main/FieldFormInput';
 import CategoryChild from './CategoryChild';
 import ConfirmModal from 'Components/ConfirmModal';
@@ -20,7 +19,6 @@ const Category: React.FC<Props> = ({id}) => {
   const {setAddChildAction, setUpdateCategoryAction, setDelCategoryAction} =
     useDispatcher();
 
-  const {dataIdsState} = useSelector((state: RootState) => state.dataIdsState);
   const currentCategory = useSelector(
     (state: RootState) => state.dataCategoryState.dataCategoryState[id],
   );
@@ -106,12 +104,12 @@ const Category: React.FC<Props> = ({id}) => {
   };
 
   const handleDelCategory = useCallback(() => {
-    // setDelCategoryAction({
-    //   category: currentCategory.category,
-    //   parentId: currentCategory.parentId,
-    //   children: currentCategory.children,
-    //   id,
-    // });
+    setDelCategoryAction(auth.accessToken, {
+      category: currentCategory.category,
+      parentId: currentCategory.parentId,
+      children: currentCategory.children,
+      _id: id,
+    });
     navigate('/');
   }, [setDelCategoryAction]);
 
