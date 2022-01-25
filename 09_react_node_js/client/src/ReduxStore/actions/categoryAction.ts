@@ -56,15 +56,24 @@ export const addCategoryAction =
   };
 
 export const updateCategoryAction =
-  (category: DataCategory) =>
+  (token: string, category: DataCategory) =>
   (dispatch: Dispatch): void => {
     dispatch(toggleLoaderAction(true));
-    Promise.resolve().then(() => {
-      setTimeout(() => {
-        dispatch(updateCategory(category));
-        dispatch(toggleLoaderAction(false));
-      }, ASYNC_TIME);
-    });
+
+    fetch(`${BASE_URL}/categories/update`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(category),
+    })
+      .then(response => response.json())
+      .then(json => {
+        dispatch(updateCategory(json));
+      });
+
+    dispatch(toggleLoaderAction(false));
   };
 
 export const delCategoryAction =

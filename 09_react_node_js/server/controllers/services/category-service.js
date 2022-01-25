@@ -17,6 +17,14 @@ class CategoryService {
     return createCategory;
   }
 
+  async updateCategory(category) {
+    if (!category._id) {
+      throw new Error('ID не был указан');
+    }
+    const updatedPost = await CategoryModel.findByIdAndUpdate(category._id, category, { new: true });
+    return updatedPost;
+  }
+
   async getCategoryAll() {
     const categories = await CategoryModel.find().sort({ "_id": -1 });
 

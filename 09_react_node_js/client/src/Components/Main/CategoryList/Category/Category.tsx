@@ -81,12 +81,12 @@ const Category: React.FC<Props> = ({id}) => {
       setEditCategory(false);
 
       if (!errorEditCategory && valueEditCategory.trim().length) {
-        // setUpdateCategoryAction({
-        //   category: valueEditCategory,
-        //   parentId: currentCategory.parentId,
-        //   children: currentCategory.children,
-        //   id,
-        // });
+        setUpdateCategoryAction(auth.accessToken, {
+          category: valueEditCategory,
+          parentId: currentCategory.parentId,
+          children: currentCategory.children,
+          _id: id,
+        });
       }
     },
     [valueEditCategory],

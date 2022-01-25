@@ -28,7 +28,10 @@ interface DispatchMemo {
   setAddDefaultCategoryAction: (token: string) => void;
   setAddCategoryAction: (accessToken: string, category: DataCategoryBD) => void;
   setAddChildAction: (accessToken: string, category: DataCategoryBD) => void;
-  setUpdateCategoryAction: (category: DataCategory) => void;
+  setUpdateCategoryAction: (
+    accessToken: string,
+    category: DataCategory,
+  ) => void;
   setDelCategoryAction: (category: DataCategory) => void;
 }
 
@@ -50,8 +53,8 @@ const useDispatcher = (): DispatchMemo => {
         dispatch(addCategoryAction(accessToken, category)),
       setAddChildAction: (accessToken: string, category: DataCategoryBD) =>
         dispatch(addChildAction(accessToken, category)),
-      setUpdateCategoryAction: (category: DataCategory) =>
-        dispatch(updateCategoryAction(category)),
+      setUpdateCategoryAction: (accessToken: string, category: DataCategory) =>
+        dispatch(updateCategoryAction(accessToken, category)),
       setDelCategoryAction: (category: DataCategory) =>
         dispatch(delCategoryAction(category)),
     }),
