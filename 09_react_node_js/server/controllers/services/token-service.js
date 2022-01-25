@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
-import TokenModel from '../models/TokenModel.js';
+import { TokenModel } from '../../models/index.js';
 import config from 'config';
-const { access_secret, refresh_secret, tokens } = config.get('jwtConfig');
+const { access_secret, tokens } = config.get('jwtConfig');
 
 class TokenService {
   generateTokens(payload) {

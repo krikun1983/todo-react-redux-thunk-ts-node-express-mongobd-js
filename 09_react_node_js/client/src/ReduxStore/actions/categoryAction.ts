@@ -5,6 +5,7 @@ import {
   addCategoryChild,
   addDefaultCategory,
   DataCategory,
+  DataCategoryBD,
   delCategory,
   updateCategory,
 } from 'ReduxStore/reducers/categoryState';
@@ -20,21 +21,40 @@ export const addDefaultCategoryAction =
       headers: {Authorization: `Bearer ${token}`},
     })
       .then(response => response.json())
-      .then(json => dispatch(addDefaultCategory(json)));
+      .then(json => {
+        const ids = json.map((category: DataCategory) => category._id);
+        const dataCategories = {} as {[key: string]: DataCategory};
+        json.forEach((category: DataCategory) => {
+          dataCategories[category._id] = {...category};
+        });
+        return {ids, dataCategories};
+      })
+      .then(categories => dispatch(addDefaultCategory(categories)));
 
     dispatch(toggleLoaderAction(false));
   };
 
 export const addCategoryAction =
-  (category: DataCategory) =>
+  (token: string, category: DataCategoryBD) =>
   (dispatch: Dispatch): void => {
     dispatch(toggleLoaderAction(true));
-    Promise.resolve().then(() => {
-      setTimeout(() => {
-        dispatch(addCategory(category));
-        dispatch(toggleLoaderAction(false));
-      }, ASYNC_TIME);
-    });
+    console.log(category);
+    console.log(JSON.stringify(category));
+
+    fetch(`${BASE_URL}/categories/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(category),
+    })
+      .then(response => response.json())
+      .then(json => {
+        dispatch(addCategory({...category, _id: json._id}));
+        console.log(json);
+      });
+    dispatch(toggleLoaderAction(false));
   };
 
 export const updateCategoryAction =

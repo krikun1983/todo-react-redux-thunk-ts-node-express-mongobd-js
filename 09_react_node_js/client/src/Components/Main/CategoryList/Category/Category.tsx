@@ -12,7 +12,7 @@ import style from './Category.module.scss';
 import useDispatcher from 'hook/useDispatcher';
 
 interface Props {
-  id: number;
+  id: string;
 }
 
 const Category: React.FC<Props> = ({id}) => {
@@ -56,12 +56,12 @@ const Category: React.FC<Props> = ({id}) => {
       e.preventDefault();
       setAddChild(false);
       if (!errorAddChild && valueAddChild.trim().length) {
-        setAddChildAction({
-          category: valueAddChild,
-          parentId: id,
-          children: [],
-          id: maxIds(dataIdsState),
-        });
+        // setAddChildAction({
+        //   category: valueAddChild,
+        //   parentId: id,
+        //   children: [],
+        //   id: maxIds(dataIdsState),
+        // });
         setValueAddChild('');
       }
     },
@@ -79,12 +79,12 @@ const Category: React.FC<Props> = ({id}) => {
       setEditCategory(false);
 
       if (!errorEditCategory && valueEditCategory.trim().length) {
-        setUpdateCategoryAction({
-          category: valueEditCategory,
-          parentId: currentCategory.parentId,
-          children: currentCategory.children,
-          id,
-        });
+        // setUpdateCategoryAction({
+        //   category: valueEditCategory,
+        //   parentId: currentCategory.parentId,
+        //   children: currentCategory.children,
+        //   id,
+        // });
       }
     },
     [valueEditCategory],
@@ -104,12 +104,12 @@ const Category: React.FC<Props> = ({id}) => {
   };
 
   const handleDelCategory = useCallback(() => {
-    setDelCategoryAction({
-      category: currentCategory.category,
-      parentId: currentCategory.parentId,
-      children: currentCategory.children,
-      id,
-    });
+    // setDelCategoryAction({
+    //   category: currentCategory.category,
+    //   parentId: currentCategory.parentId,
+    //   children: currentCategory.children,
+    //   id,
+    // });
     navigate('/');
   }, [setDelCategoryAction]);
 

@@ -12,7 +12,7 @@ import {
   addTaskDefaultAction,
   updateTaskAction,
 } from 'ReduxStore/actions/taskAction';
-import {DataCategory} from 'ReduxStore/reducers/categoryState';
+import {DataCategory, DataCategoryBD} from 'ReduxStore/reducers/categoryState';
 import {
   DataTask,
   isDoneTaskAction,
@@ -20,13 +20,13 @@ import {
 } from 'ReduxStore/reducers/taskState';
 
 interface DispatchMemo {
-  setDoneTaskAction: (id: number) => void;
+  setDoneTaskAction: (id: string) => void;
   setAddDefaultTasksAction: (token: string) => void;
   setAddTaskAction: (task: DataTask) => void;
   setUpdateTaskAction: (task: DataTask) => void;
   setShowDoneTasksAction: (isShowTasksDone: boolean) => void;
   setAddDefaultCategoryAction: (token: string) => void;
-  setAddCategoryAction: (category: DataCategory) => void;
+  setAddCategoryAction: (accessToken: string, category: DataCategoryBD) => void;
   setAddChildAction: (category: DataCategory) => void;
   setUpdateCategoryAction: (category: DataCategory) => void;
   setDelCategoryAction: (category: DataCategory) => void;
@@ -37,7 +37,7 @@ const useDispatcher = (): DispatchMemo => {
 
   return useMemo(
     () => ({
-      setDoneTaskAction: (id: number) => dispatch(isDoneTaskAction(id)),
+      setDoneTaskAction: (id: string) => dispatch(isDoneTaskAction(id)),
       setAddDefaultTasksAction: (token: string) =>
         dispatch(addTaskDefaultAction(token)),
       setAddTaskAction: (task: DataTask) => dispatch(addTaskAction(task)),
@@ -46,8 +46,8 @@ const useDispatcher = (): DispatchMemo => {
         dispatch(isShowDoneTasksAction(isShowTasksDone)),
       setAddDefaultCategoryAction: (token: string) =>
         dispatch(addDefaultCategoryAction(token)),
-      setAddCategoryAction: (category: DataCategory) =>
-        dispatch(addCategoryAction(category)),
+      setAddCategoryAction: (accessToken: string, category: DataCategoryBD) =>
+        dispatch(addCategoryAction(accessToken, category)),
       setAddChildAction: (category: DataCategory) =>
         dispatch(addChildAction(category)),
       setUpdateCategoryAction: (category: DataCategory) =>

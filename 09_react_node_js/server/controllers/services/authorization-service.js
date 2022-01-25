@@ -1,8 +1,7 @@
 import bcrypt from 'bcryptjs';
-import ApiError from '../exceptions/api-error.js';
-import RoleModel from '../models/RoleModel.js';
-import UserModel from '../models/UserModel.js';
-import tokenService from './token-service.js';
+import ApiError from '../../exceptions/api-error.js';
+import { RoleModel, UserModel } from '../../models/index.js';
+import { tokenService } from './index.js';
 
 const payload = (id, username, roles) => {
   return {
@@ -12,18 +11,22 @@ const payload = (id, username, roles) => {
   }
 }
 
-class UserService {
+class AuthorizationService {
   async registration(username, password) {
     const candidate = await UserModel.findOne({ username });
     if (candidate) {
       throw ApiError.BadRequest(`Пользователь с именем ${username} уже существует`);
     }
+
     const hashPassword = bcrypt.hashSync(password, 7);
     const userRole = await RoleModel.findOne({ value: "ADMIN" });
+
     const user = await UserModel.create({ username, password: hashPassword, roles: [userRole.value] });
     await user.save();
+
     const tokens = tokenService.generateTokens(payload(user._id, user.username, user.roles));
     await tokenService.saveToken(payload(user._id, user.username, user.roles).id, tokens.accessToken);
+
     return { ...tokens, user: payload(user._id, user.username, user.roles) };
   }
 
@@ -32,12 +35,15 @@ class UserService {
     if (!user) {
       throw ApiError.BadRequest(`Пользователь ${username} не найден`);
     }
+
     const validPassword = bcrypt.compareSync(password, user.password)
     if (!validPassword) {
       throw ApiError.BadRequest(`Введен неверный пароль`);
     }
+
     const tokens = tokenService.generateTokens(payload(user._id, user.username, user.roles));
     await tokenService.saveToken(payload(user._id, user.username, user.roles).id, tokens.accessToken);
+
     return { ...tokens, user: payload(user._id, user.username, user.roles) };
   }
 
@@ -46,9 +52,10 @@ class UserService {
     return token;
   }
 
-  async getCategoryAll() {
-
+  async getUsers() {
+    const users = await UserModel.find();
+    return users;
   }
 }
 
-export default new UserService();
+export default new AuthorizationService();

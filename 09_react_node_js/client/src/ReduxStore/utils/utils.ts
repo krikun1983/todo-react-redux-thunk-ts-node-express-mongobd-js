@@ -1,10 +1,10 @@
 import {DataCategory} from 'ReduxStore/reducers/categoryState';
 
 export const findIdsForDel = (
-  arrOfIdsDel: number[],
-  objCategoriesState: {[key: number]: DataCategory},
-  payloadId: number,
-): number[] => {
+  arrOfIdsDel: string[],
+  objCategoriesState: {[key: string]: DataCategory},
+  payloadId: string,
+): string[] => {
   if (objCategoriesState[payloadId].children.length > 0) {
     arrOfIdsDel.push(payloadId);
     objCategoriesState[payloadId].children.forEach(id => {
@@ -17,15 +17,15 @@ export const findIdsForDel = (
 };
 
 export const getDataIdsStateWithoutIdsDel = (
-  arrIdsState: number[],
-  arrOfIdsDel: number[],
-): number[] =>
+  arrIdsState: string[],
+  arrOfIdsDel: string[],
+): string[] =>
   arrIdsState.reduce((acc, ids) => {
     if (!arrOfIdsDel.includes(ids)) {
       acc.push(ids);
     }
     return acc;
-  }, [] as number[]);
+  }, [] as string[]);
 
 export const getDataCategoryStateClone = (
   objCategoriesState: {[key: number]: DataCategory},
@@ -35,16 +35,20 @@ export const getDataCategoryStateClone = (
     JSON.stringify(objCategoriesState),
   );
 
-  if (objCategoriesStateClone[objPayload.id].parentId !== null) {
-    objCategoriesStateClone[objPayload.parentId as number].children.splice(
-      objCategoriesStateClone[objPayload.parentId as number].children.indexOf(
-        objPayload.id,
+  if (objCategoriesStateClone[objPayload._id].parentId !== null) {
+    objCategoriesStateClone[objPayload.parentId as string].children.splice(
+      objCategoriesStateClone[objPayload.parentId as string].children.indexOf(
+        objPayload._id,
       ),
       1,
     );
   }
 
-  const arrOfIdsDel = findIdsForDel([], objCategoriesStateClone, objPayload.id);
+  const arrOfIdsDel = findIdsForDel(
+    [],
+    objCategoriesStateClone,
+    objPayload._id,
+  );
   arrOfIdsDel.forEach(id => {
     delete objCategoriesStateClone[id];
   });

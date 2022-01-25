@@ -54,7 +54,7 @@ const TaskList: React.FC = () => {
       {location.pathname !== '/' &&
         arrayIdsTask.map(id => {
           return (
-            dataTaskState[id].categoryId === +(params.id as string) && (
+            dataTaskState[id].categoryId === params.id && (
               <li key={id} className={style.task}>
                 <Task id={id} />
               </li>

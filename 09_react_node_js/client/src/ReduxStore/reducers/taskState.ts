@@ -1,26 +1,26 @@
 export interface DataTask {
   title: string;
   description: string;
-  categoryId: number;
+  categoryId: string;
   isDone: boolean;
-  id: number;
+  _id: string;
 }
 
 export interface DataTaskState {
-  dataTaskState: {[key: number]: DataTask};
-  dataTaskIdsState: number[];
+  dataTaskState: {[key: string]: DataTask};
+  dataTaskIdsState: string[];
   isShowTasksDone: boolean;
 }
 
 export interface DataTaskDefault {
-  ids: number[];
-  tasks: {[key: number]: DataTask};
+  ids: string[];
+  tasks: {[key: string]: DataTask};
   isShowTasksDone: boolean;
 }
 
 export interface DataTaskAction {
   type: string;
-  payload: DataTask | number | boolean | DataTaskDefault;
+  payload: DataTask | string | boolean | DataTaskDefault;
 }
 
 const initialSTate: DataTaskState = {
@@ -67,12 +67,12 @@ export const tasksReducer = (
       return {
         ...state,
         dataTaskIdsState: [
-          (action.payload as DataTask).id,
+          (action.payload as DataTask)._id,
           ...state.dataTaskIdsState,
         ],
         dataTaskState: {
           ...state.dataTaskState,
-          [(action.payload as DataTask).id]: action.payload as DataTask,
+          [(action.payload as DataTask)._id]: action.payload as DataTask,
         },
       };
     case DataTaskActionTypes.SHOW_DONE_TASKS:
@@ -85,9 +85,9 @@ export const tasksReducer = (
         ...state,
         dataTaskState: {
           ...state.dataTaskState,
-          [action.payload as number]: {
-            ...state.dataTaskState[action.payload as number],
-            isDone: !state.dataTaskState[action.payload as number].isDone,
+          [action.payload as string]: {
+            ...state.dataTaskState[action.payload as string],
+            isDone: !state.dataTaskState[action.payload as string].isDone,
           },
         },
       };
@@ -96,7 +96,7 @@ export const tasksReducer = (
         ...state,
         dataTaskState: {
           ...state.dataTaskState,
-          [(action.payload as DataTask).id]: {
+          [(action.payload as DataTask)._id]: {
             ...(action.payload as DataTask),
           },
         },
@@ -125,7 +125,7 @@ export const isShowDoneTasksAction = (payload: boolean): DataTaskAction => ({
   payload,
 });
 
-export const isDoneTaskAction = (payload: number): DataTaskAction => ({
+export const isDoneTaskAction = (payload: string): DataTaskAction => ({
   type: DataTaskActionTypes.UPDATE_IS_DONE_TASK,
   payload,
 });

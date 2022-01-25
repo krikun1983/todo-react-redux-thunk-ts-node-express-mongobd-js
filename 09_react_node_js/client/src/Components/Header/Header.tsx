@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {Link, useLocation, useParams} from 'react-router-dom';
 import {useSearchParams} from 'react-router-dom';
@@ -9,6 +9,7 @@ import validateInput from 'utils/validateInput';
 import cn from 'classnames';
 import style from './Header.module.scss';
 import useDispatcher from 'hook/useDispatcher';
+import AuthContext from 'context/authContext';
 
 const Header: React.FC = () => {
   const {setShowDoneTasksAction, setAddCategoryAction, setAddTaskAction} =
@@ -37,6 +38,8 @@ const Header: React.FC = () => {
 
   const location = useLocation();
 
+  const auth = useContext(AuthContext);
+
   const handleChecked = () => {
     setShowDoneTasksAction(isShowTasksDone);
   };
@@ -64,11 +67,10 @@ const Header: React.FC = () => {
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (!errorCategory && valueCategory.trim().length) {
-        setAddCategoryAction({
+        setAddCategoryAction(auth.accessToken, {
           category: valueCategory,
           parentId: null,
           children: [],
-          id: maxIds(dataIdsState),
         });
       }
       setValueCategory('');
@@ -83,17 +85,17 @@ const Header: React.FC = () => {
   };
 
   const handleSubmitTask = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!errorTask && valueTask.trim().length && +(params.id as string) > 0) {
-      setAddTaskAction({
-        title: valueTask,
-        description: '',
-        categoryId: +(params.id as string),
-        isDone: false,
-        id: maxIds(dataTaskIdsState),
-      });
-    }
-    setValueTask('');
+    //   e.preventDefault();
+    //   if (!errorTask && valueTask.trim().length && (params.id as string) > 0) {
+    //     setAddTaskAction({
+    //       title: valueTask,
+    //       description: '',
+    //       categoryId: params.id as string,
+    //       isDone: false,
+    //       id: maxIds(dataTaskIdsState),
+    //     });
+    //   }
+    //   setValueTask('');
   };
 
   useEffect(() => {
@@ -103,7 +105,7 @@ const Header: React.FC = () => {
 
   const progressBar = [
     ...dataTaskIdsState.filter(
-      id => dataTaskState[id].categoryId === +(params.id as string),
+      id => dataTaskState[id].categoryId === params.id,
     ),
   ];
   const progressValue = [

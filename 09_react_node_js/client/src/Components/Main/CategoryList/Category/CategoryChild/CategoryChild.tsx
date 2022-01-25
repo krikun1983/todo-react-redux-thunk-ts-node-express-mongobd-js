@@ -3,7 +3,7 @@ import Category from '..';
 import style from './CategoryChild.module.scss';
 
 interface Prop {
-  list: number[];
+  list: string[];
 }
 
 const CategoryChild: React.FC<Prop> = ({list}) => {

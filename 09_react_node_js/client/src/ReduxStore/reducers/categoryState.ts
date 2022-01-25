@@ -4,21 +4,24 @@ import {
   getDataIdsStateWithoutIdsDel,
 } from 'ReduxStore/utils/utils';
 
-export interface DataCategory {
+export interface DataCategoryBD {
   category: string;
-  parentId: null | number;
-  children: number[];
-  id: number;
+  parentId: null | string;
+  children: string[];
+}
+
+export interface DataCategory extends DataCategoryBD {
+  _id: string;
 }
 
 export interface DataCategoryState {
-  dataCategoryState: {[key: number]: DataCategory};
-  dataIdsState: number[];
+  dataCategoryState: {[key: string]: DataCategory};
+  dataIdsState: string[];
 }
 
 export interface DataCategoryDefault {
-  data_categories: {[key: number]: DataCategory};
-  ids: number[];
+  dataCategories: {[key: string]: DataCategory};
+  ids: string[];
 }
 
 export interface DataCategoryAction {
@@ -54,7 +57,7 @@ export const categoryReducer = (
         ],
         dataCategoryState: {
           ...state.dataCategoryState,
-          ...(action.payload as DataCategoryDefault).data_categories,
+          ...(action.payload as DataCategoryDefault).dataCategories,
         },
       };
     case DataCategoryActionTypes.CLEAR_CATEGORIES_OUTPUT:
@@ -67,12 +70,13 @@ export const categoryReducer = (
       return {
         ...state,
         dataIdsState: [
-          (action.payload as DataCategory).id,
+          (action.payload as DataCategory)._id,
           ...state.dataIdsState,
         ],
         dataCategoryState: {
           ...state.dataCategoryState,
-          [(action.payload as DataCategory).id]: action.payload as DataCategory,
+          [(action.payload as DataCategory)._id]:
+            action.payload as DataCategory,
         },
       };
     case DataCategoryActionTypes.UPDATE_CATEGORY:
@@ -80,8 +84,8 @@ export const categoryReducer = (
         ...state,
         dataCategoryState: {
           ...state.dataCategoryState,
-          [(action.payload as DataCategory).id]: {
-            ...state.dataCategoryState[(action.payload as DataCategory).id],
+          [(action.payload as DataCategory)._id]: {
+            ...state.dataCategoryState[(action.payload as DataCategory)._id],
             category: (action.payload as DataCategory).category,
           },
         },
@@ -95,7 +99,7 @@ export const categoryReducer = (
             findIdsForDel(
               [],
               state.dataCategoryState,
-              (action.payload as DataCategory).id,
+              (action.payload as DataCategory)._id,
             ),
           ),
         ],
@@ -111,19 +115,20 @@ export const categoryReducer = (
         ...state,
         dataIdsState: [
           ...state.dataIdsState,
-          (action.payload as DataCategory).id,
+          (action.payload as DataCategory)._id,
         ],
         dataCategoryState: {
           ...state.dataCategoryState,
-          [(action.payload as DataCategory).id]: action.payload as DataCategory,
-          [(action.payload as DataCategory).parentId as number]: {
+          [(action.payload as DataCategory)._id]:
+            action.payload as DataCategory,
+          [(action.payload as DataCategory).parentId as string]: {
             ...state.dataCategoryState[
-              (action.payload as DataCategory).parentId as number
+              (action.payload as DataCategory).parentId as string
             ],
             children: [
-              (action.payload as DataCategory).id,
+              (action.payload as DataCategory)._id,
               ...state.dataCategoryState[
-                (action.payload as DataCategory).parentId as number
+                (action.payload as DataCategory).parentId as string
               ].children,
             ],
           },

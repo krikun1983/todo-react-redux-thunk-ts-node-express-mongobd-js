@@ -22,12 +22,12 @@ const TaskEditPage: React.FC = () => {
   const {dataCategoryState} = useSelector(
     (state: RootState) => state.dataCategoryState,
   );
-  const taskCurrent = dataTaskState[+(params.id as string)];
+  const taskCurrent = dataTaskState[params.id as string];
 
   const [valueTask, setValueTask] = useState<DataTask>(taskCurrent);
   const [errorTaskTitle, setErrorTaskTitle] = useState<boolean>(false);
 
-  const handleTaskMove = (choiceIdCategory: number) => {
+  const handleTaskMove = (choiceIdCategory: string) => {
     setValueTask(prev => ({...prev, categoryId: choiceIdCategory}));
   };
 
@@ -54,13 +54,13 @@ const TaskEditPage: React.FC = () => {
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!errorTaskTitle && valueTask.title.trim().length) {
-      setUpdateTaskAction({
-        title: valueTask.title,
-        description: valueTask.description.trim(),
-        categoryId: valueTask.categoryId,
-        isDone: valueTask.isDone,
-        id: valueTask.id,
-      });
+      // setUpdateTaskAction({
+      //   title: valueTask.title,
+      //   description: valueTask.description.trim(),
+      //   categoryId: valueTask.categoryId,
+      //   isDone: valueTask.isDone,
+      //   id: valueTask.id,
+      // });
       navigate(`/categories/${params.categoryId}`);
     }
   };
@@ -81,8 +81,8 @@ const TaskEditPage: React.FC = () => {
                   key={ids}
                   className={cn(
                     style.edit__categories_item,
-                    dataCategoryState[ids].id === valueTask.categoryId &&
-                      style.edit__categories_item_active,
+                    // dataCategoryState[ids]._id === valueTask.categoryId &&
+                    //   style.edit__categories_item_active,
                   )}
                 >
                   <h3 className={style.edit__categories_item_name}>
@@ -91,16 +91,17 @@ const TaskEditPage: React.FC = () => {
                   <Button
                     styles="btn_icon_bg_white"
                     type="button"
-                    onClick={() => handleTaskMove(dataCategoryState[ids].id)}
+                    // onClick={() => handleTaskMove(dataCategoryState[ids].id)}
                     icon={
                       <IconSVG
                         name={IconNameEnum.CHOICE}
                         width="26"
                         height="26"
                         className={
-                          dataCategoryState[ids].id === valueTask.categoryId
-                            ? 'blue_dark_gray'
-                            : 'gray_blue_dark'
+                          'blue_dark_gray'
+                          // dataCategoryState[ids].id === valueTask.categoryId
+                          //   ? 'blue_dark_gray'
+                          //   : 'gray_blue_dark'
                         }
                       />
                     }

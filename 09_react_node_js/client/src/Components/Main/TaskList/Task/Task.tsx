@@ -7,7 +7,7 @@ import {IconNameEnum, IconSVG} from 'UI-Kit';
 import style from './Task.module.scss';
 
 interface Props {
-  id: number;
+  id: string;
 }
 
 const Task: React.FC<Props> = ({id}) => {
@@ -18,7 +18,7 @@ const Task: React.FC<Props> = ({id}) => {
   const {setDoneTaskAction} = useDispatcher();
 
   const handleChecked = useCallback(() => {
-    setDoneTaskAction(id);
+    // setDoneTaskAction(id);
   }, [setDoneTaskAction]);
 
   return (

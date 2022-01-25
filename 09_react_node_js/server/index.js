@@ -1,9 +1,9 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import config from 'config';
-import router from './router/authRouter.js';
 import cors from 'cors';
-import ErrorMiddleware from './middlewares/error-middlevare.js';
+import { errorMiddleware } from './middlewares/index.js';
+import { authorizationRouter, categoriesRouter, tasksRouter } from './routers/index.js';
 
 const PORT = process.env.PORT || config.get('port');
 
@@ -16,12 +16,16 @@ app.use(cors({
 }));
 
 app.use('/', express.static('../client/build'));
-app.use('/api', router);
+
+app.use('/api', authorizationRouter);
+app.use('/api/categories', categoriesRouter);
+app.use('/api/tasks', tasksRouter);
+
 app.get('*', (req, res) => {
   res.redirect('/');
 });
 
-app.use(ErrorMiddleware);
+app.use(errorMiddleware);
 
 const start = async () => {
   try {
