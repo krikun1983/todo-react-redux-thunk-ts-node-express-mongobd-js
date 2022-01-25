@@ -1,12 +1,11 @@
 import {Dispatch} from 'redux';
-import {ASYNC_TIME} from './constants/asyncTime';
 import {toggleLoaderAction} from 'ReduxStore/reducers/loaderState';
 import {
   addTask,
   addTasksDefault,
   DataTask,
   DataTaskBD,
-  updateTask,
+  isDoneTask,
 } from 'ReduxStore/reducers/taskState';
 import {BASE_URL} from './constants/base_URL';
 
@@ -51,14 +50,38 @@ export const addTaskAction =
     dispatch(toggleLoaderAction(false));
   };
 
-export const updateTaskAction =
-  (task: DataTask) =>
+export const isDoneTaskAction =
+  (token: string, id: string) =>
   (dispatch: Dispatch): void => {
     dispatch(toggleLoaderAction(true));
-    Promise.resolve().then(() => {
-      setTimeout(() => {
-        dispatch(updateTask(task));
-        dispatch(toggleLoaderAction(false));
-      }, ASYNC_TIME);
+
+    fetch(`${BASE_URL}/tasks/isDone`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({_id: id}),
+    })
+      .then(response => response.json())
+      .then(json => dispatch(isDoneTask(json._id)));
+
+    dispatch(toggleLoaderAction(false));
+  };
+
+export const updateTaskAction =
+  (token: string, task: DataTask) =>
+  (dispatch: Dispatch): void => {
+    dispatch(toggleLoaderAction(true));
+
+    fetch(`${BASE_URL}/tasks/update`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(task),
     });
+
+    dispatch(toggleLoaderAction(false));
   };

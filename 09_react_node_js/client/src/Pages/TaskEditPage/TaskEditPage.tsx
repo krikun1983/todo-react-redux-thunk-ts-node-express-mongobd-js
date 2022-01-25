@@ -1,17 +1,20 @@
-import React, {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
+import React, {useContext, useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {useNavigate, useParams} from 'react-router-dom';
 import {RootState} from 'ReduxStore/types/rootState';
 import {Button, IconSVG, IconNameEnum} from 'UI-Kit';
-import {DataTask} from 'ReduxStore/reducers/taskState';
+import {clearTasksOutput, DataTask} from 'ReduxStore/reducers/taskState';
 import validateInput from 'utils/validateInput';
 import cn from 'classnames';
 import style from './TaskEditPage.module.scss';
 import useDispatcher from 'hook/useDispatcher';
+import AuthContext from 'context/authContext';
+import {clearCategoryOutput} from 'ReduxStore/reducers/categoryState';
 
 const TaskEditPage: React.FC = () => {
   const params = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {setUpdateTaskAction} = useDispatcher();
 
@@ -22,6 +25,9 @@ const TaskEditPage: React.FC = () => {
   const {dataCategoryState} = useSelector(
     (state: RootState) => state.dataCategoryState,
   );
+
+  const auth = useContext(AuthContext);
+
   const taskCurrent = dataTaskState[params.id as string];
 
   const [valueTask, setValueTask] = useState<DataTask>(taskCurrent);
@@ -54,18 +60,22 @@ const TaskEditPage: React.FC = () => {
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!errorTaskTitle && valueTask.title.trim().length) {
-      // setUpdateTaskAction({
-      //   title: valueTask.title,
-      //   description: valueTask.description.trim(),
-      //   categoryId: valueTask.categoryId,
-      //   isDone: valueTask.isDone,
-      //   id: valueTask.id,
-      // });
+      setUpdateTaskAction(auth.accessToken, {
+        title: valueTask.title,
+        description: valueTask.description.trim(),
+        categoryId: valueTask.categoryId,
+        isDone: valueTask.isDone,
+        _id: valueTask._id,
+      });
+      dispatch(clearTasksOutput());
+      dispatch(clearCategoryOutput());
       navigate(`/categories/${params.categoryId}`);
     }
   };
 
   const handleSubmitFormChancel = () => {
+    dispatch(clearTasksOutput());
+    dispatch(clearCategoryOutput());
     navigate(`/categories/${params.categoryId}`);
   };
 
@@ -81,8 +91,8 @@ const TaskEditPage: React.FC = () => {
                   key={ids}
                   className={cn(
                     style.edit__categories_item,
-                    // dataCategoryState[ids]._id === valueTask.categoryId &&
-                    //   style.edit__categories_item_active,
+                    dataCategoryState[ids]._id === valueTask.categoryId &&
+                      style.edit__categories_item_active,
                   )}
                 >
                   <h3 className={style.edit__categories_item_name}>
@@ -91,17 +101,16 @@ const TaskEditPage: React.FC = () => {
                   <Button
                     styles="btn_icon_bg_white"
                     type="button"
-                    // onClick={() => handleTaskMove(dataCategoryState[ids].id)}
+                    onClick={() => handleTaskMove(dataCategoryState[ids]._id)}
                     icon={
                       <IconSVG
                         name={IconNameEnum.CHOICE}
                         width="26"
                         height="26"
                         className={
-                          'blue_dark_gray'
-                          // dataCategoryState[ids].id === valueTask.categoryId
-                          //   ? 'blue_dark_gray'
-                          //   : 'gray_blue_dark'
+                          dataCategoryState[ids]._id === valueTask.categoryId
+                            ? 'blue_dark_gray'
+                            : 'gray_blue_dark'
                         }
                       />
                     }

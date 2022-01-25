@@ -6,7 +6,7 @@ const tasksRouter = new Router();
 
 tasksRouter.get('/', roleMiddleware(['ADMIN']), taskController.getTaskAll);
 tasksRouter.post('/create', roleMiddleware(['ADMIN']), taskController.createTask);
+tasksRouter.post('/isDone', roleMiddleware(['ADMIN']), taskController.isDoneTask);
 tasksRouter.post('/update', roleMiddleware(['ADMIN']), taskController.updateTask);
-tasksRouter.post('/delete', roleMiddleware(['ADMIN']), taskController.deleteTask);
 
 export default tasksRouter;

@@ -12,9 +12,9 @@ class TaskController {
     }
   }
 
-  async updateTask(req, res, next) {
+  async isDoneTask(req, res, next) {
     try {
-      const task = await taskService.updateTask(req.body);
+      const task = await taskService.isDoneTask(req.body);
 
       res.json(task);
     } catch (error) {
@@ -23,9 +23,9 @@ class TaskController {
     }
   }
 
-  async deleteTask(req, res, next) {
+  async updateTask(req, res, next) {
     try {
-      const task = await taskService.deleteTask(req.body);
+      const task = await taskService.updateTask(req.body);
 
       res.json(task);
     } catch (error) {

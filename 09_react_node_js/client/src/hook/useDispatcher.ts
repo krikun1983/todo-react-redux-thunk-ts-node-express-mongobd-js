@@ -10,21 +10,21 @@ import {
 import {
   addTaskAction,
   addTaskDefaultAction,
+  isDoneTaskAction,
   updateTaskAction,
 } from 'ReduxStore/actions/taskAction';
 import {DataCategory, DataCategoryBD} from 'ReduxStore/reducers/categoryState';
 import {
   DataTask,
   DataTaskBD,
-  isDoneTaskAction,
   isShowDoneTasksAction,
 } from 'ReduxStore/reducers/taskState';
 
 interface DispatchMemo {
-  setDoneTaskAction: (id: string) => void;
+  setDoneTaskAction: (token: string, id: string) => void;
   setAddDefaultTasksAction: (token: string) => void;
   setAddTaskAction: (token: string, task: DataTaskBD) => void;
-  setUpdateTaskAction: (task: DataTask) => void;
+  setUpdateTaskAction: (token: string, task: DataTask) => void;
   setShowDoneTasksAction: (isShowTasksDone: boolean) => void;
   setAddDefaultCategoryAction: (token: string) => void;
   setAddCategoryAction: (accessToken: string, category: DataCategoryBD) => void;
@@ -41,12 +41,14 @@ const useDispatcher = (): DispatchMemo => {
 
   return useMemo(
     () => ({
-      setDoneTaskAction: (id: string) => dispatch(isDoneTaskAction(id)),
+      setDoneTaskAction: (token: string, id: string) =>
+        dispatch(isDoneTaskAction(token, id)),
       setAddDefaultTasksAction: (token: string) =>
         dispatch(addTaskDefaultAction(token)),
       setAddTaskAction: (token: string, task: DataTaskBD) =>
         dispatch(addTaskAction(token, task)),
-      setUpdateTaskAction: (task: DataTask) => dispatch(updateTaskAction(task)),
+      setUpdateTaskAction: (token: string, task: DataTask) =>
+        dispatch(updateTaskAction(token, task)),
       setShowDoneTasksAction: (isShowTasksDone: boolean) =>
         dispatch(isShowDoneTasksAction(isShowTasksDone)),
       setAddDefaultCategoryAction: (token: string) =>

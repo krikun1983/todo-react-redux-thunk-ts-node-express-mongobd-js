@@ -8,16 +8,31 @@ class TaskService {
     return createTask;
   }
 
-  async updateTask(task) {
+  async isDoneTask(id) {
+    if (!id) {
+      throw new Error('ID не был указан');
+    }
 
+    const task = await TaskModel.findById(id);
+    task.isDone = !task.isDone;
+    const updatedTask = await TaskModel.findByIdAndUpdate(id, task, { new: true });
+
+    return updatedTask;
   }
 
-  async deleteTask(task) {
+  async updateTask(task) {
+    if (!task._id) {
+      throw new Error('ID не был указан');
+    }
 
+    const updatedTask = await TaskModel.findByIdAndUpdate(task._id, task, { new: true });
+
+    return updatedTask;
   }
 
   async getTaskAll() {
     const tasks = await TaskModel.find().sort({ "_id": -1 });
+
     return tasks;
   }
 };

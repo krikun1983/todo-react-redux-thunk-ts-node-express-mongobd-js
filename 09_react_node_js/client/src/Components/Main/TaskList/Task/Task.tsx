@@ -1,5 +1,6 @@
+import AuthContext from 'context/authContext';
 import useDispatcher from 'hook/useDispatcher';
-import React, {memo, useCallback} from 'react';
+import React, {memo, useCallback, useContext} from 'react';
 import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {RootState} from 'ReduxStore/types/rootState';
@@ -17,8 +18,10 @@ const Task: React.FC<Props> = ({id}) => {
 
   const {setDoneTaskAction} = useDispatcher();
 
+  const auth = useContext(AuthContext);
+
   const handleChecked = useCallback(() => {
-    // setDoneTaskAction(id);
+    setDoneTaskAction(auth.accessToken, id);
   }, [setDoneTaskAction]);
 
   return (
