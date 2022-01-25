@@ -1,3 +1,4 @@
+import ApiError from '../../exceptions/api-error.js';
 import { TaskModel } from '../../models/index.js';
 
 class TaskService {
@@ -10,7 +11,7 @@ class TaskService {
 
   async isDoneTask(id) {
     if (!id) {
-      throw new Error('ID не был указан');
+      throw ApiError.BadRequest(`ID not specified`);
     }
 
     const task = await TaskModel.findById(id);
@@ -22,7 +23,7 @@ class TaskService {
 
   async updateTask(task) {
     if (!task._id) {
-      throw new Error('ID не был указан');
+      throw ApiError.BadRequest(`ID not specified`);
     }
 
     const updatedTask = await TaskModel.findByIdAndUpdate(task._id, task, { new: true });

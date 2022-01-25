@@ -29,7 +29,7 @@ const roleMiddleware = (roles) => {
       })
 
       if (!hasRole) {
-        return next(ApiError.BadRequest(`У вас нет доступа`));
+        return next(ApiError.BadRequest(`You don't have access`));
       }
 
       next();

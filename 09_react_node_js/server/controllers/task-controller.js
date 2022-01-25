@@ -7,7 +7,6 @@ class TaskController {
 
       res.json(task);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -18,7 +17,6 @@ class TaskController {
 
       res.json(task);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -29,7 +27,6 @@ class TaskController {
 
       res.json(task);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }

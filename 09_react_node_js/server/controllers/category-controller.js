@@ -7,7 +7,6 @@ class CategoryController {
 
       res.json(category);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -18,7 +17,6 @@ class CategoryController {
 
       res.json(category);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -29,7 +27,6 @@ class CategoryController {
 
       res.json(category);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -39,7 +36,6 @@ class CategoryController {
       const category = await categoryService.deleteCategory(req.body);
       return res.json(category);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }

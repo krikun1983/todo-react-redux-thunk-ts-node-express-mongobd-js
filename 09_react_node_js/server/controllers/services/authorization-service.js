@@ -33,12 +33,12 @@ class AuthorizationService {
   async login(username, password) {
     const user = await UserModel.findOne({ username });
     if (!user) {
-      throw ApiError.BadRequest(`Пользователь ${username} не найден`);
+      throw ApiError.BadRequest(`User ${username} not found`);
     }
 
     const validPassword = bcrypt.compareSync(password, user.password)
     if (!validPassword) {
-      throw ApiError.BadRequest(`Введен неверный пароль`);
+      throw ApiError.BadRequest(`Password error`);
     }
 
     const tokens = tokenService.generateTokens(payload(user._id, user.username, user.roles));

@@ -1,3 +1,4 @@
+import ApiError from '../../exceptions/api-error.js';
 import { CategoryModel } from '../../models/index.js';
 
 class CategoryService {
@@ -21,7 +22,7 @@ class CategoryService {
 
   async updateCategory(category) {
     if (!category._id) {
-      throw new Error('ID не был указан');
+      throw ApiError.BadRequest(`ID not specified`);
     }
     const updatedCategory = await CategoryModel.findByIdAndUpdate(category._id, category, { new: true });
 
@@ -30,7 +31,7 @@ class CategoryService {
 
   async deleteCategory(category) {
     if (!category._id) {
-      throw new Error('ID не был указан');
+      throw ApiError.BadRequest(`ID not specified`);
     }
     const deleteCategory = await CategoryModel.findByIdAndDelete(category._id);
 
