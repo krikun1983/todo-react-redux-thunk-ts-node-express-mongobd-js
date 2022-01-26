@@ -1,3 +1,4 @@
+import { loggerMiddleware } from '../middlewares/index.js';
 import { categoryService } from './services/index.js';
 
 class CategoryController {
@@ -7,6 +8,7 @@ class CategoryController {
 
       res.json(category);
     } catch (error) {
+      loggerMiddleware.errorLog(error, error.message);
       next(error);
     }
   }
@@ -17,6 +19,7 @@ class CategoryController {
 
       res.json(category);
     } catch (error) {
+      loggerMiddleware.errorLog(error, error.message);
       next(error);
     }
   }
@@ -27,6 +30,7 @@ class CategoryController {
 
       res.json(category);
     } catch (error) {
+      loggerMiddleware.errorLog(error, error.message);
       next(error);
     }
   }
@@ -36,6 +40,7 @@ class CategoryController {
       const category = await categoryService.deleteCategory(req.body);
       return res.json(category);
     } catch (error) {
+      loggerMiddleware.errorLog(error, error.message);
       next(error);
     }
   }
@@ -46,6 +51,7 @@ class CategoryController {
 
       return res.json(categories);
     } catch (error) {
+      loggerMiddleware.errorLog(error, error.message);
       next(error);
     }
   }

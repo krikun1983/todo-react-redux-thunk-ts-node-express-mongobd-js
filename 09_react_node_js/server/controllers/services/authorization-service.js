@@ -15,7 +15,7 @@ class AuthorizationService {
   async registration(username, password) {
     const candidate = await UserModel.findOne({ username });
     if (candidate) {
-      throw ApiError.BadRequest(`Пользователь с именем ${username} уже существует`);
+      throw ApiError.BadRequest(`User named ${username} already exists`);
     }
 
     const hashPassword = bcrypt.hashSync(password, 7);

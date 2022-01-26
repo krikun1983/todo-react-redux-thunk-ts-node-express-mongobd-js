@@ -1,3 +1,4 @@
+import { loggerMiddleware } from '../middlewares/index.js';
 import { taskService } from './services/index.js';
 
 class TaskController {
@@ -7,6 +8,7 @@ class TaskController {
 
       res.json(task);
     } catch (error) {
+      loggerMiddleware.errorLog(error, error.message);
       next(error);
     }
   }
@@ -17,6 +19,7 @@ class TaskController {
 
       res.json(task);
     } catch (error) {
+      loggerMiddleware.errorLog(error, error.message);
       next(error);
     }
   }
@@ -27,6 +30,7 @@ class TaskController {
 
       res.json(task);
     } catch (error) {
+      loggerMiddleware.errorLog(error, error.message);
       next(error);
     }
   }
@@ -37,6 +41,7 @@ class TaskController {
 
       return res.json(tasks);
     } catch (error) {
+      loggerMiddleware.errorLog(error, error.message);
       next(error);
     }
   }

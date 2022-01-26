@@ -32,9 +32,10 @@ const LoginPage: React.FC = () => {
     e.preventDefault();
     try {
       const data = await request(`${BASE_URL}/login`, 'POST', {...form});
+
       auth.login(data.accessToken, data.user.id, data.user.username);
     } catch (error) {
-      console.log(errors);
+      console.log((error as Error).message);
     }
   };
 
