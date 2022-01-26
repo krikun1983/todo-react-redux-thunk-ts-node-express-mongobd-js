@@ -26,7 +26,7 @@ export interface DataCategoryDefault {
 
 export interface DataCategoryAction {
   type: string;
-  payload: DataCategory | DataCategoryDefault;
+  payload?: DataCategory | DataCategoryDefault;
 }
 
 export enum DataCategoryActionTypes {
@@ -146,7 +146,7 @@ export const addDefaultCategory = (
   payload,
 });
 
-export const clearCategoryOutput = () => ({
+export const clearCategoryOutput = (): DataCategoryAction => ({
   type: DataCategoryActionTypes.CLEAR_CATEGORIES_OUTPUT,
 });
 

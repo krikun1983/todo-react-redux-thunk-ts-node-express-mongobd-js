@@ -18,7 +18,7 @@ const publicRoutes = [
   {path: '*', element: LoginPage},
 ];
 
-export const useRoutes = (isAuth: boolean) => {
+export const useRoutes = (isAuth: boolean): JSX.Element => {
   if (isAuth) {
     return (
       <Routes>

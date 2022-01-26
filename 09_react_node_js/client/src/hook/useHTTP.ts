@@ -28,9 +28,7 @@ const useHTTP = () => {
     [],
   );
 
-  const clearError = useCallback(() => setErrors(''), []);
-
-  return {loading, errors, request, clearError};
+  return {loading, errors, request};
 };
 
 export default useHTTP;

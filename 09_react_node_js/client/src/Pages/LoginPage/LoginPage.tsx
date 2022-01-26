@@ -15,7 +15,7 @@ import {BASE_URL} from 'ReduxStore/actions/constants/base_URL';
 
 const LoginPage: React.FC = () => {
   const auth = useContext(AuthContext);
-  const {loading, errors, request, clearError} = useHTTP();
+  const {errors, request} = useHTTP();
   const [form, setForm] = useState({username: '', password: ''});
   const usernameInputFocus =
     useRef() as React.MutableRefObject<HTMLInputElement>;

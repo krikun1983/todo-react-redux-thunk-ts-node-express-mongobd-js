@@ -5,7 +5,15 @@ import {clearTasksOutput} from 'ReduxStore/reducers/taskState';
 
 const storageName = 'userData';
 
-const useAuth = () => {
+interface Type {
+  login: (jwtAccessToken: string, id: string, user: string) => void;
+  logout: () => void;
+  accessToken: string;
+  userId: string;
+  userName: string;
+}
+
+const useAuth = (): Type => {
   const dispatch = useDispatch();
   const [accessToken, setAccessToken] = useState('');
   const [userId, setUserId] = useState('');

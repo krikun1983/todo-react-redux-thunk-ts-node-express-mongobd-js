@@ -23,7 +23,7 @@ export interface DataTaskDefault {
 
 export interface DataTaskAction {
   type: string;
-  payload: DataTask | string | boolean | DataTaskDefault;
+  payload?: DataTask | string | boolean | DataTaskDefault;
 }
 
 const initialSTate: DataTaskState = {
@@ -114,7 +114,7 @@ export const addTasksDefault = (payload: DataTaskDefault): DataTaskAction => ({
   payload,
 });
 
-export const clearTasksOutput = () => ({
+export const clearTasksOutput = (): DataTaskAction => ({
   type: DataTaskActionTypes.CLEAR_TASKS_OUTPUT,
 });
 
