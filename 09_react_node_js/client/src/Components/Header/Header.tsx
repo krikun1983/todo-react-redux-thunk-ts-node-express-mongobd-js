@@ -1,9 +1,15 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import {useSelector} from 'react-redux';
 import {Link, useLocation, useParams} from 'react-router-dom';
 import {useSearchParams} from 'react-router-dom';
 import {RootState} from 'ReduxStore/types/rootState';
-import {Button, IconSVG, IconNameEnum} from 'UI-Kit';
+import {Button, IconSVG, IconNameEnum, MyInput} from 'UI-Kit';
 import validateInput from 'utils/validateInput';
 import cn from 'classnames';
 import style from './Header.module.scss';
@@ -43,6 +49,21 @@ const Header: React.FC = () => {
     setShowDoneTasksAction(isShowTasksDone);
   };
 
+  const debounce = (
+    callback: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    ms: number,
+  ) => {
+    let timer: NodeJS.Timeout;
+    return (...args: React.ChangeEvent<HTMLInputElement>[]) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        callback(args[0]);
+      }, ms);
+    };
+  };
+
+  const inputSearch = useRef() as React.MutableRefObject<HTMLInputElement>;
+
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
     if (text.trim()) {
@@ -54,6 +75,7 @@ const Header: React.FC = () => {
 
   const handleSearchReset = () => {
     setSearchTask({});
+    inputSearch.current.value = '';
   };
 
   const handleCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -137,11 +159,10 @@ const Header: React.FC = () => {
             </>
           )}
           <span className={style.header__filter_btn}>
-            <input
-              style={{width: '250px', height: '25px', paddingLeft: '5px'}}
+            <MyInput
               type="text"
-              value={typeof querySearch === 'string' ? querySearch : ''}
-              onChange={handleSearch}
+              ref={inputSearch}
+              onChange={debounce(handleSearch, 350)}
               placeholder="Search"
               disabled={location.pathname === '/'}
             />
