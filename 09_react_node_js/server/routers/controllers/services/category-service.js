@@ -1,23 +1,6 @@
 import { ApiError } from '../../../middlewares/exceptions/index.js';
 import { CategoryModel } from '../../models/index.js';
-
-const findIdsForDel = (
-  arrIdsDel,
-  allCategories,
-  payloadId,
-) => {
-  const currentCategory = allCategories.find(item => item.id === payloadId);
-  if (currentCategory.children.length > 0) {
-    arrIdsDel.push(payloadId);
-    currentCategory.children.forEach(id => {
-      findIdsForDel(arrIdsDel, allCategories, id);
-    });
-  } else {
-    arrIdsDel.push(payloadId);
-  }
-
-  return arrIdsDel;
-};
+import { findIdsForDel } from './utils/index.js';
 
 class CategoryService {
   async createCategory(category) {
