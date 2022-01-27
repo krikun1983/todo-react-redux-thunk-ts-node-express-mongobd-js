@@ -12,6 +12,9 @@ class LoggerMiddleware {
         connection: req.headers.connection,
         "content-type": req.headers["content-type"],
         "user-agent": req.headers["user-agent"],
+        "accept-language": req.headers["accept-language"],
+        ip: req.ip,
+        ipClient: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       }
       if (req.originalUrl === '/api/login') {
         data = JSON.stringify(
