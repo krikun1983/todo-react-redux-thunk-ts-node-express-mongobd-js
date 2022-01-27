@@ -5,7 +5,7 @@ import {
   addTasksDefault,
   DataTask,
   DataTaskBD,
-  isDoneTask,
+  makeTaskChecked,
   updateTask,
 } from 'ReduxStore/reducers/taskState';
 import {BASE_URL} from './constants/base_URL';
@@ -51,12 +51,12 @@ export const addTaskAction =
     dispatch(toggleLoaderAction(false));
   };
 
-export const isDoneTaskAction =
+export const makeTaskAction =
   (token: string, id: string) =>
   (dispatch: Dispatch): void => {
     dispatch(toggleLoaderAction(true));
 
-    fetch(`${BASE_URL}/tasks/isDone`, {
+    fetch(`${BASE_URL}/tasks/makeTask`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -65,7 +65,7 @@ export const isDoneTaskAction =
       body: JSON.stringify({_id: id}),
     })
       .then(response => response.json())
-      .then(json => dispatch(isDoneTask(json._id)));
+      .then(json => dispatch(makeTaskChecked(json._id)));
 
     dispatch(toggleLoaderAction(false));
   };

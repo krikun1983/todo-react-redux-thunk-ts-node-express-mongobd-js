@@ -13,9 +13,9 @@ class TaskController {
     }
   }
 
-  async isDoneTask(req, res, next) {
+  async makeTaskChecked(req, res, next) {
     try {
-      const task = await taskService.isDoneTask(req.body);
+      const task = await taskService.makeTaskChecked(req.body);
 
       res.json(task);
     } catch (error) {

@@ -16,13 +16,13 @@ const Task: React.FC<Props> = ({id}) => {
     (state: RootState) => state.dataTaskState.dataTaskState[id],
   );
 
-  const {setDoneTaskAction} = useDispatcher();
+  const {setMakeTaskAction} = useDispatcher();
 
   const auth = useContext(AuthContext);
 
   const handleChecked = useCallback(() => {
-    setDoneTaskAction(auth.accessToken, id);
-  }, [setDoneTaskAction]);
+    setMakeTaskAction(auth.accessToken, id);
+  }, [setMakeTaskAction]);
 
   return (
     <>

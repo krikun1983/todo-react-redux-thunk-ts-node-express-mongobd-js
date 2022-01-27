@@ -128,7 +128,7 @@ export const isShowDoneTasksAction = (payload: boolean): DataTaskAction => ({
   payload,
 });
 
-export const isDoneTask = (payload: string): DataTaskAction => ({
+export const makeTaskChecked = (payload: string): DataTaskAction => ({
   type: DataTaskActionTypes.UPDATE_IS_DONE_TASK,
   payload,
 });

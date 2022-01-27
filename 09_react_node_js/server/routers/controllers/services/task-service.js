@@ -9,7 +9,7 @@ class TaskService {
     return createTask;
   }
 
-  async isDoneTask(id) {
+  async makeTaskChecked(id) {
     if (!id) {
       throw ApiError.BadRequest(`ID not specified`);
     }
