@@ -1,4 +1,4 @@
-import ApiError from '../../exceptions/api-error.js';
+import { ApiError } from '../../../middlewares/exceptions/index.js';
 import { TaskModel } from '../../models/index.js';
 
 class TaskService {

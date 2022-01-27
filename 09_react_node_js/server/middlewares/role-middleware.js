@@ -1,5 +1,5 @@
-import { ApiError } from '../exceptions/index.js';
-import { tokenService } from '../controllers/services/index.js';
+import { ApiError } from './exceptions/index.js';
+import { tokenService } from '../routers/controllers/services/index.js';
 
 const roleMiddleware = (roles) => {
   return function (req, res, next) {

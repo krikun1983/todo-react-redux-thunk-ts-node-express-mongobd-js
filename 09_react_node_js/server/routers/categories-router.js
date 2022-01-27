@@ -1,5 +1,5 @@
 import Router from 'express';
-import { categoryController } from '../controllers/index.js';
+import { categoryController } from './controllers/index.js';
 import { roleMiddleware, loggerMiddleware } from '../middlewares/index.js';
 
 const categoriesRouter = new Router();

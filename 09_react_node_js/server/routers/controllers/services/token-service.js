@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
-import { TokenModel } from '../../models/index.js';
 import config from 'config';
+import { TokenModel } from '../../models/index.js';
 const { access_secret, tokens } = config.get('jwtConfig');
 
 class TokenService {

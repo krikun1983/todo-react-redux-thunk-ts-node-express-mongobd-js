@@ -1,5 +1,5 @@
 import Router from 'express';
-import { taskController } from '../controllers/index.js';
+import { taskController } from './controllers/index.js';
 import { roleMiddleware, loggerMiddleware } from '../middlewares/index.js';
 
 const tasksRouter = new Router();

@@ -1,6 +1,6 @@
 import Router from 'express';
 import { body } from 'express-validator';
-import { authorizationController } from '../controllers/index.js';
+import { authorizationController } from './controllers/index.js';
 import { roleMiddleware, loggerMiddleware } from '../middlewares/index.js';
 
 const authorizationRouter = new Router();

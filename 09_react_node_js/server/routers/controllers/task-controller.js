@@ -1,4 +1,4 @@
-import { loggerMiddleware } from '../middlewares/index.js';
+import { loggerMiddleware } from '../../middlewares/index.js';
 import { taskService } from './services/index.js';
 
 class TaskController {

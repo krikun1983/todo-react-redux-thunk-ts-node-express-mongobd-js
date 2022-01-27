@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
-import ApiError from '../../exceptions/api-error.js';
-import { RoleModel, UserModel } from '../../models/index.js';
 import { tokenService } from './index.js';
+import { RoleModel, UserModel } from '../../models/index.js';
+import { ApiError } from '../../../middlewares/exceptions/index.js';
 
 const payload = (id, username, roles) => {
   return {

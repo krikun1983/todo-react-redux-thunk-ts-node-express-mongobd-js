@@ -1,7 +1,7 @@
 import { validationResult } from 'express-validator';
 import { authorizationService } from './services/index.js';
-import { ApiError } from '../exceptions/index.js';
-import { loggerMiddleware } from '../middlewares/index.js';
+import { ApiError } from '../../middlewares/exceptions/index.js';
+import { loggerMiddleware } from '../../middlewares/index.js';
 
 class AuthorizationController {
   async registration(req, res, next) {

@@ -1,4 +1,4 @@
-import { loggerMiddleware } from '../middlewares/index.js';
+import { loggerMiddleware } from '../../middlewares/index.js';
 import { categoryService } from './services/index.js';
 
 class CategoryController {
@@ -38,6 +38,7 @@ class CategoryController {
   async deleteCategory(req, res, next) {
     try {
       const category = await categoryService.deleteCategory(req.body);
+
       return res.json(category);
     } catch (error) {
       loggerMiddleware.errorLog(error, error.message);

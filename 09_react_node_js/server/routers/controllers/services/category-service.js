@@ -1,4 +1,4 @@
-import ApiError from '../../exceptions/api-error.js';
+import { ApiError } from '../../../middlewares/exceptions/index.js';
 import { CategoryModel } from '../../models/index.js';
 
 class CategoryService {
