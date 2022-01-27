@@ -6,7 +6,7 @@ export interface DataTaskBD {
 }
 
 export interface DataTask extends DataTaskBD {
-  _id: string;
+  id: string;
 }
 
 export interface DataTaskState {
@@ -70,12 +70,12 @@ export const tasksReducer = (
       return {
         ...state,
         dataTaskIdsState: [
-          (action.payload as DataTask)._id,
+          (action.payload as DataTask).id,
           ...state.dataTaskIdsState,
         ],
         dataTaskState: {
           ...state.dataTaskState,
-          [(action.payload as DataTask)._id]: action.payload as DataTask,
+          [(action.payload as DataTask).id]: action.payload as DataTask,
         },
       };
     case DataTaskActionTypes.SHOW_DONE_TASKS:
@@ -99,7 +99,7 @@ export const tasksReducer = (
         ...state,
         dataTaskState: {
           ...state.dataTaskState,
-          [(action.payload as DataTask)._id]: {
+          [(action.payload as DataTask).id]: {
             ...(action.payload as DataTask),
           },
         },

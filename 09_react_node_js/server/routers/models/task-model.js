@@ -5,6 +5,8 @@ const TaskSchema = new mongoose.Schema({
   description: String,
   categoryId: String,
   isDone: Boolean,
+}).set('toJSON', {
+  virtuals: true
 });
 
 export default mongoose.model('TaskModel', TaskSchema);

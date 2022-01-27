@@ -63,7 +63,7 @@ const TaskEditPage: React.FC = () => {
         description: valueTask.description.trim(),
         categoryId: valueTask.categoryId,
         isDone: valueTask.isDone,
-        _id: valueTask._id,
+        id: valueTask.id,
       });
       navigate(`/categories/${params.categoryId}`);
     }
@@ -85,7 +85,7 @@ const TaskEditPage: React.FC = () => {
                   key={ids}
                   className={cn(
                     style.edit__categories_item,
-                    dataCategoryState[ids]._id === valueTask.categoryId &&
+                    dataCategoryState[ids].id === valueTask.categoryId &&
                       style.edit__categories_item_active,
                   )}
                 >
@@ -95,14 +95,14 @@ const TaskEditPage: React.FC = () => {
                   <Button
                     styles="btn_icon_bg_white"
                     type="button"
-                    onClick={() => handleTaskMove(dataCategoryState[ids]._id)}
+                    onClick={() => handleTaskMove(dataCategoryState[ids].id)}
                     icon={
                       <IconSVG
                         name={IconNameEnum.CHOICE}
                         width="26"
                         height="26"
                         className={
-                          dataCategoryState[ids]._id === valueTask.categoryId
+                          dataCategoryState[ids].id === valueTask.categoryId
                             ? 'blue_dark_gray'
                             : 'gray_blue_dark'
                         }

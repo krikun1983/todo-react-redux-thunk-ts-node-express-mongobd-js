@@ -35,20 +35,16 @@ export const getDataCategoryStateClone = (
     JSON.stringify(objCategoriesState),
   );
 
-  if (objCategoriesStateClone[objPayload._id].parentId !== null) {
+  if (objCategoriesStateClone[objPayload.id].parentId !== null) {
     objCategoriesStateClone[objPayload.parentId as string].children.splice(
       objCategoriesStateClone[objPayload.parentId as string].children.indexOf(
-        objPayload._id,
+        objPayload.id,
       ),
       1,
     );
   }
 
-  const arrOfIdsDel = findIdsForDel(
-    [],
-    objCategoriesStateClone,
-    objPayload._id,
-  );
+  const arrOfIdsDel = findIdsForDel([], objCategoriesStateClone, objPayload.id);
   arrOfIdsDel.forEach(id => {
     delete objCategoriesStateClone[id];
   });

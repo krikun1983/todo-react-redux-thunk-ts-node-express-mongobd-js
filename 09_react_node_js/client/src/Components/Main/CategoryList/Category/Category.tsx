@@ -83,7 +83,7 @@ const Category: React.FC<Props> = ({id}) => {
           category: valueEditCategory,
           parentId: currentCategory.parentId,
           children: currentCategory.children,
-          _id: id,
+          id,
         });
       }
     },
@@ -108,7 +108,7 @@ const Category: React.FC<Props> = ({id}) => {
       category: currentCategory.category,
       parentId: currentCategory.parentId,
       children: currentCategory.children,
-      _id: id,
+      id,
     });
     navigate('/');
   }, [setDelCategoryAction]);

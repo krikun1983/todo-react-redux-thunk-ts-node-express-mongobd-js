@@ -25,10 +25,10 @@ export const addTaskDefaultAction =
     })
       .then(response => response.json())
       .then(json => {
-        const ids = json.map((task: DataTask) => task._id);
+        const ids = json.map((task: DataTask) => task.id);
         const tasks = {} as {[key: string]: DataTask};
         json.forEach((task: DataTask) => {
-          tasks[task._id] = {...task};
+          tasks[task.id] = {...task};
         });
         return {ids, isShowTasksDone: true, tasks};
       })

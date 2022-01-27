@@ -27,10 +27,10 @@ export const addDefaultCategoryAction =
     })
       .then(response => response.json())
       .then(json => {
-        const ids = json.map((category: DataCategory) => category._id);
+        const ids = json.map((category: DataCategory) => category.id);
         const dataCategories = {} as {[key: string]: DataCategory};
         json.forEach((category: DataCategory) => {
-          dataCategories[category._id] = {...category};
+          dataCategories[category.id] = {...category};
         });
         return {ids, dataCategories};
       })
@@ -53,7 +53,7 @@ export const addCategoryAction =
       body: JSON.stringify(category),
     })
       .then(response => response.json())
-      .then(json => dispatch(addCategory({...category, _id: json._id})));
+      .then(json => dispatch(addCategory({...category, id: json.id})));
 
     dispatch(toggleLoaderAction(false));
   };
@@ -111,7 +111,7 @@ export const addChildAction =
     })
       .then(response => response.json())
       .then(json => {
-        dispatch(addCategoryChild({...category, _id: json._id}));
+        dispatch(addCategoryChild({...category, id: json.id}));
       });
 
     dispatch(toggleLoaderAction(false));

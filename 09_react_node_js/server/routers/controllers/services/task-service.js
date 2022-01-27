@@ -22,11 +22,11 @@ class TaskService {
   }
 
   async updateTask(task) {
-    if (!task._id) {
+    if (!task.id) {
       throw ApiError.BadRequest(`ID not specified`);
     }
 
-    const updatedTask = await TaskModel.findByIdAndUpdate(task._id, task, { new: true });
+    const updatedTask = await TaskModel.findByIdAndUpdate(task.id, task, { new: true });
 
     return updatedTask;
   }

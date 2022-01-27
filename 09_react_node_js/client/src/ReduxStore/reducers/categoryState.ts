@@ -11,7 +11,7 @@ export interface DataCategoryBD {
 }
 
 export interface DataCategory extends DataCategoryBD {
-  _id: string;
+  id: string;
 }
 
 export interface DataCategoryState {
@@ -70,13 +70,12 @@ export const categoryReducer = (
       return {
         ...state,
         dataIdsState: [
-          (action.payload as DataCategory)._id,
+          (action.payload as DataCategory).id,
           ...state.dataIdsState,
         ],
         dataCategoryState: {
           ...state.dataCategoryState,
-          [(action.payload as DataCategory)._id]:
-            action.payload as DataCategory,
+          [(action.payload as DataCategory).id]: action.payload as DataCategory,
         },
       };
     case DataCategoryActionTypes.UPDATE_CATEGORY:
@@ -84,8 +83,8 @@ export const categoryReducer = (
         ...state,
         dataCategoryState: {
           ...state.dataCategoryState,
-          [(action.payload as DataCategory)._id]: {
-            ...state.dataCategoryState[(action.payload as DataCategory)._id],
+          [(action.payload as DataCategory).id]: {
+            ...state.dataCategoryState[(action.payload as DataCategory).id],
             category: (action.payload as DataCategory).category,
           },
         },
@@ -99,7 +98,7 @@ export const categoryReducer = (
             findIdsForDel(
               [],
               state.dataCategoryState,
-              (action.payload as DataCategory)._id,
+              (action.payload as DataCategory).id,
             ),
           ),
         ],
@@ -115,18 +114,17 @@ export const categoryReducer = (
         ...state,
         dataIdsState: [
           ...state.dataIdsState,
-          (action.payload as DataCategory)._id,
+          (action.payload as DataCategory).id,
         ],
         dataCategoryState: {
           ...state.dataCategoryState,
-          [(action.payload as DataCategory)._id]:
-            action.payload as DataCategory,
+          [(action.payload as DataCategory).id]: action.payload as DataCategory,
           [(action.payload as DataCategory).parentId as string]: {
             ...state.dataCategoryState[
               (action.payload as DataCategory).parentId as string
             ],
             children: [
-              (action.payload as DataCategory)._id,
+              (action.payload as DataCategory).id,
               ...state.dataCategoryState[
                 (action.payload as DataCategory).parentId as string
               ].children,
