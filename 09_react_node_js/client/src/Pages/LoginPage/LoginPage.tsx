@@ -11,7 +11,7 @@ import {Button} from 'UI-Kit';
 import MyInput from 'UI-Kit/Input/MyInput';
 import style from './LoginPage.module.scss';
 import AuthContext from 'context/authContext';
-import {BASE_URL} from 'ReduxStore/actions/constants/base_URL';
+import {API_LOGIN} from 'ReduxStore/actions/constants/api';
 
 const LoginPage: React.FC = () => {
   const auth = useContext(AuthContext);
@@ -31,7 +31,7 @@ const LoginPage: React.FC = () => {
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const data = await request(`${BASE_URL}/login`, 'POST', {...form});
+      const data = await request(`${API_LOGIN}`, 'POST', {...form});
 
       auth.login(data.accessToken, data.user.id, data.user.username);
     } catch (error) {

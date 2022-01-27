@@ -9,14 +9,20 @@ import {
   updateCategory,
 } from 'ReduxStore/reducers/categoryState';
 import {toggleLoaderAction} from 'ReduxStore/reducers/loaderState';
-import {BASE_URL} from './constants/base_URL';
+import {
+  API_CATEGORIES,
+  API_CATEGORIES_CREATE,
+  API_CATEGORIES_CREATE_CHILD,
+  API_CATEGORIES_UPDATE,
+  API_CATEGORIES_DELETE,
+} from './constants/api';
 
 export const addDefaultCategoryAction =
   (token: string) =>
   (dispatch: Dispatch): void => {
     dispatch(toggleLoaderAction(true));
 
-    fetch(`${BASE_URL}/categories`, {
+    fetch(`${API_CATEGORIES}`, {
       headers: {Authorization: `Bearer ${token}`},
     })
       .then(response => response.json())
@@ -38,7 +44,7 @@ export const addCategoryAction =
   (dispatch: Dispatch): void => {
     dispatch(toggleLoaderAction(true));
 
-    fetch(`${BASE_URL}/categories/create`, {
+    fetch(`${API_CATEGORIES_CREATE}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -57,7 +63,7 @@ export const updateCategoryAction =
   (dispatch: Dispatch): void => {
     dispatch(toggleLoaderAction(true));
 
-    fetch(`${BASE_URL}/categories/update`, {
+    fetch(`${API_CATEGORIES_UPDATE}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -76,7 +82,7 @@ export const delCategoryAction =
   (dispatch: Dispatch): void => {
     dispatch(toggleLoaderAction(true));
 
-    fetch(`${BASE_URL}/categories/delete`, {
+    fetch(`${API_CATEGORIES_DELETE}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -95,7 +101,7 @@ export const addChildAction =
   (dispatch: Dispatch): void => {
     dispatch(toggleLoaderAction(true));
 
-    fetch(`${BASE_URL}/categories/create/child`, {
+    fetch(`${API_CATEGORIES_CREATE_CHILD}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

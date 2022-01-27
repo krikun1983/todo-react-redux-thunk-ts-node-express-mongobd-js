@@ -8,14 +8,19 @@ import {
   makeTaskChecked,
   updateTask,
 } from 'ReduxStore/reducers/taskState';
-import {BASE_URL} from './constants/base_URL';
+import {
+  API_TASKS,
+  API_TASKS_CREATE,
+  API_TASKS_MAKE,
+  API_TASKS_UPDATE,
+} from './constants/api';
 
 export const addTaskDefaultAction =
   (token: string) =>
   (dispatch: Dispatch): void => {
     dispatch(toggleLoaderAction(true));
 
-    fetch(`${BASE_URL}/tasks`, {
+    fetch(`${API_TASKS}`, {
       headers: {Authorization: `Bearer ${token}`},
     })
       .then(response => response.json())
@@ -37,7 +42,7 @@ export const addTaskAction =
   (dispatch: Dispatch): void => {
     dispatch(toggleLoaderAction(true));
 
-    fetch(`${BASE_URL}/tasks/create`, {
+    fetch(`${API_TASKS_CREATE}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -56,7 +61,7 @@ export const makeTaskAction =
   (dispatch: Dispatch): void => {
     dispatch(toggleLoaderAction(true));
 
-    fetch(`${BASE_URL}/tasks/makeTask`, {
+    fetch(`${API_TASKS_MAKE}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -75,7 +80,7 @@ export const updateTaskAction =
   (dispatch: Dispatch): void => {
     dispatch(toggleLoaderAction(true));
 
-    fetch(`${BASE_URL}/tasks/update`, {
+    fetch(`${API_TASKS_UPDATE}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
