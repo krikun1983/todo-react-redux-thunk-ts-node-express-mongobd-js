@@ -46,9 +46,9 @@ class CategoryController {
     }
   }
 
-  async getCategoryAll(req, res, next) {
+  async getAllCategories(req, res, next) {
     try {
-      const categories = await categoryService.getCategoryAll();
+      const categories = await categoryService.getAllCategories();
 
       return res.json(categories);
     } catch (error) {

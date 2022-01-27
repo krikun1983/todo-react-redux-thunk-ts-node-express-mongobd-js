@@ -4,7 +4,7 @@ import { roleMiddleware, loggerMiddleware } from '../middlewares/index.js';
 
 const categoriesRouter = new Router();
 
-categoriesRouter.get('/', roleMiddleware(['ADMIN']), loggerMiddleware.log, categoryController.getCategoryAll);
+categoriesRouter.get('/', roleMiddleware(['ADMIN']), loggerMiddleware.log, categoryController.getAllCategories);
 categoriesRouter.post('/create', roleMiddleware(['ADMIN']), loggerMiddleware.log, categoryController.createCategory);
 categoriesRouter.post('/create/child', roleMiddleware(['ADMIN']), loggerMiddleware.log, categoryController.createChildCategory);
 categoriesRouter.post('/update', roleMiddleware(['ADMIN']), loggerMiddleware.log, categoryController.updateCategory);

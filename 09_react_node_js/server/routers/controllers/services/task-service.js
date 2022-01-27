@@ -31,7 +31,7 @@ class TaskService {
     return updatedTask;
   }
 
-  async getTaskAll() {
+  async getAllTasks() {
     const tasks = await TaskModel.find().sort({ "_id": -1 });
 
     return tasks;

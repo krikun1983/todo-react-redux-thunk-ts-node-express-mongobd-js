@@ -43,7 +43,7 @@ class CategoryService {
     return deleteCategory;
   }
 
-  async getCategoryAll() {
+  async getAllCategories() {
     const categories = await CategoryModel.find().sort({ "_id": -1 });
 
     return categories;

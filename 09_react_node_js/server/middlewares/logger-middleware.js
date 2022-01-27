@@ -4,7 +4,9 @@ class LoggerMiddleware {
   log(req, res, next) {
     try {
       fs.open('./log/log.txt', 'r+', () => { });
+
       let data;
+
       const headers = {
         host: req.headers.host,
         method: req.method,
@@ -16,6 +18,7 @@ class LoggerMiddleware {
         ip: req.ip,
         ipClient: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
       }
+
       if (req.originalUrl === '/api/login') {
         data = JSON.stringify(
           {
@@ -29,7 +32,9 @@ class LoggerMiddleware {
           }, null, "\t"
         );
       }
+
       fs.appendFile('./log/log.txt', data, () => { });
+
       next();
     } catch (error) {
       console.log(error);
@@ -39,6 +44,7 @@ class LoggerMiddleware {
 
   errorLog(errorType, errorMessage) {
     fs.open('./log/log.txt', 'r+', () => { });
+
     const error = {
       'errorType': errorType,
       'errorMessage': errorMessage,
@@ -49,6 +55,7 @@ class LoggerMiddleware {
         error: error, data: new Date()
       }, null, "\t"
     );
+
     fs.appendFile('./log/log.txt', data, () => { });
   }
 }
