@@ -51,6 +51,7 @@ const Category: React.FC<Props> = ({id}) => {
 
   const handleAddChild = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameNewChild = e.target.value;
+    if (nameNewChild.length > 30) return;
     setValueAddChild(nameNewChild);
   };
 
@@ -72,6 +73,7 @@ const Category: React.FC<Props> = ({id}) => {
 
   const handleEditCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameCategory = e.target.value;
+    if (nameCategory.length > 32) return;
     setValueEditCategory(nameCategory);
   };
 
