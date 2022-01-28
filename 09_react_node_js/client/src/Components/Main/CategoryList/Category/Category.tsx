@@ -17,7 +17,7 @@ interface Props {
 
 const Category: React.FC<Props> = ({id}) => {
   const {
-    setAddChildAction,
+    setAddCategoryChildAction,
     setUpdateCategoryAction,
     setDelCategoryAction,
     setDelTasksAction,
@@ -59,7 +59,7 @@ const Category: React.FC<Props> = ({id}) => {
       e.preventDefault();
       setAddChild(false);
       if (!errorAddChild && valueAddChild.trim().length) {
-        setAddChildAction(auth.accessToken, {
+        setAddCategoryChildAction(auth.accessToken, {
           category: valueAddChild,
           parentId: id,
           children: [],

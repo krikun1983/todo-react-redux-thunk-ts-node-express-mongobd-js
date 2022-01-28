@@ -96,7 +96,7 @@ export const delCategoryAction =
     dispatch(toggleLoaderAction(false));
   };
 
-export const addChildAction =
+export const addCategoryChildAction =
   (token: string, category: DataCategoryBD) =>
   (dispatch: Dispatch): void => {
     dispatch(toggleLoaderAction(true));

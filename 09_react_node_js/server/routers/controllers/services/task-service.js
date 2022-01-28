@@ -41,9 +41,13 @@ class TaskService {
       const categories = await CategoryModel.find();
       const arrIdsCategoryDel = findIdsForDel([], categories, category.id);
 
-      arrIdsCategoryDel.forEach(async (id) => {
-        await TaskModel.deleteMany({ categoryId: id });
-      });
+      async function asyncForOf(array) {
+        for (const id of array) {
+          await TaskModel.deleteMany({ categoryId: id });
+        }
+      }
+
+      asyncForOf(arrIdsCategoryDel);
     } else {
       await TaskModel.deleteMany({ categoryId: category.id });
     }
