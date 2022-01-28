@@ -11,6 +11,11 @@ class CategoryService {
   }
 
   async createChildCategory(category) {
+    const parentCategory = await CategoryModel.findById(category.parentId);
+
+    if (!parentCategory) {
+      throw ApiError.BadRequest(`Category not specified`);
+    }
     const createCategory = await CategoryModel.create({ ...category });
     await createCategory.save();
 
@@ -25,25 +30,15 @@ class CategoryService {
     if (!category.id) {
       throw ApiError.BadRequest(`ID not specified`);
     }
+    const currentCategory = await CategoryModel.findById(category.id);
+
+    if (!currentCategory) {
+      throw ApiError.BadRequest(`Category not specified`);
+    }
+
     const updatedCategory = await CategoryModel.findByIdAndUpdate(category.id, category, { new: true });
 
     return updatedCategory;
-  }
-
-  static deleteAll(arrOfIdsDel, categories, id) {
-    const fn = (arr, cat, catId) => {
-      if (cat[catId].children.length > 0) {
-        arr.push(catId);
-        cat[catId].children.forEach(childId => {
-          fn(arrOfIdsDel, categories, childId);
-        });
-      } else {
-        arrOfIdsDel.push(id);
-      }
-      return arrOfIdsDel;
-    }
-
-    fn(arrOfIdsDel, categories, id);
   }
 
   async deleteCategory(category) {
@@ -52,10 +47,21 @@ class CategoryService {
     }
     let deleteCategory;
 
+    const currentCategory = await CategoryModel.findById(category.id);
+
+    if (!currentCategory) {
+      throw ApiError.BadRequest(`Category not specified`);
+    }
+
+    if (!currentCategory) {
+      throw ApiError.BadRequest(`ID not specified`);
+    }
+
     if (category.children.length) {
       const categories = await CategoryModel.find();
       const arrIdsDel = findIdsForDel([], categories, category.id);
       deleteCategory = await CategoryModel.findByIdAndDelete(arrIdsDel[0]);
+
       const arrIdsWithoutDeleteCategory = arrIdsDel.slice(1);
 
       async function asyncForOf(array) {

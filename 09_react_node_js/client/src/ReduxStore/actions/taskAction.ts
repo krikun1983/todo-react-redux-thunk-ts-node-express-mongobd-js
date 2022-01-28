@@ -35,7 +35,8 @@ export const addTaskDefaultAction =
         });
         return {ids, isShowTasksDone: true, tasks};
       })
-      .then(json => dispatch(addTasksDefault(json)));
+      .then(json => dispatch(addTasksDefault(json)))
+      .catch(error => console.error(error.message));
 
     dispatch(toggleLoaderAction(false));
   };
@@ -54,7 +55,8 @@ export const addTaskAction =
       body: JSON.stringify(task),
     })
       .then(response => response.json())
-      .then(json => dispatch(addTask(json)));
+      .then(json => dispatch(addTask(json)))
+      .catch(error => console.error(error.message));
 
     dispatch(toggleLoaderAction(false));
   };
@@ -73,7 +75,8 @@ export const makeTaskAction =
       body: JSON.stringify({_id: id}),
     })
       .then(response => response.json())
-      .then(json => dispatch(makeTaskChecked(json._id)));
+      .then(json => dispatch(makeTaskChecked(json._id)))
+      .catch(error => console.error(error.message));
 
     dispatch(toggleLoaderAction(false));
   };
@@ -92,7 +95,8 @@ export const updateTaskAction =
       body: JSON.stringify(task),
     })
       .then(response => response.json())
-      .then(json => dispatch(updateTask(json)));
+      .then(json => dispatch(updateTask(json)))
+      .catch(error => console.error(error.message));
 
     dispatch(toggleLoaderAction(false));
   };
@@ -120,7 +124,8 @@ export const delTasksAction =
         });
         return {ids, isShowTasksDone: true, tasks};
       })
-      .then(obj => dispatch(addTasksDefault(obj)));
+      .then(obj => dispatch(addTasksDefault(obj)))
+      .catch(error => console.error(error.message));
 
     dispatch(toggleLoaderAction(false));
   };

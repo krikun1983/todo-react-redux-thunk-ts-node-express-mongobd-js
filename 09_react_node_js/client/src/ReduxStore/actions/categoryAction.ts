@@ -8,6 +8,7 @@ import {
   delCategory,
   updateCategory,
 } from 'ReduxStore/reducers/categoryState';
+import {toggleErrorAction} from 'ReduxStore/reducers/errorState';
 import {toggleLoaderAction} from 'ReduxStore/reducers/loaderState';
 import {
   API_CATEGORIES,
@@ -34,7 +35,8 @@ export const addDefaultCategoryAction =
         });
         return {ids, dataCategories};
       })
-      .then(categories => dispatch(addDefaultCategory(categories)));
+      .then(categories => dispatch(addDefaultCategory(categories)))
+      .catch(error => console.log(error.message));
 
     dispatch(toggleLoaderAction(false));
   };
@@ -53,7 +55,8 @@ export const addCategoryAction =
       body: JSON.stringify(category),
     })
       .then(response => response.json())
-      .then(json => dispatch(addCategory({...category, id: json.id})));
+      .then(json => dispatch(addCategory({...category, id: json.id})))
+      .catch(error => console.log(error.message));
 
     dispatch(toggleLoaderAction(false));
   };
@@ -71,8 +74,20 @@ export const updateCategoryAction =
       },
       body: JSON.stringify(category),
     })
-      .then(response => response.json())
-      .then(json => dispatch(updateCategory(json)));
+      .then(response => {
+        if (response.status === 400) {
+          dispatch(
+            toggleErrorAction({
+              isErrorState: true,
+              messageError: 'This category does not exist!',
+            }),
+          );
+        } else {
+          return response.json();
+        }
+      })
+      .then(json => dispatch(updateCategory(json)))
+      .catch(error => console.log(error.message));
 
     dispatch(toggleLoaderAction(false));
   };
@@ -90,8 +105,20 @@ export const delCategoryAction =
       },
       body: JSON.stringify(category),
     })
-      .then(response => response.json())
-      .then(json => dispatch(delCategory(json)));
+      .then(response => {
+        if (response.status === 400) {
+          dispatch(
+            toggleErrorAction({
+              isErrorState: true,
+              messageError: 'This category does not exist!',
+            }),
+          );
+        } else {
+          return response.json();
+        }
+      })
+      .then(json => dispatch(delCategory(json)))
+      .catch(error => console.error(error.message));
 
     dispatch(toggleLoaderAction(false));
   };
@@ -109,10 +136,22 @@ export const addCategoryChildAction =
       },
       body: JSON.stringify(category),
     })
-      .then(response => response.json())
+      .then(response => {
+        if (response.status === 400) {
+          dispatch(
+            toggleErrorAction({
+              isErrorState: true,
+              messageError: 'The category you are adding to does not exist!',
+            }),
+          );
+        } else {
+          return response.json();
+        }
+      })
       .then(json => {
         dispatch(addCategoryChild({...category, id: json.id}));
-      });
+      })
+      .catch(error => console.error(error.message));
 
     dispatch(toggleLoaderAction(false));
   };

@@ -120,6 +120,7 @@ const Category: React.FC<Props> = ({id}) => {
       children: currentCategory.children,
       id,
     });
+    setIsOpenFormDelCategory(false);
     navigate('/');
   };
 

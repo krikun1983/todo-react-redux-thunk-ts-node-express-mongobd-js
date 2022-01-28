@@ -37,6 +37,12 @@ class TaskService {
       throw ApiError.BadRequest(`ID not specified`);
     }
 
+    const currentCategory = await CategoryModel.findById(category.id);
+
+    if (!currentCategory) {
+      throw ApiError.BadRequest(`Category not specified`);
+    }
+
     if (category.children.length) {
       const categories = await CategoryModel.find();
       const arrIdsCategoryDel = findIdsForDel([], categories, category.id);
