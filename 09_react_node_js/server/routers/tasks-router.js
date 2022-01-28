@@ -8,5 +8,6 @@ tasksRouter.get('/', roleMiddleware(['ADMIN']), loggerMiddleware.log, taskContro
 tasksRouter.post('/create', roleMiddleware(['ADMIN']), loggerMiddleware.log, taskController.createTask);
 tasksRouter.post('/makeTask', roleMiddleware(['ADMIN']), loggerMiddleware.log, taskController.makeTaskChecked);
 tasksRouter.post('/update', roleMiddleware(['ADMIN']), loggerMiddleware.log, taskController.updateTask);
+tasksRouter.post('/delete', roleMiddleware(['ADMIN']), loggerMiddleware.log, taskController.deleteTasks);
 
 export default tasksRouter;

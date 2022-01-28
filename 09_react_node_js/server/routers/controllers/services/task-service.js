@@ -1,5 +1,6 @@
 import { ApiError } from '../../../middlewares/exceptions/index.js';
-import { TaskModel } from '../../models/index.js';
+import { CategoryModel, TaskModel } from '../../models/index.js';
+import { findIdsForDel } from './utils/index.js';
 
 class TaskService {
   async createTask(task) {
@@ -29,6 +30,26 @@ class TaskService {
     const updatedTask = await TaskModel.findByIdAndUpdate(task.id, task, { new: true });
 
     return updatedTask;
+  }
+
+  async deleteTasks(category) {
+    if (!category.id) {
+      throw ApiError.BadRequest(`ID not specified`);
+    }
+
+    if (category.children.length) {
+      const categories = await CategoryModel.find();
+      const arrIdsCategoryDel = findIdsForDel([], categories, category.id);
+
+      arrIdsCategoryDel.forEach(async (id) => {
+        await TaskModel.deleteMany({ categoryId: id });
+      });
+    } else {
+      await TaskModel.deleteMany({ categoryId: category.id });
+    }
+
+    const tasks = await TaskModel.find().sort({ "_id": -1 });
+    return tasks;
   }
 
   async getAllTasks() {

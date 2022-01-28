@@ -35,6 +35,17 @@ class TaskController {
     }
   }
 
+  async deleteTasks(req, res, next) {
+    try {
+      const tasks = await taskService.deleteTasks(req.body);
+
+      res.json(tasks);
+    } catch (error) {
+      loggerMiddleware.errorLog(error, error.message);
+      next(error);
+    }
+  }
+
   async getAllTasks(req, res, next) {
     try {
       const tasks = await taskService.getAllTasks();

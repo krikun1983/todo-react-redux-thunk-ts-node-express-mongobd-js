@@ -23,7 +23,7 @@ export interface DataTaskDefault {
 
 export interface DataTaskAction {
   type: string;
-  payload?: DataTask | string | boolean | DataTaskDefault;
+  payload?: DataTask | string | boolean | DataTaskDefault | string[];
 }
 
 const initialSTate: DataTaskState = {

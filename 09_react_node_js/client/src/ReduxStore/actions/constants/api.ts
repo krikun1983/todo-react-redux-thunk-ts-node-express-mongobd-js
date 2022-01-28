@@ -12,3 +12,4 @@ export const API_TASKS = `${BASE_URL}/tasks`;
 export const API_TASKS_CREATE = `${BASE_URL}/tasks/create`;
 export const API_TASKS_MAKE = `${BASE_URL}/tasks/makeTask`;
 export const API_TASKS_UPDATE = `${BASE_URL}/tasks/update`;
+export const API_TASKS_DELETE = `${BASE_URL}/tasks/delete`;

@@ -16,13 +16,15 @@ interface Props {
 }
 
 const Category: React.FC<Props> = ({id}) => {
-  const {setAddChildAction, setUpdateCategoryAction, setDelCategoryAction} =
-    useDispatcher();
-
+  const {
+    setAddChildAction,
+    setUpdateCategoryAction,
+    setDelCategoryAction,
+    setDelTasksAction,
+  } = useDispatcher();
   const currentCategory = useSelector(
     (state: RootState) => state.dataCategoryState.dataCategoryState[id],
   );
-
   const [searchTask] = useSearchParams();
   const querySearch = searchTask.get('search');
   const navigate = useNavigate();
@@ -103,15 +105,21 @@ const Category: React.FC<Props> = ({id}) => {
     setIsOpenFormDelCategory(false);
   };
 
-  const handleDelCategory = useCallback(() => {
+  const handleDelCategory = () => {
     setDelCategoryAction(auth.accessToken, {
       category: currentCategory.category,
       parentId: currentCategory.parentId,
       children: currentCategory.children,
       id,
     });
+    setDelTasksAction(auth.accessToken, {
+      category: currentCategory.category,
+      parentId: currentCategory.parentId,
+      children: currentCategory.children,
+      id,
+    });
     navigate('/');
-  }, [setDelCategoryAction]);
+  };
 
   return (
     <li>

@@ -1,8 +1,10 @@
 import {Dispatch} from 'redux';
+import {DataCategory} from 'ReduxStore/reducers/categoryState';
 import {toggleLoaderAction} from 'ReduxStore/reducers/loaderState';
 import {
   addTask,
   addTasksDefault,
+  clearTasksOutput,
   DataTask,
   DataTaskBD,
   makeTaskChecked,
@@ -11,6 +13,7 @@ import {
 import {
   API_TASKS,
   API_TASKS_CREATE,
+  API_TASKS_DELETE,
   API_TASKS_MAKE,
   API_TASKS_UPDATE,
 } from './constants/api';
@@ -90,6 +93,34 @@ export const updateTaskAction =
     })
       .then(response => response.json())
       .then(json => dispatch(updateTask(json)));
+
+    dispatch(toggleLoaderAction(false));
+  };
+
+export const delTasksAction =
+  (token: string, category: DataCategory) =>
+  (dispatch: Dispatch): void => {
+    dispatch(toggleLoaderAction(true));
+
+    fetch(`${API_TASKS_DELETE}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(category),
+    })
+      .then(response => response.json())
+      .then(json => {
+        dispatch(clearTasksOutput());
+        const ids = json.map((task: DataTask) => task.id);
+        const tasks = {} as {[key: string]: DataTask};
+        json.forEach((task: DataTask) => {
+          tasks[task.id] = {...task};
+        });
+        return {ids, isShowTasksDone: true, tasks};
+      })
+      .then(obj => dispatch(addTasksDefault(obj)));
 
     dispatch(toggleLoaderAction(false));
   };

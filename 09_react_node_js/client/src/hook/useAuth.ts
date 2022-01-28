@@ -40,7 +40,6 @@ const useAuth = (): Type => {
     setUserName('');
     dispatch(clearCategoryOutput());
     dispatch(clearTasksOutput());
-
     localStorage.removeItem(storageName);
   }, []);
 

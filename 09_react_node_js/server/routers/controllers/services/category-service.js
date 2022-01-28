@@ -58,9 +58,13 @@ class CategoryService {
       deleteCategory = await CategoryModel.findByIdAndDelete(arrIdsDel[0]);
       const arrIdsWithoutDeleteCategory = arrIdsDel.slice(1);
 
-      arrIdsWithoutDeleteCategory.forEach(async (id) => {
-        await CategoryModel.deleteMany({ _id: id });
-      });
+      async function processArray(array) {
+        for (const item of array) {
+          await CategoryModel.deleteMany({ _id: item });
+        }
+      }
+
+      processArray(arrIdsWithoutDeleteCategory);
     } else {
       deleteCategory = await CategoryModel.findByIdAndDelete(category.id);
     }

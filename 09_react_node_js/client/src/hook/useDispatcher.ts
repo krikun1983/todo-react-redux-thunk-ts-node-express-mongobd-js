@@ -12,6 +12,7 @@ import {
   addTaskDefaultAction,
   makeTaskAction,
   updateTaskAction,
+  delTasksAction,
 } from 'ReduxStore/actions/taskAction';
 import {DataCategory, DataCategoryBD} from 'ReduxStore/reducers/categoryState';
 import {
@@ -34,6 +35,7 @@ interface DispatchMemo {
     category: DataCategory,
   ) => void;
   setDelCategoryAction: (accessToken: string, category: DataCategory) => void;
+  setDelTasksAction: (accessToken: string, category: DataCategory) => void;
 }
 
 const useDispatcher = (): DispatchMemo => {
@@ -61,6 +63,8 @@ const useDispatcher = (): DispatchMemo => {
         dispatch(updateCategoryAction(accessToken, category)),
       setDelCategoryAction: (accessToken: string, category: DataCategory) =>
         dispatch(delCategoryAction(accessToken, category)),
+      setDelTasksAction: (accessToken: string, category: DataCategory) =>
+        dispatch(delTasksAction(accessToken, category)),
     }),
     [
       makeTaskAction,
@@ -73,6 +77,7 @@ const useDispatcher = (): DispatchMemo => {
       addTaskAction,
       addTaskDefaultAction,
       delCategoryAction,
+      delTasksAction,
     ],
   );
 };
