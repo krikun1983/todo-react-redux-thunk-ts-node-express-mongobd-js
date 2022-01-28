@@ -1,5 +1,6 @@
 import {Dispatch} from 'redux';
 import {DataCategory} from 'ReduxStore/reducers/categoryState';
+import {toggleErrorAction} from 'ReduxStore/reducers/errorState';
 import {toggleLoaderAction} from 'ReduxStore/reducers/loaderState';
 import {
   addTask,
@@ -54,7 +55,18 @@ export const addTaskAction =
       },
       body: JSON.stringify(task),
     })
-      .then(response => response.json())
+      .then(response => {
+        if (response.status === 400) {
+          dispatch(
+            toggleErrorAction({
+              isErrorState: true,
+              messageError: 'Parent category does not exist!',
+            }),
+          );
+        } else {
+          return response.json();
+        }
+      })
       .then(json => dispatch(addTask(json)))
       .catch(error => console.error(error.message));
 
@@ -62,7 +74,7 @@ export const addTaskAction =
   };
 
 export const makeTaskAction =
-  (token: string, id: string) =>
+  (token: string, task: DataTask) =>
   (dispatch: Dispatch): void => {
     dispatch(toggleLoaderAction(true));
 
@@ -72,9 +84,20 @@ export const makeTaskAction =
         'Content-Type': 'application/json;charset=utf-8',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({_id: id}),
+      body: JSON.stringify(task),
     })
-      .then(response => response.json())
+      .then(response => {
+        if (response.status === 400) {
+          dispatch(
+            toggleErrorAction({
+              isErrorState: true,
+              messageError: 'Parent category does not exist!',
+            }),
+          );
+        } else {
+          return response.json();
+        }
+      })
       .then(json => dispatch(makeTaskChecked(json._id)))
       .catch(error => console.error(error.message));
 
@@ -94,7 +117,18 @@ export const updateTaskAction =
       },
       body: JSON.stringify(task),
     })
-      .then(response => response.json())
+      .then(response => {
+        if (response.status === 400) {
+          dispatch(
+            toggleErrorAction({
+              isErrorState: true,
+              messageError: 'Parent category does not exist!',
+            }),
+          );
+        } else {
+          return response.json();
+        }
+      })
       .then(json => dispatch(updateTask(json)))
       .catch(error => console.error(error.message));
 

@@ -36,7 +36,7 @@ interface DispatchMemo {
   setAddDefaultTasksAction: (token: string) => void;
   setAddTaskAction: (token: string, task: DataTaskBD) => void;
   setUpdateTaskAction: (token: string, task: DataTask) => void;
-  setMakeTaskAction: (token: string, id: string) => void;
+  setMakeTaskAction: (token: string, task: DataTask) => void;
   setDelTasksAction: (accessToken: string, category: DataCategory) => void;
   setShowDoneTasksAction: (isShowTasksDone: boolean) => void;
 }
@@ -64,8 +64,8 @@ const useDispatcher = (): DispatchMemo => {
         dispatch(addTaskAction(token, task)),
       setUpdateTaskAction: (token: string, task: DataTask) =>
         dispatch(updateTaskAction(token, task)),
-      setMakeTaskAction: (token: string, id: string) =>
-        dispatch(makeTaskAction(token, id)),
+      setMakeTaskAction: (token: string, task: DataTask) =>
+        dispatch(makeTaskAction(token, task)),
       setShowDoneTasksAction: (isShowTasksDone: boolean) =>
         dispatch(isShowDoneTasksAction(isShowTasksDone)),
       setDelTasksAction: (accessToken: string, category: DataCategory) =>

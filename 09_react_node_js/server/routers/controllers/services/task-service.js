@@ -4,27 +4,42 @@ import { findIdsForDel } from './utils/index.js';
 
 class TaskService {
   async createTask(task) {
+    const parentCategory = await CategoryModel.findById(task.categoryId);
+    if (!parentCategory) {
+      throw ApiError.BadRequest(`Parent category does not exist!`);
+    }
+
     const createTask = await TaskModel.create({ ...task });
     await createTask.save();
 
     return createTask;
   }
 
-  async makeTaskChecked(id) {
-    if (!id) {
-      throw ApiError.BadRequest(`ID not specified`);
+  async makeTaskChecked(task) {
+    if (!task.id) {
+      throw ApiError.BadRequest(`ID not specified!`);
     }
 
-    const task = await TaskModel.findById(id);
-    task.isDone = !task.isDone;
-    const updatedTask = await TaskModel.findByIdAndUpdate(id, task, { new: true });
+    const parentCategory = await CategoryModel.findById(task.categoryId);
+    if (!parentCategory) {
+      throw ApiError.BadRequest(`Parent category does not exist!`);
+    }
+
+    const currentTask = await TaskModel.findById(task.id);
+    currentTask.isDone = !currentTask.isDone;
+    const updatedTask = await TaskModel.findByIdAndUpdate(task.id, currentTask, { new: true });
 
     return updatedTask;
   }
 
   async updateTask(task) {
     if (!task.id) {
-      throw ApiError.BadRequest(`ID not specified`);
+      throw ApiError.BadRequest(`ID not specified!`);
+    }
+
+    const parentCategory = await CategoryModel.findById(task.categoryId);
+    if (!parentCategory) {
+      throw ApiError.BadRequest(`Parent category does not exist!`);
     }
 
     const updatedTask = await TaskModel.findByIdAndUpdate(task.id, task, { new: true });
@@ -34,13 +49,13 @@ class TaskService {
 
   async deleteTasks(category) {
     if (!category.id) {
-      throw ApiError.BadRequest(`ID not specified`);
+      throw ApiError.BadRequest(`ID not specified!`);
     }
 
     const currentCategory = await CategoryModel.findById(category.id);
 
     if (!currentCategory) {
-      throw ApiError.BadRequest(`Category not specified`);
+      throw ApiError.BadRequest(`Category not specified!`);
     }
 
     if (category.children.length) {

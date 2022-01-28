@@ -1,6 +1,6 @@
 import AuthContext from 'context/authContext';
 import useDispatcher from 'hook/useDispatcher';
-import React, {memo, useCallback, useContext} from 'react';
+import React, {memo, useContext} from 'react';
 import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {RootState} from 'ReduxStore/types/rootState';
@@ -20,9 +20,9 @@ const Task: React.FC<Props> = ({id}) => {
 
   const auth = useContext(AuthContext);
 
-  const handleChecked = useCallback(() => {
-    setMakeTaskAction(auth.accessToken, id);
-  }, [setMakeTaskAction]);
+  const handleChecked = () => {
+    setMakeTaskAction(auth.accessToken, currentTask);
+  };
 
   return (
     <>
