@@ -80,7 +80,6 @@ const Header: React.FC = () => {
 
   const handleCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
-    if (text.length > 26) return;
     setValueCategory(text);
   };
 
@@ -101,7 +100,6 @@ const Header: React.FC = () => {
 
   const handleTask = (e: React.ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
-    if (text.length > 30) return;
     setValueTask(text);
   };
 

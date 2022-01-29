@@ -12,7 +12,7 @@
 
   &__categories {
     width: 35%;
-    height: 80vh;
+    height: 60vh;
     overflow-y: auto;
     color: $color-gray;
 
@@ -24,6 +24,9 @@
 
       &_name {
         width: 100%;
+        padding: 3px 0;
+        overflow-x: auto;
+        word-wrap: break-word;
       }
 
       &_active {
@@ -33,13 +36,13 @@
   }
 
   &__heading {
-    height: 50px;
+    overflow-x: auto;
     color: $color-cyan-dark;
+    word-wrap: break-word;
   }
 
   &__task {
     width: 63%;
-    height: 80vh;
     overflow-y: auto;
 
     &_btns_wrapper {
@@ -55,9 +58,9 @@
       margin-top: 20px;
 
       input {
-        width: 300px;
+        width: 100%;
         height: 30px;
-        padding: 0 5px;
+        overflow: auto;
       }
     }
 

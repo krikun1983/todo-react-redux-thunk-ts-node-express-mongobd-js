@@ -11,18 +11,22 @@
   }
 
   &__btn_child {
-    width: 40px;
+    min-width: 20px;
     margin-left: 5px;
   }
 
   &__name {
     width: 100%;
+    padding: 3px 0;
+    overflow-x: auto;
     color: $color-cyan-dark;
+    word-wrap: break-word;
   }
 
   &__btns {
-    width: 80px;
+    min-width: 80px;
     margin-right: 5px;
+    margin-left: 3px;
     @include flex-between();
   }
 }

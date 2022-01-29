@@ -2,7 +2,7 @@
 
 .task {
   margin-bottom: -1px;
-  padding-left: 10px;
+  padding: 3px 0 3px 10px;
   border: 1px solid $color-cyan-dark;
   @include flex-between();
 }

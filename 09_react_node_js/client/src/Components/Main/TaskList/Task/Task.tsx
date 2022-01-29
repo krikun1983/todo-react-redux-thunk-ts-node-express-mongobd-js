@@ -26,7 +26,7 @@ const Task: React.FC<Props> = ({id}) => {
 
   return (
     <>
-      <span>
+      <span className={style.task__checked}>
         <input
           className={style.checkbox}
           id="task"

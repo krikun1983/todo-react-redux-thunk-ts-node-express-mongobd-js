@@ -1,10 +1,18 @@
 @import 'style/variable';
 
+.task__checked {
+  min-width: 22px;
+}
+
 .task__title {
+  overflow-x: auto;
   color: $color-cyan-dark;
+  word-wrap: break-word;
 }
 
 .task__title_gray {
+  overflow-x: auto;
   color: $color-gray;
   text-decoration: line-through;
+  word-wrap: break-word;
 }
