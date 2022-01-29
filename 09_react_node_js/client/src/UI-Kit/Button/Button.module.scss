@@ -30,6 +30,10 @@
     background-color: $color-cyan;
     border: 1px solid transparent;
   }
+
+  &:disabled {
+    cursor: default;
+  }
 }
 
 .btn_gray {

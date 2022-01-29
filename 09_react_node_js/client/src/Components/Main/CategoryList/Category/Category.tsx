@@ -1,33 +1,27 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {NavLink, useNavigate, useSearchParams} from 'react-router-dom';
+import {NavLink, useSearchParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {RootState} from 'ReduxStore/types/rootState';
 import {Button, IconNameEnum, IconSVG} from 'UI-Kit';
 import validateInput from 'utils/validateInput';
 import FieldFormInput from 'Components/Main/FieldFormInput';
 import CategoryChild from './CategoryChild';
-import ConfirmModal from 'Components/ConfirmModal';
 import style from './Category.module.scss';
 import useDispatcher from 'hook/useDispatcher';
 import AuthContext from 'context/authContext';
 
 interface Props {
   id: string;
+  onOpenFormDelCategory: (id: string) => void;
 }
 
-const Category: React.FC<Props> = ({id}) => {
-  const {
-    setAddCategoryChildAction,
-    setUpdateCategoryAction,
-    setDelCategoryAction,
-    setDelTasksAction,
-  } = useDispatcher();
+const Category: React.FC<Props> = ({id, onOpenFormDelCategory}) => {
+  const {setAddCategoryChildAction, setUpdateCategoryAction} = useDispatcher();
   const currentCategory = useSelector(
     (state: RootState) => state.dataCategoryState.dataCategoryState[id],
   );
   const [searchTask] = useSearchParams();
   const querySearch = searchTask.get('search');
-  const navigate = useNavigate();
 
   const [showChildren, setShowChildren] = useState<boolean>(true);
 
@@ -40,8 +34,6 @@ const Category: React.FC<Props> = ({id}) => {
     currentCategory.category,
   );
   const [errorEditCategory, setErrorEditCategory] = useState<boolean>(false);
-  const [isOpenFormDelCategory, setIsOpenFormDelCategory] =
-    useState<boolean>(false);
 
   const auth = useContext(AuthContext);
 
@@ -99,31 +91,6 @@ const Category: React.FC<Props> = ({id}) => {
     validateInput(valueAddChild, setErrorAddChild);
   }, [valueEditCategory, valueAddChild]);
 
-  const handleOpenFormDelCategory = () => {
-    setIsOpenFormDelCategory(true);
-  };
-
-  const handleCloseFormDelCategory = () => {
-    setIsOpenFormDelCategory(false);
-  };
-
-  const handleDelCategory = () => {
-    setDelCategoryAction(auth.accessToken, {
-      category: currentCategory.category,
-      parentId: currentCategory.parentId,
-      children: currentCategory.children,
-      id,
-    });
-    setDelTasksAction(auth.accessToken, {
-      category: currentCategory.category,
-      parentId: currentCategory.parentId,
-      children: currentCategory.children,
-      id,
-    });
-    setIsOpenFormDelCategory(false);
-    navigate('/');
-  };
-
   return (
     <li>
       <div className={style.category}>
@@ -179,7 +146,7 @@ const Category: React.FC<Props> = ({id}) => {
                 <Button
                   styles="btn_icon_bg_white"
                   type="button"
-                  onClick={handleOpenFormDelCategory}
+                  onClick={() => onOpenFormDelCategory(id)}
                   icon={
                     <IconSVG
                       name={IconNameEnum.BASKET}
@@ -233,14 +200,9 @@ const Category: React.FC<Props> = ({id}) => {
         </>
       )}
       {showChildren && currentCategory.children.length > 0 && (
-        <CategoryChild list={currentCategory.children} />
-      )}
-      {isOpenFormDelCategory && (
-        <ConfirmModal
-          isOpenFormDelCategory={isOpenFormDelCategory}
-          onDelCategory={handleDelCategory}
-          onCloseForm={handleCloseFormDelCategory}
-          onOpenFormDeleteCategory={setIsOpenFormDelCategory}
+        <CategoryChild
+          list={currentCategory.children}
+          onOpenFormDelCategory={onOpenFormDelCategory}
         />
       )}
     </li>

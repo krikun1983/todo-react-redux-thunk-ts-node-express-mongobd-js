@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import {toggleErrorAction} from 'ReduxStore/reducers/errorState';
@@ -28,9 +28,30 @@ const ErrorModal: React.FC = () => {
     window.location.reload();
   };
 
+  const modal = useRef() as React.MutableRefObject<HTMLDivElement>;
+
+  useEffect(() => {
+    modal.current.focus();
+
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.code === 'Escape') {
+        handleCloseModal();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscapeKey);
+    return () => document.removeEventListener('keydown', handleEscapeKey);
+  }, []);
+
   return (
     <div className={rootClasses.join(' ')} onClick={handleCloseModal}>
-      <div className={style.myModalContent} onClick={e => e.stopPropagation()}>
+      <div
+        ref={modal}
+        className={style.myModalContent}
+        tabIndex={1}
+        onClick={e => e.stopPropagation()}
+        onBlur={() => modal.current.focus()}
+      >
         {messageError}
       </div>
     </div>

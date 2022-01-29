@@ -52,6 +52,7 @@ const LoginPage: React.FC = () => {
               type="text"
               name="username"
               onChange={handleAuth}
+              autoComplete="current-login"
               ref={usernameInputFocus}
             />
           </div>

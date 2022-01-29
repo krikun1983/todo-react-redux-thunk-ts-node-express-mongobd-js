@@ -4,13 +4,20 @@ import style from './CategoryChild.module.scss';
 
 interface Prop {
   list: string[];
+  onOpenFormDelCategory: (id: string) => void;
 }
 
-const CategoryChild: React.FC<Prop> = ({list}) => {
+const CategoryChild: React.FC<Prop> = ({list, onOpenFormDelCategory}) => {
   return (
     <ul className={style.child}>
       {list.map(id => {
-        return <Category key={id} id={id} />;
+        return (
+          <Category
+            key={id}
+            id={id}
+            onOpenFormDelCategory={onOpenFormDelCategory}
+          />
+        );
       })}
     </ul>
   );
