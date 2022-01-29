@@ -7,6 +7,7 @@ import {Route, Routes} from 'react-router-dom';
 
 const privateRoutes = [
   {path: '/', element: HomePage},
+  {path: '/categories/', element: HomePage},
   {path: '/categories/:id', element: HomePage},
   {path: '/categories/:id?search=:value', element: HomePage},
   {path: '/categories/:categoryId/task/:id/edit', element: TaskEditPage},
