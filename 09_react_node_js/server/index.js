@@ -4,6 +4,7 @@ import config from 'config';
 import cors from 'cors';
 import { errorMiddleware } from './middlewares/index.js';
 import { authorizationRouter, categoriesRouter, tasksRouter } from './routers/index.js';
+import * as Path from 'path';
 
 const PORT = process.env.PORT || config.get('port');
 
@@ -17,13 +18,13 @@ app.use(cors({
 
 app.use('/', express.static('../client/build'));
 
+app.use('/categories/:id', express.static('../client/build'));
+
 app.use('/api', authorizationRouter);
 app.use('/api/categories', categoriesRouter);
 app.use('/api/tasks', tasksRouter);
 
-app.get('*', (req, res) => {
-  res.redirect('/');
-});
+app.use('*', express.static('../client/build'));
 
 app.use(errorMiddleware);
 

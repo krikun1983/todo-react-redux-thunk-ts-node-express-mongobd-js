@@ -4,8 +4,10 @@ export const findIdsForDel = (
   payloadId,
 ) => {
   const currentCategory = allCategories.find(item => item.id === payloadId);
-  if (currentCategory.children.length > 0) {
+
+  if (currentCategory.children.length) {
     arrIdsDel.push(payloadId);
+
     currentCategory.children.forEach(id => {
       findIdsForDel(arrIdsDel, allCategories, id);
     });
