@@ -31,6 +31,10 @@
     border: 1px solid transparent;
   }
 
+  &:focus {
+    outline: 2px solid $color-black;
+  }
+
   &:disabled {
     cursor: default;
   }

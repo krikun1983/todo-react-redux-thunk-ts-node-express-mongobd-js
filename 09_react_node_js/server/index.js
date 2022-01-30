@@ -5,6 +5,10 @@ import cors from 'cors';
 import { errorMiddleware } from './middlewares/index.js';
 import { authorizationRouter, categoriesRouter, tasksRouter } from './routers/index.js';
 import * as Path from 'path';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const PORT = process.env.PORT || config.get('port');
 
@@ -16,15 +20,13 @@ app.use(cors({
   origin: config.get('clientUrl'),
 }));
 
-app.use('/', express.static('../client/build'));
-
-app.use('/categories/:id', express.static('../client/build'));
+app.use(express.static('../client/build'));
 
 app.use('/api', authorizationRouter);
 app.use('/api/categories', categoriesRouter);
 app.use('/api/tasks', tasksRouter);
 
-app.use('*', express.static('../client/build'));
+app.get('*', (req, res) => res.sendFile(Path.join(__dirname, '../client/build', 'index.html')));
 
 app.use(errorMiddleware);
 
