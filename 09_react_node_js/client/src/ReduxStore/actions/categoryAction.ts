@@ -20,10 +20,10 @@ import {
 
 export const addDefaultCategoryAction =
   (token: string) =>
-  (dispatch: Dispatch): void => {
+  async (dispatch: Dispatch): Promise<void> => {
     dispatch(toggleLoaderAction(true));
 
-    fetch(`${API_CATEGORIES}`, {
+    await fetch(`${API_CATEGORIES}`, {
       headers: {Authorization: `Bearer ${token}`},
     })
       .then(response => response.json())
@@ -43,10 +43,10 @@ export const addDefaultCategoryAction =
 
 export const addCategoryAction =
   (token: string, category: DataCategoryBD) =>
-  (dispatch: Dispatch): void => {
+  async (dispatch: Dispatch): Promise<void> => {
     dispatch(toggleLoaderAction(true));
 
-    fetch(`${API_CATEGORIES_CREATE}`, {
+    await fetch(`${API_CATEGORIES_CREATE}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -63,10 +63,10 @@ export const addCategoryAction =
 
 export const updateCategoryAction =
   (token: string, category: DataCategory) =>
-  (dispatch: Dispatch): void => {
+  async (dispatch: Dispatch): Promise<void> => {
     dispatch(toggleLoaderAction(true));
 
-    fetch(`${API_CATEGORIES_UPDATE}`, {
+    await fetch(`${API_CATEGORIES_UPDATE}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -94,10 +94,10 @@ export const updateCategoryAction =
 
 export const delCategoryAction =
   (token: string, category: DataCategory) =>
-  (dispatch: Dispatch): void => {
+  async (dispatch: Dispatch): Promise<void> => {
     dispatch(toggleLoaderAction(true));
 
-    fetch(`${API_CATEGORIES_DELETE}`, {
+    await fetch(`${API_CATEGORIES_DELETE}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -125,10 +125,10 @@ export const delCategoryAction =
 
 export const addCategoryChildAction =
   (token: string, category: DataCategoryBD) =>
-  (dispatch: Dispatch): void => {
+  async (dispatch: Dispatch): Promise<void> => {
     dispatch(toggleLoaderAction(true));
 
-    fetch(`${API_CATEGORIES_CREATE_CHILD}`, {
+    await fetch(`${API_CATEGORIES_CREATE_CHILD}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

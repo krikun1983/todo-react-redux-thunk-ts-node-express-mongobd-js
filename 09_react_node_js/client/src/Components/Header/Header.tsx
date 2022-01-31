@@ -39,7 +39,6 @@ const Header: React.FC = () => {
   const [errorTask, setErrorTask] = useState<boolean>(false);
 
   const searchTask = useSearchParams();
-  // const [searchTask, setSearchTask] = useSearchParams();
 
   const location = useLocation();
 

@@ -21,10 +21,10 @@ import {
 
 export const addTaskDefaultAction =
   (token: string) =>
-  (dispatch: Dispatch): void => {
+  async (dispatch: Dispatch): Promise<void> => {
     dispatch(toggleLoaderAction(true));
 
-    fetch(`${API_TASKS}`, {
+    await fetch(`${API_TASKS}`, {
       headers: {Authorization: `Bearer ${token}`},
     })
       .then(response => response.json())
@@ -44,10 +44,10 @@ export const addTaskDefaultAction =
 
 export const addTaskAction =
   (token: string, task: DataTaskBD) =>
-  (dispatch: Dispatch): void => {
+  async (dispatch: Dispatch): Promise<void> => {
     dispatch(toggleLoaderAction(true));
 
-    fetch(`${API_TASKS_CREATE}`, {
+    await fetch(`${API_TASKS_CREATE}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -75,10 +75,10 @@ export const addTaskAction =
 
 export const makeTaskAction =
   (token: string, task: DataTask) =>
-  (dispatch: Dispatch): void => {
+  async (dispatch: Dispatch): Promise<void> => {
     dispatch(toggleLoaderAction(true));
 
-    fetch(`${API_TASKS_MAKE}`, {
+    await fetch(`${API_TASKS_MAKE}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -106,10 +106,10 @@ export const makeTaskAction =
 
 export const updateTaskAction =
   (token: string, task: DataTask) =>
-  (dispatch: Dispatch): void => {
+  async (dispatch: Dispatch): Promise<void> => {
     dispatch(toggleLoaderAction(true));
 
-    fetch(`${API_TASKS_UPDATE}`, {
+    await fetch(`${API_TASKS_UPDATE}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -137,10 +137,10 @@ export const updateTaskAction =
 
 export const delTasksAction =
   (token: string, category: DataCategory) =>
-  (dispatch: Dispatch): void => {
+  async (dispatch: Dispatch): Promise<void> => {
     dispatch(toggleLoaderAction(true));
 
-    fetch(`${API_TASKS_DELETE}`, {
+    await fetch(`${API_TASKS_DELETE}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
