@@ -1,9 +1,0 @@
-export { default as ASTEROID } from './asteroid.js';
-export { default as ASTEROID_WITH_BONUS } from './asteroidWithBonus.js';
-export { default as BULLET } from './bullet.js';
-export { default as CANVAS } from './canvas.js';
-export { default as ENEMY } from './enemy.js';
-export { default as EXPLOSION } from './explosion.js';
-export { default as FIELD_BG } from './field-bg.js';
-export { default as HEART } from './heart.js';
-export { default as SPACE_SHIP } from './space-ship.js';
