@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://powerful-garden-53966.herokuapp.com/api';
+export const BASE_URL = 'http://localhost:5000/api';
 
 export const API_LOGIN = `${BASE_URL}/login`;
 
